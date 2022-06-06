@@ -10,4 +10,5 @@ g.Illuminate_ftblacklist = {
     "DiffviewFileHistory",
     "neo-tree",
     "packer",
+    "alpha",
 }

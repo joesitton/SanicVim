@@ -47,9 +47,9 @@ local function setup_server(name)
     local is_avail, server = require("nvim-lsp-installer.servers").get_server(name)
 
     if is_avail then
-        if not server:is_installed() then
-            server:install()
-        end
+        -- if not server:is_installed() then
+        --     server:install()
+        -- end
 
         local settings = {}
 

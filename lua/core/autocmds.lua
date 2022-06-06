@@ -6,29 +6,6 @@ local fn = vim.fn
 local cmd = vim.cmd
 local api = vim.api
 
--- Automatic relativenumber for insert
-local auto_relativenumber = augroup("auto_relativenumber", {})
-autocmd("InsertEnter", {
-    group = auto_relativenumber,
-    callback = function()
-        if vim.filetype == "neo-tree" then
-            return
-        end
-
-        ol.relativenumber = false
-    end,
-})
-autocmd("InsertLeave", {
-    group = auto_relativenumber,
-    callback = function()
-        if vim.filetype == "neo-tree" then
-            return
-        end
-
-        ol.relativenumber = true
-    end,
-})
-
 -- Don't repeat comments
 autocmd("BufWinEnter", {
     group = augroup("no_repeat_comments", {}),

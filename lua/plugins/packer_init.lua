@@ -1,5 +1,3 @@
-vim.cmd("packadd packer.nvim")
-
 local ok, packer = pcall(require, "packer")
 
 if not ok then
@@ -35,6 +33,9 @@ packer.init({
             return require("packer.util").float({ border = "rounded" })
         end,
         prompt_border = "rounded",
+        working_sym = "",
+        error_sym = "×",
+        done_sym = "",
     },
     git = {
         clone_timeout = 5000,

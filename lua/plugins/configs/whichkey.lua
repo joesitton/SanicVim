@@ -2,25 +2,11 @@ local wk = require("which-key")
 local mappings = require("core.mappings")
 
 local modes = {
-    n = {
-        mode = "n",
-    },
-
-    v = {
-        mode = "v",
-    },
-
-    o = {
-        mode = "o",
-    },
-
-    i = {
-        mode = "i",
-    },
-
-    t = {
-        mode = "t",
-    },
+    n = { mode = "n" },
+    v = { mode = "v" },
+    o = { mode = "o" },
+    i = { mode = "i" },
+    t = { mode = "t" },
 }
 
 for mode, opt in pairs(modes) do

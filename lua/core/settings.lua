@@ -79,6 +79,7 @@ o.pumheight = 12
 -- Statusline
 o.cmdheight = 1
 o.showmode = false
+o.laststatus = 3
 
 -- Backups
 o.backup = false
@@ -106,5 +107,5 @@ o.whichwrap:append("<>[]hl")
 g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"
 
 -- Neovide
-g.neovide_transparency = 0.9
+g.neovide_transparency = 0.98
 g.neovide_remember_window_size = true
