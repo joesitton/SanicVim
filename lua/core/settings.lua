@@ -93,6 +93,7 @@ o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"
 o.guifont = "Iosevka Custom:h16"
 
 -- Other
+o.termguicolors = true
 o.title = true
 o.hidden = true
 o.mouse = "a"

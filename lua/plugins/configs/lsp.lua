@@ -57,7 +57,7 @@ local function setup_server(name)
             settings = {
                 Lua = {
                     diagnostics = {
-                        globals = { "vim" },
+                        globals = { "vim", "packer_plugins" },
                     },
                 },
             }

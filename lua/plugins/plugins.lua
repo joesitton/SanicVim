@@ -31,13 +31,18 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "RRethy/nvim-base16",
-        config = vim.cmd([[ silent! colo base16-default-dark ]]),
+        "joesitton/lush-base16",
+        config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
 
     {
         "folke/lsp-colors.nvim",
         event = "BufRead",
+    },
+
+    {
+        "rktjmp/lush.nvim",
+        cmd = "Lushify",
     },
 
     -- }}}
@@ -226,11 +231,6 @@ local plugins = {
     -- {{{ Appearance
 
     {
-        "rktjmp/lush.nvim",
-        config = [[require("plugins.configs.theme")]],
-    },
-
-    {
         "kyazdani42/nvim-web-devicons",
     },
 
@@ -241,7 +241,7 @@ local plugins = {
     },
 
     {
-        "feline-nvim/feline.nvim",
+        "nvim-lualine/lualine.nvim",
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },
