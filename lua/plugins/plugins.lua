@@ -32,7 +32,6 @@ local plugins = {
 
     {
         "joesitton/lush-base16",
-        -- "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -239,7 +238,7 @@ local plugins = {
 
     {
         "nvim-lualine/lualine.nvim",
-        requires = { "joesitton/lush-base16" },
+        requires = { "rktjmp/lush.nvim" },
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },
@@ -389,6 +388,7 @@ local plugins = {
     {
         "nvim-treesitter/nvim-treesitter",
         requires = {
+            { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
             { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
             { "andymass/vim-matchup", event = "CursorMoved" },
             {

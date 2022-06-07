@@ -1,5 +1,3 @@
--- local colors = require("lush-base16")
-
 -- local lualine_b_bg = colors.black.lighten(10)
 
 -- local base16_theme = {
