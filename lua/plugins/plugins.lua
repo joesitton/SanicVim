@@ -32,18 +32,15 @@ local plugins = {
 
     {
         "joesitton/lush-base16",
+        -- "~/Repos/lush-base16",
+        requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
 
-    {
-        "folke/lsp-colors.nvim",
-        event = "BufRead",
-    },
-
-    {
-        "rktjmp/lush.nvim",
-        cmd = "Lushify",
-    },
+    -- {
+    --     "folke/lsp-colors.nvim",
+    --     event = "BufRead",
+    -- },
 
     -- }}}
 
@@ -242,6 +239,7 @@ local plugins = {
 
     {
         "nvim-lualine/lualine.nvim",
+        requires = { "joesitton/lush-base16" },
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },

@@ -17,13 +17,18 @@ require("neo-tree").setup({
             expander_highlight = "TreeExpander",
         },
         icon = {
-            folder_closed = "",
-            folder_open = "",
-            folder_empty = "",
-            default = "",
+            folder_closed = "",
+            folder_open = "",
+            folder_empty = "",
         },
-        modified = { symbol = "", highlight = "TreeModified" },
-        name = { trailing_slash = true, use_git_status_colors = true },
+        modified = {
+            symbol = "",
+            highlight = "TreeModified",
+        },
+        name = {
+            trailing_slash = true,
+            use_git_status_colors = true,
+        },
         git_status = {
             symbols = {
                 added = "",
@@ -87,6 +92,18 @@ require("neo-tree").setup({
         hijack_netrw_behavior = "open_default",
         use_libuv_file_watcher = true,
         window = {
+            popup = {
+                position = { col = "0", row = "0" },
+                size = function(state)
+                    local root_name = vim.fn.fnamemodify(state.path, ":~")
+                    local root_len = string.len(root_name) + 4
+
+                    return {
+                        width = math.max(root_len, 50),
+                        height = vim.o.lines - 3,
+                    }
+                end,
+            },
             mappings = {
                 ["-"] = "navigate_up",
                 ["."] = "set_root",
@@ -111,4 +128,5 @@ require("neo-tree").setup({
             },
         },
     },
+    event_handlers = {},
 })

@@ -19,30 +19,30 @@ tabnine:setup({
 })
 
 local symbol_map = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "⌘",
-    Field = "",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "",
-    Unit = "塞",
-    Value = "",
-    Enum = "",
+    Text = " ",
+    Method = " ",
+    Function = " ",
+    Constructor = "⌘ ",
+    Field = " ",
+    Variable = " ",
+    Class = "ﴯ ",
+    Interface = " ",
+    Module = " ",
+    Property = " ",
+    Unit = "塞 ",
+    Value = " ",
+    Enum = " ",
     Keyword = "廓",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
+    Snippet = " ",
+    Color = " ",
+    File = " ",
+    Reference = " ",
+    Folder = " ",
+    EnumMember = " ",
+    Constant = " ",
+    Struct = "פּ ",
+    Event = " ",
+    Operator = " ",
     TypeParameter = "",
 }
 
@@ -71,7 +71,7 @@ cmp.setup({
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-            vim_item.menu = vim_item.kind -- .. " " .. menu[entry.source.name]
+            vim_item.menu = vim_item.kind
             vim_item.kind = symbol_map[vim_item.kind]
 
             if entry.source.name == "cmp_tabnine" then

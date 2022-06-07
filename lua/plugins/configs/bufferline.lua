@@ -1,4 +1,4 @@
-vim.g.bufferline = {
+require("bufferline").setup({
     animation = true,
     auto_hide = false,
     tabpages = true,
@@ -17,4 +17,4 @@ vim.g.bufferline = {
     insert_at_start = false,
     maximum_padding = 2,
     maximum_length = 30,
-}
+})

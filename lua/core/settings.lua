@@ -33,7 +33,7 @@ o.shiftwidth = 2
 o.number = true
 o.numberwidth = 4
 o.relativenumber = true
-o.signcolumn = "yes"
+o.signcolumn = "auto"
 o.cursorline = true
 
 -- Scrolloffs
@@ -70,7 +70,7 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldlevelstart = 999
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: "
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: "
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
@@ -110,3 +110,11 @@ g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"
 -- Neovide
 g.neovide_transparency = 0.98
 g.neovide_remember_window_size = true
+
+-- Signs
+local set_sign = vim.fn.sign_define
+
+set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })

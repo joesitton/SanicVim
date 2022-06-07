@@ -96,7 +96,7 @@ mappings.terminal = {
 
 mappings.tree = {
     n = {
-        ["\\"] = { ":NeoTreeRevealToggle<CR>", "Toggle tree" },
+        ["\\"] = { ":NeoTreeFloatToggle<CR>", "Toggle tree" },
         ["g\\"] = { ":Neotree reveal toggle git_status", "Git status" },
     },
 }

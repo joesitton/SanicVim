@@ -1,5 +1,5 @@
 require("fidget").setup({
-    text = { done = "✓", spinner = "dots" },
+    text = { done = "", spinner = "dots" },
     window = { blend = 0 },
     timer = {
         spinner_rate = 125, -- frame rate of spinner animation, in ms

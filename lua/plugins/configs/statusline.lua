@@ -1,43 +1,43 @@
--- local colors = require("colors.base16")
+-- local colors = require("lush-base16")
 
--- local lualine_b_bg = colors.dark_gray3
+-- local lualine_b_bg = colors.black.lighten(10)
 
 -- local base16_theme = {
 --     normal = {
---         a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.fg },
---         c = { bg = colors.dark_black, fg = colors.blue },
---         x = { bg = colors.dark_black, fg = colors.gray9 },
+--         a = { bg = colors.blue, fg = colors.black, gui = "bold" },
+--         b = { bg = lualine_b_bg, fg = colors.white },
+--         c = { bg = colors.black.lighten(10), fg = colors.blue },
+--         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
 --     },
 --     insert = {
---         a = { bg = colors.green, fg = colors.bg, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.fg },
---         c = { bg = colors.dark_black, fg = colors.green },
---         x = { bg = colors.dark_black, fg = colors.gray9 },
+--         a = { bg = colors.green, fg = colors.black, gui = "bold" },
+--         b = { bg = lualine_b_bg, fg = colors.white },
+--         c = { bg = colors.black.lighten(10), fg = colors.green },
+--         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
 --     },
 --     visual = {
---         a = { bg = colors.orange, fg = colors.bg, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.fg },
---         c = { bg = colors.dark_black, fg = colors.orange },
---         x = { bg = colors.dark_black, fg = colors.gray9 },
+--         a = { bg = colors.orange, fg = colors.black, gui = "bold" },
+--         b = { bg = lualine_b_bg, fg = colors.white },
+--         c = { bg = colors.black.lighten(10), fg = colors.orange },
+--         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
 --     },
 --     replace = {
---         a = { bg = colors.red, fg = colors.bg, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.fg },
---         c = { bg = colors.dark_black, fg = colors.red },
---         x = { bg = colors.dark_black, fg = colors.gray9 },
+--         a = { bg = colors.red, fg = colors.black, gui = "bold" },
+--         b = { bg = lualine_b_bg, fg = colors.white },
+--         c = { bg = colors.black.lighten(10), fg = colors.red },
+--         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
 --     },
 --     command = {
---         a = { bg = colors.purple, fg = colors.bg, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.fg },
---         c = { bg = colors.dark_black, fg = colors.purple },
---         x = { bg = colors.dark_black, fg = colors.gray9 },
+--         a = { bg = colors.purple, fg = colors.black, gui = "bold" },
+--         b = { bg = lualine_b_bg, fg = colors.white },
+--         c = { bg = colors.black.lighten(10), fg = colors.purple },
+--         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
 --     },
 --     inactive = {
---         a = { bg = colors.dark_black, fg = colors.gray7, gui = "bold" },
---         b = { bg = colors.dark_black, fg = colors.gray7 },
---         c = { bg = colors.dark_black, fg = colors.gray7 },
---         x = { bg = colors.dark_black, fg = colors.gray6 },
+--         a = { bg = colors.black.lighten(10), fg = colors.black.lighten(25), gui = "bold" },
+--         b = { bg = colors.black.lighten(10), fg = colors.black.lighten(25) },
+--         c = { bg = colors.black.lighten(10), fg = colors.black.lighten(25) },
+--         x = { bg = colors.black.lighten(10), fg = colors.black.lighten(25) },
 --     },
 -- }
 
