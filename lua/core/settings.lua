@@ -43,7 +43,7 @@ o.sidescrolloff = 12
 -- Searching
 o.smartcase = true
 o.ignorecase = true
-o.hlsearch = false
+o.hlsearch = true
 o.incsearch = true
 
 -- Timeouts

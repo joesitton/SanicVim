@@ -8,6 +8,19 @@ require("scrollbar").setup({
         "TelescopePrompt",
         "NvimTree",
         "Floaterm",
+        "neo-tree",
+        "packer",
+    },
+    marks = {
+        Search = { text = { "", "" } },
+        Error = { text = { "", "" } },
+        Warn = { text = { "", "" } },
+        Info = { text = { "", "" } },
+        Hint = { text = { "", "" } },
+        Misc = { text = { "", "" } },
+    },
+    handlers = {
+        search = true,
     },
 })
 

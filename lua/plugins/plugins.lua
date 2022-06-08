@@ -36,11 +36,6 @@ local plugins = {
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
 
-    -- {
-    --     "folke/lsp-colors.nvim",
-    --     event = "BufRead",
-    -- },
-
     -- }}}
 
     -- {{{ Filetype Specific
@@ -319,6 +314,12 @@ local plugins = {
         "akinsho/toggleterm.nvim",
         config = [[require("plugins.configs.term")]],
         keys = "<F1>",
+    },
+
+    {
+        "petertriho/nvim-scrollbar",
+        requires = { "kevinhwang91/nvim-hlslens" },
+        config = [[require("plugins.configs.scrollbar")]],
     },
 
     -- }}}

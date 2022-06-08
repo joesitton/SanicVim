@@ -19,6 +19,7 @@ mappings.general = {
         ["<C-k>"] = { "<C-w>k", "Focus window up" },
 
         ["<leader>w"] = { ":w<CR>", "Save file" },
+        ["<CR>"] = { ":nohlsearch<CR>", "Clear search" },
 
         ["<C-c>"] = { ":%y+<CR>", "Copy file contents" },
     },
@@ -212,6 +213,19 @@ mappings.telescope = {
 
         ["<leader>gd"] = { ":Telescope lsp_definitions<CR>", "Go to definition" },
         ["<leader>gr"] = { ":Telescope lsp_references<CR>", "Go to references" },
+    },
+}
+
+mappings.hlslens = {
+    n = {
+        ["n"] = {
+            "<CMD>execute('normal! ' . v:count1 . 'n')<CR><CMD>lua require('hlslens').start()<CR>",
+            "Next match",
+        },
+        ["N"] = {
+            "<CMD>execute('normal! ' . v:count1 . 'N')<CR><CMD>lua require('hlslens').start()<CR>",
+            "Previous match",
+        },
     },
 }
 
