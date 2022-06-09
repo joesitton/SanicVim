@@ -72,7 +72,10 @@ telescope.setup({
         },
     },
     extensions = {
-        frecency = { default_workspace = "CWD" },
+        -- frecency = {
+        --     default_workspace = ":CWD:",
+        --     show_unindexed = false,
+        -- },
         fzf = {
             fuzzy = true,
             override_generic_sorter = true,

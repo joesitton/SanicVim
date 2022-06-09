@@ -6,6 +6,13 @@ local fn = vim.fn
 local cmd = vim.cmd
 local api = vim.api
 
+-- PackerCompile
+-- autocmd("BufWritePost", {
+--     group = augroup("packer_auto_compile", {}),
+--     pattern = "plugins.lua",
+--     callback = cmd([[ ]])
+-- })
+
 -- Don't repeat comments
 autocmd("BufWinEnter", {
     group = augroup("no_repeat_comments", {}),
@@ -31,7 +38,7 @@ autocmd("TextYankPost", {
     group = augroup("yank_highlight", {}),
     pattern = "*",
     callback = function()
-        vim.highlight.on_yank({ higroup = "Search", timeout = 250 })
+        vim.highlight.on_yank({ higroup = "IncSearch", timeout = 250 })
     end,
 })
 

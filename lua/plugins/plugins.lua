@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "joesitton/lush-base16",
+        "~/Github/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -156,7 +156,7 @@ local plugins = {
         "nvim-telescope/telescope.nvim",
         requires = {
             { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-            "nvim-telescope/telescope-frecency.nvim",
+            -- { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" },
         },
         config = [[require("plugins.configs.telescope")]],
     },
@@ -312,6 +312,7 @@ local plugins = {
 
     {
         "akinsho/toggleterm.nvim",
+        tag = "v1.*",
         config = [[require("plugins.configs.term")]],
         keys = "<F1>",
     },
@@ -343,13 +344,24 @@ local plugins = {
             "joesitton/cmp-rg",
             "lukas-reineke/cmp-under-comparator",
             "ray-x/cmp-treesitter",
-            { "tzachar/cmp-tabnine", run = "./install.sh" },
+            {
+                "tzachar/cmp-tabnine",
+                run = "./install.sh",
+            },
+            -- {
+            --     "hrsh7th/cmp-copilot",
+            --     requires = "github/copilot.vim",
+            --     setup = [[vim.g.copilot_no_tab_map = true]],
+            -- },
             -- {
             --   "abecodes/tabout.nvim",
             --   config = [[require("tabout").setup()]],
             --   after = "nvim-cmp"
             -- },
-            { "kdheepak/cmp-latex-symbols", ft = "tex" },
+            {
+                "kdheepak/cmp-latex-symbols",
+                ft = "tex",
+            },
             {
                 "L3MON4D3/LuaSnip",
                 requires = {

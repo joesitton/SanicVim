@@ -76,6 +76,8 @@ cmp.setup({
 
             if entry.source.name == "cmp_tabnine" then
                 vim_item.kind = ""
+            elseif entry.source.name == "copilot" then
+                vim_item.kind = ""
             end
 
             return vim_item
@@ -140,6 +142,7 @@ cmp.setup({
         { name = "conventionalcommits" },
         { name = "git" },
         { name = "cmp_tabnine" },
+        { name = "copilot" },
     },
     sorting = {
         priority_weight = 2,

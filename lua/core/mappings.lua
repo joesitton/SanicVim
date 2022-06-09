@@ -87,11 +87,11 @@ mappings.illuminate = {
 
 mappings.terminal = {
     n = {
-        ["<F1>"] = { "<CMD>execute v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
+        ["<F1>"] = { "<Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
     },
 
     t = {
-        ["<F1>"] = { "<CMD>execute v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
+        ["<F1>"] = { "<Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
     },
 }
 
@@ -200,9 +200,10 @@ mappings.telescope = {
     n = {
         ["<leader>ff"] = { ":Telescope find_files<CR>", "Find files" },
         ["<leader>ft"] = { ":Telescope live_grep<CR>", "Find text" },
-        ["<leader>fr"] = { ":Telescope frecency<CR>", "Find recent files" },
+        ["<leader>fr"] = { ":Telescope oldfiles<CR>", "Find recent files" },
         ["<leader>fm"] = { ":Telescope marks<CR>", "Find marks" },
-        ["<leader>fd"] = { ":Telescope diagnostics<CR>", "Find buffer diagnostics" },
+        ["<leader>fd"] = { ":Telescope diagnostics bufnr=0<CR>", "Find buffer diagnostics" },
+        ["<leader>fD"] = { ":Telescope diagnostics<CR>", "Find workspace diagnostics" },
         ["<leader>fs"] = { ":Telescope lsp_document_symbols<CR>", "Find buffer symbols" },
         ["<leader>fb"] = { ":Telescope buffers<CR>", "Find buffers" },
         ["<leader>fp"] = { ":Telescope projects<CR>", "Find projects" },
@@ -211,8 +212,9 @@ mappings.telescope = {
         ["<leader>gs"] = { ":Telescope git_status<CR>", "Git status" },
         ["<leader>gb"] = { ":Telescope git_branches<CR>", "Git branches" },
 
-        ["<leader>gd"] = { ":Telescope lsp_definitions<CR>", "Go to definition" },
-        ["<leader>gr"] = { ":Telescope lsp_references<CR>", "Go to references" },
+        ["gd"] = { ":Telescope lsp_definitions<CR>", "Go to definition" },
+        ["gr"] = { ":Telescope lsp_references<CR>", "Go to references" },
+        ["gt"] = { ":Telescope lsp_type_definitions<CR>", "Go to type definitions" },
     },
 }
 
@@ -226,6 +228,14 @@ mappings.hlslens = {
             "<CMD>execute('normal! ' . v:count1 . 'N')<CR><CMD>lua require('hlslens').start()<CR>",
             "Previous match",
         },
+    },
+}
+
+mappings.copilot = {
+    i = {
+        ["<C-J>"] = { "<expr> copilot#Accept('\\<CR>')", "Accept copilot suggestion" },
+        ["<C-]>"] = { "<Plug>(copilot-next)", "Next copilot suggestion" },
+        ["<C-[>"] = { "<Plug>(copilot-previous)", "Previous copilot suggestion" },
     },
 }
 
