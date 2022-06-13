@@ -147,9 +147,9 @@ cmp.setup({
     sorting = {
         priority_weight = 2,
         comparators = {
-            require("cmp_tabnine.compare"),
             cmp.config.compare.offset,
             cmp.config.compare.exact,
+            require("cmp_tabnine.compare"),
             cmp.config.compare.sort_text,
             cmp.config.compare.score,
             require("cmp-under-comparator").under,

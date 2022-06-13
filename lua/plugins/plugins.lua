@@ -23,7 +23,7 @@ local plugins = {
 
     {
         "antoinemadec/FixCursorHold.nvim",
-        event = "VimEnter",
+        event = "CursorHold",
     },
 
     -- }}}
@@ -155,8 +155,14 @@ local plugins = {
     {
         "nvim-telescope/telescope.nvim",
         requires = {
-            { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-            -- { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" },
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                run = "make",
+            },
+            -- {
+            --     "nvim-telescope/telescope-frecency.nvim",
+            --     requires = "tami5/sqlite.lua",
+            -- },
         },
         config = [[require("plugins.configs.telescope")]],
     },
@@ -276,7 +282,6 @@ local plugins = {
     {
         "beauwilliams/focus.nvim",
         config = [[require("plugins.configs.focus")]],
-        cmd = "FocusEnable",
     },
 
     {
@@ -391,7 +396,10 @@ local plugins = {
 
     {
         "williamboman/nvim-lsp-installer",
-        { "neovim/nvim-lspconfig", config = [[require("plugins.configs.lsp")]] },
+        {
+            "neovim/nvim-lspconfig",
+            config = [[require("plugins.configs.lsp")]],
+        },
     },
 
     -- }}}
@@ -401,9 +409,18 @@ local plugins = {
     {
         "nvim-treesitter/nvim-treesitter",
         requires = {
-            { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-            { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
-            { "andymass/vim-matchup", event = "CursorMoved" },
+            {
+                "nvim-treesitter/playground",
+                cmd = "TSPlaygroundToggle",
+            },
+            {
+                "p00f/nvim-ts-rainbow",
+                event = "BufReadPre",
+            },
+            {
+                "andymass/vim-matchup",
+                event = "CursorMoved",
+            },
             {
                 "windwp/nvim-autopairs",
                 config = [[require("nvim-autopairs").setup({check_ts = true})]],

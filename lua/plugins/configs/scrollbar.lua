@@ -21,7 +21,6 @@ require("scrollbar").setup({
     },
     handlers = {
         search = true,
+        diagnostic = true,
     },
 })
-
-require("scrollbar.handlers.search").setup()
