@@ -29,7 +29,7 @@ null_ls.setup({
                         return
                     end
 
-                    if vim.fn.has("nvim-0.8") then
+                    if vim.fn.has("nvim-0.8") == "1" then
                         vim.lsp.buf.format({ bufnr = bufnr })
                     else
                         vim.lsp.buf.formatting_sync()
