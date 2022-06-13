@@ -10,6 +10,7 @@ require("scrollbar").setup({
         "Floaterm",
         "neo-tree",
         "packer",
+        "lsp-installer",
     },
     marks = {
         Search = { text = { "", "" } },

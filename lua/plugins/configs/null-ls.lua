@@ -25,12 +25,15 @@ null_ls.setup({
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
-                    -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
                     if vim.fn.bufname() == "lua/lush_theme/lush-base16.lua" then
                         return
                     end
 
-                    vim.lsp.buf.formatting_sync()
+                    if vim.fn.has("nvim-0.8") then
+                        vim.lsp.buf.format({ bufnr = bufnr })
+                    else
+                        vim.lsp.buf.formatting_sync()
+                    end
                 end,
             })
         end
