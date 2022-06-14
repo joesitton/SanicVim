@@ -31,8 +31,8 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "joesitton/lush-base16",
-        -- "~/Repos/lush-base16",
+        -- "joesitton/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -239,7 +239,7 @@ local plugins = {
 
     {
         "nvim-lualine/lualine.nvim",
-        requires = { "joesitton/lush-base16" },
+        requires = { "~/Repos/lush-base16" },
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },
