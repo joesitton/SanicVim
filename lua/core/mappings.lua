@@ -211,7 +211,7 @@ mappings.telescope = {
 
         ["<leader>gs"] = { ":Telescope git_status<CR>", "Git status" },
         ["<leader>gb"] = { ":Telescope git_branches<CR>", "Git branches" },
-        ["<leader>gc"] = { ":Telescope gitmoji<CR>", "Git emoji" },
+        ["<leader>gc"] = { ":Telescope gitmoji<CR>", "Git commit" },
 
         ["gd"] = { ":Telescope lsp_definitions<CR>", "Go to definition" },
         ["gr"] = { ":Telescope lsp_references<CR>", "Go to references" },

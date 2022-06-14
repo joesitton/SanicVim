@@ -6,10 +6,6 @@ end
 
 local telescope = require("telescope")
 
-for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "gitmoji", "luasnip" }) do
-    telescope.load_extension(ext)
-end
-
 telescope.setup({
     defaults = {
         prompt_prefix = "❯ ",
@@ -81,5 +77,26 @@ telescope.setup({
             override_file_sorter = true,
             case_mode = "smart_case",
         },
+        gitmoji = {
+            action = function(entry)
+                vim.ui.input({ prompt = entry.value .. " Commit: " }, function(msg)
+                    if not msg then
+                        return
+                    end
+
+                    local git_tool = ":!git"
+
+                    if vim.g.loaded_fugitive then
+                        git_tool = ":G"
+                    end
+
+                    vim.cmd(string.format('%s commit -m "%s %s"', git_tool, entry.value, msg))
+                end)
+            end,
+        },
     },
 })
+
+for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "gitmoji", "luasnip", "neoclip" }) do
+    telescope.load_extension(ext)
+end

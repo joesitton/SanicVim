@@ -184,6 +184,18 @@ local plugins = {
     },
 
     {
+        "AckslD/nvim-neoclip.lua",
+        requires = {
+            "nvim-telescope/telescope.nvim",
+            {
+                "tami5/sqlite.lua",
+                module = "sqlite",
+            },
+        },
+        config = [[require("neoclip").setup({enable_persistent_history = true})]],
+    },
+
+    {
         "rmagatti/auto-session",
         config = [[require("plugins.configs.session")]],
     },

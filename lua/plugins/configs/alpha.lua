@@ -14,12 +14,19 @@ dashboard.section.buttons.val = {
     dashboard.button("SPC f p", "  Find project", ":Telescope projects<CR>"),
     dashboard.button("SPC f m", "  Find marks", ":Telescope marks<CR>"),
     dashboard.button("e", "  New file", ":ene<CR>"),
-    dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
+    -- dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
 }
 
 -- Set footer
--- dashboard.section.footer.val = {}
+dashboard.section.footer.val = {
+    " / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\_",
+    "/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\__",
+    "\\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / _",
+    " \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ / ",
+    " / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\_",
+    "/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\__",
+}
 
 -- local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
 -- local num_plugins_tot = #vim.tbl_keys(packer_plugins)

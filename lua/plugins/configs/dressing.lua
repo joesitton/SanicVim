@@ -4,7 +4,7 @@ require("dressing").setup({
         default_prompt = "❯ ",
         insert_only = true,
         anchor = "SW",
-        relative = "cursor",
+        relative = "win",
         -- row = 0,
         -- col = 0,
         border = "rounded",
