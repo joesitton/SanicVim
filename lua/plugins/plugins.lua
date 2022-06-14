@@ -22,6 +22,12 @@ local plugins = {
     },
 
     {
+        "rcarriga/nvim-notify",
+        config = [[require("notify").setup({background_colour = "#181818" })]],
+        event = "VimEnter",
+    },
+
+    {
         "antoinemadec/FixCursorHold.nvim",
         event = "CursorHold",
     },
@@ -164,7 +170,10 @@ local plugins = {
                 "gbrlsnchs/telescope-lsp-handlers.nvim",
             },
             {
-                "olacin/telescope-cc.nvim",
+                "olacin/telescope-gitmoji.nvim",
+            },
+            {
+                "benfowler/telescope-luasnip.nvim",
             },
             -- {
             --     "nvim-telescope/telescope-frecency.nvim",

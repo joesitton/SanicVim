@@ -6,7 +6,7 @@ end
 
 local telescope = require("telescope")
 
-for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "conventional_commits" }) do
+for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "gitmoji", "luasnip" }) do
     telescope.load_extension(ext)
 end
 

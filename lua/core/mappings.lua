@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
 for _, key in ipairs({ "x", "X", "c", "C" }) do
-    vim.keymap.set({ "n", "v" }, key, '"_' .. key)
+    vim.keymap.set({ "n", "v", "o" }, key, '"_' .. key)
 end
 
 local mappings = {}
@@ -211,7 +211,7 @@ mappings.telescope = {
 
         ["<leader>gs"] = { ":Telescope git_status<CR>", "Git status" },
         ["<leader>gb"] = { ":Telescope git_branches<CR>", "Git branches" },
-        ["<leader>gcc"] = { ":Telescope conventional_commits<CR>", "Git conventional commits" },
+        ["<leader>gc"] = { ":Telescope gitmoji<CR>", "Git emoji" },
 
         ["gd"] = { ":Telescope lsp_definitions<CR>", "Go to definition" },
         ["gr"] = { ":Telescope lsp_references<CR>", "Go to references" },
