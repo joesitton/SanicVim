@@ -23,7 +23,7 @@ local plugins = {
 
     {
         "antoinemadec/FixCursorHold.nvim",
-        event = "VimEnter",
+        event = "CursorHold",
     },
 
     -- }}}
@@ -36,11 +36,6 @@ local plugins = {
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
-
-    -- {
-    --     "folke/lsp-colors.nvim",
-    --     event = "BufRead",
-    -- },
 
     -- }}}
 
@@ -161,8 +156,14 @@ local plugins = {
     {
         "nvim-telescope/telescope.nvim",
         requires = {
-            { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-            "nvim-telescope/telescope-frecency.nvim",
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                run = "make",
+            },
+            -- {
+            --     "nvim-telescope/telescope-frecency.nvim",
+            --     requires = "tami5/sqlite.lua",
+            -- },
         },
         config = [[require("plugins.configs.telescope")]],
     },
@@ -239,7 +240,7 @@ local plugins = {
 
     {
         "nvim-lualine/lualine.nvim",
-        requires = { "~/Repos/lush-base16" },
+        requires = { "rktjmp/lush.nvim" },
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },
@@ -282,7 +283,6 @@ local plugins = {
     {
         "beauwilliams/focus.nvim",
         config = [[require("plugins.configs.focus")]],
-        cmd = "FocusEnable",
     },
 
     {
@@ -318,8 +318,15 @@ local plugins = {
 
     {
         "akinsho/toggleterm.nvim",
+        tag = "v1.*",
         config = [[require("plugins.configs.term")]],
         keys = "<F1>",
+    },
+
+    {
+        "petertriho/nvim-scrollbar",
+        requires = { "kevinhwang91/nvim-hlslens" },
+        config = [[require("plugins.configs.scrollbar")]],
     },
 
     -- }}}
@@ -343,13 +350,24 @@ local plugins = {
             "joesitton/cmp-rg",
             "lukas-reineke/cmp-under-comparator",
             "ray-x/cmp-treesitter",
-            { "tzachar/cmp-tabnine", run = "./install.sh" },
+            {
+                "tzachar/cmp-tabnine",
+                run = "./install.sh",
+            },
+            -- {
+            --     "hrsh7th/cmp-copilot",
+            --     requires = "github/copilot.vim",
+            --     setup = [[vim.g.copilot_no_tab_map = true]],
+            -- },
             -- {
             --   "abecodes/tabout.nvim",
             --   config = [[require("tabout").setup()]],
             --   after = "nvim-cmp"
             -- },
-            { "kdheepak/cmp-latex-symbols", ft = "tex" },
+            {
+                "kdheepak/cmp-latex-symbols",
+                ft = "tex",
+            },
             {
                 "L3MON4D3/LuaSnip",
                 requires = {
@@ -379,7 +397,10 @@ local plugins = {
 
     {
         "williamboman/nvim-lsp-installer",
-        { "neovim/nvim-lspconfig", config = [[require("plugins.configs.lsp")]] },
+        {
+            "neovim/nvim-lspconfig",
+            config = [[require("plugins.configs.lsp")]],
+        },
     },
 
     -- }}}
@@ -389,8 +410,18 @@ local plugins = {
     {
         "nvim-treesitter/nvim-treesitter",
         requires = {
-            { "p00f/nvim-ts-rainbow", event = "BufReadPre" },
-            { "andymass/vim-matchup", event = "CursorMoved" },
+            {
+                "nvim-treesitter/playground",
+                cmd = "TSPlaygroundToggle",
+            },
+            {
+                "p00f/nvim-ts-rainbow",
+                event = "BufReadPre",
+            },
+            {
+                "andymass/vim-matchup",
+                event = "CursorMoved",
+            },
             {
                 "windwp/nvim-autopairs",
                 config = [[require("nvim-autopairs").setup({check_ts = true})]],

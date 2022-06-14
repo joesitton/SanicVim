@@ -43,7 +43,7 @@ o.sidescrolloff = 12
 -- Searching
 o.smartcase = true
 o.ignorecase = true
-o.hlsearch = false
+o.hlsearch = true
 o.incsearch = true
 
 -- Timeouts
@@ -117,4 +117,4 @@ local set_sign = vim.fn.sign_define
 set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
 set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
 set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })

@@ -6,7 +6,7 @@ end
 
 local telescope = require("telescope")
 
-for _, ext in ipairs({ "fzf", "frecency", "projects" }) do
+for _, ext in ipairs({ "fzf", "projects" }) do
     telescope.load_extension(ext)
 end
 
@@ -72,7 +72,6 @@ telescope.setup({
         },
     },
     extensions = {
-        frecency = { default_workspace = "CWD" },
         fzf = {
             fuzzy = true,
             override_generic_sorter = true,
