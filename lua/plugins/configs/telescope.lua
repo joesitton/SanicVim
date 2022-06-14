@@ -6,13 +6,16 @@ end
 
 local telescope = require("telescope")
 
-for _, ext in ipairs({ "fzf", "projects" }) do
+for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "conventional_commits" }) do
     telescope.load_extension(ext)
 end
 
 telescope.setup({
     defaults = {
         prompt_prefix = "❯ ",
+        multi_icon = "• ",
+        dynamic_preview_title = true,
+        treesitter = true,
         selection_caret = "  ",
         scroll_strategy = "limit",
         sort_strategy = "descending",
@@ -29,7 +32,7 @@ telescope.setup({
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
                 ["<CR>"] = actions.select_default + actions.center,
-                ["<esc>"] = actions.close,
+                ["<ESC>"] = actions.close,
             },
             n = {
                 ["<C-j>"] = actions.move_selection_next,

@@ -17,5 +17,6 @@ require("focus").setup({
         "DiffviewFiles",
         "DiffviewFileHistory",
         "fugitive",
+        "DressingInput",
     },
 })

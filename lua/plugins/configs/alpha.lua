@@ -9,7 +9,7 @@ dashboard.section.header.val = {
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button("SPC f f", "  Find file", ":Telescope fd<CR>"),
-    dashboard.button("SPC f r", "  Find recent", ":Telescope frecency<CR>"),
+    dashboard.button("SPC f r", "  Find recent", ":Telescope oldfiles<CR>"),
     dashboard.button("SPC f t", "  Find text", ":Telescope live_grep<CR>"),
     dashboard.button("SPC f p", "  Find project", ":Telescope projects<CR>"),
     dashboard.button("SPC f m", "  Find marks", ":Telescope marks<CR>"),

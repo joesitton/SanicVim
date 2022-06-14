@@ -160,6 +160,12 @@ local plugins = {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 run = "make",
             },
+            {
+                "gbrlsnchs/telescope-lsp-handlers.nvim",
+            },
+            {
+                "olacin/telescope-cc.nvim",
+            },
             -- {
             --     "nvim-telescope/telescope-frecency.nvim",
             --     requires = "tami5/sqlite.lua",
@@ -240,7 +246,7 @@ local plugins = {
 
     {
         "nvim-lualine/lualine.nvim",
-        requires = { "rktjmp/lush.nvim" },
+        after = { "lush-base16" },
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },
@@ -359,11 +365,11 @@ local plugins = {
             --     requires = "github/copilot.vim",
             --     setup = [[vim.g.copilot_no_tab_map = true]],
             -- },
-            -- {
-            --   "abecodes/tabout.nvim",
-            --   config = [[require("tabout").setup()]],
-            --   after = "nvim-cmp"
-            -- },
+            {
+                "abecodes/tabout.nvim",
+                config = [[require("tabout").setup({tabkey = '', backwards_tabkey = ''})]],
+                after = { "nvim-cmp", "nvim-treesitter" },
+            },
             {
                 "kdheepak/cmp-latex-symbols",
                 ft = "tex",

@@ -2,8 +2,10 @@ require("scrollbar").setup({
     set_highlights = false,
     excluded_buftypes = {
         "terminal",
+        "neo-tree",
     },
     excluded_filetypes = {
+        "alpha",
         "prompt",
         "TelescopePrompt",
         "NvimTree",

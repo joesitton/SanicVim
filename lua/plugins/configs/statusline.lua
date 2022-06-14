@@ -1,43 +1,4 @@
--- local lualine_b_bg = colors.black.lighten(10)
-
--- local base16_theme = {
---     normal = {
---         a = { bg = colors.blue, fg = colors.black, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.white },
---         c = { bg = colors.black.lighten(10), fg = colors.blue },
---         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
---     },
---     insert = {
---         a = { bg = colors.green, fg = colors.black, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.white },
---         c = { bg = colors.black.lighten(10), fg = colors.green },
---         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
---     },
---     visual = {
---         a = { bg = colors.orange, fg = colors.black, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.white },
---         c = { bg = colors.black.lighten(10), fg = colors.orange },
---         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
---     },
---     replace = {
---         a = { bg = colors.red, fg = colors.black, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.white },
---         c = { bg = colors.black.lighten(10), fg = colors.red },
---         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
---     },
---     command = {
---         a = { bg = colors.purple, fg = colors.black, gui = "bold" },
---         b = { bg = lualine_b_bg, fg = colors.white },
---         c = { bg = colors.black.lighten(10), fg = colors.purple },
---         x = { bg = colors.black.lighten(10), fg = colors.white.darken(25) },
---     },
---     inactive = {
---         a = { bg = colors.black.lighten(10), fg = colors.black.lighten(25), gui = "bold" },
---         b = { bg = colors.black.lighten(10), fg = colors.black.lighten(25) },
---         c = { bg = colors.black.lighten(10), fg = colors.black.lighten(25) },
---         x = { bg = colors.black.lighten(10), fg = colors.black.lighten(25) },
---     },
--- }
+local base16 = require("lualine.themes.base16")
 
 local diffviewfiles_extension = {
     sections = { lualine_b = { "filetype" } },
@@ -65,15 +26,28 @@ local neotree_extension = {
     filetypes = { "neo-tree" },
 }
 
+local telescope_extension = {
+    sections = { lualine_b = {
+        function()
+            return "Telescope"
+        end,
+    } },
+    inactive_sections = { lualine_b = {
+        function()
+            return "Telescope"
+        end,
+    } },
+    filetypes = { "Telescope", "TelescopePrompt" },
+}
+
 require("lualine").setup({
     options = {
-        -- theme = base16_theme,
-        icons_enabled = true,
+        theme = base16,
         always_divide_middle = true,
         globalstatus = true,
         component_separators = { left = "╲", right = "╱" },
         section_separators = { left = "", right = "" },
-        disabled_filetypes = { "NvimTree" },
+        disabled_filetypes = {},
         disabled_buftypes = { "quickfix", "prompt", "nofile" },
     },
     sections = {
@@ -153,6 +127,7 @@ require("lualine").setup({
         "quickfix",
         "toggleterm",
         "fugitive",
+        telescope_extension,
         diffviewfiles_extension,
         diffviewhistory_extension,
         neotree_extension,
