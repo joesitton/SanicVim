@@ -9,17 +9,24 @@ dashboard.section.header.val = {
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button("SPC f f", "  Find file", ":Telescope fd<CR>"),
-    dashboard.button("SPC f r", "  Find recent", ":Telescope frecency<CR>"),
+    dashboard.button("SPC f r", "  Find recent", ":Telescope oldfiles<CR>"),
     dashboard.button("SPC f t", "  Find text", ":Telescope live_grep<CR>"),
     dashboard.button("SPC f p", "  Find project", ":Telescope projects<CR>"),
     dashboard.button("SPC f m", "  Find marks", ":Telescope marks<CR>"),
     dashboard.button("e", "  New file", ":ene<CR>"),
-    dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
+    -- dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
 }
 
 -- Set footer
--- dashboard.section.footer.val = {}
+dashboard.section.footer.val = {
+    " / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\_",
+    "/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\__",
+    "\\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / _",
+    " \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ / ",
+    " / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\_",
+    "/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\__",
+}
 
 -- local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
 -- local num_plugins_tot = #vim.tbl_keys(packer_plugins)
@@ -54,9 +61,9 @@ dashboard.config.layout = {
 }
 
 -- Do not show statusline or tabline in alpha buffer
-vim.cmd(
-    [[ au User AlphaReady if winnr('$') == 1 | set laststatus=0 showtabline=0 | endif | au BufUnload <buffer> set laststatus=3 showtabline=2 ]]
-)
+-- vim.cmd(
+--     [[ au User AlphaReady if winnr('$') == 1 | set laststatus=0 showtabline=0 | endif | au BufUnload <buffer> set laststatus=3 showtabline=2 ]]
+-- )
 
 -- Send config to alpha
 alpha.setup(dashboard.opts)

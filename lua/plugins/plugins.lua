@@ -22,6 +22,12 @@ local plugins = {
     },
 
     {
+        "rcarriga/nvim-notify",
+        config = [[require("notify").setup({background_colour = "#181818" })]],
+        event = "VimEnter",
+    },
+
+    {
         "antoinemadec/FixCursorHold.nvim",
         event = "CursorHold",
     },
@@ -31,7 +37,8 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Github/lush-base16",
+        -- "joesitton/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -159,12 +166,33 @@ local plugins = {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 run = "make",
             },
+            {
+                "gbrlsnchs/telescope-lsp-handlers.nvim",
+            },
+            {
+                "olacin/telescope-gitmoji.nvim",
+            },
+            {
+                "benfowler/telescope-luasnip.nvim",
+            },
             -- {
             --     "nvim-telescope/telescope-frecency.nvim",
             --     requires = "tami5/sqlite.lua",
             -- },
         },
         config = [[require("plugins.configs.telescope")]],
+    },
+
+    {
+        "AckslD/nvim-neoclip.lua",
+        requires = {
+            "nvim-telescope/telescope.nvim",
+            {
+                "tami5/sqlite.lua",
+                module = "sqlite",
+            },
+        },
+        config = [[require("neoclip").setup({enable_persistent_history = true})]],
     },
 
     {
@@ -239,7 +267,7 @@ local plugins = {
 
     {
         "nvim-lualine/lualine.nvim",
-        requires = { "rktjmp/lush.nvim" },
+        after = { "lush-base16" },
         config = [[require("plugins.configs.statusline")]],
         event = "VimEnter",
     },
@@ -358,11 +386,11 @@ local plugins = {
             --     requires = "github/copilot.vim",
             --     setup = [[vim.g.copilot_no_tab_map = true]],
             -- },
-            -- {
-            --   "abecodes/tabout.nvim",
-            --   config = [[require("tabout").setup()]],
-            --   after = "nvim-cmp"
-            -- },
+            {
+                "abecodes/tabout.nvim",
+                config = [[require("tabout").setup({tabkey = '', backwards_tabkey = ''})]],
+                after = { "nvim-cmp", "nvim-treesitter" },
+            },
             {
                 "kdheepak/cmp-latex-symbols",
                 ft = "tex",
