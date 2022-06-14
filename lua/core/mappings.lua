@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
 for _, key in ipairs({ "x", "X", "c", "C" }) do
-    vim.keymap.set({ "n", "v" }, key, '"_' .. key)
+    vim.keymap.set({ "n", "v", "o" }, key, '"_' .. key)
 end
 
 local mappings = {}
