@@ -32,7 +32,7 @@ o.shiftwidth = 2
 -- Number lines
 o.number = true
 o.numberwidth = 4
-o.relativenumber = true
+o.relativenumber = false
 o.signcolumn = "auto"
 o.cursorline = true
 

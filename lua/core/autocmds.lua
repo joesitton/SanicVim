@@ -1,10 +1,10 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
-local o = vim.opt
+-- local o = vim.opt
 local ol = vim.opt_local
-local fn = vim.fn
+-- local fn = vim.fn
 local cmd = vim.cmd
-local api = vim.api
+-- local api = vim.api
 
 -- PackerCompile
 -- autocmd("BufWritePost", {
