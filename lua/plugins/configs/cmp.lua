@@ -66,7 +66,9 @@ local symbol_map = {
 cmp.setup({
     experimental = {
         native_menu = false,
-        ghost_text = true,
+        ghost_text = {
+            hl_group = "CmpGhostText",
+        },
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },

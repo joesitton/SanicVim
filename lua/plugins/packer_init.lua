@@ -6,7 +6,7 @@ if not ok then
     local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 
     vim.fn.delete(packer_path, "rf")
-    vim.fn.system({
+    local packer_bootstrap = vim.fn.system({
         "git",
         "clone",
         "https://github.com/wbthomason/packer.nvim",
@@ -42,5 +42,9 @@ packer.init({
     },
     autoremove = true,
 })
+
+if packer_bootstrap then
+    packer.sync()
+end
 
 return packer

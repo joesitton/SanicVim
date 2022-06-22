@@ -37,8 +37,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        -- "joesitton/lush-base16",
-        "~/Repos/lush-base16",
+        "~/Downloads/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -233,10 +232,10 @@ local plugins = {
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     },
 
-    -- use {
-    --   "godlygeek/tabular",
-    --   event = "BufReadPost"
-    -- }
+    {
+        "godlygeek/tabular",
+        cmd = "'<,'>Tabularize",
+    },
 
     {
         "michaelb/sniprun",
@@ -245,9 +244,7 @@ local plugins = {
     },
 
     {
-        "rcarriga/vim-ultest",
-        requires = { "vim-test/vim-test" },
-        run = { ":UpdateRemotePlugins" },
+        "nvim-neotest/neotest",
         config = [[require("plugins.configs.test")]],
     },
 
