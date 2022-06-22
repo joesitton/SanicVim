@@ -53,14 +53,14 @@ local menu = {
     nvim_lua = "Lua",
     luasnip = "Snippet",
     latex_symbols = "LaTeX",
-    rg = "rg",
+    rg = "Ripgrep",
     calc = "Calc",
-    treesitter = "TS",
+    treesitter = "TreeSitter",
     emoji = "Emoji",
-    conventionalcommits = "CC",
+    conventionalcommits = "Commit",
     cmdline_history = "History",
     git = "Git",
-    cmp_tabnine = "TN",
+    cmp_tabnine = "TabNine",
     copilot = "Copilot",
 }
 
