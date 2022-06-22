@@ -37,7 +37,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Downloads/lush-base16",
+        "~/Github/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -344,7 +344,6 @@ local plugins = {
         "akinsho/toggleterm.nvim",
         tag = "v1.*",
         config = [[require("plugins.configs.term")]],
-        keys = "<F1>",
     },
 
     {
@@ -380,8 +379,10 @@ local plugins = {
             },
             -- {
             --     "hrsh7th/cmp-copilot",
-            --     requires = "github/copilot.vim",
-            --     setup = [[vim.g.copilot_no_tab_map = true]],
+            --     requires = {
+            --         "github/copilot.vim",
+            --         setup = [[ vim.g.copilot_no_tab_map = true ]],
+            --     },
             -- },
             {
                 "abecodes/tabout.nvim",

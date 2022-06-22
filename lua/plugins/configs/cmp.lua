@@ -9,10 +9,10 @@ require("cmp_git").setup()
 local tabnine = require("cmp_tabnine.config")
 
 tabnine:setup({
-    max_lines = 1000,
-    max_num_results = 20,
-    sort = true,
-    run_on_every_keystroke = true,
+    max_lines = 500,
+    max_num_results = 10,
+    sort = false,
+    run_on_every_keystroke = false,
     snippet_placeholder = "..",
     ignored_file_types = {},
     show_prediction_strength = false,
@@ -46,22 +46,23 @@ local symbol_map = {
     TypeParameter = "",
 }
 
--- local menu = {
---   buffer = "[Buffer]",
---   path = "[Path]",
---   nvim_lsp = "[LSP]",
---   nvim_lua = "[Lua]",
---   luasnip = "[Snippet]",
---   latex_symbols = "[LaTeX]",
---   rg = "[rg]",
---   calc = "[Calc]",
---   treesitter = "[TS]",
---   emoji = "[Emoji]",
---   conventionalcommits = "[CC]",
---   cmdline_history = "[History]",
---   git = "[Git]",
---   cmp_tabnine = "[TN]"
--- }
+local menu = {
+    buffer = "Buffer",
+    path = "Path",
+    nvim_lsp = "LSP",
+    nvim_lua = "Lua",
+    luasnip = "Snippet",
+    latex_symbols = "LaTeX",
+    rg = "rg",
+    calc = "Calc",
+    treesitter = "TS",
+    emoji = "Emoji",
+    conventionalcommits = "CC",
+    cmdline_history = "History",
+    git = "Git",
+    cmp_tabnine = "TN",
+    copilot = "Copilot",
+}
 
 cmp.setup({
     experimental = {
@@ -73,7 +74,7 @@ cmp.setup({
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-            vim_item.menu = vim_item.kind
+            vim_item.menu = menu[entry.source.name]
             vim_item.kind = symbol_map[vim_item.kind]
 
             if entry.source.name == "cmp_tabnine" then
@@ -129,6 +130,13 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
+        -- ["<C-g>"] = cmp.mapping(function(fallback)
+        --     vim.api.nvim_feedkeys(
+        --         vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
+        --         "n",
+        --         true
+        --     )
+        -- end),
     },
     sources = {
         { name = "nvim_lsp" },
@@ -149,9 +157,9 @@ cmp.setup({
     sorting = {
         priority_weight = 2,
         comparators = {
+            require("cmp_tabnine.compare"),
             cmp.config.compare.offset,
             cmp.config.compare.exact,
-            require("cmp_tabnine.compare"),
             cmp.config.compare.sort_text,
             cmp.config.compare.score,
             require("cmp-under-comparator").under,
@@ -159,6 +167,10 @@ cmp.setup({
             cmp.config.compare.length,
             cmp.config.compare.order,
         },
+    },
+    confirm_opts = {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = false,
     },
 })
 

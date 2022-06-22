@@ -1,6 +1,6 @@
 vim.g.mapleader = " "
 
-for _, key in ipairs({ "x", "X", "c", "C" }) do
+for _, key in ipairs({ "x", "X" }) do
     vim.keymap.set({ "n", "v", "o" }, key, '"_' .. key)
 end
 
@@ -232,12 +232,12 @@ mappings.hlslens = {
     },
 }
 
-mappings.copilot = {
-    i = {
-        ["<C-J>"] = { "<expr> copilot#Accept('\\<CR>')", "Accept copilot suggestion" },
-        ["<C-]>"] = { "<Plug>(copilot-next)", "Next copilot suggestion" },
-        ["<C-[>"] = { "<Plug>(copilot-previous)", "Previous copilot suggestion" },
-    },
-}
+-- mappings.copilot = {
+--     i = {
+--         ["<C-J>"] = { "<expr> copilot#Accept('\\<CR>')", "Accept copilot suggestion" },
+--         ["<C-]>"] = { "<Plug>(copilot-next)", "Next copilot suggestion" },
+--         ["<C-[>"] = { "<Plug>(copilot-previous)", "Previous copilot suggestion" },
+--     },
+-- }
 
 return mappings
