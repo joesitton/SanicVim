@@ -6,6 +6,7 @@ if not ok then
     local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 
     vim.fn.delete(packer_path, "rf")
+
     local packer_bootstrap = vim.fn.system({
         "git",
         "clone",
@@ -19,9 +20,7 @@ if not ok then
 
     ok, packer = pcall(require, "packer")
 
-    if ok then
-        print("Successfully installed packer.nvim")
-    else
+    if not ok then
         error("Error installing packer.nvim!\n" .. packer_path .. "\n" .. packer)
     end
 end
@@ -33,9 +32,9 @@ packer.init({
             return require("packer.util").float({ border = "rounded" })
         end,
         prompt_border = "rounded",
-        working_sym = "",
-        error_sym = "×",
-        done_sym = "",
+        working_sym = " ",
+        error_sym = "",
+        done_sym = " ",
     },
     git = {
         clone_timeout = 5000,

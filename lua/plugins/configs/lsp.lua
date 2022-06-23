@@ -1,7 +1,10 @@
 vim.diagnostic.config({
     signs = true,
     update_in_insert = false,
-    virtual_text = true,
+    virtual_text = {
+        prefix = "•",
+        severity_sort = true,
+    },
     float = {
         header = false,
         border = "rounded",
@@ -14,8 +17,6 @@ vim.diagnostic.config({
 require("nvim-lsp-installer").setup()
 
 local lsp = require("lspconfig")
-
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client)
     if client.name ~= "null-ls" then
@@ -66,7 +67,7 @@ local function setup_server(name)
         lsp[name].setup({
             cmd = server:get_default_options().cmd,
             settings = settings,
-            capabilities = capabilities,
+            capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
             on_attach = on_attach,
             flags = { debounce_text_changes = 300 },
         })

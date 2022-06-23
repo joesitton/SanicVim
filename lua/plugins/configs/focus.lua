@@ -6,8 +6,11 @@ require("focus").setup({
         "nowrite",
         "prompt",
         "popup",
+        "fugitive",
+        "alpha",
     },
     excluded_filetypes = {
+        "alpha",
         "help",
         "NvimTree_*",
         "neo-tree",
@@ -18,5 +21,6 @@ require("focus").setup({
         "DiffviewFileHistory",
         "fugitive",
         "DressingInput",
+        "gitcommit",
     },
 })

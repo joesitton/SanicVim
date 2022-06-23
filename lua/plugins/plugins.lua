@@ -18,18 +18,13 @@ local plugins = {
     },
 
     {
-        "tami5/sqlite.lua",
+        "antoinemadec/FixCursorHold.nvim",
     },
 
     {
         "rcarriga/nvim-notify",
         config = [[require("notify").setup({background_colour = "#181818" })]],
         event = "VimEnter",
-    },
-
-    {
-        "antoinemadec/FixCursorHold.nvim",
-        event = "CursorHold",
     },
 
     -- }}}
@@ -48,6 +43,7 @@ local plugins = {
 
     {
         "lervag/vimtex",
+        ft = "tex",
     },
 
     {
@@ -335,7 +331,7 @@ local plugins = {
 
     {
         "folke/zen-mode.nvim",
-        setup = vim.api.nvim_set_keymap("n", "<F2>", ":ZenMode<CR>", {}),
+        setup = vim.keymap.set("n", "<F2>", ":ZenMode<CR>"),
         config = [[require("plugins.configs.zenmode")]],
         cmd = "ZenMode",
     },

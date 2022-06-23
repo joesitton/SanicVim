@@ -1,3 +1,8 @@
+local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 
@@ -19,7 +24,7 @@ tabnine:setup({
 })
 
 local symbol_map = {
-    Text = " ",
+    Text = " ",
     Method = " ",
     Function = " ",
     Constructor = "⌘ ",
@@ -36,8 +41,8 @@ local symbol_map = {
     Snippet = " ",
     Color = " ",
     File = " ",
-    Reference = " ",
-    Folder = " ",
+    Reference = " ",
+    Folder = " ",
     EnumMember = " ",
     Constant = " ",
     Struct = "פּ ",
@@ -78,22 +83,23 @@ cmp.setup({
             vim_item.kind = symbol_map[vim_item.kind]
 
             if entry.source.name == "cmp_tabnine" then
-                vim_item.kind = ""
+                vim_item.kind = " "
             elseif entry.source.name == "copilot" then
-                vim_item.kind = ""
+                vim_item.kind = " "
             end
 
             return vim_item
         end,
     },
     window = {
-        -- completion = {
-        --   border = "rounded",
-        --   winhighlight = "FloatBorder:FloatBorder"
-        -- },
+        completion = {
+            border = "rounded",
+            winhighlight = "Pmenu:FloatBorder",
+        },
         documentation = {
-            -- border = "rounded",
-            winhighlight = "Normal:Pmenu",
+            border = "rounded",
+            winhighlight = "Pmenu:FloatBorder",
+            winblend = 3,
         },
     },
     snippet = {
@@ -102,7 +108,11 @@ cmp.setup({
         end,
     },
     mapping = {
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<ESC>"] = cmp.mapping(function(fallback)
+            cmp.abort()
+            fallback()
+        end),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<C-Space>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.close()
@@ -117,6 +127,8 @@ cmp.setup({
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            elseif has_words_before() then
+                cmp.complete()
             else
                 fallback()
             end
@@ -130,61 +142,49 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
-        -- ["<C-g>"] = cmp.mapping(function(fallback)
-        --     vim.api.nvim_feedkeys(
-        --         vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
-        --         "n",
-        --         true
-        --     )
-        -- end),
     },
     sources = {
         { name = "nvim_lsp" },
         { name = "path" },
         { name = "calc" },
         { name = "emoji" },
-        { name = "buffer" },
+        -- { name = "buffer" },
         { name = "treesitter" },
         { name = "latex_symbols" },
         { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp_signature_help" },
-        { name = "conventionalcommits" },
-        { name = "git" },
         { name = "cmp_tabnine" },
-        { name = "copilot" },
+        -- { name = "copilot" },
     },
     sorting = {
-        priority_weight = 2,
         comparators = {
             require("cmp_tabnine.compare"),
             cmp.config.compare.offset,
             cmp.config.compare.exact,
-            cmp.config.compare.sort_text,
             cmp.config.compare.score,
             require("cmp-under-comparator").under,
             cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
             cmp.config.compare.length,
             cmp.config.compare.order,
         },
     },
-    confirm_opts = {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = false,
-    },
+})
+
+cmp.setup.cmdline(":", {
+    view = { entries = { name = "custom", selection_order = "near_cursor" } },
+    formatting = { fields = { "abbr" } },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 
 for _, cmdtype in ipairs({ "?", "/" }) do
     cmp.setup.cmdline(cmdtype, {
         view = { entries = { name = "custom", selection_order = "near_cursor" } },
-        formatting = {
-            fields = { "abbr" },
-        },
+        formatting = { fields = { "abbr" } },
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-            {
-                name = "lsp_document_symbol_help",
-            },
             {
                 name = "rg",
                 option = {
@@ -196,16 +196,10 @@ for _, cmdtype in ipairs({ "?", "/" }) do
     })
 end
 
-cmp.setup.cmdline(":", {
-    view = {
-        entries = {
-            name = "custom",
-            selection_order = "near_cursor",
-        },
+cmp.setup.filetype("gitcommit", {
+    formatting = { fields = { "kind", "abbr" } },
+    sources = {
+        { name = "conventionalcommits" },
+        { name = "git" },
     },
-    formatting = {
-        fields = { "abbr" },
-    },
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })

@@ -7,11 +7,19 @@ local cmd = vim.cmd
 -- local api = vim.api
 
 -- PackerCompile
--- autocmd("BufWritePost", {
---     group = augroup("packer_auto_compile", {}),
---     pattern = "plugins.lua",
---     callback = cmd([[ ]])
--- })
+autocmd("BufWritePost", {
+    group = augroup("packer_auto_compile", {}),
+    pattern = "plugins.lua",
+    callback = function()
+        require("plugins.packer_init").compile()
+
+        local ok, notify = pcall(require, "notify")
+
+        if ok then
+            notify.notify("Recompiled packer plugins")
+        end
+    end,
+})
 
 -- Don't repeat comments
 autocmd("BufWinEnter", {
