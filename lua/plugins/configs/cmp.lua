@@ -67,9 +67,9 @@ local menu = {
 cmp.setup({
     experimental = {
         native_menu = false,
-        ghost_text = {
-            hl_group = "CmpGhostText",
-        },
+        -- ghost_text = {
+        --     hl_group = "CmpGhostText",
+        -- },
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
@@ -130,13 +130,13 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
-        -- ["<C-g>"] = cmp.mapping(function(fallback)
-        --     vim.api.nvim_feedkeys(
-        --         vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
-        --         "n",
-        --         true
-        --     )
-        -- end),
+        ["<C-g>"] = cmp.mapping(function(fallback)
+            vim.api.nvim_feedkeys(
+                vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
+                "n",
+                true
+            )
+        end),
     },
     sources = {
         { name = "nvim_lsp" },

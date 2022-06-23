@@ -37,7 +37,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Github/lush-base16",
+        "~/nvim-plugins/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -377,13 +377,13 @@ local plugins = {
                 "tzachar/cmp-tabnine",
                 run = "./install.sh",
             },
-            -- {
-            --     "hrsh7th/cmp-copilot",
-            --     requires = {
-            --         "github/copilot.vim",
-            --         setup = [[ vim.g.copilot_no_tab_map = true ]],
-            --     },
-            -- },
+            {
+                "hrsh7th/cmp-copilot",
+                requires = {
+                    "github/copilot.vim",
+                    setup = [[ vim.g.copilot_no_tab_map = true ]],
+                },
+            },
             {
                 "abecodes/tabout.nvim",
                 config = [[require("tabout").setup({tabkey = '', backwards_tabkey = ''})]],
