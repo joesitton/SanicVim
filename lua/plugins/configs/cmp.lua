@@ -1,54 +1,45 @@
-local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local luasnip = require("luasnip")
 local cmp = require("cmp")
 
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } }))
 
 require("cmp_git").setup()
 
-local tabnine = require("cmp_tabnine.config")
-
-tabnine:setup({
+require("cmp_tabnine.config"):setup({
     max_lines = 500,
-    max_num_results = 10,
+    max_num_results = 2,
     sort = false,
     run_on_every_keystroke = false,
     snippet_placeholder = "..",
     ignored_file_types = {},
-    show_prediction_strength = false,
+    show_prediction_strength = true,
 })
 
 local symbol_map = {
-    Text = " ",
-    Method = " ",
-    Function = " ",
-    Constructor = "⌘ ",
-    Field = " ",
-    Variable = " ",
-    Class = "ﴯ ",
-    Interface = " ",
-    Module = " ",
-    Property = " ",
-    Unit = "塞 ",
-    Value = " ",
-    Enum = " ",
-    Keyword = "廓",
-    Snippet = " ",
-    Color = " ",
-    File = " ",
-    Reference = " ",
-    Folder = " ",
-    EnumMember = " ",
-    Constant = " ",
-    Struct = "פּ ",
-    Event = " ",
-    Operator = " ",
-    TypeParameter = "",
+    Text = "   ",
+    Method = "   ",
+    Function = "   ",
+    Constructor = "   ",
+    Field = "   ",
+    Variable = "   ",
+    Class = "   ",
+    Interface = "   ",
+    Module = "   ",
+    Property = "   ",
+    Unit = "   ",
+    Value = "   ",
+    Enum = "   ",
+    Keyword = "   ",
+    Snippet = "   ",
+    Color = "   ",
+    File = "   ",
+    Reference = "   ",
+    Folder = "   ",
+    EnumMember = "   ",
+    Constant = "   ",
+    Struct = "   ",
+    Event = "   ",
+    Operator = "   ",
+    TypeParameter = "   ",
 }
 
 local menu = {
@@ -69,7 +60,27 @@ local menu = {
     copilot = "Copilot",
 }
 
+local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
+
 cmp.setup({
+    enabled = function()
+        if vim.bo.filetype == "TelescopePrompt" then
+            return false
+        end
+
+        local context = require("cmp.config.context")
+
+        if vim.api.nvim_get_mode().mode == "c" then
+            return true
+        else
+            return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+        end
+    end,
     experimental = {
         native_menu = false,
         ghost_text = {
@@ -83,9 +94,9 @@ cmp.setup({
             vim_item.kind = symbol_map[vim_item.kind]
 
             if entry.source.name == "cmp_tabnine" then
-                vim_item.kind = " "
+                vim_item.kind = "   "
             elseif entry.source.name == "copilot" then
-                vim_item.kind = " "
+                vim_item.kind = "  "
             end
 
             return vim_item
@@ -93,13 +104,14 @@ cmp.setup({
     },
     window = {
         completion = {
-            border = "rounded",
-            winhighlight = "Pmenu:FloatBorder",
+            col_offset = 0,
+            side_padding = 0,
+            -- border = "rounded",
+            -- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
         },
         documentation = {
-            border = "rounded",
-            winhighlight = "Pmenu:FloatBorder",
-            winblend = 3,
+            --     border = "rounded",
+            winhighlight = "Normal:Pmenu",
         },
     },
     snippet = {
@@ -108,8 +120,12 @@ cmp.setup({
         end,
     },
     mapping = {
+        -- testing no completing compmenfknsdkfnskdfnskdnf
         ["<ESC>"] = cmp.mapping(function(fallback)
-            cmp.abort()
+            if cmp.visible() then
+                cmp.abort()
+            end
+
             fallback()
         end),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
@@ -174,6 +190,7 @@ cmp.setup({
 
 cmp.setup.cmdline(":", {
     view = { entries = { name = "custom", selection_order = "near_cursor" } },
+    window = { completion = { side_padding = 1, col_offset = 0 } },
     formatting = { fields = { "abbr" } },
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
@@ -182,6 +199,7 @@ cmp.setup.cmdline(":", {
 for _, cmdtype in ipairs({ "?", "/" }) do
     cmp.setup.cmdline(cmdtype, {
         view = { entries = { name = "custom", selection_order = "near_cursor" } },
+        window = { completion = { side_padding = 1, col_offset = 0 } },
         formatting = { fields = { "abbr" } },
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({

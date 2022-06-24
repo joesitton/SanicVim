@@ -32,7 +32,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Github/lush-base16",
+        "~/Downloads/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -82,7 +82,7 @@ local plugins = {
 
     {
         "sheerun/vim-polyglot",
-        event = "VimEnter",
+        event = "BufReadPost",
     },
 
     -- }}}
@@ -96,10 +96,12 @@ local plugins = {
 
     {
         "tpope/vim-sleuth",
+        event = "BufReadPost",
     },
 
     {
         "tpope/vim-repeat",
+        event = "BufReadPost",
     },
 
     {
@@ -125,6 +127,7 @@ local plugins = {
     {
         "goolord/alpha-nvim",
         config = [[require("plugins.configs.alpha")]],
+        event = "VimEnter",
     },
 
     {
@@ -147,11 +150,7 @@ local plugins = {
     {
         "folke/which-key.nvim",
         config = [[require("plugins.configs.whichkey")]],
-    },
-
-    {
-        "ahmedkhalf/project.nvim",
-        config = [[require("plugins.configs.projects")]],
+        event = "VimEnter",
     },
 
     {
@@ -170,30 +169,30 @@ local plugins = {
             {
                 "benfowler/telescope-luasnip.nvim",
             },
+            {
+                "ahmedkhalf/project.nvim",
+                config = [[require("plugins.configs.projects")]],
+            },
+
+            {
+                "AckslD/nvim-neoclip.lua",
+                requires = "tami5/sqlite.lua",
+                config = [[require("neoclip").setup({enable_persistent_history = true })]],
+            },
             -- {
             --     "nvim-telescope/telescope-frecency.nvim",
             --     requires = "tami5/sqlite.lua",
             -- },
         },
         config = [[require("plugins.configs.telescope")]],
+        after = "project.nvim",
+        event = "VimEnter",
     },
 
-    {
-        "AckslD/nvim-neoclip.lua",
-        requires = {
-            "nvim-telescope/telescope.nvim",
-            {
-                "tami5/sqlite.lua",
-                module = "sqlite",
-            },
-        },
-        config = [[require("neoclip").setup({enable_persistent_history = true})]],
-    },
-
-    {
-        "rmagatti/auto-session",
-        config = [[require("plugins.configs.session")]],
-    },
+    -- {
+    --     "rmagatti/auto-session",
+    --     config = [[require("plugins.configs.session")]],
+    -- },
 
     {
         "phaazon/hop.nvim",
@@ -230,7 +229,7 @@ local plugins = {
 
     {
         "godlygeek/tabular",
-        cmd = "'<,'>Tabularize",
+        event = "BufReadPost",
     },
 
     {
@@ -250,11 +249,13 @@ local plugins = {
 
     {
         "kyazdani42/nvim-web-devicons",
+        event = "VimEnter",
     },
 
     {
         "romgrk/barbar.nvim",
         config = [[require("plugins.configs.bufferline")]],
+        after = { "nvim-web-devicons" },
         event = "VimEnter",
     },
 
@@ -274,6 +275,7 @@ local plugins = {
     {
         "norcalli/nvim-colorizer.lua",
         config = [[require("plugins.configs.colorizer")]],
+        event = "BufReadPost",
     },
 
     {
@@ -303,6 +305,7 @@ local plugins = {
     {
         "beauwilliams/focus.nvim",
         config = [[require("plugins.configs.focus")]],
+        cmd = "FocusEnable",
     },
 
     {

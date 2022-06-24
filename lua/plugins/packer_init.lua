@@ -1,4 +1,5 @@
 local ok, packer = pcall(require, "packer")
+local packer_bootstrap = nil
 
 if not ok then
     print("Cloning packer...")
@@ -7,7 +8,7 @@ if not ok then
 
     vim.fn.delete(packer_path, "rf")
 
-    local packer_bootstrap = vim.fn.system({
+    packer_bootstrap = vim.fn.system({
         "git",
         "clone",
         "https://github.com/wbthomason/packer.nvim",

@@ -98,5 +98,9 @@ telescope.setup({
 })
 
 for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "gitmoji", "luasnip", "neoclip" }) do
-    telescope.load_extension(ext)
+    local ok, _ = pcall(telescope.load_extension, ext)
+
+    if not ok then
+        error("Could not load " .. ext)
+    end
 end

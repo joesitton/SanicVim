@@ -8,6 +8,7 @@ dashboard.section.header.val = {
 
 -- Set menu
 dashboard.section.buttons.val = {
+    dashboard.button("r", "  Restore session", ":RestoreSession<CR>"),
     dashboard.button("SPC f f", "  Find file", ":Telescope fd<CR>"),
     dashboard.button("SPC f r", "  Find recent", ":Telescope oldfiles<CR>"),
     dashboard.button("SPC f t", "  Find text", ":Telescope live_grep<CR>"),
@@ -19,14 +20,7 @@ dashboard.section.buttons.val = {
 }
 
 -- Set footer
-dashboard.section.footer.val = {
-    " / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\_",
-    "/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\__",
-    "\\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / _",
-    " \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ / ",
-    " / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\__/ / __ \\ \\_",
-    "/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\____/ /  \\ \\__",
-}
+dashboard.section.footer.val = {}
 
 -- local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
 -- local num_plugins_tot = #vim.tbl_keys(packer_plugins)

@@ -12,6 +12,7 @@ null_ls.setup({
         formatting.black.with({ to_temp_file = false }),
         formatting.isort.with({ to_temp_file = false }),
         formatting.stylua.with({ extra_args = { "--indent-width", "4", "--indent-type", "spaces" } }),
+        formatting.fixjson,
         formatting.trim_whitespace,
         completion.spell,
         diagnostics.shellcheck,
@@ -30,7 +31,7 @@ null_ls.setup({
                     end
 
                     if vim.fn.has("nvim-0.8") == "1" then
-                        vim.lsp.buf.format({ bufnr = bufnr })
+                        vim.lsp.buf.format({ async = true })
                     else
                         vim.lsp.buf.formatting_sync()
                     end

@@ -16,6 +16,6 @@ require("toggleterm").setup({
             return vim.o.columns * 0.4
         end
     end,
-    highlights = { FloatBorder = { link = "FloatBorder" } },
+    highlights = { FloatBorder = { link = "FloatBorder" }, NormalFloat = { link = "NormalFloat" } },
     float_opts = { border = "rounded" },
 })
