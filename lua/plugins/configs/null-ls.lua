@@ -15,6 +15,7 @@ null_ls.setup({
         formatting.fixjson,
         formatting.trim_whitespace,
         completion.spell,
+        diagnostics.cppcheck,
         diagnostics.shellcheck,
         diagnostics.codespell,
         code_actions.gitsigns,

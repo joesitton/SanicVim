@@ -103,7 +103,6 @@ o.lazyredraw = true
 o.wrap = false
 o.shortmess:append("sI")
 o.whichwrap:append("<>[]hl")
-o.shell = "/bin/bash"
 
 -- Virtualenv
 g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"

@@ -65,11 +65,11 @@ mappings.buffers = {
 
 mappings.comments = {
     n = {
-        ["<C-_>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
+        ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
     },
 
     v = {
-        ["<C-_>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
+        ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
     },
 }
 

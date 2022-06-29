@@ -156,6 +156,8 @@ table.insert(components.active[1], {
     },
 })
 
+-- Right side
+
 table.insert(components.active[3], {
     provider = " ",
     right_sep = {
@@ -178,6 +180,7 @@ table.insert(components.active[3], {
             bg = colors.dark_orange,
         }
     end,
+    right_sep = "block",
 })
 
 table.insert(components.active[3], {
@@ -190,6 +193,7 @@ table.insert(components.active[3], {
             bg = colors.dark_orange,
         }
     end,
+    right_sep = "block",
 })
 
 table.insert(components.active[3], {
@@ -202,6 +206,7 @@ table.insert(components.active[3], {
             bg = colors.dark_orange,
         }
     end,
+    right_sep = "block",
 })
 
 table.insert(components.active[3], {
