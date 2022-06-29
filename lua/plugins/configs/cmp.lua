@@ -185,7 +185,7 @@ cmp.setup({
         { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp_signature_help" },
-        -- { name = "cmp_tabnine" },
+        { name = "cmp_tabnine" },
         -- { name = "copilot" },
     },
     sorting = {

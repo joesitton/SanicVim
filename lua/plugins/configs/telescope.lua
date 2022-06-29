@@ -96,11 +96,3 @@ telescope.setup({
         },
     },
 })
-
-for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "gitmoji", "luasnip", "neoclip" }) do
-    local ok, _ = pcall(telescope.load_extension, ext)
-
-    if not ok then
-        vim.notify("Could not load " .. ext, "ERROR")
-    end
-end

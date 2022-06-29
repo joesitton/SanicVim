@@ -6,7 +6,7 @@ vim.g.matchup_matchparen_offscreen = {
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
-    ignore_install = { "yaml", "latex", "toml" },
+    ignore_install = { "yaml", "latex", "toml", "phpdoc" },
     highlight = { enable = true },
     context_commentstring = { enable = true, enable_autocmd = false },
     matchup = { enable = true },

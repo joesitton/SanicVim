@@ -32,7 +32,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Downloads/lush-base16",
+        "~/Github/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -158,29 +158,42 @@ local plugins = {
         requires = {
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
+                run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+                config = [[require("telescope").load_extension("fzf")]],
+                after = "telescope.nvim",
             },
             {
                 "gbrlsnchs/telescope-lsp-handlers.nvim",
+                config = [[require("telescope").load_extension("lsp_handlers")]],
+                after = "telescope.nvim",
             },
             {
                 "olacin/telescope-gitmoji.nvim",
+                config = [[require("telescope").load_extension("gitmoji")]],
+                after = "telescope.nvim",
             },
             {
                 "benfowler/telescope-luasnip.nvim",
+                config = [[require("telescope").load_extension("luasnip")]],
+                after = "telescope.nvim",
             },
             {
                 "ahmedkhalf/project.nvim",
-                config = [[require("plugins.configs.projects")]],
+                config = [[
+                    require("project_nvim").setup({ exclude_dirs = { "~/.local/*" } })
+                    require("telescope").load_extension("projects")
+                ]],
+                after = "telescope.nvim",
             },
             {
                 "AckslD/nvim-neoclip.lua",
                 requires = "tami5/sqlite.lua",
-                config = [[require("neoclip").setup({enable_persistent_history = true })]],
+                config = [[
+                    require("neoclip").setup({enable_persistent_history = true })
+                    require("telescope").load_extension("neoclip")
+                ]],
+                after = "telescope.nvim",
             },
-            -- {
-            --     "nvim-telescope/telescope-frecency.nvim",
-            --     requires = "tami5/sqlite.lua",
-            -- },
         },
         config = [[require("plugins.configs.telescope")]],
         event = "VimEnter",
@@ -445,7 +458,7 @@ local plugins = {
             },
         },
         config = [[require("plugins.configs.cmp")]],
-        after = { "cmp-under-comparator", "cmp-tabnine" },
+        after = { "cmp-under-comparator", "cmp-tabnine", "cmp-nvim-lsp" },
         event = { "InsertEnter", "CmdlineEnter" },
     },
 
