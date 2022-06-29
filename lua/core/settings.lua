@@ -86,7 +86,7 @@ o.backup = false
 o.writebackup = false
 
 -- Session
-o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+o.sessionoptions = "blank,buffers,curdir,folds,help,winpos"
 
 -- GUI
 o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"
@@ -94,7 +94,7 @@ o.guifont = "Iosevka Custom:h16"
 
 -- Other
 o.termguicolors = true
-o.title = true
+o.title = false
 o.hidden = true
 o.mouse = "a"
 o.autoread = true
@@ -103,6 +103,7 @@ o.lazyredraw = true
 o.wrap = false
 o.shortmess:append("sI")
 o.whichwrap:append("<>[]hl")
+o.shell = "/bin/bash"
 
 -- Virtualenv
 g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"

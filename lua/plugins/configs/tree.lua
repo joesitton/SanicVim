@@ -49,13 +49,11 @@ require("neo-tree").setup({
         width = 30,
         mappings = {
             ["<space>"] = "toggle_node",
-            ["<2-LeftMouse>"] = "open",
             ["<cr>"] = "open",
-            ["o"] = "open",
-            ["S"] = "open_split",
-            ["s"] = "open_vsplit",
-            ["t"] = "open_tabnew",
+            ["<C-s>"] = "open_split",
+            ["<C-v>"] = "open_vsplit",
             ["<bs>"] = "close_node",
+            ["o"] = "open",
             ["a"] = "add",
             ["A"] = "add_directory",
             ["d"] = "delete",
@@ -97,11 +95,11 @@ require("neo-tree").setup({
                 position = { col = "0", row = "1" },
                 size = function(state)
                     local root_name = vim.fn.fnamemodify(state.path, ":~")
-                    local root_len = string.len(root_name) + 4
+                    local root_len = string.len(root_name)
 
                     return {
                         width = math.max(root_len, 50),
-                        height = vim.o.lines - 5,
+                        height = vim.o.lines - 3,
                     }
                 end,
             },

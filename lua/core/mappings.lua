@@ -1,7 +1,12 @@
 vim.g.mapleader = " "
 
+-- Use the blackhole register
 for _, key in ipairs({ "x", "X" }) do
-    vim.keymap.set({ "n", "v", "o" }, key, '"_' .. key)
+    vim.keymap.set({ "n", "o" }, key, '"_' .. key)
+end
+
+for _, key in ipairs({ "c", "C" }) do
+    vim.keymap.set({ "x", "o" }, key, '"_' .. key)
 end
 
 local mappings = {}
@@ -60,11 +65,11 @@ mappings.buffers = {
 
 mappings.comments = {
     n = {
-        ["<C-_>"] = { "<Plug>kommentary_line_default", "Comment line" },
+        ["<C-_>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
     },
 
     v = {
-        ["<C-_>"] = { "<Plug>kommentary_visual_default", "Comment selection" },
+        ["<C-_>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
     },
 }
 

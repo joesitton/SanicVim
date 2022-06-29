@@ -1,18 +1,34 @@
-local cmp = require("cmp")
+local ok, cmp = pcall(require, "cmp")
 
-cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done({ map_char = { tex = "" } }))
+if not ok then
+    error("Could not load cmp: " .. cmp)
+end
 
-require("cmp_git").setup()
+local ok, autopairs = pcall(require, "nvim-autopairs.completion.cmp")
 
-require("cmp_tabnine.config"):setup({
-    max_lines = 500,
-    max_num_results = 2,
-    sort = false,
-    run_on_every_keystroke = false,
-    snippet_placeholder = "..",
-    ignored_file_types = {},
-    show_prediction_strength = true,
-})
+if ok then
+    cmp.event:on("confirm_done", autopairs.on_confirm_done({ map_char = { tex = "" } }))
+end
+
+local ok, cmp_git = pcall(require, "cmp_git")
+
+if ok then
+    cmp_git.setup()
+end
+
+local ok, tabnine = pcall(require, "cmp_tabnine.config")
+
+if ok then
+    tabnine:setup({
+        max_lines = 500,
+        max_num_results = 2,
+        sort = false,
+        run_on_every_keystroke = false,
+        snippet_placeholder = "..",
+        ignored_file_types = {},
+        show_prediction_strength = false,
+    })
+end
 
 local symbol_map = {
     Text = "   ",
@@ -81,6 +97,12 @@ cmp.setup({
             return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
         end
     end,
+    view = {
+        entries = {
+            name = "custom",
+            selection_order = "near_cursor",
+        },
+    },
     experimental = {
         native_menu = false,
         ghost_text = {
@@ -104,7 +126,7 @@ cmp.setup({
     },
     window = {
         completion = {
-            col_offset = 0,
+            col_offset = -4,
             side_padding = 0,
             -- border = "rounded",
             -- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
@@ -120,14 +142,7 @@ cmp.setup({
         end,
     },
     mapping = {
-        -- testing no completing compmenfknsdkfnskdfnskdnf
-        ["<ESC>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.abort()
-            end
-
-            fallback()
-        end),
+        -- ["<ESC>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<C-Space>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -170,7 +185,7 @@ cmp.setup({
         { name = "luasnip" },
         { name = "nvim_lua" },
         { name = "nvim_lsp_signature_help" },
-        { name = "cmp_tabnine" },
+        -- { name = "cmp_tabnine" },
         -- { name = "copilot" },
     },
     sorting = {

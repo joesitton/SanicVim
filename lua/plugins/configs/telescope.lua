@@ -101,6 +101,6 @@ for _, ext in ipairs({ "fzf", "projects", "lsp_handlers", "gitmoji", "luasnip", 
     local ok, _ = pcall(telescope.load_extension, ext)
 
     if not ok then
-        error("Could not load " .. ext)
+        vim.notify("Could not load " .. ext, "ERROR")
     end
 end

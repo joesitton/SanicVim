@@ -44,7 +44,7 @@ packer.init({
 })
 
 if packer_bootstrap then
-    packer.sync()
+    packer.install()
 end
 
 return packer

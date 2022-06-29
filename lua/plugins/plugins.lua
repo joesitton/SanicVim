@@ -80,10 +80,10 @@ local plugins = {
         ft = "markdown",
     },
 
-    {
-        "sheerun/vim-polyglot",
-        event = "BufReadPost",
-    },
+    -- {
+    --     "sheerun/vim-polyglot",
+    --     event = "BufReadPost",
+    -- },
 
     -- }}}
 
@@ -158,7 +158,6 @@ local plugins = {
         requires = {
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
-                run = "make",
             },
             {
                 "gbrlsnchs/telescope-lsp-handlers.nvim",
@@ -173,7 +172,6 @@ local plugins = {
                 "ahmedkhalf/project.nvim",
                 config = [[require("plugins.configs.projects")]],
             },
-
             {
                 "AckslD/nvim-neoclip.lua",
                 requires = "tami5/sqlite.lua",
@@ -185,14 +183,13 @@ local plugins = {
             -- },
         },
         config = [[require("plugins.configs.telescope")]],
-        after = "project.nvim",
         event = "VimEnter",
     },
 
-    -- {
-    --     "rmagatti/auto-session",
-    --     config = [[require("plugins.configs.session")]],
-    -- },
+    {
+        "rmagatti/auto-session",
+        config = [[require("plugins.configs.session")]],
+    },
 
     {
         "phaazon/hop.nvim",
@@ -207,7 +204,12 @@ local plugins = {
     },
 
     {
-        "b3nj5m1n/kommentary",
+        "numToStr/Comment.nvim",
+        -- requires = {
+        --     "s1n7ax/nvim-comment-frame",
+        --     requires = "nvim-treesitter",
+        --     event = "BufReadPost",
+        -- },
         config = [[require("plugins.configs.comments")]],
         event = "BufReadPost",
     },
@@ -217,8 +219,7 @@ local plugins = {
         branch = "v2.x",
         requires = { "MunifTanjim/nui.nvim" },
         config = [[require("plugins.configs.tree")]],
-        event = "VimEnter",
-        -- keys = "\\",
+        cmd = { "NeoTreeFloatToggle", "Neotree" },
     },
 
     {
@@ -260,9 +261,8 @@ local plugins = {
     },
 
     {
-        "nvim-lualine/lualine.nvim",
-        after = { "lush-base16" },
-        config = [[require("plugins.configs.statusline")]],
+        "feline-nvim/feline.nvim",
+        config = [[require("plugins.configs.feline")]],
         event = "VimEnter",
     },
 
@@ -347,7 +347,7 @@ local plugins = {
 
     {
         "petertriho/nvim-scrollbar",
-        requires = { "kevinhwang91/nvim-hlslens" },
+        requires = { "kevinhwang91/nvim-hlslens", keys = { "/", "?" } },
         config = [[require("plugins.configs.scrollbar")]],
     },
 
@@ -358,50 +358,95 @@ local plugins = {
     {
         "hrsh7th/nvim-cmp",
         requires = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-calc",
-            "hrsh7th/cmp-emoji",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-nvim-lsp-document-symbol",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-            "petertriho/cmp-git",
-            "joesitton/cmp-conventionalcommits",
-            "joesitton/cmp-rg",
-            "lukas-reineke/cmp-under-comparator",
-            "ray-x/cmp-treesitter",
+            {
+                "hrsh7th/cmp-nvim-lsp",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-calc",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-emoji",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-path",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
+            {
+                "hrsh7th/cmp-cmdline",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
+            {
+                "hrsh7th/cmp-buffer",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-nvim-lua",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-nvim-lsp-document-symbol",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-nvim-lsp-signature-help",
+                event = "InsertEnter",
+            },
+            {
+                "joesitton/cmp-rg",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
             {
                 "tzachar/cmp-tabnine",
                 run = "./install.sh",
+                event = "InsertEnter",
             },
-            -- {
-            --     "hrsh7th/cmp-copilot",
-            --     requires = {
-            --         "github/copilot.vim",
-            --         setup = [[ vim.g.copilot_no_tab_map = true ]],
-            --     },
-            -- },
             {
-                "abecodes/tabout.nvim",
-                config = [[require("tabout").setup({tabkey = '', backwards_tabkey = ''})]],
-                after = { "nvim-cmp", "nvim-treesitter" },
+                "L3MON4D3/LuaSnip",
+                requires = {
+                    {
+                        "saadparwaiz1/cmp_luasnip",
+                        event = "InsertEnter",
+                    },
+                    {
+                        "rafamadriz/friendly-snippets",
+                        event = "InsertEnter",
+                    },
+                },
+                config = [[require("luasnip/loaders/from_vscode").lazy_load()]],
+                event = "InsertEnter",
+            },
+            {
+                "ray-x/cmp-treesitter",
+                after = "nvim-treesitter",
+                event = "InsertEnter",
+            },
+            {
+                "petertriho/cmp-git",
+                ft = "gitcommit",
+            },
+            {
+                "joesitton/cmp-conventionalcommits",
+                ft = "gitcommit",
             },
             {
                 "kdheepak/cmp-latex-symbols",
                 ft = "tex",
             },
             {
-                "L3MON4D3/LuaSnip",
-                requires = {
-                    "saadparwaiz1/cmp_luasnip",
-                    "rafamadriz/friendly-snippets",
-                },
-                config = [[require("luasnip/loaders/from_vscode").lazy_load()]],
+                "abecodes/tabout.nvim",
+                config = [[require("tabout").setup({tabkey = '', backwards_tabkey = ''})]],
+                after = { "nvim-cmp", "nvim-treesitter" },
+            },
+            {
+                "lukas-reineke/cmp-under-comparator",
             },
         },
         config = [[require("plugins.configs.cmp")]],
+        after = { "cmp-under-comparator", "cmp-tabnine" },
+        event = { "InsertEnter", "CmdlineEnter" },
     },
 
     -- }}}
@@ -409,22 +454,25 @@ local plugins = {
     -- {{{ LSP
 
     {
-        "j-hui/fidget.nvim",
-        config = [[require("plugins.configs.fidget")]],
-        event = "BufReadPost",
+        "williamboman/nvim-lsp-installer",
+        {
+            "neovim/nvim-lspconfig",
+            config = [[require("plugins.configs.lsp")]],
+            after = { "null-ls.nvim", "cmp-nvim-lsp", "nvim-lsp-installer" },
+            event = "BufReadPost",
+        },
     },
 
     {
         "jose-elias-alvarez/null-ls.nvim",
         config = [[require("plugins.configs.null-ls")]],
+        event = "BufReadPost",
     },
 
     {
-        "williamboman/nvim-lsp-installer",
-        {
-            "neovim/nvim-lspconfig",
-            config = [[require("plugins.configs.lsp")]],
-        },
+        "j-hui/fidget.nvim",
+        config = [[require("plugins.configs.fidget")]],
+        event = "BufReadPost",
     },
 
     -- }}}
@@ -440,7 +488,7 @@ local plugins = {
             },
             {
                 "p00f/nvim-ts-rainbow",
-                event = "BufReadPre",
+                event = "BufReadPost",
             },
             {
                 "andymass/vim-matchup",
@@ -449,14 +497,16 @@ local plugins = {
             {
                 "windwp/nvim-autopairs",
                 config = [[require("nvim-autopairs").setup({check_ts = true})]],
+                event = "BufReadPost",
             },
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
-                event = "BufReadPre",
+                event = "BufReadPost",
             },
         },
         run = ":silent! TSUpdate",
         config = [[require("plugins.configs.treesitter")]],
+        event = "BufReadPost",
     },
 
     -- }}}
