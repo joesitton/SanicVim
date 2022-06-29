@@ -156,8 +156,6 @@ table.insert(components.active[1], {
     },
 })
 
-local test = unpack({})
-
 table.insert(components.active[3], {
     provider = " ",
     right_sep = {
