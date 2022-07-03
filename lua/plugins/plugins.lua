@@ -32,7 +32,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Github/lush-base16",
+        "~/nvim-plugins/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -91,7 +91,7 @@ local plugins = {
 
     {
         "tpope/vim-surround",
-        keys = { "c", "d", "y" },
+        event = "BufReadPost",
     },
 
     {

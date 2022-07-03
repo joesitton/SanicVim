@@ -11,7 +11,7 @@ require("dressing").setup({
         prefer_width = 40,
         max_width = nil,
         min_width = 20,
-        winblend = 00,
+        winblend = 3,
         winhighlight = "",
         get_config = nil,
     },

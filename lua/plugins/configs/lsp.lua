@@ -85,7 +85,6 @@ local servers = {
     "vimls",
     "sumneko_lua",
     "rust_analyzer",
-    -- "ccls",
 }
 
 for _, server in ipairs(servers) do

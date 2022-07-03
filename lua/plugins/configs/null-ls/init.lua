@@ -14,10 +14,10 @@ null_ls.setup({
         formatting.stylua.with({ extra_args = { "--indent-width", "4", "--indent-type", "spaces" } }),
         formatting.fixjson,
         formatting.trim_whitespace,
+        -- diagnostics.codespell,
+        -- diagnostics.zsh,
+        -- require("plugins.configs.null-ls.sources.kube-linter"),
         completion.spell,
-        diagnostics.cppcheck,
-        diagnostics.shellcheck,
-        diagnostics.codespell,
         code_actions.gitsigns,
     },
     on_attach = function(client, bufnr)

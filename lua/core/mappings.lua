@@ -152,8 +152,6 @@ mappings.hop = {
     },
 
     v = {
-        ["s"] = { ":HopChar2AC<CR>", "Hop 2-char forwards" },
-        ["S"] = { ":HopChar2BC<CR>", "Hop 2-char backwards" },
         ["f"] = {
             function()
                 require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR })

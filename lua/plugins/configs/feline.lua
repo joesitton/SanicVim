@@ -222,6 +222,28 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
+-- table.insert(components.active[3], {
+--     provider = {
+--         name = "file_type",
+--     },
+--     hl = function()
+--         return {
+--             fg = colors.black,
+--             bg = colors.orange,
+--         }
+--     end,
+--     left_sep = {
+--         {
+--             str = "left_rounded",
+--             hl = {
+--                 fg = colors.orange,
+--                 bg = colors.dark_orange,
+--             },
+--         },
+--     },
+--     right_sep = "block",
+-- })
+
 table.insert(components.active[3], {
     provider = {
         name = "lsp_client_names",
@@ -233,15 +255,12 @@ table.insert(components.active[3], {
         }
     end,
     left_sep = {
-        {
-            str = "left_rounded",
-            hl = {
-                fg = colors.orange,
-                bg = colors.dark_orange,
-            },
+        str = "left_rounded",
+        hl = {
+            fg = colors.orange,
+            bg = colors.dark_orange,
         },
     },
-    right_sep = "block",
 })
 
 components.inactive = components.active
