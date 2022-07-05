@@ -32,7 +32,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/nvim-plugins/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -80,11 +80,6 @@ local plugins = {
         ft = "markdown",
     },
 
-    -- {
-    --     "sheerun/vim-polyglot",
-    --     event = "BufReadPost",
-    -- },
-
     -- }}}
 
     -- {{{ Functionality
@@ -106,22 +101,6 @@ local plugins = {
 
     {
         "tpope/vim-fugitive",
-        -- cmd = {
-        --   "G",
-        --   "Git",
-        --   "Gdiffsplit",
-        --   "Gread",
-        --   "Gwrite",
-        --   "Ggrep",
-        --   "GMove",
-        --   "GDelete",
-        --   "GBrowse",
-        --   "GRemove",
-        --   "GRename",
-        --   "Glgrep",
-        --   "Gedit"
-        -- },
-        -- ft = "fugitive"
     },
 
     {
@@ -328,9 +307,10 @@ local plugins = {
     },
 
     {
-        "anuvyklack/pretty-fold.nvim",
-        requires = "anuvyklack/nvim-keymap-amend",
-        config = [[require("plugins.configs.prettyfold")]],
+        "kevinhwang91/nvim-ufo",
+        requires = "kevinhwang91/promise-async",
+        config = [[require("plugins.configs.folds")]],
+        after = "nvim-lspconfig",
         event = "BufReadPost",
     },
 
@@ -496,10 +476,6 @@ local plugins = {
         "nvim-treesitter/nvim-treesitter",
         requires = {
             {
-                "nvim-treesitter/playground",
-                cmd = "TSPlaygroundToggle",
-            },
-            {
                 "p00f/nvim-ts-rainbow",
                 event = "BufReadPost",
             },
@@ -514,6 +490,19 @@ local plugins = {
             },
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
+                event = "BufReadPost",
+            },
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                event = "BufReadPost",
+            },
+            {
+                "nvim-treesitter/playground",
+                cmd = "TSPlaygroundToggle",
+            },
+            {
+                "lewis6991/spellsitter.nvim",
+                config = [[require("spellsitter").setup()]],
                 event = "BufReadPost",
             },
         },

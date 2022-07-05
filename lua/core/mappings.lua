@@ -1,14 +1,5 @@
 vim.g.mapleader = " "
 
--- Use the blackhole register
-for _, key in ipairs({ "x", "X" }) do
-    vim.keymap.set({ "n", "o" }, key, '"_' .. key)
-end
-
-for _, key in ipairs({ "c", "C" }) do
-    vim.keymap.set({ "x", "o" }, key, '"_' .. key)
-end
-
 local mappings = {}
 
 mappings.general = {
@@ -27,6 +18,17 @@ mappings.general = {
         ["<CR>"] = { ":nohlsearch<CR>", "Clear search" },
 
         ["<C-c>"] = { ":%y+<CR>", "Copy file contents" },
+
+        ["K"] = {
+            function()
+                require("ufo").peekFoldedLinesUnderCursor()
+
+                if not winid then
+                    vim.lsp.buf.hover()
+                end
+            end,
+            "Peek fold / Show info",
+        },
     },
 
     i = {
@@ -63,15 +65,15 @@ mappings.buffers = {
     },
 }
 
-mappings.comments = {
-    n = {
-        ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
-    },
-
-    v = {
-        ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
-    },
-}
+-- mappings.comments = {
+--     n = {
+--         ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
+--     },
+--
+--     v = {
+--         ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
+--     },
+-- }
 
 mappings.illuminate = {
     n = {
@@ -124,8 +126,6 @@ end
 
 mappings.hop = {
     n = {
-        ["K"] = { ":HopLineBC<CR>", "Hop up" },
-        ["J"] = { ":HopLineAC<CR>", "Hop down" },
         ["s"] = { ":HopChar2AC<CR>", "Hop 2-char forwards" },
         ["S"] = { ":HopChar2BC<CR>", "Hop 2-char backwards" },
         ["f"] = { ":HopChar1CurrentLineAC<CR>", "Hop 1-char forwards" },
@@ -201,24 +201,24 @@ mappings.session = {
 
 mappings.telescope = {
     n = {
-        ["<leader>ff"] = { ":Telescope find_files<CR>", "Find files" },
-        ["<leader>ft"] = { ":Telescope live_grep<CR>", "Find text" },
-        ["<leader>fr"] = { ":Telescope oldfiles<CR>", "Find recent files" },
-        ["<leader>fm"] = { ":Telescope marks<CR>", "Find marks" },
-        ["<leader>fd"] = { ":Telescope diagnostics bufnr=0<CR>", "Find buffer diagnostics" },
-        ["<leader>fD"] = { ":Telescope diagnostics<CR>", "Find workspace diagnostics" },
-        ["<leader>fs"] = { ":Telescope lsp_document_symbols<CR>", "Find buffer symbols" },
-        ["<leader>fb"] = { ":Telescope buffers<CR>", "Find buffers" },
-        ["<leader>fp"] = { ":Telescope projects<CR>", "Find projects" },
-        ["<leader>fk"] = { ":Telescope keymaps<CR>", "Find keymaps" },
+        ["<leader>ff"] = { "<CMD>Telescope find_files<CR>", "Find files" },
+        ["<leader>ft"] = { "<CMD>Telescope live_grep<CR>", "Find text" },
+        ["<leader>fr"] = { "<CMD>Telescope oldfiles<CR>", "Find recent files" },
+        ["<leader>fm"] = { "<CMD>Telescope marks<CR>", "Find marks" },
+        ["<leader>fd"] = { "<CMD>Telescope diagnostics bufnr=0<CR>", "Find buffer diagnostics" },
+        ["<leader>fD"] = { "<CMD>Telescope diagnostics<CR>", "Find workspace diagnostics" },
+        ["<leader>fs"] = { "<CMD>Telescope lsp_document_symbols<CR>", "Find buffer symbols" },
+        ["<leader>fb"] = { "<CMD>Telescope buffers<CR>", "Find buffers" },
+        ["<leader>fp"] = { "<CMD>Telescope projects<CR>", "Find projects" },
+        ["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", "Find keymaps" },
 
-        ["<leader>gs"] = { ":Telescope git_status<CR>", "Git status" },
-        ["<leader>gb"] = { ":Telescope git_branches<CR>", "Git branches" },
-        ["<leader>gc"] = { ":Telescope gitmoji theme=dropdown<CR>", "Git commit" },
+        ["<leader>gs"] = { "<CMD>Telescope git_status<CR>", "Git status" },
+        ["<leader>gb"] = { "<CMD>Telescope git_branches<CR>", "Git branches" },
+        ["<leader>gc"] = { "<CMD>Telescope gitmoji theme=dropdown<CR>", "Git commit" },
 
-        ["gd"] = { ":Telescope lsp_definitions<CR>", "Go to definition" },
-        ["gr"] = { ":Telescope lsp_references<CR>", "Go to references" },
-        ["gt"] = { ":Telescope lsp_type_definitions<CR>", "Go to type definitions" },
+        ["gd"] = { "<CMD>Telescope lsp_definitions<CR>", "Go to definition" },
+        ["gr"] = { "<CMD>Telescope lsp_references<CR>", "Go to references" },
+        ["gt"] = { "<CMD>Telescope lsp_type_definitions<CR>", "Go to type definitions" },
     },
 }
 

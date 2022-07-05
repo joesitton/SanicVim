@@ -65,12 +65,15 @@ o.wildignorecase = true
 o.wildmode = "list:longest,full"
 
 -- Folds
-o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldenable = true
+o.foldcolumn = "1"
+o.foldlevel = 99
 o.foldlevelstart = 999
+-- o.foldmethod = "expr"
+-- o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: "
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: "
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
