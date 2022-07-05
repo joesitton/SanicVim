@@ -33,7 +33,7 @@ o.shiftwidth = 2
 o.number = true
 o.numberwidth = 4
 o.relativenumber = false
-o.signcolumn = "auto"
+o.signcolumn = "yes:2"
 o.cursorline = true
 
 -- Scrolloffs
@@ -73,7 +73,7 @@ o.foldlevelstart = 999
 -- o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: "
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: "
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
@@ -82,7 +82,7 @@ o.pumheight = 12
 -- Statusline
 o.cmdheight = 1
 o.showmode = false
-o.laststatus = 3
+o.laststatus = 3 -- global statusline
 
 -- Backups
 o.backup = false

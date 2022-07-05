@@ -69,3 +69,12 @@ autocmd("FileType", {
         ol.spell = true
     end,
 })
+
+-- Auto close aerial
+-- autocmd("BufLeave", {
+--     group = augroup("auto_close_aerial", {}),
+--     pattern = "aerial",
+--     callback = function()
+--         cmd([[AerialClose]])
+--     end,
+-- })

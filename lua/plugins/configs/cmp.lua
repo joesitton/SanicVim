@@ -30,33 +30,7 @@ if ok then
     })
 end
 
-local symbol_map = {
-    Text = "   ",
-    Method = "   ",
-    Function = "   ",
-    Constructor = "   ",
-    Field = "   ",
-    Variable = "   ",
-    Class = "   ",
-    Interface = "   ",
-    Module = "   ",
-    Property = "   ",
-    Unit = "   ",
-    Value = "   ",
-    Enum = "   ",
-    Keyword = "   ",
-    Snippet = "   ",
-    Color = "   ",
-    File = "   ",
-    Reference = "   ",
-    Folder = "   ",
-    EnumMember = "   ",
-    Constant = "   ",
-    Struct = "   ",
-    Event = "   ",
-    Operator = "   ",
-    TypeParameter = "   ",
-}
+local symbol_map = require("core.symbols")
 
 local menu = {
     buffer = "Buffer",
@@ -176,6 +150,7 @@ cmp.setup({
     },
     sources = {
         { name = "nvim_lsp" },
+        { name = "nvim_lua" },
         { name = "path" },
         { name = "calc" },
         { name = "emoji" },

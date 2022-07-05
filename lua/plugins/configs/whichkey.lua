@@ -4,6 +4,7 @@ local mappings = require("core.mappings")
 local modes = {
     n = { mode = "n" },
     v = { mode = "v" },
+    x = { mode = "x" },
     o = { mode = "o" },
     i = { mode = "i" },
     t = { mode = "t" },
@@ -19,6 +20,21 @@ for mode, opt in pairs(modes) do
 end
 
 wk.setup({
+    plugins = {
+        marks = true,
+        registers = true,
+
+        presets = {
+            operators = false,
+            text_objects = false,
+            motions = false,
+            windows = false,
+            nav = false,
+            z = false,
+            g = false,
+        },
+    },
+
     icons = {
         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
         separator = "  ", -- symbol used between a key and it's label
@@ -36,7 +52,7 @@ wk.setup({
     },
 
     window = {
-        border = "rounded", -- none/single/double/shadow
+        border = "none", -- none/single/double/shadow
         margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
         padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
     },

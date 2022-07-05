@@ -27,6 +27,8 @@ telescope.setup({
             i = {
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
+                ["<S-Tab>"] = actions.move_selection_next,
+                ["<Tab>"] = actions.move_selection_previous,
                 ["<CR>"] = actions.select_default + actions.center,
                 ["<ESC>"] = actions.close,
             },
@@ -71,6 +73,9 @@ telescope.setup({
         },
     },
     extensions = {
+        aerial = {
+            show_nesting = true,
+        },
         fzf = {
             fuzzy = true,
             override_generic_sorter = true,

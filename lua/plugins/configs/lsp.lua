@@ -18,13 +18,23 @@ require("nvim-lsp-installer").setup()
 
 local lsp = require("lspconfig")
 
-local on_attach = function(client)
+local on_attach = function(client, bufnr)
     if client.name ~= "null-ls" then
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
     end
 
-    require("illuminate").on_attach(client)
+    local ok, illuminate = pcall(require, "illuminate")
+
+    if ok then
+        illuminate.on_attach(client)
+    end
+
+    local ok, aerial = pcall(require, "aerial")
+
+    if ok then
+        aerial.on_attach(client, bufnr)
+    end
 end
 
 local function client_is_configured(server_name, ft)

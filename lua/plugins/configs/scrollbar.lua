@@ -6,6 +6,7 @@ require("scrollbar").setup({
     },
     excluded_filetypes = {
         "alpha",
+        "aerial",
         "prompt",
         "TelescopePrompt",
         "NvimTree",

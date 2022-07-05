@@ -92,14 +92,11 @@ require("neo-tree").setup({
         use_libuv_file_watcher = true,
         window = {
             popup = {
-                position = { col = "0", row = "1" },
-                size = function(state)
-                    local root_name = vim.fn.fnamemodify(state.path, ":~")
-                    local root_len = string.len(root_name)
-
+                position = { col = 0, row = 1 },
+                size = function()
                     return {
-                        width = math.max(root_len, 50),
-                        height = vim.o.lines - 3,
+                        width = 40,
+                        height = vim.o.lines - 4,
                     }
                 end,
             },

@@ -19,6 +19,10 @@ require("nvim-treesitter.configs").setup({
     rainbow = {
         enable = true,
     },
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false, -- configured in configs.comments pre_hook
+    },
     textobjects = {
         enable = true,
         select = {
@@ -27,25 +31,21 @@ require("nvim-treesitter.configs").setup({
             keymaps = {
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
-                ["ab"] = "@block.outer",
-                ["ib"] = "@block.inner",
+                -- ["ab"] = "@block.outer",
+                -- ["ib"] = "@block.inner",
                 ["al"] = "@loop.outer",
                 ["il"] = "@loop.inner",
             },
         },
     },
-    incremental_selection = {
+    textsubjects = {
         enable = true,
+        prev_selection = ",",
         keymaps = {
-            init_selection = "gss",
-            node_incremental = "gsi",
-            -- scope_incremental = "",
-            node_decremental = "gsd",
+            ["."] = "textsubjects-smart",
+            -- [";"] = "textsubjects-container-outer",
+            -- ["i;"] = "textsubjects-container-inner",
         },
-    },
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
     },
 })
 

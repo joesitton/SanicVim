@@ -32,7 +32,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Repos/lush-base16",
+        "~/Github/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -133,6 +133,12 @@ local plugins = {
     },
 
     {
+        "ziontee113/icon-picker.nvim",
+        config = [[require("icon-picker")]],
+        cmd = { "PickIcons", "PickIconsInsert" },
+    },
+
+    {
         "nvim-telescope/telescope.nvim",
         requires = {
             {
@@ -159,7 +165,7 @@ local plugins = {
             {
                 "ahmedkhalf/project.nvim",
                 config = [[
-                    require("project_nvim").setup({ exclude_dirs = { "~/.local/*" } })
+                    require("project_nvim").setup({ exclude_dirs = { "~/.local/*" }})
                     require("telescope").load_extension("projects")
                 ]],
                 after = "telescope.nvim",
@@ -168,7 +174,7 @@ local plugins = {
                 "AckslD/nvim-neoclip.lua",
                 requires = "tami5/sqlite.lua",
                 config = [[
-                    require("neoclip").setup({enable_persistent_history = true })
+                    require("neoclip").setup({default_register = "+", enable_persistent_history = true, keys = { telescope = { i = { paste_behind = nil }}}} )
                     require("telescope").load_extension("neoclip")
                 ]],
                 after = "telescope.nvim",
@@ -209,7 +215,7 @@ local plugins = {
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
-        requires = { "MunifTanjim/nui.nvim" },
+        requires = { "MunifTanjim/nui.nvim", event = "UIEnter" },
         config = [[require("plugins.configs.tree")]],
         cmd = { "NeoTreeFloatToggle", "Neotree" },
     },
@@ -234,6 +240,18 @@ local plugins = {
     {
         "nvim-neotest/neotest",
         config = [[require("plugins.configs.test")]],
+    },
+
+    {
+        "stevearc/aerial.nvim",
+        requires = {
+            "stevearc/stickybuf.nvim",
+            config = [[require("stickybuf").setup()]],
+            event = "BufReadPost",
+        },
+        config = [[require("plugins.configs.aerial")]],
+        after = "telescope.nvim",
+        cmd = "AerialToggle",
     },
 
     -- }}}
@@ -317,7 +335,7 @@ local plugins = {
     {
         "stevearc/dressing.nvim",
         config = [[require("plugins.configs.dressing")]],
-        event = "VimEnter",
+        event = "UIEnter",
     },
 
     {
@@ -468,6 +486,12 @@ local plugins = {
         event = "BufReadPost",
     },
 
+    -- v0.8 only
+    -- {
+    --     "smjonas/inc-rename.nvim",
+    --     config = [[require("inc_rename").setup()]],
+    -- },
+
     -- }}}
 
     -- {{{ Treesitter
@@ -503,6 +527,15 @@ local plugins = {
             {
                 "lewis6991/spellsitter.nvim",
                 config = [[require("spellsitter").setup()]],
+                event = "BufReadPost",
+            },
+            {
+                "RRethy/nvim-treesitter-textsubjects",
+                event = "BufReadPost",
+            },
+            {
+                "ziontee113/syntax-tree-surfer",
+                config = [[require("syntax-tree-surfer").setup()]],
                 event = "BufReadPost",
             },
         },

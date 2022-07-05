@@ -15,16 +15,17 @@ mappings.general = {
         ["<C-k>"] = { "<C-w>k", "Focus window up" },
 
         ["<leader>w"] = { ":w<CR>", "Save file" },
+        ["<leader>x"] = { ":x<CR>", "Save and exit" },
         ["<CR>"] = { ":nohlsearch<CR>", "Clear search" },
 
-        ["<C-c>"] = { ":%y+<CR>", "Copy file contents" },
+        -- ["<C-c>"] = { ":%y+<CR>", "Copy file contents" },
 
         ["K"] = {
             function()
-                require("ufo").peekFoldedLinesUnderCursor()
+                local winid = require("ufo").peekFoldedLinesUnderCursor()
 
                 if not winid then
-                    vim.lsp.buf.hover()
+                    require("gitsigns").preview_hunk()
                 end
             end,
             "Peek fold / Show info",
@@ -65,27 +66,27 @@ mappings.buffers = {
     },
 }
 
--- mappings.comments = {
---     n = {
---         ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
---     },
---
---     v = {
---         ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
---     },
--- }
+mappings.comments = {
+    n = {
+        ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
+    },
+
+    v = {
+        ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
+    },
+}
 
 mappings.illuminate = {
     n = {
         ["<C-n>"] = {
             function()
-                return require("illuminate").next_reference({ wrap = true })
+                require("illuminate").next_reference({ wrap = true })
             end,
             "Next variable occurrence",
         },
         ["<C-p>"] = {
             function()
-                return require("illuminate").next_reference({ wrap = true, reverse = true })
+                require("illuminate").next_reference({ wrap = true, reverse = true })
             end,
             "Previous variable occurrence",
         },
@@ -105,24 +106,23 @@ mappings.terminal = {
 mappings.tree = {
     n = {
         ["\\"] = { ":NeoTreeFloatToggle<CR>", "Toggle tree" },
-        ["g\\"] = { ":Neotree reveal toggle git_status", "Git status" },
+        ["g\\"] = { ":Neotree reveal toggle git_status<CR>", "Git status" },
     },
 }
 
-mappings.test = {
+mappings.git = {
     n = {
-        ["]t"] = { "<Plug>(ultest-next-fail)", "Next failed test" },
-        ["[t"] = { "<Plug>(ultest-prev-fail)", "Previous failed test" },
+        ["]g"] = { ":Gitsigns next_hunk<CR>", "Next git hunk" },
+        ["[g"] = { ":Gitsigns prev_hunk<CR>", "Previous git hunk" },
     },
 }
 
-local function HopChar1Inc(direction)
-    return require("hop").hint_char1({
-        direction = require("hop.hint").HintDirection[direction],
-        inclusive_jump = true,
-        current_line_only = true,
-    })
-end
+-- mappings.test = {
+--     n = {
+--         ["]t"] = { "<Plug>(ultest-next-fail)", "Next failed test" },
+--         ["[t"] = { "<Plug>(ultest-prev-fail)", "Previous failed test" },
+--     },
+-- }
 
 mappings.hop = {
     n = {
@@ -130,25 +130,23 @@ mappings.hop = {
         ["S"] = { ":HopChar2BC<CR>", "Hop 2-char backwards" },
         ["f"] = { ":HopChar1CurrentLineAC<CR>", "Hop 1-char forwards" },
         ["F"] = { ":HopChar1CurrentLineBC<CR>", "Hop 1-char backwards" },
-        ["t"] = {
-            function()
-                return HopChar1Inc("AFTER_CURSOR")
-            end,
-            "hop after 1-char forwards",
-        },
-        ["T"] = {
-            function()
-                return HopChar1Inc("BEFORE_CURSOR")
-            end,
-            "Hop after 1-char backwards",
-        },
     },
 
     o = {
         ["K"] = { ":HopLineBC<CR>", "Hop up" },
         ["J"] = { ":HopLineAC<CR>", "Hop down" },
-        ["f"] = { ":HopChar1CurrentLineAC<CR>", "Hop 1-char forwards" },
-        ["F"] = { ":HopChar1CurrentLineBC<CR>", "Hop 1-char backwards" },
+        ["f"] = {
+            function()
+                require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR })
+            end,
+            "Hop 1-char forwards",
+        },
+        ["F"] = {
+            function()
+                require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR })
+            end,
+            "Hop 1-char backwards",
+        },
     },
 
     v = {
@@ -164,18 +162,6 @@ mappings.hop = {
             end,
             "Hop 1-char backwards",
         },
-        ["t"] = {
-            function()
-                return HopChar1Inc("AFTER_CURSOR")
-            end,
-            "Hop after 1-char forwards",
-        },
-        ["T"] = {
-            function()
-                return HopChar1Inc("BEFORE_CURSOR")
-            end,
-            "Hop after 1-char backwards",
-        },
     },
 }
 
@@ -184,7 +170,7 @@ mappings.lsp = {
         ["]d"] = { ":lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
         ["[d"] = { ":lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
         ["<leader>ca"] = { ":lua vim.lsp.buf.code_action()<CR>", "Code action" },
-        ["<leader>rn"] = { ":lua vim.lsp.buf.rename()<CR>", "Rename variable" },
+        -- ["<leader>rn"] = { ":lua require('inc_rename').rename()<CR>", "Rename variable" },
     },
 
     v = {
@@ -207,10 +193,11 @@ mappings.telescope = {
         ["<leader>fm"] = { "<CMD>Telescope marks<CR>", "Find marks" },
         ["<leader>fd"] = { "<CMD>Telescope diagnostics bufnr=0<CR>", "Find buffer diagnostics" },
         ["<leader>fD"] = { "<CMD>Telescope diagnostics<CR>", "Find workspace diagnostics" },
-        ["<leader>fs"] = { "<CMD>Telescope lsp_document_symbols<CR>", "Find buffer symbols" },
+        ["<leader>fs"] = { "<CMD>Telescope aerial<CR>", "Find buffer symbols" },
         ["<leader>fb"] = { "<CMD>Telescope buffers<CR>", "Find buffers" },
         ["<leader>fp"] = { "<CMD>Telescope projects<CR>", "Find projects" },
         ["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", "Find keymaps" },
+        ["<leader>fy"] = { "<CMD>Telescope neoclip<CR>", "Find yanks" },
 
         ["<leader>gs"] = { "<CMD>Telescope git_status<CR>", "Git status" },
         ["<leader>gb"] = { "<CMD>Telescope git_branches<CR>", "Git branches" },
@@ -235,12 +222,60 @@ mappings.hlslens = {
     },
 }
 
--- mappings.copilot = {
---     i = {
---         ["<C-J>"] = { "<expr> copilot#Accept('\\<CR>')", "Accept copilot suggestion" },
---         ["<C-]>"] = { "<Plug>(copilot-next)", "Next copilot suggestion" },
---         ["<C-[>"] = { "<Plug>(copilot-previous)", "Previous copilot suggestion" },
+-- mappings.aerial = {
+--     n = {
+--         ["a\\"] = { ":AerialToggle float<CR>", "Toggle aerial" },
 --     },
 -- }
+
+mappings.icons = {
+    n = {
+        ["<C-i>"] = { "<CMD>PickIcons<CR>", "Pick icon" },
+    },
+
+    i = {
+        ["<C-i>"] = { "<CMD>PickIconsInsert<CR>", "Pick icon" },
+    },
+}
+
+mappings.surfer = {
+    n = {
+        ["vx"] = { ":STSSelectMasterNode<CR>", "Select main node" },
+        ["vn"] = { ":STSSelectCurrentNode<CR>", "Select node" },
+        ["[e"] = {
+            function()
+                vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+                return "g@l"
+            end,
+            "Swap node with sibling upwards",
+            expr = true,
+        },
+        ["]e"] = {
+            function()
+                vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+                return "g@l"
+            end,
+            "Swap node with sibling downwards",
+            expr = true,
+        },
+    },
+
+    -- v = {
+    --     ["]e"] = {
+    --         function()
+    --             require("syntax-tree-surfer").surf("next", "visual", true)
+    --         end,
+    --         "Swap node with next sibling",
+    --         -- expr = true,
+    --     },
+    --     ["[e"] = {
+    --         function()
+    --             require("syntax-tree-surfer").surf("prev", "visual", true)
+    --         end,
+    --         "Swap node with previous sibling",
+    --         -- expr = true,
+    --     },
+    -- },
+}
 
 return mappings

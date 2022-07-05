@@ -12,8 +12,7 @@ local modules = {
 }
 
 for _, module in ipairs(modules) do
-    ---@diagnostic disable-next-line: lowercase-global
-    ok, err = pcall(require, module)
+    local ok, err = pcall(require, module)
 
     if not ok then
         error("Error loading " .. module .. "\n\n" .. err)
