@@ -33,7 +33,7 @@ o.shiftwidth = 2
 o.number = true
 o.numberwidth = 4
 o.relativenumber = false
-o.signcolumn = "yes:2"
+o.signcolumn = "auto:1-2"
 o.cursorline = true
 
 -- Scrolloffs
@@ -115,7 +115,7 @@ g.neovide_remember_window_size = true
 -- Signs
 local set_sign = vim.fn.sign_define
 
-set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+set_sign("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+set_sign("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+set_sign("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+set_sign("DiagnosticSignHint", { text = " ", texthl = "DiagnosticSignHint" })

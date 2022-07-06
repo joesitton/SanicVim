@@ -11,9 +11,11 @@ local modes = {
 }
 
 for mode, opt in pairs(modes) do
-    for _, value in pairs(mappings) do
+    for category, value in pairs(mappings) do
         if value[mode] then
             local mode_opts = value["mode_opts"] and vim.tbl_deep_extend("force", opt, value["mode_opts"]) or opt
+            mode_opts.name = category
+
             wk.register(value[mode], mode_opts)
         end
     end

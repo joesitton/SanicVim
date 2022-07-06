@@ -22,7 +22,7 @@ require("aerial").setup({
         override = function(conf)
             conf.row = 0
             conf.col = vim.o.columns
-            conf.height = vim.fn.winheight(0) + 1
+            conf.height = vim.fn.winheight(0) + 2
             conf.width = 40
         end,
     },

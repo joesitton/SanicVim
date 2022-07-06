@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Repos/lush-base16",
+        "~/nvim-plugins/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -134,7 +134,7 @@ local plugins = {
     {
         "ziontee113/icon-picker.nvim",
         config = [[require("icon-picker")]],
-        cmd = { "PickIcons", "PickIconsInsert" },
+        cmd = { "PickEverything", "PickEverythingInsert" },
     },
 
     {
@@ -271,6 +271,11 @@ local plugins = {
 
     {
         "feline-nvim/feline.nvim",
+        requires = {
+            "SmiteshP/nvim-navic",
+            event = "BufReadPost",
+        },
+        after = "lush.nvim",
         config = [[require("plugins.configs.feline")]],
         event = "VimEnter",
     },
@@ -376,10 +381,10 @@ local plugins = {
                 "hrsh7th/cmp-calc",
                 event = "InsertEnter",
             },
-            {
-                "hrsh7th/cmp-emoji",
-                event = "InsertEnter",
-            },
+            -- {
+            --     "hrsh7th/cmp-emoji",
+            --     event = "InsertEnter",
+            -- },
             {
                 "hrsh7th/cmp-path",
                 event = { "InsertEnter", "CmdlineEnter" },

@@ -9,7 +9,7 @@ vim.diagnostic.config({
         header = false,
         border = "rounded",
         severity_sort = true,
-        source = "always",
+        source = "if_many",
         focusable = false,
     },
 })
@@ -27,13 +27,19 @@ local on_attach = function(client, bufnr)
     local ok, illuminate = pcall(require, "illuminate")
 
     if ok then
-        illuminate.on_attach(client)
+        illuminate.on_attach(client, bufnr)
     end
 
     local ok, aerial = pcall(require, "aerial")
 
     if ok then
         aerial.on_attach(client, bufnr)
+    end
+
+    local ok, navic = pcall(require, "nvim-navic")
+
+    if ok then
+        navic.attach(client, bufnr)
     end
 end
 
@@ -58,16 +64,16 @@ local function setup_server(name)
     local is_avail, server = require("nvim-lsp-installer.servers").get_server(name)
 
     if is_avail then
-        if not server:is_installed() then
-            local msg = name .. " is not installed!"
-            local ok, noti = pcall(require, "notify")
-
-            if ok then
-                noti.notify(msg, "error")
-            else
-                vim.notify(msg, "error")
-            end
-        end
+        -- if not server:is_installed() then
+        --     local msg = name .. " is not installed!"
+        --     local ok, noti = pcall(require, "notify")
+        --
+        --     if ok then
+        --         noti.notify(msg, "error")
+        --     else
+        --         vim.notify(msg, "error")
+        --     end
+        -- end
 
         local settings = {}
 

@@ -18,6 +18,7 @@ return {
     File = "   ",
     Reference = "   ",
     Folder = "   ",
+    Null = "   ",
     EnumMember = "   ",
     Constant = "   ",
     Struct = "   ",

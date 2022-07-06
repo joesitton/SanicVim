@@ -96,7 +96,7 @@ require("neo-tree").setup({
                 size = function()
                     return {
                         width = 40,
-                        height = vim.o.lines - 4,
+                        height = vim.o.lines - 3,
                     }
                 end,
             },

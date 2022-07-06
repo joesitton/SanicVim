@@ -4,7 +4,7 @@ require("bufferline").setup({
     tabpages = true,
     closable = true,
     clickable = true,
-    exclude_ft = {},
+    exclude_ft = { "alpha" },
     exclude_name = {},
     icons = true,
     icon_custom_colors = false,

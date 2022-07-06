@@ -230,11 +230,11 @@ mappings.search = {
 
 mappings.iconpicker = {
     n = {
-        ["<C-i>"] = { "<CMD>PickIcons<CR>", "Pick icon" },
+        ["<C-i>"] = { "<CMD>PickEverything<CR>", "Pick icon" },
     },
 
     i = {
-        ["<C-i>"] = { "<CMD>PickIconsInsert<CR>", "Pick icon" },
+        ["<C-i>"] = { "<CMD>PickEverythingInsert<CR>", "Pick icon" },
     },
 }
 

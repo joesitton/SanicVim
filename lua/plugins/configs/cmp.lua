@@ -116,7 +116,6 @@ cmp.setup({
         end,
     },
     mapping = {
-        -- ["<ESC>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<C-Space>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
