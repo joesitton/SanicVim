@@ -1,4 +1,3 @@
-local vi_mode = require("feline.providers.vi_mode")
 local colors = require("lush_theme.colors")
 
 for k, v in pairs(colors) do
@@ -10,80 +9,34 @@ local components = {
 }
 
 table.insert(components.active[1], {
-    provider = function()
-        return vi_mode.get_vim_mode()
-    end,
+    provider = " ",
     hl = function()
         return {
-            bg = vi_mode.get_mode_color(),
+            bg = require("feline.providers.vi_mode").get_mode_color(),
             fg = colors.black,
             style = "bold",
         }
     end,
-    left_sep = "block",
-    right_sep = { "right_rounded", " " },
 })
 
 table.insert(components.active[1], {
     provider = {
         name = "file_info",
         opts = {
-            type = "unique",
+            type = "unique-short",
             file_modified_icon = "•",
             file_readonly_icon = " ",
-            colored_icon = false,
+            colored_icon = true,
         },
     },
     hl = function()
         return {
-            bg = colors.purple,
-            fg = colors.black,
+            bg = colors.bg,
+            fg = colors.fg,
         }
     end,
-    left_sep = {
-        {
-            str = "left_rounded",
-            hl = {
-                fg = colors.purple,
-            },
-        },
-    },
-    right_sep = {
-        {
-            str = "right_rounded",
-            hl = {
-                fg = colors.purple,
-                bg = colors.dark_purple,
-            },
-        },
-    },
-})
-
-table.insert(components.active[1], {
-    provider = {
-        name = "file_size",
-    },
-    hl = function()
-        return {
-            fg = colors.white,
-            bg = colors.dark_purple,
-        }
-    end,
-    left_sep = {
-        str = " ",
-        hl = {
-            bg = colors.dark_purple,
-        },
-    },
-    right_sep = {
-        {
-            str = "right_rounded",
-            hl = {
-                fg = colors.dark_purple,
-            },
-        },
-        " ",
-    },
+    left_sep = "block",
+    right_sep = "block",
 })
 
 table.insert(components.active[1], {
@@ -92,17 +45,24 @@ table.insert(components.active[1], {
     },
     hl = function()
         return {
-            bg = colors.blue,
-            fg = colors.black,
+            fg = colors.purple,
         }
     end,
-    left_sep = "left_rounded",
-    right_sep = {
+    left_sep = {
         {
-            str = "right_rounded",
+            str = "right",
             hl = {
-                fg = colors.blue,
-                bg = colors.dark_blue,
+                fg = colors.dark_white,
+            },
+        },
+        "block",
+    },
+    right_sep = {
+        "block",
+        {
+            str = "right",
+            hl = {
+                fg = colors.dark_white,
             },
         },
     },
@@ -115,7 +75,6 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.green,
-            bg = colors.dark_blue,
         }
     end,
 })
@@ -127,7 +86,6 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.red,
-            bg = colors.dark_blue,
         }
     end,
 })
@@ -139,47 +97,22 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.blue,
-            bg = colors.dark_blue,
         }
     end,
-})
-
-table.insert(components.active[1], {
-    provider = " ",
-    left_sep = {
-        {
-            str = "right_rounded",
-            hl = {
-                fg = colors.dark_blue,
-            },
-        },
-    },
 })
 
 -- Right side
 
 table.insert(components.active[3], {
-    provider = " ",
-    right_sep = {
-        {
-            str = "left_rounded",
-            hl = {
-                fg = colors.dark_orange,
-            },
-        },
-    },
-})
-
-table.insert(components.active[3], {
     provider = {
         name = "diagnostic_errors",
     },
-    hl = function()
-        return {
-            fg = colors.red,
-            bg = colors.dark_orange,
-        }
-    end,
+    -- hl = function()
+    --     return {
+    --         fg = colors.red,
+    --         bg = colors.dark_orange,
+    --     }
+    -- end,
     right_sep = "block",
 })
 
@@ -187,12 +120,12 @@ table.insert(components.active[3], {
     provider = {
         name = "diagnostic_warnings",
     },
-    hl = function()
-        return {
-            fg = colors.yellow,
-            bg = colors.dark_orange,
-        }
-    end,
+    -- hl = function()
+    --     return {
+    --         fg = colors.yellow,
+    --         bg = colors.dark_orange,
+    --     }
+    -- end,
     right_sep = "block",
 })
 
@@ -200,12 +133,12 @@ table.insert(components.active[3], {
     provider = {
         name = "diagnostic_info",
     },
-    hl = function()
-        return {
-            fg = colors.white,
-            bg = colors.dark_orange,
-        }
-    end,
+    -- hl = function()
+    --     return {
+    --         fg = colors.white,
+    --         bg = colors.dark_orange,
+    --     }
+    -- end,
     right_sep = "block",
 })
 
@@ -213,54 +146,51 @@ table.insert(components.active[3], {
     provider = {
         name = "diagnostic_hints",
     },
-    hl = function()
-        return {
-            fg = colors.blue,
-            bg = colors.dark_orange,
-        }
-    end,
+    -- hl = function()
+    --     return {
+    --         fg = colors.blue,
+    --         bg = colors.dark_orange,
+    --     }
+    -- end,
     right_sep = "block",
 })
-
--- table.insert(components.active[3], {
---     provider = {
---         name = "file_type",
---     },
---     hl = function()
---         return {
---             fg = colors.black,
---             bg = colors.orange,
---         }
---     end,
---     left_sep = {
---         {
---             str = "left_rounded",
---             hl = {
---                 fg = colors.orange,
---                 bg = colors.dark_orange,
---             },
---         },
---     },
---     right_sep = "block",
--- })
 
 table.insert(components.active[3], {
     provider = {
         name = "lsp_client_names",
     },
+    -- hl = function()
+    --     return {
+    --         fg = colors.black,
+    --         bg = colors.orange,
+    --     }
+    -- end,
+    left_sep = {},
+})
+
+table.insert(components.active[3], {
+    provider = {
+        name = "file_type",
+        opts = {
+            filetype_icon = true,
+            case = "lowercase",
+        },
+    },
     hl = function()
         return {
-            fg = colors.black,
-            bg = colors.orange,
+            bg = colors.bg,
         }
     end,
     left_sep = {
-        str = "left_rounded",
-        hl = {
-            fg = colors.orange,
-            bg = colors.dark_orange,
+        {
+            str = "left",
+            hl = {
+                bg = colors.dark_white,
+            },
         },
+        "block",
     },
+    right_sep = "block",
 })
 
 components.inactive = components.active
@@ -268,4 +198,17 @@ components.inactive = components.active
 require("feline").setup({
     theme = colors,
     components = components,
+    vi_mode_colors = {
+        NORMAL = colors.blue,
+        OP = colors.purple,
+        INSERT = colors.green,
+        VISUAL = colors.orange,
+        LINES = colors.orange,
+        BLOCK = colors.orange,
+        REPLACE = colors.red,
+        ["V-REPLACE"] = colors.red,
+        COMMAND = colors.purple,
+        SHELL = colors.green,
+        TERM = colors.green,
+    },
 })

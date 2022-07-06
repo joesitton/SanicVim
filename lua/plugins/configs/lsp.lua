@@ -58,9 +58,16 @@ local function setup_server(name)
     local is_avail, server = require("nvim-lsp-installer.servers").get_server(name)
 
     if is_avail then
-        -- if not server:is_installed() then
-        --     error(name .. " is not installed!")
-        -- end
+        if not server:is_installed() then
+            local msg = name .. " is not installed!"
+            local ok, noti = pcall(require, "notify")
+
+            if ok then
+                noti.notify(msg, "error")
+            else
+                vim.notify(msg, "error")
+            end
+        end
 
         local settings = {}
 

@@ -106,7 +106,7 @@ cmp.setup({
             -- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
         },
         documentation = {
-            --     border = "rounded",
+            -- border = "rounded",
             winhighlight = "Normal:Pmenu",
         },
     },
@@ -153,14 +153,13 @@ cmp.setup({
         { name = "nvim_lua" },
         { name = "path" },
         { name = "calc" },
-        { name = "emoji" },
+        -- { name = "emoji" },
         -- { name = "buffer" },
-        { name = "treesitter" },
+        -- { name = "treesitter" },
         { name = "latex_symbols" },
         { name = "luasnip" },
-        { name = "nvim_lua" },
-        { name = "nvim_lsp_signature_help" },
         { name = "cmp_tabnine" },
+        { name = "nvim_lsp_signature_help" },
         -- { name = "copilot" },
     },
     sorting = {
@@ -199,6 +198,9 @@ for _, cmdtype in ipairs({ "?", "/" }) do
                     additional_arguments = "--smart-case",
                     only_current_buffer = true,
                 },
+            },
+            {
+                name = "nvim_lsp_document_symbol",
             },
         }),
     })

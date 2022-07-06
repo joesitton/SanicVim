@@ -69,8 +69,6 @@ o.foldenable = true
 o.foldcolumn = "1"
 o.foldlevel = 99
 o.foldlevelstart = 999
--- o.foldmethod = "expr"
--- o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
 o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: "
@@ -82,7 +80,7 @@ o.pumheight = 12
 -- Statusline
 o.cmdheight = 1
 o.showmode = false
-o.laststatus = 3 -- global statusline
+o.laststatus = 3
 
 -- Backups
 o.backup = false

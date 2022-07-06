@@ -209,7 +209,7 @@ mappings.telescope = {
     },
 }
 
-mappings.hlslens = {
+mappings.search = {
     n = {
         ["n"] = {
             "<CMD>execute('normal! ' . v:count1 . 'n')<CR><CMD>lua require('hlslens').start()<CR>",
@@ -228,7 +228,7 @@ mappings.hlslens = {
 --     },
 -- }
 
-mappings.icons = {
+mappings.iconpicker = {
     n = {
         ["<C-i>"] = { "<CMD>PickIcons<CR>", "Pick icon" },
     },
@@ -238,44 +238,44 @@ mappings.icons = {
     },
 }
 
-mappings.surfer = {
-    n = {
-        ["vx"] = { ":STSSelectMasterNode<CR>", "Select main node" },
-        ["vn"] = { ":STSSelectCurrentNode<CR>", "Select node" },
-        ["[e"] = {
-            function()
-                vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
-                return "g@l"
-            end,
-            "Swap node with sibling upwards",
-            expr = true,
-        },
-        ["]e"] = {
-            function()
-                vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
-                return "g@l"
-            end,
-            "Swap node with sibling downwards",
-            expr = true,
-        },
-    },
-
-    -- v = {
-    --     ["]e"] = {
-    --         function()
-    --             require("syntax-tree-surfer").surf("next", "visual", true)
-    --         end,
-    --         "Swap node with next sibling",
-    --         -- expr = true,
-    --     },
-    --     ["[e"] = {
-    --         function()
-    --             require("syntax-tree-surfer").surf("prev", "visual", true)
-    --         end,
-    --         "Swap node with previous sibling",
-    --         -- expr = true,
-    --     },
-    -- },
-}
+-- mappings.surfer = {
+--     n = {
+--         ["vx"] = { ":STSSelectMasterNode<CR>", "Select main node" },
+--         ["vn"] = { ":STSSelectCurrentNode<CR>", "Select node" },
+--         ["[e"] = {
+--             function()
+--                 vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+--                 return "g@l"
+--             end,
+--             "Swap node with sibling upwards",
+--             expr = true,
+--         },
+--         ["]e"] = {
+--             function()
+--                 vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+--                 return "g@l"
+--             end,
+--             "Swap node with sibling downwards",
+--             expr = true,
+--         },
+--     },
+--
+--     -- v = {
+--     --     ["]e"] = {
+--     --         function()
+--     --             require("syntax-tree-surfer").surf("next", "visual", true)
+--     --         end,
+--     --         "Swap node with next sibling",
+--     --         -- expr = true,
+--     --     },
+--     --     ["[e"] = {
+--     --         function()
+--     --             require("syntax-tree-surfer").surf("prev", "visual", true)
+--     --         end,
+--     --         "Swap node with previous sibling",
+--     --         -- expr = true,
+--     --     },
+--     -- },
+-- }
 
 return mappings

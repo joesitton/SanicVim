@@ -24,7 +24,6 @@ local plugins = {
     {
         "rcarriga/nvim-notify",
         config = [[require("notify").setup({background_colour = "#181818" })]],
-        event = "VimEnter",
     },
 
     -- }}}
@@ -32,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Github/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -389,17 +388,17 @@ local plugins = {
                 "hrsh7th/cmp-cmdline",
                 event = { "InsertEnter", "CmdlineEnter" },
             },
-            {
-                "hrsh7th/cmp-buffer",
-                event = "InsertEnter",
-            },
+            -- {
+            --     "hrsh7th/cmp-buffer",
+            --     event = "InsertEnter",
+            -- },
             {
                 "hrsh7th/cmp-nvim-lua",
                 event = "InsertEnter",
             },
             {
                 "hrsh7th/cmp-nvim-lsp-document-symbol",
-                event = "InsertEnter",
+                event = { "InsertEnter", "CmdlineEnter" },
             },
             {
                 "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -429,11 +428,11 @@ local plugins = {
                 config = [[require("luasnip/loaders/from_vscode").lazy_load()]],
                 event = "InsertEnter",
             },
-            {
-                "ray-x/cmp-treesitter",
-                after = "nvim-treesitter",
-                event = "InsertEnter",
-            },
+            -- {
+            --     "ray-x/cmp-treesitter",
+            --     after = "nvim-treesitter",
+            --     event = "InsertEnter",
+            -- },
             {
                 "petertriho/cmp-git",
                 ft = "gitcommit",
@@ -533,11 +532,11 @@ local plugins = {
                 "RRethy/nvim-treesitter-textsubjects",
                 event = "BufReadPost",
             },
-            {
-                "ziontee113/syntax-tree-surfer",
-                config = [[require("syntax-tree-surfer").setup()]],
-                event = "BufReadPost",
-            },
+            -- {
+            --     "ziontee113/syntax-tree-surfer",
+            --     config = [[require("syntax-tree-surfer").setup()]],
+            --     event = "BufReadPost",
+            -- },
         },
         run = ":silent! TSUpdate",
         config = [[require("plugins.configs.treesitter")]],
