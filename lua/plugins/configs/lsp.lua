@@ -20,8 +20,8 @@ local lsp = require("lspconfig")
 
 local on_attach = function(client, bufnr)
     if client.name ~= "null-ls" then
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        -- client.resolved_capabilities.document_formatting = false
+        -- client.resolved_capabilities.document_range_formatting = false
     end
 
     local ok, illuminate = pcall(require, "illuminate")

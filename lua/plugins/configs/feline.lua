@@ -8,6 +8,7 @@ for k, v in pairs(colors) do
     colors[k] = v.hex
 end
 
+local feline = require("feline")
 local vi_mode = require("feline.providers.vi_mode")
 local navic = require("nvim-navic")
 
@@ -62,78 +63,6 @@ table.insert(components.active[1], {
             colored_icon = true,
         },
     },
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    left_sep = "block",
-    -- right_sep = {
-    --     {
-    --         str = "slant_right_thin",
-    --         hl = function()
-    --             return {
-    --                 fg = get_mode_color().color,
-    --                 bg = get_mode_color().darker,
-    --             }
-    --         end,
-    --     },
-    -- },
-})
-
-table.insert(components.active[1], {
-    provider = " ",
-    enabled = function()
-        return navic.get_location() ~= ""
-    end,
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    right_sep = {
-        {
-            str = "slant_right_thin",
-            hl = function()
-                return {
-                    fg = get_mode_color().color,
-                    bg = get_mode_color().darker,
-                }
-            end,
-        },
-    },
-})
-
-table.insert(components.active[1], {
-    provider = " ",
-    enabled = function()
-        return navic.get_location() == ""
-    end,
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    right_sep = {
-        {
-            str = "slant_right",
-            hl = function()
-                return {
-                    fg = get_mode_color().darker,
-                    bg = get_mode_color().even_darker,
-                }
-            end,
-        },
-    },
-})
-
-table.insert(components.active[1], {
-    provider = function()
-        return navic.get_location({ icons = require("core.symbols"), separator = "  " })
-    end,
-    enabled = function()
-        return navic.is_available()
-    end,
     hl = function()
         return {
             bg = get_mode_color().darker,
@@ -301,6 +230,19 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
+-- table.insert(components.active[3], {
+--     provider = "file_encoding",
+--     hl = function()
+--         return {
+--             bg = get_mode_color().darker,
+--         }
+--     end,
+--     left_sep = { "block" },
+--     right_sep = {
+--         "block",
+--     },
+-- })
+
 table.insert(components.active[3], {
     provider = function()
         return "  " .. vim.o.shiftwidth
@@ -338,8 +280,28 @@ table.insert(components.active[3], {
 
 components.inactive = components.active
 
-require("feline").setup({
+feline.setup({
     theme = colors,
     components = components,
     vi_mode_colors = vi_mode_colors,
 })
+
+if vim.fn.has("nvim-0.8") then
+    feline.winbar.setup({
+        force_inactive = {"alpha", "help"},
+        components = {
+            active = {
+                {{
+                    provider = function()
+                        return navic.get_location({
+                            icons = require("core.symbols"),
+                            highlight = true,
+                            separator = "  ",
+                        })
+                    end,
+                }},
+            },
+            inactive = {}
+        },
+    })
+end

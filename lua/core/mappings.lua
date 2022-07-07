@@ -233,9 +233,9 @@ mappings.iconpicker = {
         ["<C-i>"] = { "<CMD>PickEverything<CR>", "Pick icon" },
     },
 
-    i = {
-        ["<C-i>"] = { "<CMD>PickEverythingInsert<CR>", "Pick icon" },
-    },
+    -- i = {
+    --     ["<C-i>"] = { "<CMD>PickEverythingInsert<CR>", "Pick icon" },
+    -- },
 }
 
 -- mappings.surfer = {

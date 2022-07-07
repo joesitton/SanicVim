@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/nvim-plugins/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -473,16 +473,16 @@ local plugins = {
         {
             "neovim/nvim-lspconfig",
             config = [[require("plugins.configs.lsp")]],
-            after = { "null-ls.nvim", "cmp-nvim-lsp", "nvim-lsp-installer" },
+            after = { "cmp-nvim-lsp", "nvim-lsp-installer" },
             event = "BufReadPost",
         },
     },
 
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = [[require("plugins.configs.null-ls")]],
-        event = "BufReadPost",
-    },
+    -- {
+    --     "jose-elias-alvarez/null-ls.nvim",
+    --     config = [[require("plugins.configs.null-ls")]],
+    --     event = "BufReadPost",
+    -- },
 
     {
         "j-hui/fidget.nvim",
