@@ -2,7 +2,7 @@ local colors = require("lush_theme.colors")
 
 colors.fg = colors.white
 colors.bg = colors.black
-colors.gray = colors.white.darken(30)
+colors.gray = colors.white.darken(20)
 
 for k, v in pairs(colors) do
     colors[k] = v.hex
@@ -58,7 +58,7 @@ table.insert(components.active[1], {
         opts = {
             type = "unique-short",
             file_modified_icon = "",
-            file_readonly_icon = " ",
+            file_readonly_icon = "🔒 ",
             colored_icon = true,
         },
     },
@@ -278,7 +278,6 @@ table.insert(components.active[3], {
     provider = {
         name = "file_type",
         opts = {
-            filetype_icon = true,
             case = "lowercase",
         },
     },
@@ -303,22 +302,31 @@ table.insert(components.active[3], {
 })
 
 table.insert(components.active[3], {
-    provider = {
-        name = "position",
-    },
+    provider = function()
+        return "  " .. vim.o.shiftwidth
+    end,
     hl = function()
         return {
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = "block",
-    right_sep = "block",
+    left_sep = { "block" },
+    right_sep = {
+        "block",
+        {
+            str = "slant_left_thin",
+            hl = function()
+                return {
+                    fg = get_mode_color().color,
+                    bg = get_mode_color().darker,
+                }
+            end,
+        },
+    },
 })
 
 table.insert(components.active[3], {
-    provider = function()
-        return "  " .. vim.o.shiftwidth
-    end,
+    provider = "position",
     hl = function()
         return {
             bg = get_mode_color().darker,
