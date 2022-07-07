@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/nvim-plugins/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -275,7 +275,7 @@ local plugins = {
             "SmiteshP/nvim-navic",
             event = "BufReadPost",
         },
-        after = "lush.nvim",
+        after = "lush-base16",
         config = [[require("plugins.configs.feline")]],
         event = "VimEnter",
     },

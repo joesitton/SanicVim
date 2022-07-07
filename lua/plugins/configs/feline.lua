@@ -3,13 +3,14 @@ local colors = require("lush_theme.colors")
 colors.fg = colors.white
 colors.bg = colors.black
 colors.gray = colors.white.darken(20)
+-- colors.light_black = colors.black.lighten(8)
 
 for k, v in pairs(colors) do
     colors[k] = v.hex
 end
 
 local vi_mode = require("feline.providers.vi_mode")
-local navic = require("nvim-navic")
+-- local navic = require("nvim-navic")
 
 local vi_mode_colors = {
     NORMAL = colors.blue,
@@ -62,78 +63,6 @@ table.insert(components.active[1], {
             colored_icon = true,
         },
     },
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    left_sep = "block",
-    -- right_sep = {
-    --     {
-    --         str = "slant_right_thin",
-    --         hl = function()
-    --             return {
-    --                 fg = get_mode_color().color,
-    --                 bg = get_mode_color().darker,
-    --             }
-    --         end,
-    --     },
-    -- },
-})
-
-table.insert(components.active[1], {
-    provider = " ",
-    enabled = function()
-        return navic.get_location() ~= ""
-    end,
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    right_sep = {
-        {
-            str = "slant_right_thin",
-            hl = function()
-                return {
-                    fg = get_mode_color().color,
-                    bg = get_mode_color().darker,
-                }
-            end,
-        },
-    },
-})
-
-table.insert(components.active[1], {
-    provider = " ",
-    enabled = function()
-        return navic.get_location() == ""
-    end,
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    right_sep = {
-        {
-            str = "slant_right",
-            hl = function()
-                return {
-                    fg = get_mode_color().darker,
-                    bg = get_mode_color().even_darker,
-                }
-            end,
-        },
-    },
-})
-
-table.insert(components.active[1], {
-    provider = function()
-        return navic.get_location({ icons = require("core.symbols"), separator = "  " })
-    end,
-    enabled = function()
-        return navic.is_available()
-    end,
     hl = function()
         return {
             bg = get_mode_color().darker,
@@ -204,10 +133,7 @@ table.insert(components.active[1], {
             bg = get_mode_color().even_darker,
         }
     end,
-    -- NOTE: no right_sep so the background fills
 })
-
--- Right side
 
 table.insert(components.active[3], {
     provider = {
@@ -261,18 +187,18 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
-table.insert(components.active[3], {
-    provider = {
-        name = "lsp_client_names",
-    },
-    hl = function()
-        return {
-            fg = colors.gray,
-            bg = get_mode_color().even_darker,
-        }
-    end,
-    right_sep = "block",
-})
+-- table.insert(components.active[3], {
+--     provider = {
+--         name = "lsp_client_names",
+--     },
+--     hl = function()
+--         return {
+--             fg = colors.gray,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+--     right_sep = "block",
+-- })
 
 table.insert(components.active[3], {
     provider = {
@@ -300,6 +226,40 @@ table.insert(components.active[3], {
     },
     right_sep = "block",
 })
+
+-- table.insert(components.active[3], {
+--     provider = function()
+--         return navic.get_location({ icons = require("core.symbols"), highlight = true, separator = " " })
+--     end,
+--     enabled = function()
+--         return navic.is_available()
+--     end,
+--     hl = {
+--         bg = colors.light_black,
+--     },
+--     left_sep = {
+--         {
+--             str = "slant_left",
+--             hl = function()
+--                 return {
+--                     fg = colors.light_black,
+--                     bg = get_mode_color().even_darker,
+--                 }
+--             end,
+--         },
+--         "block",
+--         {
+--             str = " ",
+--             hl = function()
+--                 return {
+--                     fg = colors.gray,
+--                     bg = colors.light_black,
+--                 }
+--             end,
+--         },
+--     },
+--     right_sep = "block",
+-- })
 
 table.insert(components.active[3], {
     provider = function()
