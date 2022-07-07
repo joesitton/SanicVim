@@ -35,8 +35,8 @@ local function get_mode_color()
 
     return {
         color = color,
-        darker = dim(color, 75),
-        even_darker = dim(color, 85),
+        darker = dim(color, 70),
+        even_darker = dim(color, 80),
     }
 end
 
