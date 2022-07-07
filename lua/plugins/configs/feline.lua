@@ -187,28 +187,51 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
--- table.insert(components.active[3], {
---     provider = {
---         name = "lsp_client_names",
---     },
---     hl = function()
---         return {
---             fg = colors.gray,
---             bg = get_mode_color().even_darker,
---         }
---     end,
---     right_sep = "block",
--- })
+table.insert(components.active[3], {
+    provider = " ",
+    enabled = function()
+        local severity = vim.diagnostic.severity
+        local diagnostics_exist = require("feline.providers.lsp").diagnostics_exist
+
+        return diagnostics_exist(severity.ERROR)
+            or diagnostics_exist(severity.WARN)
+            or diagnostics_exist(severity.INFO)
+            or diagnostics_exist(severity.HINT)
+    end,
+    hl = function()
+        return {
+            bg = get_mode_color().even_darker,
+        }
+    end,
+    left_sep = {
+        str = "slant_left_thin",
+        hl = function()
+            return {
+                fg = get_mode_color().color,
+                bg = get_mode_color().even_darker,
+            }
+        end,
+    },
+})
 
 table.insert(components.active[3], {
     provider = {
-        name = "file_type",
-        opts = {
-            case = "lowercase",
-        },
+        name = "lsp_client_names",
     },
     hl = function()
         return {
+            fg = colors.gray,
+            bg = get_mode_color().even_darker,
+        }
+    end,
+    right_sep = "block",
+})
+
+table.insert(components.active[3], {
+    provider = " ",
+    hl = function()
+        return {
+            fg = get_mode_color().darker,
             bg = get_mode_color().darker,
         }
     end,
@@ -222,9 +245,22 @@ table.insert(components.active[3], {
                 }
             end,
         },
-        "block",
     },
-    right_sep = "block",
+})
+
+table.insert(components.active[3], {
+    provider = {
+        name = "file_type",
+        opts = {
+            case = "lowercase",
+        },
+    },
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
+    right_sep = { "block", "block" },
 })
 
 -- table.insert(components.active[3], {
@@ -270,7 +306,6 @@ table.insert(components.active[3], {
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = { "block" },
     right_sep = {
         "block",
         {

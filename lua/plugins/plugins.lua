@@ -171,9 +171,9 @@ local plugins = {
             },
             {
                 "AckslD/nvim-neoclip.lua",
-                requires = "tami5/sqlite.lua",
+                requires = "kkharji/sqlite.lua",
                 config = [[
-                    require("neoclip").setup({default_register = "+", enable_persistent_history = true, keys = { telescope = { i = { paste_behind = nil }}}} )
+                    require("neoclip").setup({default_register = "+", enable_persistent_history = true, keys = { telescope = { i = { paste_behind = nil }}}})
                     require("telescope").load_extension("neoclip")
                 ]],
                 after = "telescope.nvim",
