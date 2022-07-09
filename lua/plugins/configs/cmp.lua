@@ -59,7 +59,9 @@ local luasnip = require("luasnip")
 
 cmp.setup({
     enabled = function()
-        if vim.bo.filetype == "TelescopePrompt" then
+        local ft = vim.bo.filetype
+
+        if ft == "TelescopePrompt" or ft == "neo-tree-popup" then
             return false
         end
 
