@@ -1,3 +1,1 @@
-1. bufferpick highlights
-2. bufferline white bar
-3. undo tree?
+1. undo tree?

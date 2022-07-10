@@ -35,8 +35,8 @@ local function get_mode_color()
 
     return {
         color = color,
-        darker = dim(color, 70),
-        even_darker = dim(color, 80),
+        darker = dim(color, 72),
+        even_darker = dim(color, 82),
     }
 end
 
@@ -53,35 +53,35 @@ table.insert(components.active[1], {
     end,
 })
 
-table.insert(components.active[1], {
-    provider = {
-        name = "file_info",
-        opts = {
-            type = "unique-short",
-            file_modified_icon = "",
-            file_readonly_icon = "🔒 ",
-            colored_icon = true,
-        },
-    },
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    left_sep = "block",
-    right_sep = {
-        "block",
-        {
-            str = "slant_right",
-            hl = function()
-                return {
-                    fg = get_mode_color().darker,
-                    bg = get_mode_color().even_darker,
-                }
-            end,
-        },
-    },
-})
+-- table.insert(components.active[1], {
+--     provider = {
+--         name = "file_info",
+--         opts = {
+--             type = "unique-short",
+--             file_modified_icon = "",
+--             file_readonly_icon = "🔒 ",
+--             colored_icon = true,
+--         },
+--     },
+--     hl = function()
+--         return {
+--             bg = get_mode_color().darker,
+--         }
+--     end,
+--     left_sep = "block",
+--     right_sep = {
+--         "block",
+--         {
+--             str = "slant_right",
+--             hl = function()
+--                 return {
+--                     fg = get_mode_color().darker,
+--                     bg = get_mode_color().even_darker,
+--                 }
+--             end,
+--         },
+--     },
+-- })
 
 table.insert(components.active[1], {
     provider = {
@@ -90,11 +90,22 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.purple,
-            bg = get_mode_color().even_darker,
+            bg = get_mode_color().darker,
         }
     end,
     left_sep = "block",
-    right_sep = "block",
+    right_sep = {
+        "block",
+        {
+            str = "slant_right_thin",
+            hl = function()
+                return {
+                    fg = get_mode_color().color,
+                    bg = get_mode_color().darker,
+                }
+            end,
+        },
+    },
 })
 
 table.insert(components.active[1], {
@@ -104,7 +115,7 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.green,
-            bg = get_mode_color().even_darker,
+            bg = get_mode_color().darker,
         }
     end,
     right_sep = "block",
@@ -117,7 +128,7 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.red,
-            bg = get_mode_color().even_darker,
+            bg = get_mode_color().darker,
         }
     end,
     right_sep = "block",
@@ -130,12 +141,30 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.blue,
-            bg = get_mode_color().even_darker,
+            bg = get_mode_color().darker,
         }
     end,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[1], {
+    provider = " ",
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
+    right_sep = {
+        str = "slant_right",
+        hl = function()
+            return {
+                fg = get_mode_color().darker,
+                bg = get_mode_color().even_darker,
+            }
+        end,
+    },
+})
+
+table.insert(components.active[1], {
     provider = {
         name = "diagnostic_errors",
     },
@@ -148,7 +177,7 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[1], {
     provider = {
         name = "diagnostic_warnings",
     },
@@ -161,7 +190,7 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[1], {
     provider = {
         name = "diagnostic_info",
     },
@@ -174,7 +203,7 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[1], {
     provider = {
         name = "diagnostic_hints",
     },
@@ -184,35 +213,34 @@ table.insert(components.active[3], {
             bg = get_mode_color().even_darker,
         }
     end,
-    right_sep = "block",
 })
 
-table.insert(components.active[3], {
-    provider = " ",
-    enabled = function()
-        local severity = vim.diagnostic.severity
-        local diagnostics_exist = require("feline.providers.lsp").diagnostics_exist
-
-        return diagnostics_exist(severity.ERROR)
-            or diagnostics_exist(severity.WARN)
-            or diagnostics_exist(severity.INFO)
-            or diagnostics_exist(severity.HINT)
-    end,
-    hl = function()
-        return {
-            bg = get_mode_color().even_darker,
-        }
-    end,
-    left_sep = {
-        str = "slant_left_thin",
-        hl = function()
-            return {
-                fg = get_mode_color().color,
-                bg = get_mode_color().even_darker,
-            }
-        end,
-    },
-})
+-- table.insert(components.active[3], {
+--     provider = " ",
+--     enabled = function()
+--         local severity = vim.diagnostic.severity
+--         local diagnostics_exist = require("feline.providers.lsp").diagnostics_exist
+--
+--         return diagnostics_exist(severity.ERROR)
+--             or diagnostics_exist(severity.WARN)
+--             or diagnostics_exist(severity.INFO)
+--             or diagnostics_exist(severity.HINT)
+--     end,
+--     hl = function()
+--         return {
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+--     left_sep = {
+--         str = "slant_left_thin",
+--         hl = function()
+--             return {
+--                 fg = get_mode_color().color,
+--                 bg = get_mode_color().even_darker,
+--             }
+--         end,
+--     },
+-- })
 
 table.insert(components.active[3], {
     provider = {

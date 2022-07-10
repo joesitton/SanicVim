@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/Repos/lush-base16",
+        "~/nvim-plugins/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -178,8 +178,27 @@ local plugins = {
                 ]],
                 after = "telescope.nvim",
             },
+            {
+                "ThePrimeagen/harpoon",
+                config = [[
+                    require("harpoon").setup({})
+                    require("telescope").load_extension("harpoon")
+                ]],
+                after = "telescope.nvim",
+            },
+            {
+                "rmagatti/session-lens",
+                config = [[
+                    require("session-lens").setup({})
+                    require("telescope").load_extension("session-lens")
+                ]],
+                after = "telescope.nvim",
+            },
         },
-        config = [[require("plugins.configs.telescope")]],
+        config = [[
+            require("plugins.configs.telescope")
+            require("telescope").load_extension("notify")
+        ]],
         event = "VimEnter",
     },
 
@@ -190,6 +209,7 @@ local plugins = {
 
     {
         "phaazon/hop.nvim",
+        branch = "v2",
         config = [[require("plugins.configs.hop")]],
         event = "BufReadPost",
     },

@@ -3,12 +3,12 @@ require("Comment").setup({
         line = "<C-/>",
     },
     opleader = {
-        line = "cc",
+        line = "gc",
     },
     extra = {
-        above = "ccO",
-        below = "cco",
-        eol = "ccA",
+        above = "gcO",
+        below = "gco",
+        eol = "gcA",
     },
     pre_hook = function(ctx)
         local U = require("Comment.utils")

@@ -71,10 +71,12 @@ autocmd("FileType", {
 })
 
 -- Auto close aerial
--- autocmd("BufLeave", {
+-- autocmd("BufWinLeave", {
 --     group = augroup("auto_close_aerial", {}),
---     pattern = "aerial",
+--     pattern = "*",
 --     callback = function()
---         cmd([[AerialClose]])
+--         if vim.fn.expand("<afile>"):match("aerial") then
+--             cmd([[AerialClose]])
+--         end
 --     end,
 -- })

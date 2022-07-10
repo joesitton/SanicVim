@@ -87,7 +87,7 @@ o.backup = false
 o.writebackup = false
 
 -- Session
-o.sessionoptions = "blank,buffers,curdir,folds,help,winpos"
+o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 
 -- GUI
 o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"

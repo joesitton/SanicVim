@@ -9,11 +9,12 @@ dashboard.section.header.val = {
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button("r", "  Restore session", ":silent! RestoreSession<CR>"),
+    dashboard.button("SPC f S", "  Find session", ":Telescope session-lens search_session<CR>"),
     dashboard.button("SPC f f", "  Find file", ":Telescope fd<CR>"),
     dashboard.button("SPC f r", "  Find recent", ":Telescope oldfiles<CR>"),
     dashboard.button("SPC f t", "  Find text", ":Telescope live_grep<CR>"),
     dashboard.button("SPC f p", "  Find project", ":Telescope projects<CR>"),
-    dashboard.button("SPC f m", "  Find marks", ":Telescope marks<CR>"),
+    dashboard.button("SPC f m", "  Find marks", ":Telescope harpoon marks<CR>"),
     dashboard.button("e", "  New file", ":ene<CR>"),
     -- dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),

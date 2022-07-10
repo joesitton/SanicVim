@@ -23,9 +23,8 @@ end
 
 wk.setup({
     plugins = {
-        marks = true,
-        registers = true,
-
+        marks = false,
+        registers = false,
         presets = {
             operators = false,
             text_objects = false,

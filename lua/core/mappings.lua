@@ -8,6 +8,10 @@ mappings.general = {
         ["j"] = { "gj", "Go down" },
         ["Q"] = { "@q", "Q register" },
         ["'"] = { "`", "Jump to mark" },
+        ["c"] = { '"_c', "Change" },
+        ["C"] = { '"_C', "Change" },
+        ["x"] = { '"_x', "Delete" },
+        ["X"] = { '"_X', "Delete" },
 
         ["<C-h>"] = { "<C-w>h", "Focus window left" },
         ["<C-l>"] = { "<C-w>l", "Focus window right" },
@@ -30,6 +34,13 @@ mappings.general = {
             end,
             "Peek fold / Show info",
         },
+    },
+
+    o = {
+        ["c"] = { '"_c', "Change" },
+        ["C"] = { '"_C', "Change" },
+        ["x"] = { '"_x', "Delete" },
+        ["X"] = { '"_X', "Delete" },
     },
 
     i = {
@@ -55,14 +66,14 @@ mappings.general = {
 
 mappings.buffers = {
     n = {
-        ["]b"] = { ":BufferNext<CR>", "Next buffer" },
-        ["[b"] = { ":BufferPrevious<CR>", "Previous buffer" },
-        ["<leader>bd"] = { ":BufferClose<CR>", "Delete buffer" },
-        ["<leader>bD"] = { ":BufferWipeout!<CR>", "Wipe buffer" },
-        ["<leader>bp"] = { ":BufferPin<CR>", "Pin buffer" },
-        ["<C-Left>"] = { ":BufferMovePrevious<CR>", "Move buffer left" },
-        ["<C-Right>"] = { ":BufferMoveNext<CR>", "Move buffer right" },
-        ["<leader>pb"] = { ":BufferPick<CR>", "Pick buffer" },
+        ["]b"] = { "<CMD>BufferNext<CR>", "Next buffer" },
+        ["[b"] = { "<CMD>BufferPrevious<CR>", "Previous buffer" },
+        ["<leader>bd"] = { "<CMD>BufferClose<CR>", "Delete buffer" },
+        ["<leader>bD"] = { "<CMD>BufferWipeout!<CR>", "Wipe buffer" },
+        ["<leader>bp"] = { "<CMD>BufferPin<CR>", "Pin buffer" },
+        ["<C-Left>"] = { "<CMD>BufferMovePrevious<CR>", "Move buffer left" },
+        ["<C-Right>"] = { "<CMD>BufferMoveNext<CR>", "Move buffer right" },
+        ["<leader>pb"] = { "<CMD>BufferPick<CR>", "Pick buffer" },
     },
 }
 
@@ -105,15 +116,15 @@ mappings.terminal = {
 
 mappings.tree = {
     n = {
-        ["\\"] = { ":NeoTreeFloatToggle<CR>", "Toggle tree" },
-        ["g\\"] = { ":Neotree reveal toggle git_status<CR>", "Git status" },
+        ["\\"] = { "<CMD>NeoTreeFloatToggle<CR>", "Toggle tree" },
+        ["g\\"] = { "<CMD>Neotree reveal toggle git_status<CR>", "Git status" },
     },
 }
 
 mappings.git = {
     n = {
-        ["]g"] = { ":Gitsigns next_hunk<CR>", "Next git hunk" },
-        ["[g"] = { ":Gitsigns prev_hunk<CR>", "Previous git hunk" },
+        ["]g"] = { "<CMD>Gitsigns next_hunk<CR>", "Next git hunk" },
+        ["[g"] = { "<CMD>Gitsigns prev_hunk<CR>", "Previous git hunk" },
     },
 }
 
@@ -124,44 +135,145 @@ mappings.git = {
 --     },
 -- }
 
+local hop_dirs = {
+    AFTER = require("hop.hint").HintDirection.AFTER_CURSOR,
+    BEFORE = require("hop.hint").HintDirection.BEFORE_CURSOR,
+}
+
 mappings.hop = {
     n = {
-        ["s"] = { ":HopChar2AC<CR>", "Hop 2-char forwards" },
-        ["S"] = { ":HopChar2BC<CR>", "Hop 2-char backwards" },
-        ["f"] = { ":HopChar1CurrentLineAC<CR>", "Hop 1-char forwards" },
-        ["F"] = { ":HopChar1CurrentLineBC<CR>", "Hop 1-char backwards" },
+        ["f"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true })
+            end,
+            "Hop 1-char forwards",
+        },
+        ["F"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true })
+            end,
+            "Hop 1-char backwards",
+        },
+        ["t"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = -1 })
+            end,
+            "Hop 1-char forwards",
+        },
+        ["T"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = 1 })
+            end,
+            "Hop 1-char backwards",
+        },
+        ["s"] = {
+            function()
+                require("hop").hint_char2({ direction = hop_dirs.AFTER })
+            end,
+            "Hop 2-char forwards",
+        },
+        ["S"] = {
+            function()
+                require("hop").hint_char2({ direction = hop_dirs.BEFORE })
+            end,
+            "Hop 2-char backwards",
+        },
+        ["W"] = { "<CMD>HopWordCurrentLineAC<CR>", "Hop forwards to word" },
+        ["B"] = { "<CMD>HopWordCurrentLineBC<CR>", "Hop backwards to word" },
     },
 
     o = {
-        ["K"] = { ":HopLineBC<CR>", "Hop up" },
-        ["J"] = { ":HopLineAC<CR>", "Hop down" },
         ["f"] = {
             function()
-                require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR })
+                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = 1 })
             end,
             "Hop 1-char forwards",
         },
         ["F"] = {
             function()
-                require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR })
+                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = -1 })
             end,
             "Hop 1-char backwards",
         },
+        ["t"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = -1 })
+            end,
+            "Hop 1-char forwards",
+        },
+        ["T"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = 1 })
+            end,
+            "Hop 1-char backwards",
+        },
+        ["s"] = {
+            function()
+                require("hop").hint_char2({ direction = hop_dirs.AFTER })
+            end,
+            "Hop 2-char forwards",
+        },
+        ["S"] = {
+            function()
+                require("hop").hint_char2({ direction = hop_dirs.BEFORE })
+            end,
+            "Hop 2-char backwards",
+        },
+        ["W"] = { "<CMD>HopWordCurrentLineAC<CR>", "Hop forwards to word" },
+        ["B"] = { "<CMD>HopWordCurrentLineBC<CR>", "Hop backwards to word" },
     },
 
-    v = {
-        ["f"] = {
+    -- v = {
+    --     ["f"] = {
+    --         function()
+    --             require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true })
+    --         end,
+    --         "Hop 1-char forwards",
+    --     },
+    --     ["F"] = {
+    --         function()
+    --             require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true })
+    --         end,
+    --         "Hop 1-char backwards",
+    --     },
+    --     ["t"] = {
+    --         function()
+    --             require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = -1 })
+    --         end,
+    --         "Hop 1-char forwards",
+    --     },
+    --     ["T"] = {
+    --         function()
+    --             require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = -1 })
+    --         end,
+    --         "Hop 1-char backwards",
+    --     },
+    --     ["s"] = {
+    --         function()
+    --             require("hop").hint_char2({ direction = hop_dirs.AFTER })
+    --         end,
+    --         "Hop 2-char forwards",
+    --     },
+    --     ["S"] = {
+    --         function()
+    --             require("hop").hint_char2({ direction = hop_dirs.BEFORE })
+    --         end,
+    --         "Hop 2-char backwards",
+    --     },
+    -- },
+}
+
+mappings.harpoon = {
+    n = {
+        ["<leader>h"] = {
             function()
-                require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR })
+                require("harpoon.mark").add_file()
+                vim.notify("Added file to harpoon list")
             end,
-            "Hop 1-char forwards",
+            "Add harpoon to file",
         },
-        ["F"] = {
-            function()
-                require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR })
-            end,
-            "Hop 1-char backwards",
-        },
+        ["]h"] = { ":lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
+        ["[h"] = { ":lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
     },
 }
 
@@ -180,8 +292,8 @@ mappings.lsp = {
 
 mappings.session = {
     n = {
-        ["<leader>ss"] = { ":SaveSession<CR>", "Save session" },
-        ["<leader>ds"] = { ":DeleteSession<CR>", "Delete session" },
+        ["<leader>ss"] = { "<CMD>SaveSession<CR>", "Save session" },
+        ["<leader>ds"] = { "<CMD>DeleteSession<CR>", "Delete session" },
     },
 }
 
@@ -190,14 +302,16 @@ mappings.telescope = {
         ["<leader>ff"] = { "<CMD>Telescope find_files<CR>", "Find files" },
         ["<leader>ft"] = { "<CMD>Telescope live_grep<CR>", "Find text" },
         ["<leader>fr"] = { "<CMD>Telescope oldfiles<CR>", "Find recent files" },
-        ["<leader>fm"] = { "<CMD>Telescope marks<CR>", "Find marks" },
+        ["<leader>fm"] = { "<CMD>Telescope harpoon marks<CR>", "Find marks" },
         ["<leader>fd"] = { "<CMD>Telescope diagnostics bufnr=0<CR>", "Find buffer diagnostics" },
         ["<leader>fD"] = { "<CMD>Telescope diagnostics<CR>", "Find workspace diagnostics" },
         ["<leader>fs"] = { "<CMD>Telescope aerial<CR>", "Find buffer symbols" },
         ["<leader>fb"] = { "<CMD>Telescope buffers<CR>", "Find buffers" },
-        ["<leader>fp"] = { "<CMD>Telescope projects<CR>", "Find projects" },
+        ["<leader>fp"] = { "<CMD>Telescope projects theme=dropdown<CR>", "Find projects" },
         ["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", "Find keymaps" },
         ["<leader>fy"] = { "<CMD>Telescope neoclip<CR>", "Find yanks" },
+        ["<leader>fn"] = { "<CMD>Telescope notify<CR>", "Find notifications" },
+        ["<leader>fS"] = { "<CMD>Telescope session-lens search_session<CR>", "Find sessions" },
 
         ["<leader>gs"] = { "<CMD>Telescope git_status<CR>", "Git status" },
         ["<leader>gb"] = { "<CMD>Telescope git_branches<CR>", "Git branches" },
@@ -205,7 +319,6 @@ mappings.telescope = {
 
         ["gd"] = { "<CMD>Telescope lsp_definitions<CR>", "Go to definition" },
         ["gr"] = { "<CMD>Telescope lsp_references<CR>", "Go to references" },
-        ["gt"] = { "<CMD>Telescope lsp_type_definitions<CR>", "Go to type definitions" },
     },
 }
 

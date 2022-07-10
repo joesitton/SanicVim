@@ -7,22 +7,22 @@ require("diffview").setup({
     icons = { folder_closed = "", folder_open = "" },
     signs = { fold_closed = "", fold_open = "" },
     file_panel = {
-        position = "left",
-        width = 30,
+        -- position = "left",
+        -- width = 30,
         listing_style = "tree",
         tree_options = { flatten_dirs = true, folder_statuses = "only_folded" },
     },
     file_history_panel = {
-        position = "bottom",
+        -- position = "bottom",
         height = 12,
-        log_options = {
-            max_count = 256,
-            follow = false,
-            all = false,
-            merges = false,
-            no_merges = false,
-            reverse = false,
-        },
+        -- log_options = {
+        --     max_count = 256,
+        --     follow = false,
+        --     all = false,
+        --     merges = false,
+        --     no_merges = false,
+        --     reverse = false,
+        -- },
     },
     default_args = { DiffviewOpen = {}, DiffviewFileHistory = {} },
     hooks = {
