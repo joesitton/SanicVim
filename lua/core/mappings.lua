@@ -13,6 +13,8 @@ mappings.general = {
         ["x"] = { '"_x', "Delete" },
         ["X"] = { '"_X', "Delete" },
 
+        ["<F2>"] = { "<CMD>ZenMode<CR>", "Zen mode" },
+
         ["<C-h>"] = { "<C-w>h", "Focus window left" },
         ["<C-l>"] = { "<C-w>l", "Focus window right" },
         ["<C-j>"] = { "<C-w>j", "Focus window down" },

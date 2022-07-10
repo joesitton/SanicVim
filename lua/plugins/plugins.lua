@@ -189,7 +189,7 @@ local plugins = {
             {
                 "rmagatti/session-lens",
                 config = [[
-                    require("session-lens").setup({ theme_conf = { winblend = 0 } })
+                    require("session-lens").setup({ theme_conf = { winblend = 0 }, promt_title = "Sessions" })
                     require("telescope").load_extension("session-lens")
                 ]],
                 after = "telescope.nvim",
@@ -367,7 +367,6 @@ local plugins = {
 
     {
         "folke/zen-mode.nvim",
-        setup = vim.keymap.set("n", "<F2>", ":ZenMode<CR>"),
         config = [[require("plugins.configs.zenmode")]],
         cmd = "ZenMode",
     },
@@ -387,7 +386,6 @@ local plugins = {
     {
         "kevinhwang91/nvim-hlslens",
         config = [[require("plugins.configs.hlslens")]],
-        after = "nvim-scrollbar",
         keys = { "/", "?", "*", "#", "n", "N" },
     },
 
