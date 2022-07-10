@@ -2,7 +2,7 @@ require("zen-mode").setup({
     window = {
         backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
         width = 0.75, -- width of the Zen window
-        height = 0.9, -- height of the Zen window
+        height = 0.95, -- height of the Zen window
         options = {},
     },
     plugins = {

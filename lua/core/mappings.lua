@@ -50,7 +50,7 @@ mappings.general = {
             end,
             "Undo",
         },
-        ["<C-y>"] = {
+        ["<C-S-z>"] = {
             function()
                 return vim.cmd([[ redo ]])
             end,
@@ -106,11 +106,11 @@ mappings.illuminate = {
 
 mappings.terminal = {
     n = {
-        ["<F1>"] = { "<Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
+        ["<F1>"] = { "<CMD>exe v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
     },
 
     t = {
-        ["<F1>"] = { "<Cmd>exe v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
+        ["<F1>"] = { "<CMD>exe v:count1 . 'ToggleTerm'<CR>", "Toggle terminal" },
     },
 }
 
@@ -272,21 +272,21 @@ mappings.harpoon = {
             end,
             "Add harpoon to file",
         },
-        ["]h"] = { ":lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
-        ["[h"] = { ":lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
+        ["]h"] = { "<CMD>lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
+        ["[h"] = { "<CMD>lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
     },
 }
 
 mappings.lsp = {
     n = {
-        ["]d"] = { ":lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
-        ["[d"] = { ":lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
-        ["<leader>ca"] = { ":lua vim.lsp.buf.code_action()<CR>", "Code action" },
-        -- ["<leader>rn"] = { ":lua require('inc_rename').rename()<CR>", "Rename variable" },
+        ["]d"] = { "<CMD>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
+        ["[d"] = { "<CMD>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
+        ["<leader>ca"] = { "<CMD>lua vim.lsp.buf.code_action()<CR>", "Code action" },
+        -- ["<leader>rn"] = { "<CMD>lua require('inc_rename').rename()<CR>", "Rename variable" },
     },
 
     v = {
-        ["<leader>ca"] = { ":lua vim.lsp.buf.code_action()<CR>", "Code action" },
+        ["<leader>ca"] = { "<CMD>lua vim.lsp.buf.code_action()<CR>", "Code action" },
     },
 }
 
@@ -332,6 +332,8 @@ mappings.search = {
             "<CMD>execute('normal! ' . v:count1 . 'N')<CR><CMD>lua require('hlslens').start()<CR>",
             "Previous match",
         },
+        ["*"] = { "*<CMD>lua require('hlslens').start()<CR>", "Next match" },
+        ["#"] = { "#<CMD>lua require('hlslens').start()<CR>", "Previous match" },
     },
 }
 

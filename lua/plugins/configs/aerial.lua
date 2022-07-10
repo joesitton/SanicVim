@@ -27,5 +27,3 @@ require("aerial").setup({
         end,
     },
 })
-
-require("telescope").load_extension("aerial")

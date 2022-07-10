@@ -1,25 +1,4 @@
 local wk = require("which-key")
-local mappings = require("core.mappings")
-
-local modes = {
-    n = { mode = "n" },
-    v = { mode = "v" },
-    x = { mode = "x" },
-    o = { mode = "o" },
-    i = { mode = "i" },
-    t = { mode = "t" },
-}
-
-for mode, opt in pairs(modes) do
-    for category, value in pairs(mappings) do
-        if value[mode] then
-            local mode_opts = value["mode_opts"] and vim.tbl_deep_extend("force", opt, value["mode_opts"]) or opt
-            mode_opts.name = category
-
-            wk.register(value[mode], mode_opts)
-        end
-    end
-end
 
 wk.setup({
     plugins = {
@@ -71,3 +50,25 @@ wk.setup({
         v = { "j", "k" },
     },
 })
+
+local mappings = require("core.mappings")
+
+local modes = {
+    n = { mode = "n" },
+    v = { mode = "v" },
+    x = { mode = "x" },
+    o = { mode = "o" },
+    i = { mode = "i" },
+    t = { mode = "t" },
+}
+
+for mode, opt in pairs(modes) do
+    for category, value in pairs(mappings) do
+        if value[mode] then
+            local mode_opts = value["mode_opts"] and vim.tbl_deep_extend("force", opt, value["mode_opts"]) or opt
+            mode_opts.name = category
+
+            wk.register(value[mode], mode_opts)
+        end
+    end
+end

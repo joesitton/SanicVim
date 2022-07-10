@@ -75,7 +75,7 @@ o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep:
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
-o.pumheight = 12
+o.pumheight = 18
 
 -- Statusline
 o.cmdheight = 1
@@ -104,6 +104,7 @@ o.lazyredraw = true
 o.wrap = false
 o.shortmess:append("sI")
 o.whichwrap:append("<>[]hl")
+o.iskeyword:remove({ "_" })
 
 -- Virtualenv
 g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"

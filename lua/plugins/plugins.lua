@@ -263,12 +263,10 @@ local plugins = {
 
     {
         "stevearc/aerial.nvim",
-        requires = {
-            "stevearc/stickybuf.nvim",
-            config = [[require("stickybuf").setup()]],
-            event = "BufReadPost",
-        },
-        config = [[require("plugins.configs.aerial")]],
+        config = [[
+            require("plugins.configs.aerial")
+            require("telescope").load_extension("aerial")
+        ]],
         after = "telescope.nvim",
         cmd = "AerialToggle",
     },
@@ -382,8 +380,15 @@ local plugins = {
 
     {
         "petertriho/nvim-scrollbar",
-        requires = { "kevinhwang91/nvim-hlslens", keys = { "/", "?" } },
         config = [[require("plugins.configs.scrollbar")]],
+        event = "BufReadPost",
+    },
+
+    {
+        "kevinhwang91/nvim-hlslens",
+        config = [[require("plugins.configs.hlslens")]],
+        after = "nvim-scrollbar",
+        keys = { "/", "?", "*", "#", "n", "N" },
     },
 
     -- }}}

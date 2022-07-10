@@ -117,7 +117,6 @@ table.insert(components.active[1], {
             bg = get_mode_color().darker,
         }
     end,
-    right_sep = "block",
 })
 
 table.insert(components.active[1], {
@@ -130,7 +129,6 @@ table.insert(components.active[1], {
             bg = get_mode_color().darker,
         }
     end,
-    right_sep = "block",
 })
 
 table.insert(components.active[1], {
@@ -173,7 +171,6 @@ table.insert(components.active[1], {
             bg = get_mode_color().even_darker,
         }
     end,
-    right_sep = "block",
 })
 
 table.insert(components.active[1], {
@@ -186,7 +183,6 @@ table.insert(components.active[1], {
             bg = get_mode_color().even_darker,
         }
     end,
-    right_sep = "block",
 })
 
 table.insert(components.active[1], {
@@ -199,7 +195,6 @@ table.insert(components.active[1], {
             bg = get_mode_color().even_darker,
         }
     end,
-    right_sep = "block",
 })
 
 table.insert(components.active[1], {
