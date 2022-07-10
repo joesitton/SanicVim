@@ -52,6 +52,43 @@ table.insert(components.active[1], {
     end,
 })
 
+table.insert(components.active[1], {
+    provider = " ",
+    enabled = function()
+        return vim.bo.readonly
+    end,
+    hl = function()
+        return {
+            fg = colors.orange,
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = "block",
+    right_sep = {
+        str = "slant_right_thin",
+        hl = function()
+            return {
+                fg = get_mode_color().color,
+                bg = get_mode_color().darker,
+            }
+        end,
+    },
+})
+
+table.insert(components.active[1], {
+    provider = function()
+        return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(0), ":~")
+    end,
+    hl = function()
+        return {
+            fg = colors.fg,
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = "block",
+    -- right_sep = "block",
+})
+
 -- table.insert(components.active[1], {
 --     provider = {
 --         name = "file_info",
@@ -92,7 +129,19 @@ table.insert(components.active[1], {
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = "block",
+    left_sep = {
+        "block",
+        {
+            str = "slant_right_thin",
+            hl = function()
+                return {
+                    fg = get_mode_color().color,
+                    bg = get_mode_color().darker,
+                }
+            end,
+        },
+        "block",
+    },
     right_sep = {
         "block",
         {
@@ -208,6 +257,21 @@ table.insert(components.active[1], {
         }
     end,
 })
+
+-- local luasnip = require("luasnip")
+
+-- table.insert(components.active[1], {
+--     provider = " ",
+--     enabled = function()
+--         return luasnip.expand_or_jumpable()
+--     end,
+--     hl = function()
+--         return {
+--             fg = colors.white,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+-- })
 
 -- table.insert(components.active[3], {
 --     provider = " ",
@@ -328,6 +392,38 @@ table.insert(components.active[3], {
             bg = get_mode_color().darker,
         }
     end,
+    right_sep = {
+        "block",
+        {
+            str = "slant_left_thin",
+            hl = function()
+                return {
+                    fg = get_mode_color().color,
+                    bg = get_mode_color().darker,
+                }
+            end,
+        },
+    },
+})
+
+table.insert(components.active[3], {
+    provider = function()
+        -- stackoverflow, compute human readable file size
+        local suffix = { "b", "k", "M", "G", "T", "P", "E" }
+        local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
+        fsize = (fsize < 0 and 0) or fsize
+        if fsize < 1024 then
+            return fsize .. suffix[1]
+        end
+        local i = math.floor((math.log(fsize) / math.log(1024)))
+        return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
+    end,
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = "block",
     right_sep = {
         "block",
         {

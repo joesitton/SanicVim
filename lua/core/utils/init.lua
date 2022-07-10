@@ -1,4 +1,13 @@
-return {
+local utils = {}
+
+utils.modules = {
+    "core.settings",
+    "core.autocmds",
+    "core.commands",
+    "plugins",
+}
+
+utils.symbols = {
     Text = "   ",
     Method = "   ",
     Function = "   ",
@@ -26,3 +35,5 @@ return {
     Operator = "   ",
     TypeParameter = "   ",
 }
+
+return utils

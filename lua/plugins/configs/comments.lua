@@ -10,6 +10,7 @@ require("Comment").setup({
         below = "gco",
         eol = "gcA",
     },
+    ignore = "^$",
     pre_hook = function(ctx)
         local U = require("Comment.utils")
 

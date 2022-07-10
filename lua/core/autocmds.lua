@@ -6,32 +6,6 @@ local fn = vim.fn
 local cmd = vim.cmd
 -- local api = vim.api
 
--- PackerCompile
--- autocmd("BufWritePost", {
---     group = augroup("packer_auto_compile", {}),
---     pattern = "*.lua",
---     callback = function()
---         if fn.getcwd() ~= fn.stdpath("config") then
---             return
---         end
-
---         if fn.bufname() == "lua/core/plugins.lua" then
---             local packer = require("plugins.packer_init")
-
---             packer.install()
---             -- packer.compile()
---         end
-
---         cmd([[source <afile>]])
-
---         local ok, notify = pcall(require, "notify")
-
---         if ok then
---             notify.notify("Reloaded configuration!")
---         end
---     end,
--- })
-
 -- Don't repeat comments
 autocmd("BufWinEnter", {
     group = augroup("no_repeat_comments", {}),

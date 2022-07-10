@@ -30,7 +30,7 @@ if ok then
     })
 end
 
-local symbol_map = require("core.symbols")
+local symbol_map = require("core.utils").symbols
 
 local menu = {
     buffer = "Buffer",

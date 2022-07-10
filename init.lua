@@ -4,12 +4,7 @@ if ok then
     impatient.enable_profile()
 end
 
-local modules = {
-    "core.settings",
-    "core.autocmds",
-    "core.commands",
-    "plugins",
-}
+local modules = require("core.utils").modules
 
 for _, module in ipairs(modules) do
     local ok, err = pcall(require, module)

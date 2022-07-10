@@ -15,7 +15,7 @@ require("aerial").setup({
         "Package",
         "Variable",
     },
-    icons = require("core.symbols"),
+    icons = require("core.utils").symbols,
     float = {
         border = "none",
         relative = "win",
