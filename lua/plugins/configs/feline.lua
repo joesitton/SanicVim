@@ -3,7 +3,6 @@ local colors = require("lush_theme.colors")
 colors.fg = colors.white
 colors.bg = colors.black
 colors.gray = colors.white.darken(20)
--- colors.light_black = colors.black.lighten(8)
 
 for k, v in pairs(colors) do
     colors[k] = v.hex

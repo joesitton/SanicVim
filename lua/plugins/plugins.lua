@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/nvim-plugins/lush-base16",
+        "~/Repos/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -173,7 +173,7 @@ local plugins = {
                 "AckslD/nvim-neoclip.lua",
                 requires = "kkharji/sqlite.lua",
                 config = [[
-                    require("neoclip").setup({default_register = "+", enable_persistent_history = true, keys = { telescope = { i = { paste_behind = nil }}}})
+                    require("plugins.configs.neoclip")
                     require("telescope").load_extension("neoclip")
                 ]],
                 after = "telescope.nvim",
@@ -189,7 +189,7 @@ local plugins = {
             {
                 "rmagatti/session-lens",
                 config = [[
-                    require("session-lens").setup({})
+                    require("session-lens").setup({ theme_conf = { winblend = 0 } })
                     require("telescope").load_extension("session-lens")
                 ]],
                 after = "telescope.nvim",
