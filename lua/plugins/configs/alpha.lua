@@ -1,10 +1,9 @@
 local alpha = require("alpha")
 local dashboard = require("alpha.themes.dashboard")
+local fortune = require("alpha.fortune")
 
 -- Set header
-dashboard.section.header.val = {
-    os.date("%A, %b %-d %Y at %-I:%M %p (%Z)"),
-}
+dashboard.section.header.val = fortune()
 
 -- Set menu
 dashboard.section.buttons.val = {
@@ -56,9 +55,9 @@ dashboard.config.layout = {
 }
 
 -- Do not show statusline or tabline in alpha buffer
--- vim.cmd(
---     [[ au User AlphaReady if winnr('$') == 1 | set laststatus=0 showtabline=0 | endif | au BufUnload <buffer> set laststatus=3 showtabline=2 ]]
--- )
+vim.cmd(
+    [[ au User AlphaReady if winnr('$') == 1 | set laststatus=0 showtabline=0 | endif | au BufUnload <buffer> set laststatus=3 showtabline=2 ]]
+)
 
 -- Send config to alpha
 alpha.setup(dashboard.opts)

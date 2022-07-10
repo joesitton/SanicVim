@@ -77,7 +77,7 @@ table.insert(components.active[1], {
 
 table.insert(components.active[1], {
     provider = function()
-        return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(0), ":~")
+        return vim.fn.fnamemodify(vim.fn.getcwd(0), ":~")
     end,
     hl = function()
         return {

@@ -102,6 +102,7 @@ o.autoread = true
 o.linebreak = true
 o.lazyredraw = true
 o.wrap = false
+o.ruler = false
 o.shortmess:append("sI")
 o.whichwrap:append("<>[]hl")
 o.iskeyword:remove({ "_" })
