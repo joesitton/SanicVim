@@ -1,2 +1,0 @@
-1. undo tree?
-2. neo tree popup border/stuff
