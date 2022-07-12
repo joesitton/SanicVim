@@ -31,7 +31,7 @@ local plugins = {
     -- {{{ Colorschemes
 
     {
-        "~/nvim-plugins/lush-base16",
+        "~/Dev/lush-base16",
         requires = { "rktjmp/lush.nvim" },
         config = vim.cmd([[ silent! colo lush-base16 ]]),
     },
@@ -100,6 +100,10 @@ local plugins = {
 
     {
         "tpope/vim-fugitive",
+    },
+
+    {
+        "famiu/nvim-reload",
     },
 
     {
@@ -205,6 +209,7 @@ local plugins = {
     {
         "rmagatti/auto-session",
         config = [[require("plugins.configs.session")]],
+        event = "VimEnter",
     },
 
     {
@@ -259,6 +264,7 @@ local plugins = {
     {
         "nvim-neotest/neotest",
         config = [[require("plugins.configs.test")]],
+        disable = true,
     },
 
     {
@@ -271,8 +277,20 @@ local plugins = {
         cmd = "AerialToggle",
     },
 
+    -- {
+    --     "ThePrimeagen/refactoring.nvim",
+    --     config = [[
+    --         require("refactoring").setup()
+    --         require("telescope").load_extension("refactoring")
+    --     ]],
+    --     after = "telescope.nvim",
+    -- },
+
     {
-        "famiu/nvim-reload",
+        "nvim-neorg/neorg",
+        config = [[require("plugins.configs.neorg")]],
+        ft = "norg",
+        after = "nvim-treesitter",
     },
 
     -- }}}

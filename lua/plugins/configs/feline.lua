@@ -258,21 +258,6 @@ table.insert(components.active[1], {
     end,
 })
 
--- local luasnip = require("luasnip")
-
--- table.insert(components.active[1], {
---     provider = " ",
---     enabled = function()
---         return luasnip.expand_or_jumpable()
---     end,
---     hl = function()
---         return {
---             fg = colors.white,
---             bg = get_mode_color().even_darker,
---         }
---     end,
--- })
-
 -- table.insert(components.active[3], {
 --     provider = " ",
 --     enabled = function()
@@ -298,6 +283,21 @@ table.insert(components.active[1], {
 --             }
 --         end,
 --     },
+-- })
+
+-- local luasnip = require("luasnip")
+
+-- table.insert(components.active[3], {
+--     provider = " ",
+--     enabled = function()
+--         return luasnip.expand_or_jumpable()
+--     end,
+--     hl = function()
+--         return {
+--             fg = colors.white,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
 -- })
 
 table.insert(components.active[3], {

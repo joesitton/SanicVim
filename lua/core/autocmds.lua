@@ -7,11 +7,12 @@ local cmd = vim.cmd
 -- local api = vim.api
 
 -- Don't repeat comments
-autocmd("BufWinEnter", {
+autocmd({ "BufWinEnter", "BufEnter" }, {
     group = augroup("no_repeat_comments", {}),
     pattern = "*",
     callback = function()
         ol.formatoptions:remove({ "c", "r", "o" })
+        cmd([[noh]])
     end,
 })
 
@@ -21,7 +22,7 @@ autocmd("BufEnter", {
     pattern = "*.txt",
     callback = function()
         if vim.bo.buftype == "help" then
-            cmd([[ wincmd L ]])
+            cmd([[ silent! wincmd L ]])
         end
     end,
 })

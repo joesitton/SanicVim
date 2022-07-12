@@ -48,6 +48,7 @@ local menu = {
     git = "Git",
     cmp_tabnine = "TabNine",
     copilot = "Copilot",
+    neorg = "Neorg",
 }
 
 local has_words_before = function()
@@ -209,8 +210,23 @@ end
 
 cmp.setup.filetype("gitcommit", {
     formatting = { fields = { "kind", "abbr" } },
-    sources = {
+    window = { completion = { side_padding = 1, col_offset = 0 } },
+    sources = cmp.config.sources({
         { name = "conventionalcommits" },
         { name = "git" },
-    },
+    }),
+})
+
+cmp.setup.filetype("norg", {
+    window = { completion = { side_padding = 1, col_offset = 0 } },
+    sources = cmp.config.sources({
+        { name = "neorg" },
+        {
+            name = "rg",
+            option = {
+                additional_arguments = "--smart-case",
+                only_current_buffer = true,
+            },
+        },
+    }),
 })
