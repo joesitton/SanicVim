@@ -106,6 +106,10 @@ local plugins = {
         "famiu/nvim-reload",
     },
 
+    -- {
+    --     "fedepujol/move.nvim",
+    -- },
+
     {
         "goolord/alpha-nvim",
         config = [[require("plugins.configs.alpha")]],
@@ -411,6 +415,12 @@ local plugins = {
         keys = { "/", "?", "*", "#", "n", "N" },
     },
 
+    {
+        "amrbashir/nvim-docs-view",
+        config = [[require("docs-view").setup({position = "bottom" })]],
+        cmd = { "DocsViewToggle" },
+    },
+
     -- }}}
 
     -- {{{ Completion
@@ -559,7 +569,7 @@ local plugins = {
             {
                 "windwp/nvim-autopairs",
                 config = [[require("nvim-autopairs").setup({check_ts = true})]],
-                event = "BufReadPost",
+                event = "InsertEnter",
             },
             {
                 "JoosepAlviste/nvim-ts-context-commentstring",
@@ -587,6 +597,11 @@ local plugins = {
             --     config = [[require("syntax-tree-surfer").setup()]],
             --     event = "BufReadPost",
             -- },
+            {
+                "m-demare/hlargs.nvim",
+                config = [[require("plugins.configs.hlargs")]],
+                event = "BufReadPost",
+            },
         },
         run = ":silent! TSUpdate",
         config = [[require("plugins.configs.treesitter")]],

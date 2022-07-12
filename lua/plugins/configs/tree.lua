@@ -113,6 +113,15 @@ require("neo-tree").setup({
     git_status = {
         window = {
             position = "float",
+            popup = {
+                position = { col = 0, row = 1 },
+                size = function()
+                    return {
+                        width = 40,
+                        height = vim.o.lines - 3,
+                    }
+                end,
+            },
             mappings = {
                 ["A"] = "git_add_all",
                 ["gu"] = "git_unstage_file",

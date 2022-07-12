@@ -6,7 +6,7 @@ require("auto-session").setup({
     bypass_session_save_file_types = { "nowrite", "alpha", "", nil },
     post_restore_cmds = {
         function()
-            if not vim.bo.filetype then
+            if not vim.api.nvim_buf_get_name(0) then
                 vim.cmd([[bd]])
             end
         end,

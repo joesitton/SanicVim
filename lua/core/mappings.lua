@@ -89,6 +89,18 @@ mappings.comments = {
     },
 }
 
+-- mappings.move = {
+--     n = {
+--         ["<C-S-j>"] = { "<CMD>MoveLine(1)<CR>", "Move line down" },
+--         ["<C-S-k>"] = { "<CMD>MoveLine(-1)<CR>", "Move line up" },
+--     },
+
+--     -- v = {
+--     --     ["<C-S-k>"] = { "<CMD>MoveBlock(-1)<CR>", "Move block up" },
+--     --     ["<C-S-j>"] = { "<CMD>MoveBlock(1)<CR>", "Move block down" },
+--     -- },
+-- }
+
 mappings.illuminate = {
     n = {
         ["<C-n>"] = {
@@ -119,7 +131,7 @@ mappings.terminal = {
 mappings.tree = {
     n = {
         ["\\"] = { "<CMD>NeoTreeFloatToggle<CR>", "Toggle tree" },
-        ["g\\"] = { "<CMD>Neotree reveal toggle git_status<CR>", "Git status" },
+        ["g\\"] = { "<CMD>NeoTreeFloatToggle git_status<CR>", "Git status" },
     },
 }
 
@@ -272,7 +284,7 @@ mappings.harpoon = {
                 require("harpoon.mark").add_file()
                 vim.notify("Added file to harpoon list")
             end,
-            "Add harpoon to file",
+            "Add file to harpoon marks",
         },
         ["]h"] = { "<CMD>lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
         ["[h"] = { "<CMD>lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
@@ -339,12 +351,6 @@ mappings.search = {
         ["#"] = { "#<CMD>lua require('hlslens').start()<CR>", "Previous match" },
     },
 }
-
--- mappings.aerial = {
---     n = {
---         ["a\\"] = { ":AerialToggle float<CR>", "Toggle aerial" },
---     },
--- }
 
 mappings.iconpicker = {
     n = {
