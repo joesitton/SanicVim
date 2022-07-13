@@ -82,10 +82,12 @@ mappings.buffers = {
 mappings.comments = {
     n = {
         ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
+        ["<C-_>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
     },
 
     v = {
         ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
+        ["<C-_>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
     },
 }
 
@@ -192,8 +194,8 @@ mappings.hop = {
             end,
             "Hop 2-char backwards",
         },
-        ["W"] = { "<CMD>HopWordCurrentLineAC<CR>", "Hop forwards to word" },
-        ["B"] = { "<CMD>HopWordCurrentLineBC<CR>", "Hop backwards to word" },
+        ["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
+        ["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
     },
 
     o = {
@@ -233,8 +235,6 @@ mappings.hop = {
             end,
             "Hop 2-char backwards",
         },
-        ["W"] = { "<CMD>HopWordCurrentLineAC<CR>", "Hop forwards to word" },
-        ["B"] = { "<CMD>HopWordCurrentLineBC<CR>", "Hop backwards to word" },
     },
 
     -- v = {

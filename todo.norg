@@ -1,4 +1,5 @@
 * TODO
-  - undo tree?
-  - neo tree popup border/stuff
-  - statusline shrink when windows are small (heirline maybe)
+  - [ ] undo tree?
+  - [ ] neo tree popup border/stuff and offset
+  - [-] statusline shrink when windows are small (heirline maybe)
+  - [?] bufferline lags on load after restoring session
