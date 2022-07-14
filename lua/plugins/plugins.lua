@@ -498,10 +498,6 @@ local plugins = {
                 ft = "gitcommit",
             },
             {
-                "joesitton/cmp-conventionalcommits",
-                ft = "gitcommit",
-            },
-            {
                 "kdheepak/cmp-latex-symbols",
                 ft = "tex",
             },

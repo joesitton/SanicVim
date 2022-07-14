@@ -212,7 +212,6 @@ cmp.setup.filetype("gitcommit", {
     formatting = { fields = { "kind", "abbr" } },
     window = { completion = { side_padding = 1, col_offset = 0 } },
     sources = cmp.config.sources({
-        { name = "conventionalcommits" },
         { name = "git" },
     }),
 })
