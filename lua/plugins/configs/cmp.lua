@@ -2,6 +2,7 @@ local ok, cmp = pcall(require, "cmp")
 
 if not ok then
     error("Could not load cmp: " .. cmp)
+    return
 end
 
 local ok, autopairs = pcall(require, "nvim-autopairs.completion.cmp")

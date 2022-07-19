@@ -6,14 +6,15 @@ mappings.general = {
     n = {
         ["k"] = { "gk", "Go up" },
         ["j"] = { "gj", "Go down" },
+
         ["Q"] = { "@q", "Q register" },
+
         ["'"] = { "`", "Jump to mark" },
+
         ["c"] = { '"_c', "Change" },
         ["C"] = { '"_C', "Change" },
         ["x"] = { '"_x', "Delete" },
         ["X"] = { '"_X', "Delete" },
-
-        ["<F2>"] = { "<CMD>ZenMode<CR>", "Zen mode" },
 
         ["<C-h>"] = { "<C-w>h", "Focus window left" },
         ["<C-l>"] = { "<C-w>l", "Focus window right" },
@@ -22,7 +23,10 @@ mappings.general = {
 
         ["<leader>w"] = { ":w<CR>", "Save file" },
         ["<leader>x"] = { ":x<CR>", "Save and exit" },
+
         ["<CR>"] = { ":nohlsearch<CR>", "Clear search" },
+
+        ["<F2>"] = { "<CMD>ZenMode<CR>", "Zen mode" },
 
         -- ["<C-c>"] = { ":%y+<CR>", "Copy file contents" },
 
@@ -45,20 +49,20 @@ mappings.general = {
         ["X"] = { '"_X', "Delete" },
     },
 
-    i = {
-        ["<C-z>"] = {
-            function()
-                return vim.cmd([[ undo ]])
-            end,
-            "Undo",
-        },
-        ["<C-S-z>"] = {
-            function()
-                return vim.cmd([[ redo ]])
-            end,
-            "Redo",
-        },
-    },
+    -- i = {
+    --     ["<C-z>"] = {
+    --         function()
+    --             return vim.cmd([[ undo ]])
+    --         end,
+    --         "Undo",
+    --     },
+    --     ["<C-S-z>"] = {
+    --         function()
+    --             return vim.cmd([[ redo ]])
+    --         end,
+    --         "Redo",
+    --     },
+    -- },
 
     v = {
         ["<"] = { "<gv", "Indent left" },

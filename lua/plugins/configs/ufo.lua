@@ -22,7 +22,8 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
         end
         curWidth = curWidth + chunkWidth
     end
-    table.insert(newVirtText, { suffix, "Special" })
+    table.insert(newVirtText, { "    ", "Normal" })
+    table.insert(newVirtText, { suffix, "UfoMarker" })
     return newVirtText
 end
 

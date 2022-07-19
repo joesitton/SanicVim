@@ -79,6 +79,11 @@ local plugins = {
         ft = "markdown",
     },
 
+    {
+        "baskerville/vim-sxhkdrc",
+        ft = "sxhkdrc",
+    },
+
     -- }}}
 
     -- {{{ Functionality
@@ -564,7 +569,7 @@ local plugins = {
             },
             {
                 "windwp/nvim-autopairs",
-                config = [[require("nvim-autopairs").setup({check_ts = true})]],
+                config = [[require("plugins.configs.autopairs")]],
                 event = "InsertEnter",
             },
             {
