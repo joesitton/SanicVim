@@ -85,8 +85,8 @@ mappings.buffers = {
 
 mappings.comments = {
     n = {
-        ["<C-/>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
-        ["<C-_>"] = { "<Plug>(comment_toggle_current_linewise)", "Comment line" },
+        ["<C-/>"] = { "<Plug>(comment_toggle_linewise_current)", "Comment line" },
+        ["<C-_>"] = { "<Plug>(comment_toggle_linewise_current)", "Comment line" },
     },
 
     v = {
@@ -95,17 +95,21 @@ mappings.comments = {
     },
 }
 
--- mappings.move = {
---     n = {
---         ["<C-S-j>"] = { "<CMD>MoveLine(1)<CR>", "Move line down" },
---         ["<C-S-k>"] = { "<CMD>MoveLine(-1)<CR>", "Move line up" },
---     },
+mappings.move = {
+    n = {
+        ["<C-S-j>"] = { "<CMD>MoveLine(1)<CR>", "Move line down" },
+        ["<C-S-k>"] = { "<CMD>MoveLine(-1)<CR>", "Move line up" },
+        ["<C-S-l>"] = { "<CMD>MoveHChar(1)<CR>", "Move char right" },
+        ["<C-S-h>"] = { "<CMD>MoveHChar(-1)<CR>", "Move char left" },
+    },
 
---     -- v = {
---     --     ["<C-S-k>"] = { "<CMD>MoveBlock(-1)<CR>", "Move block up" },
---     --     ["<C-S-j>"] = { "<CMD>MoveBlock(1)<CR>", "Move block down" },
---     -- },
--- }
+    -- v = {
+    --     ["<C-S-k>"] = { "<CMD>MoveBlock(-1)<CR>", "Move block up" },
+    --     ["<C-S-j>"] = { "<CMD>MoveBlock(1)<CR>", "Move block down" },
+    --     ["<C-S-l>"] = { "<CMD>MoveHBlock(1)<CR>", "Move block right" },
+    --     ["<C-S-h>"] = { "<CMD>MoveHBlock(-1)<CR>", "Move block left" },
+    -- },
+}
 
 mappings.illuminate = {
     n = {
@@ -283,15 +287,15 @@ mappings.hop = {
 
 mappings.harpoon = {
     n = {
-        ["<leader>h"] = {
+        ["<leader>m"] = {
             function()
                 require("harpoon.mark").add_file()
                 vim.notify("Added file to harpoon list")
             end,
             "Add file to harpoon marks",
         },
-        ["]h"] = { "<CMD>lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
-        ["[h"] = { "<CMD>lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
+        ["]m"] = { "<CMD>lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
+        ["[m"] = { "<CMD>lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
     },
 }
 
@@ -300,8 +304,7 @@ mappings.lsp = {
         ["]d"] = { "<CMD>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
         ["[d"] = { "<CMD>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
         ["<leader>ca"] = { "<CMD>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-        ["<leader>rn"] = { "<CMD>lua vim.lsp.buf.rename()<CR>", "Rename variable" },
-        -- ["<leader>rn"] = { "<CMD>lua require('inc_rename').rename()<CR>", "Rename variable" },
+        ["<leader>rn"] = { ":IncRename ", "Rename variable" },
     },
 
     v = {
@@ -331,6 +334,7 @@ mappings.telescope = {
         ["<leader>fy"] = { "<CMD>Telescope neoclip<CR>", "Find yanks" },
         ["<leader>fn"] = { "<CMD>Telescope notify<CR>", "Find notifications" },
         ["<leader>fS"] = { "<CMD>Telescope session-lens search_session<CR>", "Find sessions" },
+        ["<leader>f'"] = { "<CMD>Telescope marks<CR>", "Find marks" },
 
         ["<leader>gs"] = { "<CMD>Telescope git_status<CR>", "Git status" },
         ["<leader>gb"] = { "<CMD>Telescope git_branches<CR>", "Git branches" },
@@ -356,15 +360,15 @@ mappings.search = {
     },
 }
 
-mappings.iconpicker = {
-    n = {
-        ["<C-i>"] = { "<CMD>PickEverything<CR>", "Pick icon" },
-    },
+-- mappings.iconpicker = {
+--     n = {
+--         ["<C-i>"] = { "<CMD>PickEverything<CR>", "Pick icon" },
+--     },
 
-    i = {
-        ["<C-i>"] = { "<CMD>PickEverythingInsert<CR>", "Pick icon" },
-    },
-}
+--     i = {
+--         ["<C-i>"] = { "<CMD>PickEverythingInsert<CR>", "Pick icon" },
+--     },
+-- }
 
 -- mappings.surfer = {
 --     n = {

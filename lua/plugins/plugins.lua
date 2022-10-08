@@ -52,7 +52,7 @@ local plugins = {
 
     {
         "s3rvac/vim-syntax-yara",
-        config = vim.cmd([[autocmd BufNewFile,BufRead *.yar,*.yara setlocal filetype=yara]]),
+        config = vim.cmd([[autocmd BufNewFile,BufRead *.yara setlocal filetype=yara]]),
         ft = "yara",
     },
 
@@ -84,6 +84,12 @@ local plugins = {
         ft = "sxhkdrc",
     },
 
+    {
+        "towolf/vim-helm",
+        config = vim.cmd([[autocmd BufNewFile,BufRead *.{yaml,yml}.template setlocal filetype=helm]]),
+        ft = "helm",
+    },
+
     -- }}}
 
     -- {{{ Functionality
@@ -111,9 +117,9 @@ local plugins = {
         "famiu/nvim-reload",
     },
 
-    -- {
-    --     "fedepujol/move.nvim",
-    -- },
+    {
+        "fedepujol/move.nvim",
+    },
 
     {
         "goolord/alpha-nvim",
@@ -320,10 +326,6 @@ local plugins = {
 
     {
         "feline-nvim/feline.nvim",
-        -- requires = {
-        --     "SmiteshP/nvim-navic",
-        --     event = "BufReadPost",
-        -- },
         after = "lush-base16",
         config = [[require("plugins.configs.feline")]],
         event = "VimEnter",
@@ -526,6 +528,7 @@ local plugins = {
 
     {
         "williamboman/nvim-lsp-installer",
+        -- "SmiteshP/nvim-navic",
         {
             "neovim/nvim-lspconfig",
             config = [[require("plugins.configs.lsp")]],
@@ -546,11 +549,10 @@ local plugins = {
         event = "BufReadPost",
     },
 
-    -- v0.8 only
-    -- {
-    --     "smjonas/inc-rename.nvim",
-    --     config = [[require("inc_rename").setup()]],
-    -- },
+    {
+        "smjonas/inc-rename.nvim",
+        config = [[require("inc_rename").setup()]],
+    },
 
     -- }}}
 
@@ -567,6 +569,11 @@ local plugins = {
                 "andymass/vim-matchup",
                 event = "CursorMoved",
             },
+            -- {
+            --     "nvim-treesitter/nvim-treesitter-context",
+            --     config = [[require("treesitter-context").setup({ enable = true, max_lines = 0, min_window_height = 0, mode = "topline" })]],
+            --     event = "CursorMoved",
+            -- },
             {
                 "windwp/nvim-autopairs",
                 config = [[require("plugins.configs.autopairs")]],

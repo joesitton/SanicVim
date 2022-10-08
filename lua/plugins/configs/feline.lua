@@ -9,7 +9,6 @@ for k, v in pairs(colors) do
 end
 
 local vi_mode = require("feline.providers.vi_mode")
--- local navic = require("nvim-navic")
 
 local vi_mode_colors = {
     NORMAL = colors.blue,
@@ -346,52 +345,6 @@ table.insert(components.active[3], {
             bg = get_mode_color().darker,
         }
     end,
-    right_sep = { "block", "block" },
-})
-
--- table.insert(components.active[3], {
---     provider = function()
---         return navic.get_location({ icons = require("core.symbols"), highlight = true, separator = " " })
---     end,
---     enabled = function()
---         return navic.is_available()
---     end,
---     hl = {
---         bg = colors.light_black,
---     },
---     left_sep = {
---         {
---             str = "slant_left",
---             hl = function()
---                 return {
---                     fg = colors.light_black,
---                     bg = get_mode_color().even_darker,
---                 }
---             end,
---         },
---         "block",
---         {
---             str = " ",
---             hl = function()
---                 return {
---                     fg = colors.gray,
---                     bg = colors.light_black,
---                 }
---             end,
---         },
---     },
---     right_sep = "block",
--- })
-
-table.insert(components.active[3], {
-    provider = function()
-        return "  " .. vim.o.shiftwidth
-    end,
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
     right_sep = {
         "block",
         {
@@ -449,6 +402,30 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
+-- table.insert(components.active[3], {
+--     provider = function()
+--         return require("auto-session-library").current_session_name()
+--     end,
+--     hl = function()
+--         return {
+--             bg = get_mode_color().darker,
+--         }
+--     end,
+--     left_sep = {
+--         {
+--             str = "slant_left_thin",
+--             hl = function()
+--                 return {
+--                     fg = get_mode_color().color,
+--                     bg = get_mode_color().darker,
+--                 }
+--             end,
+--         },
+--         "block",
+--     },
+--     right_sep = "block",
+-- })
+
 components.inactive = components.active
 
 require("feline").setup({
@@ -456,3 +433,27 @@ require("feline").setup({
     components = components,
     vi_mode_colors = vi_mode_colors,
 })
+
+-- local navic = require("nvim-navic")
+
+-- local winbar_components = {
+--     active = { {} },
+-- }
+
+-- table.insert(winbar_components.active[1], {
+--     provider = function()
+--         return navic.get_location({ icons = require("core.utils").symbols, highlight = true, separator = " " })
+--     end,
+--     enabled = function()
+--         return navic.is_available()
+--     end,
+--     hl = {
+--         bg = colors.light_black,
+--     },
+-- })
+
+-- require("feline").winbar.setup({
+--     theme = colors,
+--     components = winbar_components,
+--     vi_mode_colors = vi_mode_colors,
+-- })

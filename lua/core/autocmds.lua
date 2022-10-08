@@ -2,11 +2,11 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 -- local o = vim.opt
 local ol = vim.opt_local
-local fn = vim.fn
+-- local fn = vim.fn
 local cmd = vim.cmd
 -- local api = vim.api
 
--- Don't repeat comments
+-- Buffer focus stuff
 autocmd({ "BufWinEnter", "BufEnter" }, {
     group = augroup("no_repeat_comments", {}),
     pattern = "*",
@@ -22,7 +22,7 @@ autocmd("BufEnter", {
     pattern = "*.txt",
     callback = function()
         if vim.bo.buftype == "help" then
-            cmd([[ silent! wincmd L ]])
+            cmd([[ silent! wincmd L | TSBufDisable highlight]])
         end
     end,
 })

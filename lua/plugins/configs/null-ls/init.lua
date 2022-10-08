@@ -17,24 +17,20 @@ null_ls.setup({
         code_actions.gitsigns,
         -- code_actions.refactoring,
     },
-    on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    if vim.fn.bufname() == "lua/lush_theme/lush-base16.lua" then
-                        return
-                    end
+    -- on_attach = function(client, bufnr)
+    --     if client.supports_method("textDocument/formatting") then
+    --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --         vim.api.nvim_create_autocmd("BufWritePre", {
+    --             group = augroup,
+    --             buffer = bufnr,
+    --             callback = function()
+    --                 if vim.fn.bufname() == "lua/lush_theme/lush-base16.lua" then
+    --                     return
+    --                 end
 
-                    if vim.fn.has("nvim-0.8") == "1" then
-                        vim.lsp.buf.format({ async = true })
-                    else
-                        vim.lsp.buf.formatting_sync()
-                    end
-                end,
-            })
-        end
-    end,
+    --                 vim.lsp.buf.format({ async = true })
+    --             end,
+    --         })
+    --     end
+    -- end,
 })

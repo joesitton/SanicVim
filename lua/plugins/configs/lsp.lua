@@ -20,8 +20,8 @@ local lsp = require("lspconfig")
 
 local on_attach = function(client, bufnr)
     if client.name ~= "null-ls" then
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
     end
 
     local ok, illuminate = pcall(require, "illuminate")
@@ -36,11 +36,11 @@ local on_attach = function(client, bufnr)
         aerial.on_attach(client, bufnr)
     end
 
-    local ok, navic = pcall(require, "nvim-navic")
+    -- local ok, navic = pcall(require, "nvim-navic")
 
-    if ok then
-        navic.attach(client, bufnr)
-    end
+    -- if ok then
+    --     navic.attach(client, bufnr)
+    -- end
 end
 
 local function client_is_configured(server_name, ft)
@@ -76,6 +76,7 @@ local function setup_server(name)
         -- end
 
         local settings = {}
+        local cmd = server:get_default_options().cmd
 
         if name == "sumneko_lua" then
             settings = {
@@ -85,10 +86,12 @@ local function setup_server(name)
                     },
                 },
             }
+        elseif name == "jsonls" then
+            cmd = { "vscode-json-languageserver", "--stdio" }
         end
 
         lsp[name].setup({
-            cmd = server:get_default_options().cmd,
+            cmd = cmd,
             settings = settings,
             capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
             on_attach = on_attach,
@@ -108,6 +111,7 @@ local servers = {
     "vimls",
     "sumneko_lua",
     "rust_analyzer",
+    "terraformls",
 }
 
 for _, server in ipairs(servers) do

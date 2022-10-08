@@ -37,8 +37,9 @@ packer.init({
         error_sym = "",
         done_sym = " ",
     },
+    max_jobs = 12,
     git = {
-        clone_timeout = 5000,
+        clone_timeout = 120,
     },
     autoremove = true,
 })

@@ -10,19 +10,26 @@ telescope.setup({
     defaults = {
         prompt_prefix = "❯ ",
         multi_icon = "• ",
-        dynamic_preview_title = true,
+        -- dynamic_preview_title = true,
         treesitter = true,
         selection_caret = "  ",
         scroll_strategy = "limit",
-        sort_strategy = "descending",
-        layout_strategy = "bottom_pane",
+        sorting_strategy = "ascending",
+        layout_strategy = "horizontal",
         layout_config = {
-            bottom_pane = {
-                height = 0.75,
-                prompt_position = "bottom",
-            },
+            height = 0.8,
+            width = 0.8,
+            prompt_position = "top",
         },
         border = true,
+        results_title = "",
+        preview_title = "",
+        prompt_title = "",
+        borderchars = {
+            results = { " ", " ", " ", " ", " ", " ", " ", " " },
+            prompt = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
+            preview = { " ", " ", " ", " ", " ", " ", " ", " " },
+        },
         mappings = {
             i = {
                 ["<C-j>"] = actions.move_selection_next,
@@ -44,9 +51,7 @@ telescope.setup({
             "--with-filename",
             "--line-number",
             "--column",
-            "--no-ignore",
             "--smart-case",
-            "--hidden",
             "--trim",
         },
         file_ignore_patterns = {

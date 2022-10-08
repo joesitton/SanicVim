@@ -4,10 +4,6 @@ local o = vim.opt
 -- Leader key
 g.mapleader = " "
 
--- Use filetypes.lua
-g.did_load_filetypes = 0
-g.do_filetype_lua = 1
-
 -- Syntax highlight ranges
 o.synmaxcol = 500
 o.colorcolumn = "99999"
@@ -66,9 +62,11 @@ o.wildmode = "list:longest,full"
 
 -- Folds
 o.foldenable = true
-o.foldcolumn = "1"
+o.foldcolumn = "0"
 o.foldlevel = 99
 o.foldlevelstart = 999
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
 o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: "
@@ -87,7 +85,7 @@ o.backup = false
 o.writebackup = false
 
 -- Session
-o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+o.sessionoptions = "buffers,curdir,folds,help,resize,tabpages,winsize,winpos,terminal"
 
 -- GUI
 o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"
@@ -106,9 +104,10 @@ o.ruler = false
 o.shortmess:append("sI")
 o.whichwrap:append("<>[]hl")
 o.iskeyword:remove({ "_" })
+o.mousescroll = "ver:1,hor:2"
 
 -- Virtualenv
-g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"
+-- g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"
 
 -- Neovide
 g.neovide_transparency = 0.98

@@ -1,12 +1,12 @@
 vim.g.matchup_matchparen_offscreen = {
     ["method"] = "popup",
-    ["highlight"] = "OffscreenPopup",
+    ["highlight"] = "TreesitterContext",
     ["fullwidth"] = 1,
 }
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
-    ignore_install = { "yaml", "latex", "toml", "phpdoc" },
+    ignore_install = { "yaml", "latex", "toml", "phpdoc", "help" },
     highlight = {
         enable = true,
     },
@@ -73,7 +73,7 @@ require("nvim-treesitter.configs").setup({
         keymaps = {
             ["."] = "textsubjects-smart",
             -- [";"] = "textsubjects-container-outer",
-            -- ["i;"] = "textsubjects-container-inner",
+            -- [","] = "textsubjects-container-inner",
         },
     },
 })
