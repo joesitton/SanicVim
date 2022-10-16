@@ -113,9 +113,9 @@ local plugins = {
         "tpope/vim-fugitive",
     },
 
-    {
-        "famiu/nvim-reload",
-    },
+    -- {
+    --     "famiu/nvim-reload",
+    -- },
 
     {
         "fedepujol/move.nvim",
@@ -292,6 +292,11 @@ local plugins = {
         cmd = "AerialToggle",
     },
 
+    {
+        "pwntester/octo.nvim",
+        config = [[require("octo").setup()]],
+    },
+
     -- {
     --     "ThePrimeagen/refactoring.nvim",
     --     config = [[
@@ -416,6 +421,25 @@ local plugins = {
         event = "BufReadPost",
     },
 
+    -- {
+    --     "xiyaowong/virtcolumn.nvim",
+    --     config = [[vim.g.virtcolumn_char = '▕']],
+    -- },
+
+    {
+        "anuvyklack/windows.nvim",
+        requires = {
+            "anuvyklack/middleclass",
+            "anuvyklack/animation.nvim",
+        },
+        config = [[
+            vim.o.winwidth = 10
+            vim.o.winminwidth = 10
+            vim.o.equalalways = false
+            require("windows").setup()
+        ]],
+    },
+
     {
         "kevinhwang91/nvim-hlslens",
         config = [[require("plugins.configs.hlslens")]],
@@ -528,7 +552,7 @@ local plugins = {
 
     {
         "williamboman/nvim-lsp-installer",
-        -- "SmiteshP/nvim-navic",
+        "SmiteshP/nvim-navic",
         {
             "neovim/nvim-lspconfig",
             config = [[require("plugins.configs.lsp")]],

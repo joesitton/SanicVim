@@ -1,19 +1,18 @@
 -- require("scrollbar.handlers").register("git", function()
+--     local handle = io.popen("git diff " .. vim.fn.expand("%") .. " | grep -E '^@@' | awk '{print $3}' | paste -sd:")
 --     local signs = {}
---
---     local handle = io.popen("git diff " .. vim.fn.expand("%") .. " | grep '^@@' | awk '{print $3}' | paste -sd:")
---
+
 --     if handle then
 --         local git = handle:read()
---
+
 --         for line in git:gmatch("[^:]+") do
 --             local line = line:sub(2, #line)
 --             local positions = {}
---
+
 --             for position in line:gmatch("[^,]+") do
 --                 table.insert(positions, position)
 --             end
---
+
 --             for i = positions[1], positions[2] do
 --                 table.insert(signs, {
 --                     line = i,
@@ -22,7 +21,7 @@
 --             end
 --         end
 --     end
---
+
 --     return signs
 -- end)
 

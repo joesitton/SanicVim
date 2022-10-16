@@ -1,8 +1,8 @@
 local colors = require("lush_theme.colors")
 
 colors.fg = colors.white
-colors.bg = colors.black
-colors.gray = colors.white.darken(20)
+colors.bg = "none"
+colors.gray = colors.white.darken(25)
 
 for k, v in pairs(colors) do
     colors[k] = v.hex
@@ -42,6 +42,58 @@ local components = {
     active = { {}, {}, {} },
 }
 
+local slant_right_l = {
+    {
+        str = "slant_right",
+        hl = function()
+            return {
+                fg = get_mode_color().even_darker,
+                bg = get_mode_color().darker,
+            }
+        end,
+    },
+    "block",
+}
+
+local slant_right_r = {
+    "block",
+    {
+        str = "slant_right",
+        hl = function()
+            return {
+                fg = get_mode_color().darker,
+                bg = get_mode_color().even_darker,
+            }
+        end,
+    }
+}
+
+local slant_left_l = {
+    {
+        str = "slant_left",
+        hl = function()
+            return {
+                fg = get_mode_color().darker,
+                bg = get_mode_color().even_darker,
+            }
+        end,
+    },
+    "block",
+}
+
+local slant_left_r = {
+    "block",
+    {
+        str = "slant_left",
+        hl = function()
+            return {
+                fg = get_mode_color().even_darker,
+                bg = get_mode_color().darker,
+            }
+        end,
+    }
+}
+
 table.insert(components.active[1], {
     provider = " ",
     hl = function()
@@ -52,6 +104,20 @@ table.insert(components.active[1], {
 })
 
 table.insert(components.active[1], {
+    provider = function()
+        return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(0), ":~")
+    end,
+    hl = function()
+        return {
+            fg = colors.gray,
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = "block",
+    right_sep = slant_right_r,
+})
+
+table.insert(components.active[1], {
     provider = " ",
     enabled = function()
         return vim.bo.readonly
@@ -59,64 +125,11 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.orange,
-            bg = get_mode_color().darker,
+            bg = get_mode_color().even_darker,
         }
     end,
     left_sep = "block",
-    right_sep = {
-        str = "slant_right_thin",
-        hl = function()
-            return {
-                fg = get_mode_color().color,
-                bg = get_mode_color().darker,
-            }
-        end,
-    },
 })
-
-table.insert(components.active[1], {
-    provider = function()
-        return vim.fn.fnamemodify(vim.fn.getcwd(0), ":~")
-    end,
-    hl = function()
-        return {
-            fg = colors.fg,
-            bg = get_mode_color().darker,
-        }
-    end,
-    left_sep = "block",
-    -- right_sep = "block",
-})
-
--- table.insert(components.active[1], {
---     provider = {
---         name = "file_info",
---         opts = {
---             type = "unique-short",
---             file_modified_icon = "",
---             file_readonly_icon = "🔒 ",
---             colored_icon = true,
---         },
---     },
---     hl = function()
---         return {
---             bg = get_mode_color().darker,
---         }
---     end,
---     left_sep = "block",
---     right_sep = {
---         "block",
---         {
---             str = "slant_right",
---             hl = function()
---                 return {
---                     fg = get_mode_color().darker,
---                     bg = get_mode_color().even_darker,
---                 }
---             end,
---         },
---     },
--- })
 
 table.insert(components.active[1], {
     provider = {
@@ -128,31 +141,21 @@ table.insert(components.active[1], {
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = {
-        "block",
-        {
-            str = "slant_right_thin",
-            hl = function()
-                return {
-                    fg = get_mode_color().color,
-                    bg = get_mode_color().darker,
-                }
-            end,
-        },
-        "block",
-    },
-    right_sep = {
-        "block",
-        {
-            str = "slant_right_thin",
-            hl = function()
-                return {
-                    fg = get_mode_color().color,
-                    bg = get_mode_color().darker,
-                }
-            end,
-        },
-    },
+    left_sep = slant_right_l,
+    right_sep = slant_right_r,
+})
+
+table.insert(components.active[1], {
+    provider = "",
+    enabled = function()
+    	return vim.fn.isdirectory(".git") ~= 0
+    end,
+    hl = function()
+        return {
+            fg = get_mode_color().even_darker,
+            bg = get_mode_color().darker,
+        }
+    end,
 })
 
 table.insert(components.active[1], {
@@ -192,24 +195,41 @@ table.insert(components.active[1], {
 })
 
 table.insert(components.active[1], {
-    provider = " ",
+    provider = "",
+    enabled = function()
+    	return vim.fn.isdirectory(".git") ~= 0
+    end,
     hl = function()
         return {
-            bg = get_mode_color().darker,
+            fg = get_mode_color().darker,
+            bg = get_mode_color().even_darker,
         }
     end,
-    right_sep = {
-        str = "slant_right",
+    left_sep = {
+        str = "block",
         hl = function()
             return {
                 fg = get_mode_color().darker,
-                bg = get_mode_color().even_darker,
             }
-        end,
-    },
+        end
+    }
 })
 
 table.insert(components.active[1], {
+    provider = " ",
+    hl = function()
+        return {
+            fg = get_mode_color().even_darker,
+            bg = get_mode_color().even_darker,
+        }
+    end,
+})
+
+-- ==============================
+-- RHS
+-- ==============================
+
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_errors",
     },
@@ -221,7 +241,7 @@ table.insert(components.active[1], {
     end,
 })
 
-table.insert(components.active[1], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_warnings",
     },
@@ -233,7 +253,7 @@ table.insert(components.active[1], {
     end,
 })
 
-table.insert(components.active[1], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_info",
     },
@@ -245,7 +265,7 @@ table.insert(components.active[1], {
     end,
 })
 
-table.insert(components.active[1], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_hints",
     },
@@ -257,47 +277,15 @@ table.insert(components.active[1], {
     end,
 })
 
--- table.insert(components.active[3], {
---     provider = " ",
---     enabled = function()
---         local severity = vim.diagnostic.severity
---         local diagnostics_exist = require("feline.providers.lsp").diagnostics_exist
---
---         return diagnostics_exist(severity.ERROR)
---             or diagnostics_exist(severity.WARN)
---             or diagnostics_exist(severity.INFO)
---             or diagnostics_exist(severity.HINT)
---     end,
---     hl = function()
---         return {
---             bg = get_mode_color().even_darker,
---         }
---     end,
---     left_sep = {
---         str = "slant_left_thin",
---         hl = function()
---             return {
---                 fg = get_mode_color().color,
---                 bg = get_mode_color().even_darker,
---             }
---         end,
---     },
--- })
-
--- local luasnip = require("luasnip")
-
--- table.insert(components.active[3], {
---     provider = " ",
---     enabled = function()
---         return luasnip.expand_or_jumpable()
---     end,
---     hl = function()
---         return {
---             fg = colors.white,
---             bg = get_mode_color().even_darker,
---         }
---     end,
--- })
+table.insert(components.active[3], {
+    provider = " ",
+    hl = function()
+        return {
+            bg = get_mode_color().even_darker,
+        }
+    end,
+    right_sep = "block",
+})
 
 table.insert(components.active[3], {
     provider = {
@@ -306,31 +294,11 @@ table.insert(components.active[3], {
     hl = function()
         return {
             fg = colors.gray,
-            bg = get_mode_color().even_darker,
-        }
-    end,
-    right_sep = "block",
-})
-
-table.insert(components.active[3], {
-    provider = " ",
-    hl = function()
-        return {
-            fg = get_mode_color().darker,
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = {
-        {
-            str = "slant_left",
-            hl = function()
-                return {
-                    fg = get_mode_color().darker,
-                    bg = get_mode_color().even_darker,
-                }
-            end,
-        },
-    },
+    left_sep = slant_left_l,
+    right_sep = slant_left_r,
 })
 
 table.insert(components.active[3], {
@@ -345,18 +313,8 @@ table.insert(components.active[3], {
             bg = get_mode_color().darker,
         }
     end,
-    right_sep = {
-        "block",
-        {
-            str = "slant_left_thin",
-            hl = function()
-                return {
-                    fg = get_mode_color().color,
-                    bg = get_mode_color().darker,
-                }
-            end,
-        },
-    },
+    left_sep = slant_left_l,
+    right_sep = slant_left_r,
 })
 
 table.insert(components.active[3], {
@@ -376,55 +334,43 @@ table.insert(components.active[3], {
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = "block",
-    right_sep = {
-        "block",
-        {
-            str = "slant_left_thin",
-            hl = function()
-                return {
-                    fg = get_mode_color().color,
-                    bg = get_mode_color().darker,
-                }
-            end,
-        },
-    },
-})
-
-table.insert(components.active[3], {
-    provider = "position",
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    left_sep = "block",
-    right_sep = "block",
+    left_sep = slant_left_l,
+    right_sep = slant_left_r,
 })
 
 -- table.insert(components.active[3], {
---     provider = function()
---         return require("auto-session-library").current_session_name()
---     end,
+--     provider = "position",
 --     hl = function()
 --         return {
 --             bg = get_mode_color().darker,
 --         }
 --     end,
---     left_sep = {
---         {
---             str = "slant_left_thin",
---             hl = function()
---                 return {
---                     fg = get_mode_color().color,
---                     bg = get_mode_color().darker,
---                 }
---             end,
---         },
---         "block",
---     },
---     right_sep = "block",
+--     left_sep = "block",
 -- })
+
+table.insert(components.active[3], {
+    provider = "line_percentage",
+    hl = function()
+        return {
+            fg = colors.orange,
+            bg = get_mode_color().darker,
+            style = "bold",
+        }
+    end,
+    left_sep = slant_left_l,
+    right_sep = "block",
+})
+
+table.insert(components.active[3], {
+    provider = "scroll_bar",
+    hl = function()
+        return {
+            fg = get_mode_color().color,
+            bg = get_mode_color().darker,
+        }
+    end,
+    right_sep = "block",
+})
 
 components.inactive = components.active
 
@@ -434,26 +380,26 @@ require("feline").setup({
     vi_mode_colors = vi_mode_colors,
 })
 
--- local navic = require("nvim-navic")
+local navic = require("nvim-navic")
 
--- local winbar_components = {
---     active = { {} },
--- }
+local winbar_components = {
+    active = { {} },
+}
 
--- table.insert(winbar_components.active[1], {
---     provider = function()
---         return navic.get_location({ icons = require("core.utils").symbols, highlight = true, separator = " " })
---     end,
---     enabled = function()
---         return navic.is_available()
---     end,
---     hl = {
---         bg = colors.light_black,
---     },
--- })
+table.insert(winbar_components.active[1], {
+    provider = function()
+        return navic.get_location({ icons = require("core.utils").symbols, highlight = true, separator = "  " })
+    end,
+    enabled = function()
+        return navic.is_available()
+    end,
+    hl = {
+        bg = "none"
+    },
+})
 
--- require("feline").winbar.setup({
---     theme = colors,
---     components = winbar_components,
---     vi_mode_colors = vi_mode_colors,
--- })
+require("feline").winbar.setup({
+    theme = colors,
+    components = winbar_components,
+    vi_mode_colors = vi_mode_colors,
+})

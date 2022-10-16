@@ -1,20 +1,22 @@
 local null_ls = require("null-ls")
 
 local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
 local code_actions = null_ls.builtins.code_actions
-local completion = null_ls.builtins.completion
 
-local augroup = vim.api.nvim_create_augroup("auto_format", {})
+-- local augroup = vim.api.nvim_create_augroup("auto_format", {})
 
 null_ls.setup({
     sources = {
         formatting.black.with({ to_temp_file = false }),
         formatting.isort.with({ to_temp_file = false }),
-        formatting.stylua.with({ extra_args = { "--indent-width", "4", "--indent-type", "spaces" } }),
+        formatting.stylua.with({ to_temp_file = false, extra_args = { "--indent-width", "4", "--indent-type", "spaces" } }),
+        formatting.shellharden.with({ to_temp_file = false }),
+        formatting.yamlfmt.with({ to_temp_file = false }),
         formatting.fixjson,
         formatting.trim_whitespace,
+        formatting.codespell,
         code_actions.gitsigns,
+        code_actions.shellcheck,
         -- code_actions.refactoring,
     },
     -- on_attach = function(client, bufnr)
@@ -24,11 +26,7 @@ null_ls.setup({
     --             group = augroup,
     --             buffer = bufnr,
     --             callback = function()
-    --                 if vim.fn.bufname() == "lua/lush_theme/lush-base16.lua" then
-    --                     return
-    --                 end
-
-    --                 vim.lsp.buf.format({ async = true })
+    --                 vim.lsp.buf.format({ bufnr = bufnr, async = true })
     --             end,
     --         })
     --     end

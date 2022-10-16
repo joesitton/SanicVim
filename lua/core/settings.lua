@@ -6,7 +6,7 @@ g.mapleader = " "
 
 -- Syntax highlight ranges
 o.synmaxcol = 500
-o.colorcolumn = "99999"
+o.colorcolumn = ""
 
 -- Clipboard
 o.clipboard = "unnamedplus"
@@ -34,7 +34,7 @@ o.cursorline = true
 
 -- Scrolloffs
 o.scrolloff = 6
-o.sidescrolloff = 12
+o.sidescrolloff = 64
 
 -- Searching
 o.smartcase = true
@@ -89,7 +89,7 @@ o.sessionoptions = "buffers,curdir,folds,help,resize,tabpages,winsize,winpos,ter
 
 -- GUI
 o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"
-o.guifont = "Iosevka Custom:h16"
+o.guifont = "Iosevka Custom:h18"
 
 -- Other
 o.termguicolors = true
@@ -110,7 +110,7 @@ o.mousescroll = "ver:1,hor:2"
 -- g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"
 
 -- Neovide
-g.neovide_transparency = 0.98
+g.neovide_transparency = 0.92
 g.neovide_remember_window_size = true
 
 -- Signs
