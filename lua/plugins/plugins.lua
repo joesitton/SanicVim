@@ -329,6 +329,12 @@ local plugins = {
         event = "VimEnter",
     },
 
+    -- {
+    --     "nanozuki/tabby.nvim",
+    --     config = [[require("plugins.configs.tabby")]],
+    --     event = "VimEnter",
+    -- },
+
     {
         "feline-nvim/feline.nvim",
         after = "lush-base16",

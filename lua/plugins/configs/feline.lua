@@ -1,7 +1,7 @@
 local colors = require("lush_theme.colors")
 
 colors.fg = colors.white
-colors.bg = colors.black.lighten(2)
+colors.bg = colors.black.lighten(4)
 colors.gray = colors.white.darken(40)
 
 for k, v in pairs(colors) do
@@ -102,6 +102,7 @@ table.insert(components.active[1], {
         }
     end,
 })
+
 table.insert(components.active[1], {
     provider = function()
         return vim.fn.fnamemodify(vim.fn.getcwd(0), ":~:.") .. "/"
@@ -155,13 +156,16 @@ table.insert(components.active[1], {
 table.insert(components.active[1], {
     provider = "  ",
     enabled = function()
-        local excluded_ft = { "neo-tree", "help" }
+        local excluded_ft = {
+            ["neo-tree"] = true,
+            ["help"] = true,
+        }
 
         if excluded_ft[vim.bo.filetype] then
-            return
-        else
-            return vim.bo.readonly
+            return false
         end
+
+        return vim.bo.readonly
     end,
     hl = function()
         return {
