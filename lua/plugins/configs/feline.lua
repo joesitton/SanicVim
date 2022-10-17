@@ -1,8 +1,8 @@
 local colors = require("lush_theme.colors")
 
 colors.fg = colors.white
-colors.bg = "none"
-colors.gray = colors.white.darken(25)
+colors.bg = colors.black.lighten(2)
+colors.gray = colors.white.darken(40)
 
 for k, v in pairs(colors) do
     colors[k] = v.hex
@@ -65,7 +65,7 @@ local slant_right_r = {
                 bg = get_mode_color().even_darker,
             }
         end,
-    }
+    },
 }
 
 local slant_left_l = {
@@ -91,7 +91,7 @@ local slant_left_r = {
                 bg = get_mode_color().darker,
             }
         end,
-    }
+    },
 }
 
 table.insert(components.active[1], {
@@ -105,7 +105,7 @@ table.insert(components.active[1], {
 
 table.insert(components.active[1], {
     provider = function()
-        return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(0), ":~")
+        return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(0), ":~:.") .. "/"
     end,
     hl = function()
         return {
@@ -114,21 +114,45 @@ table.insert(components.active[1], {
         }
     end,
     left_sep = "block",
+})
+
+table.insert(components.active[1], {
+    provider = function()
+        local path = vim.fn.expand("%")
+        local short = ""
+
+        for token in string.gmatch(path, "[^/]+") do
+            if token == vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t") then
+                short = short .. token
+                break
+            end
+
+            short = short .. string.sub(token, 1, 1) .. "/"
+        end
+
+        return short
+    end,
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
     right_sep = slant_right_r,
 })
 
 table.insert(components.active[1], {
-    provider = " ",
+    provider = "  ",
     enabled = function()
         return vim.bo.readonly
     end,
     hl = function()
         return {
-            fg = colors.orange,
-            bg = get_mode_color().even_darker,
+            fg = colors.red,
+            bg = get_mode_color().darker,
         }
     end,
-    left_sep = "block",
+    left_sep = slant_right_l,
+    right_sep = slant_right_r,
 })
 
 table.insert(components.active[1], {
@@ -145,18 +169,28 @@ table.insert(components.active[1], {
     right_sep = slant_right_r,
 })
 
-table.insert(components.active[1], {
-    provider = "",
-    enabled = function()
-    	return vim.fn.isdirectory(".git") ~= 0
-    end,
-    hl = function()
-        return {
-            fg = get_mode_color().even_darker,
-            bg = get_mode_color().darker,
-        }
-    end,
-})
+-- table.insert(components.active[1], {
+--     provider = "",
+--     enabled = function()
+--     	return vim.fn.isdirectory(".git") ~= 0
+--     end,
+--     hl = function()
+--         return {
+--             fg = get_mode_color().even_darker,
+--             bg = get_mode_color().darker,
+--         }
+--     end,
+-- })
+
+-- table.insert(components.active[1], {
+--     provider = " ",
+--     hl = function()
+--         return {
+--             fg = get_mode_color().even_darker,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+-- })
 
 table.insert(components.active[1], {
     provider = {
@@ -165,7 +199,7 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.green,
-            bg = get_mode_color().darker,
+            bg = get_mode_color().even_darker,
         }
     end,
 })
@@ -177,7 +211,7 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.red,
-            bg = get_mode_color().darker,
+            bg = get_mode_color().even_darker,
         }
     end,
 })
@@ -189,31 +223,31 @@ table.insert(components.active[1], {
     hl = function()
         return {
             fg = colors.blue,
-            bg = get_mode_color().darker,
+            bg = get_mode_color().even_darker,
         }
     end,
 })
 
-table.insert(components.active[1], {
-    provider = "",
-    enabled = function()
-    	return vim.fn.isdirectory(".git") ~= 0
-    end,
-    hl = function()
-        return {
-            fg = get_mode_color().darker,
-            bg = get_mode_color().even_darker,
-        }
-    end,
-    left_sep = {
-        str = "block",
-        hl = function()
-            return {
-                fg = get_mode_color().darker,
-            }
-        end
-    }
-})
+-- table.insert(components.active[1], {
+--     provider = "",
+--     enabled = function()
+--     	return vim.fn.isdirectory(".git") ~= 0
+--     end,
+--     hl = function()
+--         return {
+--             fg = get_mode_color().darker,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+--     left_sep = {
+--         str = "block",
+--         hl = function()
+--             return {
+--                 fg = get_mode_color().darker,
+--             }
+--         end
+--     }
+-- })
 
 table.insert(components.active[1], {
     provider = " ",
@@ -284,7 +318,6 @@ table.insert(components.active[3], {
             bg = get_mode_color().even_darker,
         }
     end,
-    right_sep = "block",
 })
 
 table.insert(components.active[3], {
@@ -394,7 +427,7 @@ table.insert(winbar_components.active[1], {
         return navic.is_available()
     end,
     hl = {
-        bg = "none"
+        bg = colors.bg,
     },
 })
 
