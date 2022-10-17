@@ -38,10 +38,6 @@ local function get_mode_color()
     }
 end
 
-local components = {
-    active = { {}, {}, {} },
-}
-
 local slant_right_l = {
     {
         str = "slant_right",
@@ -92,6 +88,10 @@ local slant_left_r = {
             }
         end,
     },
+}
+
+local components = {
+    active = { {}, {}, {} },
 }
 
 table.insert(components.active[1], {
@@ -169,29 +169,6 @@ table.insert(components.active[1], {
     right_sep = slant_right_r,
 })
 
--- table.insert(components.active[1], {
---     provider = "",
---     enabled = function()
---     	return vim.fn.isdirectory(".git") ~= 0
---     end,
---     hl = function()
---         return {
---             fg = get_mode_color().even_darker,
---             bg = get_mode_color().darker,
---         }
---     end,
--- })
-
--- table.insert(components.active[1], {
---     provider = " ",
---     hl = function()
---         return {
---             fg = get_mode_color().even_darker,
---             bg = get_mode_color().even_darker,
---         }
---     end,
--- })
-
 table.insert(components.active[1], {
     provider = {
         name = "git_diff_added",
@@ -227,27 +204,6 @@ table.insert(components.active[1], {
         }
     end,
 })
-
--- table.insert(components.active[1], {
---     provider = "",
---     enabled = function()
---     	return vim.fn.isdirectory(".git") ~= 0
---     end,
---     hl = function()
---         return {
---             fg = get_mode_color().darker,
---             bg = get_mode_color().even_darker,
---         }
---     end,
---     left_sep = {
---         str = "block",
---         hl = function()
---             return {
---                 fg = get_mode_color().darker,
---             }
---         end
---     }
--- })
 
 table.insert(components.active[1], {
     provider = " ",
@@ -370,16 +326,6 @@ table.insert(components.active[3], {
     left_sep = slant_left_l,
     right_sep = slant_left_r,
 })
-
--- table.insert(components.active[3], {
---     provider = "position",
---     hl = function()
---         return {
---             bg = get_mode_color().darker,
---         }
---     end,
---     left_sep = "block",
--- })
 
 table.insert(components.active[3], {
     provider = "line_percentage",
