@@ -91,7 +91,7 @@ local slant_left_r = {
 }
 
 local components = {
-    active = { {}, {}, {} },
+    active = { {}, {}, {}, {} },
 }
 
 table.insert(components.active[1], {
@@ -102,11 +102,16 @@ table.insert(components.active[1], {
         }
     end,
 })
-
 table.insert(components.active[1], {
     provider = function()
-        return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(0), ":~:.") .. "/"
+        return vim.fn.fnamemodify(vim.fn.getcwd(0), ":~:.") .. "/"
     end,
+    icon = {
+        str = "  ",
+        hl = {
+            fg = colors.blue,
+        },
+    },
     hl = function()
         return {
             fg = colors.gray,
@@ -114,12 +119,17 @@ table.insert(components.active[1], {
         }
     end,
     left_sep = "block",
+    right_sep = slant_right_r,
 })
 
 table.insert(components.active[1], {
     provider = function()
         local path = vim.fn.expand("%")
         local short = ""
+
+        if string.sub(path, 1, 1) == "/" then
+            short = "/"
+        end
 
         for token in string.gmatch(path, "[^/]+") do
             if token == vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t") then
@@ -132,18 +142,26 @@ table.insert(components.active[1], {
 
         return short
     end,
+    truncate_hide = true,
     hl = function()
         return {
             bg = get_mode_color().darker,
         }
     end,
+    left_sep = slant_right_l,
     right_sep = slant_right_r,
 })
 
 table.insert(components.active[1], {
     provider = "  ",
     enabled = function()
-        return vim.bo.readonly
+        local excluded_ft = { "neo-tree", "help" }
+
+        if excluded_ft[vim.bo.filetype] then
+            return
+        else
+            return vim.bo.readonly
+        end
     end,
     hl = function()
         return {
@@ -163,6 +181,7 @@ table.insert(components.active[1], {
         return {
             fg = colors.purple,
             bg = get_mode_color().darker,
+            style = "bold",
         }
     end,
     left_sep = slant_right_l,
@@ -219,7 +238,7 @@ table.insert(components.active[1], {
 -- RHS
 -- ==============================
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = {
         name = "diagnostic_errors",
     },
@@ -231,7 +250,7 @@ table.insert(components.active[3], {
     end,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = {
         name = "diagnostic_warnings",
     },
@@ -243,7 +262,7 @@ table.insert(components.active[3], {
     end,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = {
         name = "diagnostic_info",
     },
@@ -255,7 +274,7 @@ table.insert(components.active[3], {
     end,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = {
         name = "diagnostic_hints",
     },
@@ -267,7 +286,7 @@ table.insert(components.active[3], {
     end,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = " ",
     hl = function()
         return {
@@ -276,10 +295,11 @@ table.insert(components.active[3], {
     end,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = {
         name = "lsp_client_names",
     },
+    truncate_hide = true,
     hl = function()
         return {
             fg = colors.gray,
@@ -290,13 +310,14 @@ table.insert(components.active[3], {
     right_sep = slant_left_r,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = {
         name = "file_type",
         opts = {
             case = "lowercase",
         },
     },
+    truncate_hide = true,
     hl = function()
         return {
             bg = get_mode_color().darker,
@@ -306,7 +327,7 @@ table.insert(components.active[3], {
     right_sep = slant_left_r,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = function()
         -- stackoverflow, compute human readable file size
         local suffix = { "b", "k", "M", "G", "T", "P", "E" }
@@ -318,6 +339,7 @@ table.insert(components.active[3], {
         local i = math.floor((math.log(fsize) / math.log(1024)))
         return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
     end,
+    truncate_hide = true,
     hl = function()
         return {
             bg = get_mode_color().darker,
@@ -327,7 +349,7 @@ table.insert(components.active[3], {
     right_sep = slant_left_r,
 })
 
-table.insert(components.active[3], {
+table.insert(components.active[4], {
     provider = "line_percentage",
     hl = function()
         return {
@@ -340,8 +362,13 @@ table.insert(components.active[3], {
     right_sep = "block",
 })
 
-table.insert(components.active[3], {
-    provider = "scroll_bar",
+table.insert(components.active[4], {
+    provider = {
+        name = "scroll_bar",
+        -- opts = {
+        --     reverse = true,
+        -- },
+    },
     hl = function()
         return {
             fg = get_mode_color().color,

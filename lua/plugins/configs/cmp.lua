@@ -91,7 +91,7 @@ cmp.setup({
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
             vim_item.menu = menu[entry.source.name]
-            vim_item.kind = symbol_map[vim_item.kind]
+            vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "
 
             if entry.source.name == "cmp_tabnine" then
                 vim_item.kind = "   "

@@ -28,6 +28,10 @@ null_ls.setup({
                 group = augroup,
                 buffer = bufnr,
                 callback = function()
+                    if vim.fn.fnamemodify(vim.fn.expand("%"), ":t") == "lush-base16.lua" then
+                        return
+                    end
+
                     vim.lsp.buf.format({ bufnr = bufnr })
                 end,
             })
