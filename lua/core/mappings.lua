@@ -159,130 +159,56 @@ mappings.git = {
 --     },
 -- }
 
-local hop_dirs = {
+local hop_directions = {
     AFTER = require("hop.hint").HintDirection.AFTER_CURSOR,
     BEFORE = require("hop.hint").HintDirection.BEFORE_CURSOR,
 }
 
+local hop_maps = {
+    ["f"] = {
+        function()
+            require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true })
+        end,
+        "Hop 1-char forwards",
+    },
+    ["F"] = {
+        function()
+            require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true })
+        end,
+        "Hop 1-char backwards",
+    },
+    ["t"] = {
+        function()
+            require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true, hint_offset = -1 })
+        end,
+        "Hop 1-char forwards",
+    },
+    ["T"] = {
+        function()
+            require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true, hint_offset = 1 })
+        end,
+        "Hop 1-char backwards",
+    },
+    ["s"] = {
+        function()
+            require("hop").hint_char2({ direction = hop_directions.AFTER })
+        end,
+        "Hop 2-char forwards",
+    },
+    ["S"] = {
+        function()
+            require("hop").hint_char2({ direction = hop_directions.BEFORE })
+        end,
+        "Hop 2-char backwards",
+    },
+    ["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
+    ["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
+}
+
 mappings.hop = {
-    n = {
-        ["f"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true })
-            end,
-            "Hop 1-char forwards",
-        },
-        ["F"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true })
-            end,
-            "Hop 1-char backwards",
-        },
-        ["t"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = -1 })
-            end,
-            "Hop 1-char forwards",
-        },
-        ["T"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = 1 })
-            end,
-            "Hop 1-char backwards",
-        },
-        ["s"] = {
-            function()
-                require("hop").hint_char2({ direction = hop_dirs.AFTER })
-            end,
-            "Hop 2-char forwards",
-        },
-        ["S"] = {
-            function()
-                require("hop").hint_char2({ direction = hop_dirs.BEFORE })
-            end,
-            "Hop 2-char backwards",
-        },
-        ["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
-        ["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
-    },
-
-    o = {
-        ["f"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = 1 })
-            end,
-            "Hop 1-char forwards",
-        },
-        ["F"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = -1 })
-            end,
-            "Hop 1-char backwards",
-        },
-        ["t"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = -1 })
-            end,
-            "Hop 1-char forwards",
-        },
-        ["T"] = {
-            function()
-                require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = 1 })
-            end,
-            "Hop 1-char backwards",
-        },
-        ["s"] = {
-            function()
-                require("hop").hint_char2({ direction = hop_dirs.AFTER })
-            end,
-            "Hop 2-char forwards",
-        },
-        ["S"] = {
-            function()
-                require("hop").hint_char2({ direction = hop_dirs.BEFORE })
-            end,
-            "Hop 2-char backwards",
-        },
-    },
-
-    -- v = {
-    --     ["f"] = {
-    --         function()
-    --             require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true })
-    --         end,
-    --         "Hop 1-char forwards",
-    --     },
-    --     ["F"] = {
-    --         function()
-    --             require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true })
-    --         end,
-    --         "Hop 1-char backwards",
-    --     },
-    --     ["t"] = {
-    --         function()
-    --             require("hop").hint_char1({ direction = hop_dirs.AFTER, current_line_only = true, hint_offset = -1 })
-    --         end,
-    --         "Hop 1-char forwards",
-    --     },
-    --     ["T"] = {
-    --         function()
-    --             require("hop").hint_char1({ direction = hop_dirs.BEFORE, current_line_only = true, hint_offset = -1 })
-    --         end,
-    --         "Hop 1-char backwards",
-    --     },
-    --     ["s"] = {
-    --         function()
-    --             require("hop").hint_char2({ direction = hop_dirs.AFTER })
-    --         end,
-    --         "Hop 2-char forwards",
-    --     },
-    --     ["S"] = {
-    --         function()
-    --             require("hop").hint_char2({ direction = hop_dirs.BEFORE })
-    --         end,
-    --         "Hop 2-char backwards",
-    --     },
-    -- },
+    n = hop_maps,
+    o = hop_maps,
+    v = hop_maps,
 }
 
 mappings.harpoon = {

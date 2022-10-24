@@ -3,6 +3,7 @@ local colors = require("lush_theme.colors")
 colors.fg = colors.white
 colors.bg = colors.black.lighten(4)
 colors.gray = colors.white.darken(40)
+colors.dark_gray = colors.white.darken(50)
 
 for k, v in pairs(colors) do
     colors[k] = v.hex
@@ -120,36 +121,6 @@ table.insert(components.active[1], {
         }
     end,
     left_sep = "block",
-    right_sep = slant_right_r,
-})
-
-table.insert(components.active[1], {
-    provider = function()
-        local path = vim.fn.expand("%")
-        local short = ""
-
-        if string.sub(path, 1, 1) == "/" then
-            short = "/"
-        end
-
-        for token in string.gmatch(path, "[^/]+") do
-            if token == vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t") then
-                short = short .. token
-                break
-            end
-
-            short = short .. string.sub(token, 1, 1) .. "/"
-        end
-
-        return short
-    end,
-    truncate_hide = true,
-    hl = function()
-        return {
-            bg = get_mode_color().darker,
-        }
-    end,
-    left_sep = slant_right_l,
     right_sep = slant_right_r,
 })
 
@@ -395,6 +366,18 @@ local navic = require("nvim-navic")
 local winbar_components = {
     active = { {} },
 }
+
+table.insert(winbar_components.active[1], {
+    provider = function()
+        return vim.fn.fnamemodify(vim.fn.expand("%") .. " ", ":~:.")
+    end,
+    hl = function()
+        return {
+            fg = colors.dark_gray,
+            style = "italic",
+        }
+    end,
+})
 
 table.insert(winbar_components.active[1], {
     provider = function()

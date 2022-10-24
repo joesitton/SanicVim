@@ -1,31 +1,27 @@
-require("tabby.tabline").set(function(line)
-    local left_sep = line.sep("", "BufferTabpageFill", "BufferTabpageFillB")
-    local right_sep = line.sep("", "BufferTabpageFill", "BufferTabpageFillB")
+require("tabby.tabline").use_preset("active_wins_at_tail", {})
 
-    return {
-        line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-            return {
-                left_sep,
-                win.file_icon(),
-                win.buf_name(),
-                win.is_current() and "*" or "",
-                right_sep,
-                margin = " ",
-                hl = "BufferBg",
-            }
-        end),
-        line.spacer(),
-        line.tabs().foreach(function(tab)
-            return {
-                left_sep,
-                tab.number(),
-                tab.name(),
-                tab.is_current() and "*" or "",
-                tab.close_btn(""),
-                right_sep,
-                margin = " ",
-                hl = "BufferBg",
-            }
-        end),
-    }
-end)
+-- require("tabby.tabline").set(function(line)
+--     return {
+--         line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+--             return {
+--                 win.is_current() and "[" or "",
+--                 win.file_icon(),
+--                 " ",
+--                 win.buf_name(),
+--                 win.is_current() and "]" or "",
+--             }
+--         end),
+--         line.spacer(),
+--         line.tabs().foreach(function(tab)
+--             return {
+--                 tab.is_current() and "[" or "",
+--                 tab.number(),
+--                 " ",
+--                 tab.name(),
+--                 " ",
+--                 tab.close_btn(" "),
+--                 tab.is_current() and "]" or "",
+--             }
+--         end),
+--     }
+-- end)
