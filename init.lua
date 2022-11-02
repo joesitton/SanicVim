@@ -23,4 +23,6 @@ hi! link @variable Variable
 hi! link @variable.builtin VariableBuiltin
 hi! link @constructor Constructor
 hi! link @type.definition TypeDefinition
+hi! link @parameter Parameter
+hi! link @include PreProc
 ]])

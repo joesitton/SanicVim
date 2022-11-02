@@ -182,10 +182,7 @@ local plugins = {
             },
             {
                 "ahmedkhalf/project.nvim",
-                config = [[
-                    require("project_nvim").setup({ exclude_dirs = { "~/.local/*" }})
-                    require("telescope").load_extension("projects")
-                ]],
+                config = [[require("plugins.configs.projects")]],
                 after = "telescope.nvim",
             },
             {

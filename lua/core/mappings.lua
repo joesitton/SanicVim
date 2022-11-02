@@ -208,7 +208,40 @@ local hop_maps = {
 mappings.hop = {
     n = hop_maps,
     o = hop_maps,
-    v = hop_maps,
+    v = {
+        ["f"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true })
+            end,
+            "Hop 1-char forwards",
+        },
+        ["F"] = {
+            function()
+                require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true })
+            end,
+            "Hop 1-char backwards",
+        },
+        ["t"] = {
+            function()
+                require("hop").hint_char1({
+                    direction = hop_directions.AFTER,
+                    current_line_only = true,
+                    hint_offset = -1,
+                })
+            end,
+            "Hop 1-char forwards",
+        },
+        ["T"] = {
+            function()
+                require("hop").hint_char1({
+                    direction = hop_directions.BEFORE,
+                    current_line_only = true,
+                    hint_offset = 1,
+                })
+            end,
+            "Hop 1-char backwards",
+        },
+    },
 }
 
 mappings.harpoon = {
