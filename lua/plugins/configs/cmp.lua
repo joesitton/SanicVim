@@ -8,7 +8,7 @@ end
 local ok, autopairs = pcall(require, "nvim-autopairs.completion.cmp")
 
 if ok then
-    cmp.event:on("confirm_done", autopairs.on_confirm_done({ map_char = { tex = "" } }))
+    cmp.event:on("confirm_done", autopairs.on_confirm_done())
 end
 
 local ok, cmp_git = pcall(require, "cmp_git")

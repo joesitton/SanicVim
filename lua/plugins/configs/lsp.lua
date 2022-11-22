@@ -30,12 +30,6 @@ local on_attach = function(client, bufnr)
         illuminate.on_attach(client, bufnr)
     end
 
-    local ok, aerial = pcall(require, "aerial")
-
-    if ok then
-        aerial.on_attach(client, bufnr)
-    end
-
     local ok, navic = pcall(require, "nvim-navic")
 
     if ok then

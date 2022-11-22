@@ -1,13 +1,21 @@
 local npairs = require("nvim-autopairs")
-local Rule = require("nvim-autopairs.rule")
 
-npairs.setup({ check_ts = true })
+npairs.setup({
+    check_ts = true,
+    enable_check_bracket_line = false,
+})
+
+local Rule = require("nvim-autopairs.rule")
+local ts_conds = require("nvim-autopairs.ts-conds")
+local conds = require("nvim-autopairs.conds")
+
+npairs.remove_rule('"')
 
 npairs.add_rules({
-    Rule(" ", " "):with_pair(function(opts)
-        local pair = opts.line:sub(opts.col - 1, opts.col)
-        return vim.tbl_contains({ "()", "[]", "{}" }, pair)
-    end),
+    -- Rule('"', '"')
+    --     :with_move(conds.after_text('"'))
+    --     :with_pair(conds.is_inside_quote())
+    --     :with_pair(ts_conds.is_ts_node({ "string", "comment" })),
     Rule("( ", " )")
         :with_pair(function()
             return false

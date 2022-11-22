@@ -374,7 +374,7 @@ table.insert(winbar_components.active[1], {
     hl = function()
         return {
             fg = colors.dark_gray,
-            style = "italic",
+            -- style = "italic",
         }
     end,
 })

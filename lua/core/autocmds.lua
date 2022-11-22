@@ -1,13 +1,13 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
--- local o = vim.opt
+local o = vim.opt
 local ol = vim.opt_local
 -- local fn = vim.fn
 local cmd = vim.cmd
 -- local api = vim.api
 
 -- Buffer focus stuff
-autocmd({ "BufWinEnter", "BufEnter" }, {
+autocmd({ "BufWinEnter", "BufEnter", "InsertEnter" }, {
     group = augroup("no_repeat_comments", {}),
     pattern = "*",
     callback = function()

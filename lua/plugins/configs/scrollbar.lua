@@ -1,31 +1,5 @@
--- require("scrollbar.handlers").register("git", function()
---     local handle = io.popen("git diff " .. vim.fn.expand("%") .. " | grep -E '^@@' | awk '{print $3}' | paste -sd:")
---     local signs = {}
-
---     if handle then
---         local git = handle:read()
-
---         for line in git:gmatch("[^:]+") do
---             local line = line:sub(2, #line)
---             local positions = {}
-
---             for position in line:gmatch("[^,]+") do
---                 table.insert(positions, position)
---             end
-
---             for i = positions[1], positions[2] do
---                 table.insert(signs, {
---                     line = i,
---                     type = "GitAdd",
---                 })
---             end
---         end
---     end
-
---     return signs
--- end)
-
 require("scrollbar").setup({
+    show_in_active_only = true,
     set_highlights = false,
     excluded_buftypes = {
         "terminal",
@@ -43,16 +17,21 @@ require("scrollbar").setup({
         "lsp-installer",
     },
     marks = {
-        Search = { text = { "", "" } },
-        Error = { text = { "", "" } },
-        Warn = { text = { "", "" } },
-        Info = { text = { "", "" } },
-        Hint = { text = { "", "" } },
-        Misc = { text = { "", "" } },
-        -- GitAdd = { text = { "", "" }, priority = 5 },
+        -- Cursor = { text = "" },
+        Search = { text = { "▕", "▐" } },
+        Error = { text = { "▕", "▐" } },
+        Warn = { text = { "▕", "▐" } },
+        Info = { text = { "▕", "▐" } },
+        Hint = { text = { "▕", "▐" } },
+        Misc = { text = { "▕", "▐" } },
+        GitAdd = { text = "▕", priority = 7, },
+        GitChange = { text = "▕", priority = 7, },
+        GitDelete = { text = "▕", priority = 7, },
     },
     handlers = {
-        search = false,
+        cursor = false,
+        search = true,
         diagnostic = true,
+        gitsigns = true,
     },
 })

@@ -3,6 +3,7 @@
     "Lua.diagnostics.disable": [
         "undefined-global",
         "redefined-local",
-        "deprecated"
+        "deprecated",
+        "unused-local"
     ]
 }
