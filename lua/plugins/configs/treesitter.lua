@@ -31,47 +31,49 @@ require("nvim-treesitter.configs").setup({
             keymaps = {
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
-                -- ["ab"] = "@block.outer",
-                -- ["ib"] = "@block.inner",
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
                 ["al"] = "@loop.outer",
                 ["il"] = "@loop.inner",
+                ["ac"] = "@conditional.outer",
+                ["ic"] = "@conditional.inner",
             },
         },
-        swap = {
-            enable = true,
-            swap_next = {
-                ["]a"] = "@parameter.inner",
-            },
-            swap_previous = {
-                ["[a"] = "@parameter.inner",
-            },
-        },
-        move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-                ["]f"] = "@function.outer",
-                ["]c"] = "@class.outer",
-            },
-            goto_next_end = {
-                ["]F"] = "@function.outer",
-                ["]C"] = "@class.outer",
-            },
-            goto_previous_start = {
-                ["[f"] = "@function.outer",
-                ["[c"] = "@class.outer",
-            },
-            goto_previous_end = {
-                ["[F"] = "@function.outer",
-                ["[C"] = "@class.outer",
-            },
-        },
+        -- swap = {
+        --     enable = true,
+        --     swap_next = {
+        --         ["]a"] = "@parameter.inner",
+        --     },
+        --     swap_previous = {
+        --         ["[a"] = "@parameter.inner",
+        --     },
+        -- },
+        -- move = {
+        --     enable = true,
+        --     set_jumps = true,
+        --     goto_next_start = {
+        --         ["]f"] = "@function.outer",
+        --         ["]c"] = "@class.outer",
+        --     },
+        --     goto_next_end = {
+        --         ["]F"] = "@function.outer",
+        --         ["]C"] = "@class.outer",
+        --     },
+        --     goto_previous_start = {
+        --         ["[f"] = "@function.outer",
+        --         ["[c"] = "@class.outer",
+        --     },
+        --     goto_previous_end = {
+        --         ["[F"] = "@function.outer",
+        --         ["[C"] = "@class.outer",
+        --     },
+        -- },
     },
     textsubjects = {
         enable = true,
-        prev_selection = ",",
+        prev_selection = ".",
         keymaps = {
-            ["."] = "textsubjects-smart",
+            [","] = "textsubjects-smart",
             -- [";"] = "textsubjects-container-outer",
             -- [","] = "textsubjects-container-inner",
         },

@@ -55,3 +55,13 @@ autocmd("FileType", {
 --         end
 --     end,
 -- })
+
+autocmd("VimEnter", {
+    group = augroup("illuminate_highlight", {}),
+    pattern = "*",
+    callback = function ()
+        cmd([[
+            hi! link illuminatedWord IlluminatedWordText
+        ]])
+    end
+})

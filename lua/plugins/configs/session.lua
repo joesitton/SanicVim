@@ -1,8 +1,26 @@
-require("auto-session").setup({
-    -- auto_session_enable_last_session = true,
-    auto_save_enabled = true,
-    auto_restore_enabled = false,
-    auto_session_use_git_branch = true,
-    auto_session_suppress_dirs = { "~/" },
-    bypass_session_save_file_types = { "packer", "neo-tree", "aerial", "nowrite", "alpha", "", nil },
+require("persisted").setup({
+    git_use_branch = true,
+    should_autosave = function()
+        for _, ft in ipairs({ "packer", "neo-tree", "aerial", "nowrite", "alpha", "", nil }) do
+            if vim.bo.filetype == ft then
+                return false
+            end
+        end
+
+        return true
+    end,
+    after_save = function()
+        vim.notify("Session was saved!")
+    end,
+    after_source = function()
+        vim.notify("Loaded session!")
+    end,
+    telescope = {
+        before_source = function()
+            vim.api.nvim_input("<ESC>:%bd<CR>")
+        end,
+        after_source = function(session)
+            notify("Loaded session " .. session.name)
+        end,
+    },
 })

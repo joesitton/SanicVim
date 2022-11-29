@@ -1,5 +1,5 @@
 require("illuminate").configure({
-    delay = 1000,
+    delay = 420,
     under_cursor = false,
     filetypes_denylist = {
         "NvimTree",

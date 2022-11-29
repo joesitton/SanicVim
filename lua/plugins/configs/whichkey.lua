@@ -6,7 +6,7 @@ wk.setup({
         registers = false,
         presets = {
             operators = false,
-            text_objects = false,
+            text_objects = true,
             motions = false,
             windows = false,
             nav = false,
@@ -32,7 +32,7 @@ wk.setup({
     },
 
     window = {
-        border = "none", -- none/single/double/shadow
+        border = "rounded", -- none/single/double/shadow
         margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
         padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
     },

@@ -9,13 +9,7 @@ local Rule = require("nvim-autopairs.rule")
 local ts_conds = require("nvim-autopairs.ts-conds")
 local conds = require("nvim-autopairs.conds")
 
-npairs.remove_rule('"')
-
 npairs.add_rules({
-    -- Rule('"', '"')
-    --     :with_move(conds.after_text('"'))
-    --     :with_pair(conds.is_inside_quote())
-    --     :with_pair(ts_conds.is_ts_node({ "string", "comment" })),
     Rule("( ", " )")
         :with_pair(function()
             return false

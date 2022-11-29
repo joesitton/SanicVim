@@ -89,6 +89,8 @@ cmp.setup({
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
+        maxwidth = 50,
+        ellipsis_char = '...',
         format = function(entry, vim_item)
             vim_item.menu = menu[entry.source.name]
             vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "

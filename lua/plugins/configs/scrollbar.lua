@@ -1,6 +1,7 @@
 require("scrollbar").setup({
     show_in_active_only = true,
     set_highlights = false,
+    hide_if_all_visible = true,
     excluded_buftypes = {
         "terminal",
         "neo-tree",
@@ -17,7 +18,7 @@ require("scrollbar").setup({
         "lsp-installer",
     },
     marks = {
-        -- Cursor = { text = "" },
+        Cursor = { text = "▐" },
         Search = { text = { "▕", "▐" } },
         Error = { text = { "▕", "▐" } },
         Warn = { text = { "▕", "▐" } },
@@ -29,7 +30,7 @@ require("scrollbar").setup({
         GitDelete = { text = "▕", priority = 7, },
     },
     handlers = {
-        cursor = false,
+        cursor = true,
         search = true,
         diagnostic = true,
         gitsigns = true,

@@ -92,7 +92,7 @@ local slant_left_r = {
 }
 
 local components = {
-    active = { {}, {}, {}, {} },
+    active = { {}, {}, {} },
 }
 
 table.insert(components.active[1], {
@@ -106,7 +106,24 @@ table.insert(components.active[1], {
 
 table.insert(components.active[1], {
     provider = function()
-        return vim.fn.fnamemodify(vim.fn.getcwd(0), ":~:.") .. "/"
+        return " "
+    end,
+    enabled = function()
+        return vim.g.persisting ~= nil
+    end,
+    hl = function()
+        return {
+            fg = colors.yellow,
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = "block"
+    -- right_sep = slant_left_r,
+})
+
+table.insert(components.active[1], {
+    provider = function()
+        return vim.fn.fnamemodify(vim.fn.getcwd(0), ":~:.:t") .. "/"
     end,
     icon = {
         str = "  ",
@@ -213,7 +230,7 @@ table.insert(components.active[1], {
 -- RHS
 -- ==============================
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_errors",
     },
@@ -225,7 +242,7 @@ table.insert(components.active[4], {
     end,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_warnings",
     },
@@ -237,7 +254,7 @@ table.insert(components.active[4], {
     end,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_info",
     },
@@ -249,7 +266,7 @@ table.insert(components.active[4], {
     end,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = {
         name = "diagnostic_hints",
     },
@@ -261,7 +278,7 @@ table.insert(components.active[4], {
     end,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = " ",
     hl = function()
         return {
@@ -270,7 +287,7 @@ table.insert(components.active[4], {
     end,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = {
         name = "lsp_client_names",
     },
@@ -285,7 +302,15 @@ table.insert(components.active[4], {
     right_sep = slant_left_r,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
+    icon = {
+        str = " ",
+        hl = function()
+            return {
+                fg = get_mode_color().color,
+            }
+        end,
+    },
     provider = {
         name = "file_type",
         opts = {
@@ -302,7 +327,7 @@ table.insert(components.active[4], {
     right_sep = slant_left_r,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = function()
         -- stackoverflow, compute human readable file size
         local suffix = { "b", "k", "M", "G", "T", "P", "E" }
@@ -324,7 +349,18 @@ table.insert(components.active[4], {
     right_sep = slant_left_r,
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
+    provider = "position",
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = slant_left_l,
+    right_sep = "block",
+})
+
+table.insert(components.active[3], {
     provider = "line_percentage",
     hl = function()
         return {
@@ -333,16 +369,12 @@ table.insert(components.active[4], {
             style = "bold",
         }
     end,
-    left_sep = slant_left_l,
     right_sep = "block",
 })
 
-table.insert(components.active[4], {
+table.insert(components.active[3], {
     provider = {
         name = "scroll_bar",
-        -- opts = {
-        --     reverse = true,
-        -- },
     },
     hl = function()
         return {
@@ -358,41 +390,5 @@ components.inactive = components.active
 require("feline").setup({
     theme = colors,
     components = components,
-    vi_mode_colors = vi_mode_colors,
-})
-
-local navic = require("nvim-navic")
-
-local winbar_components = {
-    active = { {} },
-}
-
-table.insert(winbar_components.active[1], {
-    provider = function()
-        return vim.fn.fnamemodify(vim.fn.expand("%") .. " ", ":~:.")
-    end,
-    hl = function()
-        return {
-            fg = colors.dark_gray,
-            -- style = "italic",
-        }
-    end,
-})
-
-table.insert(winbar_components.active[1], {
-    provider = function()
-        return navic.get_location({ icons = require("core.utils").symbols, highlight = true, separator = "  " })
-    end,
-    enabled = function()
-        return navic.is_available()
-    end,
-    hl = {
-        bg = colors.bg,
-    },
-})
-
-require("feline").winbar.setup({
-    theme = colors,
-    components = winbar_components,
     vi_mode_colors = vi_mode_colors,
 })

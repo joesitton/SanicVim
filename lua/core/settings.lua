@@ -64,7 +64,7 @@ o.wildmode = "list:longest,full"
 o.foldenable = true
 o.foldcolumn = "0"
 o.foldlevel = 99
-o.foldlevelstart = 999
+o.foldlevelstart = 99
 o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 
@@ -85,7 +85,7 @@ o.backup = false
 o.writebackup = false
 
 -- Session
-o.sessionoptions = "buffers,curdir,folds,help,resize,tabpages,winsize,winpos,terminal"
+o.sessionoptions = "buffers,curdir,folds,winpos,winsize"
 
 -- GUI
 o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"

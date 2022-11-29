@@ -7,32 +7,32 @@ dashboard.section.header.val = fortune()
 
 -- Set menu
 dashboard.section.buttons.val = {
-    dashboard.button("r", "  Restore session", ":silent! RestoreSession<CR>"),
-    dashboard.button("SPC f S", "  Find session", "<CMD>Telescope session-lens search_session<CR>"),
+    dashboard.button("r", "  Restore session", ":silent! SessionLoad<CR>"),
+    dashboard.button("SPC f S", "  Find session", "<CMD>Telescope persisted<CR>"),
     dashboard.button("SPC f f", "  Find file", "<CMD>Telescope find_files<CR>"),
     dashboard.button("SPC f r", "  Find recent", "<CMD>Telescope oldfiles<CR>"),
     dashboard.button("SPC f t", "  Find text", "<CMD>Telescope live_grep<CR>"),
     dashboard.button("SPC f p", "  Find project", "<CMD>Telescope projects theme=dropdown<CR>"),
     dashboard.button("SPC f m", "  Find marks", "<CMD>Telescope harpoon marks<CR>"),
     dashboard.button("e", "  New file", ":ene<CR>"),
-    -- dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
+    dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
 }
 
 -- Set footer
 dashboard.section.footer.val = {}
 
--- local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
--- local num_plugins_tot = #vim.tbl_keys(packer_plugins)
+local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
+local num_plugins_tot = #vim.tbl_keys(packer_plugins)
 
--- local plugins_text = "plugins"
--- if num_plugins_tot <= 1 then
---     plugins_text = "plugin"
--- end
+local plugins_text = "plugins"
+if num_plugins_tot <= 1 then
+    plugins_text = "plugin"
+end
 
--- dashboard.section.footer.val = {
---     "ﮣ " .. num_plugins_loaded .. " / " .. num_plugins_tot .. " " .. plugins_text .. " loaded",
--- }
+dashboard.section.footer.val = {
+    "ﮣ " .. num_plugins_loaded .. "/" .. num_plugins_tot .. " " .. plugins_text .. " loaded",
+}
 
 dashboard.section.footer.opts.hl = "Comment"
 
@@ -56,7 +56,7 @@ dashboard.config.layout = {
 
 -- Do not show statusline or tabline in alpha buffer
 vim.cmd(
-    [[ au User AlphaReady if winnr('$') == 1 | set laststatus=0 showtabline=0 winbar= | endif | au BufUnload <buffer> set laststatus=3 showtabline=2 winbar=%{%v:lua.require'feline'.generate_winbar()%} ]]
+    [[ au User AlphaReady if winnr('$') == 1 | set laststatus=0 showtabline=0 | endif | au BufUnload <buffer> set laststatus=3 showtabline=2 ]]
 )
 
 -- Send config to alpha

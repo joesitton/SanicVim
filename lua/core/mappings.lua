@@ -21,14 +21,14 @@ mappings.general = {
         ["<C-j>"] = { "<C-w>j", "Focus window down" },
         ["<C-k>"] = { "<C-w>k", "Focus window up" },
 
-        ["<leader>w"] = { ":w<CR>", "Save file" },
-        ["<leader>x"] = { ":x<CR>", "Save and exit" },
+        ["<leader>w"] = { "<CMD>w<CR>", "Save file" },
+        ["<leader>x"] = { "<CMD>x<CR>", "Save and exit" },
 
-        ["<CR>"] = { ":nohlsearch<CR>", "Clear search" },
+        ["<CR>"] = { "<CMD>nohlsearch<CR>", "Clear search" },
 
         ["<F2>"] = { "<CMD>ZenMode<CR>", "Zen mode" },
 
-        -- ["<C-c>"] = { ":%y+<CR>", "Copy file contents" },
+        -- ["<C-c>"] = { "<CMD>%y+<CR>", "Copy file contents" },
 
         ["K"] = {
             function()
@@ -36,6 +36,7 @@ mappings.general = {
 
                 if not winid then
                     require("gitsigns").preview_hunk()
+                    vim.lsp.buf.hover()
                 end
             end,
             "Peek fold / Show info",
@@ -50,13 +51,13 @@ mappings.general = {
     },
 
     -- i = {
-    --     ["<C-z>"] = {
+    --     ["<D-z>"] = {
     --         function()
     --             return vim.cmd([[ undo ]])
     --         end,
     --         "Undo",
     --     },
-    --     ["<C-S-z>"] = {
+    --     ["<D-S-z>"] = {
     --         function()
     --             return vim.cmd([[ redo ]])
     --         end,
@@ -90,42 +91,55 @@ mappings.comments = {
     },
 
     v = {
-        ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
-        ["<C-_>"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment selection" },
+        ["<C-/>"] = { "<Plug>(comment_toggle_linewise_visual)gv", "Comment selection" },
+        ["<C-_>"] = { "<Plug>(comment_toggle_linewise_visual)gv", "Comment selection" },
     },
 }
 
 mappings.move = {
     n = {
-        ["<C-S-j>"] = { "<CMD>MoveLine(1)<CR>", "Move line down" },
-        ["<C-S-k>"] = { "<CMD>MoveLine(-1)<CR>", "Move line up" },
-        ["<C-S-l>"] = { "<CMD>MoveHChar(1)<CR>", "Move char right" },
-        ["<C-S-h>"] = { "<CMD>MoveHChar(-1)<CR>", "Move char left" },
+        ["<C-S-j>"] = { ":MoveLine(1)<CR>", "Move line down" },
+        ["<C-S-k>"] = { ":MoveLine(-1)<CR>", "Move line up" },
     },
 
-    -- v = {
-    --     ["<C-S-k>"] = { "<CMD>MoveBlock(-1)<CR>", "Move block up" },
-    --     ["<C-S-j>"] = { "<CMD>MoveBlock(1)<CR>", "Move block down" },
-    --     ["<C-S-l>"] = { "<CMD>MoveHBlock(1)<CR>", "Move block right" },
-    --     ["<C-S-h>"] = { "<CMD>MoveHBlock(-1)<CR>", "Move block left" },
-    -- },
+    v = {
+        ["<C-S-j>"] = { ":MoveBlock(1)<CR>", "Move block down" },
+        ["<C-S-k>"] = { ":MoveBlock(-1)<CR>", "Move block up" },
+    },
 }
 
 mappings.illuminate = {
     n = {
         ["<C-n>"] = {
             function()
-                require("illuminate").next_reference({ wrap = true })
+                require("illuminate").goto_next_reference({ wrap = true })
             end,
             "Next variable occurrence",
         },
         ["<C-p>"] = {
             function()
-                require("illuminate").next_reference({ wrap = true, reverse = true })
+                require("illuminate").goto_prev_reference({ wrap = true })
             end,
             "Previous variable occurrence",
         },
-    },
+    }
+}
+
+mappings.folds = {
+    n = {
+        ["zR"] = {
+            function()
+                require('ufo').openAllFolds()
+            end,
+            "Open all folds"
+        },
+        ["zM"] = {
+            function()
+                require('ufo').closeAllFolds()
+            end,
+            "Close all folds"
+        },
+    }
 }
 
 mappings.terminal = {
@@ -241,10 +255,12 @@ mappings.hop = {
             end,
             "Hop 1-char backwards",
         },
+        ["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
+        ["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
     },
 }
 
-mappings.harpoon = {
+mappings.marks = {
     n = {
         ["<leader>m"] = {
             function()
@@ -263,7 +279,7 @@ mappings.lsp = {
         ["]d"] = { "<CMD>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
         ["[d"] = { "<CMD>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
         ["<leader>ca"] = { "<CMD>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-        ["<leader>rn"] = { ":IncRename ", "Rename variable" },
+        ["<leader>rn"] = { "<CMD>IncRename ", "Rename variable" },
     },
 
     v = {
@@ -273,8 +289,8 @@ mappings.lsp = {
 
 mappings.session = {
     n = {
-        ["<leader>ss"] = { "<CMD>SaveSession<CR>", "Save session" },
-        ["<leader>ds"] = { "<CMD>DeleteSession<CR>", "Delete session" },
+        ["<leader>Ss"] = { "<CMD>SessionSave<CR>", "Save session" },
+        ["<leader>Sd"] = { "<CMD>SessionDelete<CR>", "Delete session" },
     },
 }
 
@@ -292,7 +308,7 @@ mappings.telescope = {
         ["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", "Find keymaps" },
         ["<leader>fy"] = { "<CMD>Telescope neoclip<CR>", "Find yanks" },
         ["<leader>fn"] = { "<CMD>Telescope notify<CR>", "Find notifications" },
-        ["<leader>fS"] = { "<CMD>Telescope session-lens search_session<CR>", "Find sessions" },
+        ["<leader>fS"] = { "<CMD>Telescope persisted<CR>", "Find sessions" },
         ["<leader>f'"] = { "<CMD>Telescope marks<CR>", "Find marks" },
 
         ["<leader>gs"] = { "<CMD>Telescope git_status<CR>", "Git status" },
@@ -307,15 +323,15 @@ mappings.telescope = {
 mappings.search = {
     n = {
         ["n"] = {
-            "<CMD>execute('normal! ' . v:count1 . 'n')<CR><CMD>lua require('hlslens').start()<CR>",
+            "<CMD>execute('normal! ' . v:count1 . 'n')<CR>:lua require('hlslens').start()<CR>",
             "Next match",
         },
         ["N"] = {
-            "<CMD>execute('normal! ' . v:count1 . 'N')<CR><CMD>lua require('hlslens').start()<CR>",
+            "<CMD>execute('normal! ' . v:count1 . 'N')<CR>:lua require('hlslens').start()<CR>",
             "Previous match",
         },
-        ["*"] = { "*<CMD>lua require('hlslens').start()<CR>", "Next match" },
-        ["#"] = { "#<CMD>lua require('hlslens').start()<CR>", "Previous match" },
+        ["*"] = { "*:lua require('hlslens').start()<CR>", "Next match" },
+        ["#"] = { "#:lua require('hlslens').start()<CR>", "Previous match" },
     },
 }
 
@@ -329,44 +345,52 @@ mappings.search = {
 --     },
 -- }
 
--- mappings.surfer = {
---     n = {
---         ["vx"] = { ":STSSelectMasterNode<CR>", "Select main node" },
---         ["vn"] = { ":STSSelectCurrentNode<CR>", "Select node" },
---         ["[e"] = {
---             function()
---                 vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
---                 return "g@l"
---             end,
---             "Swap node with sibling upwards",
---             expr = true,
---         },
---         ["]e"] = {
---             function()
---                 vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
---                 return "g@l"
---             end,
---             "Swap node with sibling downwards",
---             expr = true,
---         },
---     },
---
---     -- v = {
---     --     ["]e"] = {
---     --         function()
---     --             require("syntax-tree-surfer").surf("next", "visual", true)
---     --         end,
---     --         "Swap node with next sibling",
---     --         -- expr = true,
---     --     },
---     --     ["[e"] = {
---     --         function()
---     --             require("syntax-tree-surfer").surf("prev", "visual", true)
---     --         end,
---     --         "Swap node with previous sibling",
---     --         -- expr = true,
---     --     },
---     -- },
--- }
+mappings.treesitter = {
+    n = {
+        ["vm"] = { "<CMD>STSSelectMasterNode<CR>", "Select main node" },
+        ["vn"] = { "<CMD>STSSelectCurrentNode<CR>", "Select node" },
+        ["[e"] = {
+            function()
+                vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
+                return "g@l"
+            end,
+            "Swap node with sibling upwards",
+            expr = true,
+        },
+        ["]e"] = {
+            function()
+                vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
+                return "g@l"
+            end,
+            "Swap node with sibling upwards",
+            expr = true,
+        },
+        ["[a"] = {
+            function()
+                vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+                return "g@l"
+            end,
+            "Swap node with previous sibling",
+            expr = true,
+        },
+        ["]a"] = {
+            function()
+                vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+                return "g@l"
+            end,
+            "Swap node with next sibling",
+            expr = true,
+        },
+    },
+
+    v = {
+        ["L"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
+        ["H"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
+        ["K"] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
+        ["J"] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
+        ["]e"] = { "<CMD>STSSwapNextVisual<CR>", "Swap selection with next node" },
+        ["[e"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap selection with previous node" },
+    },
+}
 
 return mappings
