@@ -69,15 +69,15 @@ require("nvim-treesitter.configs").setup({
         --     },
         -- },
     },
-    textsubjects = {
-        enable = true,
-        prev_selection = ".",
-        keymaps = {
-            [","] = "textsubjects-smart",
-            -- [";"] = "textsubjects-container-outer",
-            -- [","] = "textsubjects-container-inner",
-        },
-    },
+    -- textsubjects = {
+    --     enable = true,
+    --     prev_selection = ".",
+    --     keymaps = {
+    --         [","] = "textsubjects-smart",
+    --         -- [";"] = "textsubjects-container-outer",
+    --         -- [","] = "textsubjects-container-inner",
+    --     },
+    -- },
 })
 
 local ft_to_lang = require("nvim-treesitter.parsers").ft_to_lang

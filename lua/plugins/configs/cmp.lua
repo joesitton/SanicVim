@@ -90,7 +90,7 @@ cmp.setup({
     formatting = {
         fields = { "kind", "abbr", "menu" },
         maxwidth = 50,
-        ellipsis_char = '...',
+        ellipsis_char = "...",
         format = function(entry, vim_item)
             vim_item.menu = menu[entry.source.name]
             vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "
@@ -185,16 +185,19 @@ cmp.setup({
 cmp.setup.cmdline(":", {
     view = { entries = { name = "custom", selection_order = "near_cursor" } },
     window = { completion = { side_padding = 1, col_offset = 0 } },
-    formatting = { fields = { "abbr" } },
+    formatting = { fields = { "abbr" }, maxwidth = 100 },
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+    sources = cmp.config.sources({
+        { name = "path" },
+        { name = "cmdline" },
+    }),
 })
 
 for _, cmdtype in ipairs({ "?", "/" }) do
     cmp.setup.cmdline(cmdtype, {
         view = { entries = { name = "custom", selection_order = "near_cursor" } },
         window = { completion = { side_padding = 1, col_offset = 0 } },
-        formatting = { fields = { "abbr" } },
+        formatting = { fields = { "abbr" }, maxwidth = 100 },
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
             {
@@ -204,9 +207,9 @@ for _, cmdtype in ipairs({ "?", "/" }) do
                     only_current_buffer = true,
                 },
             },
-            {
-                name = "nvim_lsp_document_symbol",
-            },
+            { name = "nvim_lsp_document_symbol", },
+            { name = "buffer", },
+            { name = "treesitter", },
         }),
     })
 end

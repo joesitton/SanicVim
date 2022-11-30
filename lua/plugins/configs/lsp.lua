@@ -9,9 +9,36 @@ vim.diagnostic.config({
         header = false,
         border = "rounded",
         severity_sort = true,
-        source = "if_many",
+        source = "always",
         focusable = false,
     },
+})
+
+require("mason").setup({
+    ui = {
+        border = "rounded",
+    },
+})
+
+require("null-ls").setup()
+
+require("mason-null-ls").setup({
+    automatic_setup = true,
+    ensure_installed = {
+        "black",
+        "isort",
+        "fixjson",
+        "jq",
+        "stylua",
+        "yamlfmt",
+        "shellharden"
+    },
+})
+
+require("mason-null-ls").setup_handlers({
+    function(source_name, methods)
+        require("mason-null-ls.automatic_setup")(source_name, methods)
+    end,
 })
 
 local servers = {
@@ -28,18 +55,13 @@ local servers = {
     "terraformls",
 }
 
-require("mason").setup({
-    ui = {
-        border = "rounded",
-    },
-})
-
 require("mason-lspconfig").setup({
     ensure_installed = servers,
 })
 
-local lsp = require("lspconfig")
 require("lspconfig.ui.windows").default_options.border = "rounded"
+
+local lsp = require("lspconfig")
 
 local on_attach = function(client, bufnr)
     local ok, navic = pcall(require, "nvim-navic")

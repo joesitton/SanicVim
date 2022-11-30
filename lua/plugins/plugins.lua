@@ -522,7 +522,7 @@ local plugins = {
                         event = "InsertEnter",
                     },
                 },
-                config = [[require("luasnip/loaders/from_vscode").lazy_load()]],
+                config = [[require("luasnip.loaders.from_vscode").lazy_load()]],
                 event = "InsertEnter",
             },
             {
@@ -559,6 +559,8 @@ local plugins = {
     {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
+        "jayp0521/mason-null-ls.nvim",
+        "jose-elias-alvarez/null-ls.nvim",
         "b0o/SchemaStore.nvim",
         {
             "neovim/nvim-lspconfig",

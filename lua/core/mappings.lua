@@ -36,7 +36,7 @@ mappings.general = {
 
                 if not winid then
                     require("gitsigns").preview_hunk()
-                    vim.lsp.buf.hover()
+                    -- vim.lsp.buf.hover()
                 end
             end,
             "Peek fold / Show info",
@@ -66,8 +66,8 @@ mappings.general = {
     -- },
 
     v = {
-        ["<"] = { "<gv", "Indent left" },
-        [">"] = { ">gv", "Indent right" },
+        ["<S-Tab>"] = { "<gv", "Indent left" },
+        ["<Tab>"] = { ">gv", "Indent right" },
     },
 }
 
@@ -122,24 +122,24 @@ mappings.illuminate = {
             end,
             "Previous variable occurrence",
         },
-    }
+    },
 }
 
 mappings.folds = {
     n = {
         ["zR"] = {
             function()
-                require('ufo').openAllFolds()
+                require("ufo").openAllFolds()
             end,
-            "Open all folds"
+            "Open all folds",
         },
         ["zM"] = {
             function()
-                require('ufo').closeAllFolds()
+                require("ufo").closeAllFolds()
             end,
-            "Close all folds"
+            "Close all folds",
         },
-    }
+    },
 }
 
 mappings.terminal = {
@@ -384,10 +384,10 @@ mappings.treesitter = {
     },
 
     v = {
-        ["L"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
-        ["H"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
-        ["K"] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
-        ["J"] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
+        [">"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
+        ["<"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
+        [","] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
+        ["."] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
         ["]e"] = { "<CMD>STSSwapNextVisual<CR>", "Swap selection with next node" },
         ["[e"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap selection with previous node" },
     },
