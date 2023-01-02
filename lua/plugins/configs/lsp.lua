@@ -81,6 +81,14 @@ for _, server in ipairs(servers) do
                 validate = { enable = true },
             },
         }
+    elseif server == "pyright" then
+        settings = {
+            python = {
+                analysis = {
+                    extraPaths = { "/opt/homebrew/lib/python3.10/site-packages" }
+                }
+            }
+        }
     end
 
     lsp[server].setup({

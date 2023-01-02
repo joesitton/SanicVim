@@ -29,7 +29,7 @@ o.shiftwidth = 2
 o.number = true
 o.numberwidth = 4
 o.relativenumber = false
-o.signcolumn = "auto:1-2"
+o.signcolumn = "yes:2"
 o.cursorline = true
 
 -- Scrolloffs
@@ -107,7 +107,7 @@ o.iskeyword:remove({ "_" })
 o.mousescroll = "ver:1,hor:2"
 
 -- Virtualenv
--- g.python3_host_prog = "/usr/share/nvim/venv/bin/python3"
+g.python3_host_prog = "/opt/homebrew/opt/python/libexec/bin/python"
 
 -- Neovide
 g.neovide_transparency = 0.92

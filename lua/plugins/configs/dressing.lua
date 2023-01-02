@@ -10,9 +10,11 @@ require("dressing").setup({
         prefer_width = 40,
         max_width = nil,
         min_width = 20,
-        winblend = 0,
-        winhighlight = "Normal:NormalFloat,FloatBorder:TelescopeBorder",
         get_config = nil,
+        win_options = {
+            winblend = 0,
+            winhighlight = "Normal:NormalFloat,FloatBorder:TelescopeBorder",
+        },
         override = function(conf)
             -- conf.row = 10
             -- conf.col = -1
