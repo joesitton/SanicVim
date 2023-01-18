@@ -55,6 +55,7 @@ o.showtabline = 2
 -- Splits
 o.splitright = true
 o.splitbelow = true
+-- o.splitkeep = "screen"
 
 -- Wild menu
 o.wildignorecase = true
@@ -98,7 +99,7 @@ o.hidden = true
 o.mouse = "a"
 o.autoread = true
 o.linebreak = true
-o.lazyredraw = true
+o.lazyredraw = false
 o.wrap = false
 o.ruler = false
 o.shortmess:append("sI")

@@ -59,9 +59,17 @@ autocmd("FileType", {
 autocmd("VimEnter", {
     group = augroup("illuminate_highlight", {}),
     pattern = "*",
-    callback = function ()
+    callback = function()
         cmd([[
             hi! link illuminatedWord IlluminatedWordText
         ]])
-    end
+    end,
+})
+
+autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePost", "TextChanged", "TextChangedI" }, {
+    group = augroup("barbecue#create_autocmd", {}),
+    pattern = "*",
+    callback = function()
+        require("barbecue.ui").update()
+    end,
 })

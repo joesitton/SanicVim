@@ -66,8 +66,8 @@ mappings.general = {
     -- },
 
     v = {
-        ["<S-Tab>"] = { "<gv", "Indent left" },
-        ["<Tab>"] = { ">gv", "Indent right" },
+        ["<"] = { "<gv", "Indent left" },
+        [">"] = { ">gv", "Indent right" },
     },
 }
 
@@ -384,8 +384,8 @@ mappings.treesurfer = {
     },
 
     v = {
-        [">"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
-        ["<"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
+        -- [">"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
+        -- ["<"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
         [","] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
         ["."] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
         ["]e"] = { "<CMD>STSSwapNextVisual<CR>", "Swap selection with next node" },

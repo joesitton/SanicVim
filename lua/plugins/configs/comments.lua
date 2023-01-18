@@ -1,12 +1,12 @@
 require("Comment").setup({
     toggler = {},
     opleader = {
-        line = "gc",
+        line = "cc",
     },
     extra = {
-        above = "gcO",
-        below = "gco",
-        eol = "gcA",
+        above = "ccO",
+        below = "cco",
+        eol = "ccA",
     },
     ignore = "^$",
     pre_hook = function(ctx)
@@ -30,4 +30,8 @@ require("Comment").setup({
     end,
 })
 
--- require("nvim-comment-frame").setup({})
+require("nvim-comment-frame").setup({
+    keymap = "ccf",
+    frame_width = 50,
+    line_wrap_len = 35,
+})

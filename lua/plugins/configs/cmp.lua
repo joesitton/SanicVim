@@ -52,11 +52,6 @@ local menu = {
     neorg = "Neorg",
 }
 
-local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 local luasnip = require("luasnip")
 
 cmp.setup({
@@ -108,13 +103,14 @@ cmp.setup({
         completion = {
             col_offset = -4,
             side_padding = 0,
-            -- border = "rounded",
-            -- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+            border = "rounded",
+            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
         },
-        documentation = {
-            -- border = "rounded",
-            winhighlight = "Normal:Pmenu",
-        },
+        documentation = false
+        -- documentation = {
+        --     -- border = "rounded",
+        --     winhighlight = "Normal:Pmenu",
+        -- },
     },
     snippet = {
         expand = function(args)
@@ -122,7 +118,7 @@ cmp.setup({
         end,
     },
     mapping = {
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-Space>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.close()
@@ -137,8 +133,6 @@ cmp.setup({
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
-            elseif has_words_before() then
-                cmp.complete()
             else
                 fallback()
             end
@@ -152,6 +146,14 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
+        ["<ESC>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.mapping.abort()
+                vim.cmd[[stopinsert]]
+            else
+                fallback()
+            end
+        end, { "i" }),
     },
     sources = {
         { name = "nvim_lsp" },
@@ -207,9 +209,9 @@ for _, cmdtype in ipairs({ "?", "/" }) do
                     only_current_buffer = true,
                 },
             },
-            { name = "nvim_lsp_document_symbol", },
-            { name = "buffer", },
-            { name = "treesitter", },
+            { name = "nvim_lsp_document_symbol" },
+            { name = "buffer" },
+            -- { name = "treesitter", },
         }),
     })
 end

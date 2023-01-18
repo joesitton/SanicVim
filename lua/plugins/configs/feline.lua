@@ -226,9 +226,22 @@ table.insert(components.active[1], {
     end,
 })
 
--- ==============================
--- RHS
--- ==============================
+--------------------------------------------------
+--               right-hand side                --
+--------------------------------------------------
+
+table.insert(components.active[3], {
+    provider = function()
+        return "" -- require("noice").api.statusline.mode.get
+    end,
+    -- enabled = require("noice").api.statusline.mode.has,
+    hl = function()
+        return {
+            fg = colors.orange,
+            bg = get_mode_color().even_darker,
+        }
+    end,
+})
 
 table.insert(components.active[3], {
     provider = {

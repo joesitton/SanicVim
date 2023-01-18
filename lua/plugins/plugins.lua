@@ -83,6 +83,97 @@ local plugins = {
 
     -- }}}
 
+    -- {{{ LSP
+
+    {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "jayp0521/mason-null-ls.nvim",
+        "jose-elias-alvarez/null-ls.nvim",
+        "b0o/SchemaStore.nvim",
+        {
+            "neovim/nvim-lspconfig",
+            config = [[require("plugins.configs.lsp")]],
+            after = { "cmp-nvim-lsp" },
+            event = "BufReadPost",
+        },
+    },
+
+    {
+        "j-hui/fidget.nvim",
+        config = [[require("plugins.configs.fidget")]],
+        event = "BufReadPost",
+    },
+
+    -- }}}
+
+    -- {{{ Treesitter
+
+    {
+        "nvim-treesitter/nvim-treesitter",
+        requires = {
+            {
+                "p00f/nvim-ts-rainbow",
+                event = "BufReadPost",
+            },
+            {
+                "andymass/vim-matchup",
+                event = "CursorMoved",
+            },
+            -- {
+            --     "nvim-treesitter/nvim-treesitter-context",
+            --     config = [[require("treesitter-context").setup({ max_lines = 3 })]],
+            --     event = "WinScrolled",
+            -- },
+            {
+                "windwp/nvim-autopairs",
+                config = [[require("plugins.configs.autopairs")]],
+                event = "InsertEnter",
+            },
+            {
+                "JoosepAlviste/nvim-ts-context-commentstring",
+                event = "BufReadPost",
+            },
+            {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+                event = "BufReadPost",
+            },
+            {
+                "nvim-treesitter/playground",
+                cmd = "TSPlaygroundToggle",
+            },
+            {
+                "lewis6991/spellsitter.nvim",
+                config = [[require("spellsitter").setup()]],
+                event = "BufReadPost",
+            },
+            {
+                "RRethy/nvim-treesitter-textsubjects",
+                event = "BufReadPost",
+            },
+            {
+                "ziontee113/syntax-tree-surfer",
+                config = [[require("syntax-tree-surfer").setup()]],
+                event = "BufReadPost",
+            },
+            {
+                "m-demare/hlargs.nvim",
+                config = [[require("plugins.configs.hlargs")]],
+                event = "BufReadPost",
+            },
+            -- {
+            --     "haringsrob/nvim_context_vt",
+            --     config = [[require('nvim_context_vt').setup()]],
+            --     event = "BufReadPost"
+            -- }
+        },
+        run = ":silent! TSUpdate",
+        config = [[require("plugins.configs.treesitter")]],
+        event = "BufReadPost",
+    },
+
+    -- }}}
+
     -- {{{ Functionality
 
     {
@@ -102,11 +193,17 @@ local plugins = {
 
     {
         "tpope/vim-fugitive",
+        event = "VimEnter",
     },
 
     -- {
     --     "famiu/nvim-reload",
     -- },
+
+    {
+        "famiu/bufdelete.nvim",
+        cmd = { "Bdelete", "Bwipeout" },
+    },
 
     {
         "fedepujol/move.nvim",
@@ -122,11 +219,6 @@ local plugins = {
         "ethanholz/nvim-lastplace",
         config = [[require("plugins.configs.lastplace")]],
         event = "BufReadPost",
-    },
-
-    {
-        "famiu/bufdelete.nvim",
-        cmd = { "Bdelete", "Bwipeout" },
     },
 
     {
@@ -229,6 +321,14 @@ local plugins = {
                 ]],
                 after = { "telescope.nvim", "nvim-notify" },
             },
+            {
+                "folke/noice.nvim",
+                config = [[
+                    require("plugins.configs.noice")
+                    require("telescope").load_extension("noice")
+                ]],
+                after = { "telescope.nvim" },
+            },
         },
         config = [[require("plugins.configs.telescope")]],
         event = "VimEnter",
@@ -249,19 +349,30 @@ local plugins = {
 
     {
         "numToStr/Comment.nvim",
-        -- requires = {
-        --     "s1n7ax/nvim-comment-frame",
-        --     requires = "nvim-treesitter",
-        --     event = "BufReadPost",
-        -- },
+        requires = {
+            "s1n7ax/nvim-comment-frame",
+            requires = "nvim-treesitter",
+            event = "BufReadPost",
+        },
         config = [[require("plugins.configs.comments")]],
         event = "BufReadPost",
     },
 
     {
+        "stevearc/dressing.nvim",
+        config = [[require("plugins.configs.dressing")]],
+        event = "UIEnter",
+    },
+
+    {
+        "MunifTanjim/nui.nvim",
+        event = "UIEnter",
+    },
+
+    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
-        requires = { "MunifTanjim/nui.nvim", event = "UIEnter" },
+        requires = { "nui.nvim" },
         config = [[require("plugins.configs.tree")]],
         cmd = { "NeoTreeFloatToggle", "Neotree" },
     },
@@ -288,10 +399,10 @@ local plugins = {
     --     config = [[require("plugins.configs.test")]],
     -- },
 
-    {
-        "pwntester/octo.nvim",
-        config = [[require("octo").setup()]],
-    },
+    -- {
+    --     "pwntester/octo.nvim",
+    --     config = [[require("octo").setup()]],
+    -- },
 
     {
         "nvim-neorg/neorg",
@@ -303,6 +414,11 @@ local plugins = {
     {
         "smjonas/inc-rename.nvim",
         config = [[require("inc_rename").setup()]],
+    },
+
+    {
+        "dstein64/vim-startuptime",
+        cmd = "StartupTime",
     },
 
     -- }}}
@@ -327,14 +443,14 @@ local plugins = {
     --     event = "VimEnter",
     -- },
 
-    -- {
-    --     "utilyre/barbecue.nvim",
-    --     requires = {
-    --         "nvim-lspconfig",
-    --         "smiteshp/nvim-navic",
-    --     },
-    --     config = [[require("barbecue").setup({ kinds = require("core.utils").symbols })]]
-    -- },
+    {
+        "utilyre/barbecue.nvim",
+        requires = {
+            "nvim-lspconfig",
+            "smiteshp/nvim-navic",
+        },
+        config = [[require("barbecue").setup({ create_autocmd = false, kinds = require("core.utils").symbols })]],
+    },
 
     {
         "feline-nvim/feline.nvim",
@@ -396,17 +512,6 @@ local plugins = {
         requires = "kevinhwang91/promise-async",
         config = [[require("plugins.configs.ufo")]],
         event = "BufReadPost",
-    },
-
-    {
-        "stevearc/dressing.nvim",
-        config = [[require("plugins.configs.dressing")]],
-        event = "UIEnter",
-    },
-
-    {
-        "dstein64/vim-startuptime",
-        cmd = "StartupTime",
     },
 
     {
@@ -511,21 +616,6 @@ local plugins = {
                 event = "InsertEnter",
             },
             {
-                "L3MON4D3/LuaSnip",
-                requires = {
-                    {
-                        "saadparwaiz1/cmp_luasnip",
-                        event = "InsertEnter",
-                    },
-                    {
-                        "rafamadriz/friendly-snippets",
-                        event = "InsertEnter",
-                    },
-                },
-                config = [[require("luasnip.loaders.from_vscode").lazy_load()]],
-                event = "InsertEnter",
-            },
-            {
                 "ray-x/cmp-treesitter",
                 after = "nvim-treesitter",
                 event = "InsertEnter",
@@ -539,12 +629,20 @@ local plugins = {
                 ft = "tex",
             },
             {
-                "abecodes/tabout.nvim",
-                config = [[require("tabout").setup({tabkey = "", backwards_tabkey = ""})]],
-                after = { "nvim-cmp", "nvim-treesitter" },
+                "lukas-reineke/cmp-under-comparator",
             },
             {
-                "lukas-reineke/cmp-under-comparator",
+                "L3MON4D3/LuaSnip",
+                requires = {
+                    {
+                        "saadparwaiz1/cmp_luasnip",
+                    },
+                    {
+                        "rafamadriz/friendly-snippets",
+                    },
+                },
+                config = [[require("luasnip.loaders.from_vscode").lazy_load()]],
+                event = "InsertEnter",
             },
         },
         config = [[require("plugins.configs.cmp")]],
@@ -552,95 +650,11 @@ local plugins = {
         event = { "InsertEnter", "CmdlineEnter" },
     },
 
-    -- }}}
-
-    -- {{{ LSP
-
     {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "jayp0521/mason-null-ls.nvim",
-        "jose-elias-alvarez/null-ls.nvim",
-        "b0o/SchemaStore.nvim",
-        {
-            "neovim/nvim-lspconfig",
-            config = [[require("plugins.configs.lsp")]],
-            after = { "cmp-nvim-lsp" },
-            event = "BufReadPost",
-        },
-    },
-
-    {
-        "j-hui/fidget.nvim",
-        config = [[require("plugins.configs.fidget")]],
-        event = "BufReadPost",
-    },
-
-    -- }}}
-
-    -- {{{ Treesitter
-
-    {
-        "nvim-treesitter/nvim-treesitter",
-        requires = {
-            {
-                "p00f/nvim-ts-rainbow",
-                event = "BufReadPost",
-            },
-            {
-                "andymass/vim-matchup",
-                event = "CursorMoved",
-            },
-            {
-                "nvim-treesitter/nvim-treesitter-context",
-                config = [[require("treesitter-context").setup({ max_lines = 3 })]],
-                event = "WinScrolled",
-            },
-            {
-                "windwp/nvim-autopairs",
-                config = [[require("plugins.configs.autopairs")]],
-                event = "InsertEnter",
-            },
-            {
-                "JoosepAlviste/nvim-ts-context-commentstring",
-                event = "BufReadPost",
-            },
-            {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                event = "BufReadPost",
-            },
-            {
-                "nvim-treesitter/playground",
-                cmd = "TSPlaygroundToggle",
-            },
-            {
-                "lewis6991/spellsitter.nvim",
-                config = [[require("spellsitter").setup()]],
-                event = "BufReadPost",
-            },
-            {
-                "RRethy/nvim-treesitter-textsubjects",
-                event = "BufReadPost",
-            },
-            {
-                "ziontee113/syntax-tree-surfer",
-                config = [[require("syntax-tree-surfer").setup()]],
-                event = "BufReadPost",
-            },
-            {
-                "m-demare/hlargs.nvim",
-                config = [[require("plugins.configs.hlargs")]],
-                event = "BufReadPost",
-            },
-            -- {
-            --     "haringsrob/nvim_context_vt",
-            --     config = [[require('nvim_context_vt').setup()]],
-            --     event = "BufReadPost"
-            -- }
-        },
-        run = ":silent! TSUpdate",
-        config = [[require("plugins.configs.treesitter")]],
-        event = "BufReadPost",
+        "abecodes/tabout.nvim",
+        config = [[require("tabout").setup({act_as_tab = true})]],
+        wants = { "nvim-treesitter" },
+        after = { "nvim-cmp" },
     },
 
     -- }}}
