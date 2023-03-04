@@ -50,7 +50,6 @@ local servers = {
     "jsonls",
     "yamlls",
     "vimls",
-    "sumneko_lua",
     "rust_analyzer",
     "terraformls",
 }

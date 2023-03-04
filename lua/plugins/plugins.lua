@@ -83,6 +83,101 @@ local plugins = {
 
     -- }}}
 
+    -- {{{ Completion
+
+    {
+        "hrsh7th/nvim-cmp",
+        requires = {
+            {
+                "hrsh7th/cmp-nvim-lsp",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-calc",
+                event = "InsertEnter",
+            },
+            -- {
+            --     "hrsh7th/cmp-emoji",
+            --     event = "InsertEnter",
+            -- },
+            {
+                "hrsh7th/cmp-path",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
+            {
+                "hrsh7th/cmp-cmdline",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
+            {
+                "hrsh7th/cmp-buffer",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-nvim-lua",
+                event = "InsertEnter",
+            },
+            {
+                "hrsh7th/cmp-nvim-lsp-document-symbol",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
+            {
+                "hrsh7th/cmp-nvim-lsp-signature-help",
+                event = "InsertEnter",
+            },
+            {
+                "joesitton/cmp-rg",
+                event = { "InsertEnter", "CmdlineEnter" },
+            },
+            {
+                "tzachar/cmp-tabnine",
+                run = "./install.sh",
+                event = "InsertEnter",
+            },
+            {
+                "ray-x/cmp-treesitter",
+                after = "nvim-treesitter",
+                event = "InsertEnter",
+            },
+            {
+                "petertriho/cmp-git",
+                ft = "gitcommit",
+            },
+            {
+                "kdheepak/cmp-latex-symbols",
+                ft = "tex",
+            },
+            {
+                "lukas-reineke/cmp-under-comparator",
+            },
+            {
+                "L3MON4D3/LuaSnip",
+                requires = {
+                    {
+                        "rafamadriz/friendly-snippets",
+                    },
+                },
+                config = [[require("luasnip.loaders.from_vscode").lazy_load()]],
+                event = "InsertEnter",
+            },
+            {
+                "saadparwaiz1/cmp_luasnip",
+                after = "nvim-cmp"
+            },
+        },
+        config = [[require("plugins.configs.cmp")]],
+        after = { "cmp-under-comparator", "cmp-tabnine", "cmp-nvim-lsp" },
+        event = { "InsertEnter", "CmdlineEnter" },
+    },
+
+    {
+        "abecodes/tabout.nvim",
+        config = [[require("tabout").setup({act_as_tab = true})]],
+        wants = { "nvim-treesitter" },
+        after = { "nvim-cmp" },
+    },
+
+    -- }}}
+
     -- {{{ LSP
 
     {
@@ -240,101 +335,6 @@ local plugins = {
     -- },
 
     {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.0",
-        requires = {
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-                config = [[require("telescope").load_extension("fzf")]],
-                after = "telescope.nvim",
-            },
-            {
-                "gbrlsnchs/telescope-lsp-handlers.nvim",
-                config = [[require("telescope").load_extension("lsp_handlers")]],
-                after = "telescope.nvim",
-            },
-            {
-                "olacin/telescope-gitmoji.nvim",
-                config = [[require("telescope").load_extension("gitmoji")]],
-                after = "telescope.nvim",
-            },
-            {
-                "benfowler/telescope-luasnip.nvim",
-                config = [[require("telescope").load_extension("luasnip")]],
-                after = "telescope.nvim",
-            },
-            {
-                "ahmedkhalf/project.nvim",
-                config = [[
-                    require("project_nvim").setup({ exclude_dirs = { "~/.local/*" }, silent_chdir = false })
-                    require("telescope").load_extension("projects")
-                ]],
-                after = "telescope.nvim",
-            },
-            {
-                "AckslD/nvim-neoclip.lua",
-                requires = "kkharji/sqlite.lua",
-                config = [[
-                    require("plugins.configs.neoclip")
-                    require("telescope").load_extension("neoclip")
-                ]],
-                after = "telescope.nvim",
-            },
-            {
-                "ThePrimeagen/harpoon",
-                config = [[
-                    require("harpoon").setup({})
-                    require("telescope").load_extension("harpoon")
-                ]],
-                after = "telescope.nvim",
-            },
-            {
-                "stevearc/aerial.nvim",
-                config = [[
-                    require("plugins.configs.aerial")
-                    require("telescope").load_extension("aerial")
-                ]],
-                after = "telescope.nvim",
-            },
-            {
-                "rcarriga/nvim-notify",
-                config = [[
-                    require("notify").setup({background_colour = "#181818", render = "minimal" })
-                    require("telescope").load_extension("notify")
-                    vim.notify = require("notify")
-                ]],
-            },
-            -- {
-            --     "ThePrimeagen/refactoring.nvim",
-            --     config = [[
-            --         require("refactoring").setup()
-            --         require("telescope").load_extension("refactoring")
-            --     ]],
-            --     after = "telescope.nvim",
-            -- },
-            {
-                "olimorris/persisted.nvim",
-                config = [[
-                    require("plugins.configs.session")
-                    require("telescope").load_extension("persisted")
-                ]],
-                after = { "telescope.nvim", "nvim-notify" },
-            },
-            {
-                "folke/noice.nvim",
-                config = [[
-                    require("plugins.configs.noice")
-                    require("telescope").load_extension("noice")
-                ]],
-                after = { "telescope.nvim" },
-            },
-        },
-        config = [[require("plugins.configs.telescope")]],
-        event = "VimEnter",
-    },
-
-    {
         "phaazon/hop.nvim",
         branch = "v2",
         config = [[require("hop").setup({ teasing = false })]],
@@ -419,6 +419,125 @@ local plugins = {
     {
         "dstein64/vim-startuptime",
         cmd = "StartupTime",
+    },
+
+    -- }}}
+ 
+    -- {{{ Telescope
+
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.1",
+        config = [[require("plugins.configs.telescope")]],
+        event = "VimEnter",
+    },
+
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        config = [[require("telescope").load_extension("fzf")]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "gbrlsnchs/telescope-lsp-handlers.nvim",
+        config = [[require("telescope").load_extension("lsp_handlers")]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "olacin/telescope-gitmoji.nvim",
+        config = [[require("telescope").load_extension("gitmoji")]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "benfowler/telescope-luasnip.nvim",
+        config = [[require("telescope").load_extension("luasnip")]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "ahmedkhalf/project.nvim",
+        config = [[
+            require("project_nvim").setup({ exclude_dirs = { "~/.local/*" }, silent_chdir = false })
+            require("telescope").load_extension("projects")
+        ]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "AckslD/nvim-neoclip.lua",
+        requires = "kkharji/sqlite.lua",
+        config = [[
+            require("plugins.configs.neoclip")
+            require("telescope").load_extension("neoclip")
+        ]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "ThePrimeagen/harpoon",
+        config = [[
+            require("harpoon").setup({})
+            require("telescope").load_extension("harpoon")
+        ]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "stevearc/aerial.nvim",
+        config = [[
+            require("plugins.configs.aerial")
+            require("telescope").load_extension("aerial")
+        ]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    {
+        "rcarriga/nvim-notify",
+        config = [[
+            require("notify").setup({background_colour = "#181818", render = "minimal" })
+            require("telescope").load_extension("notify")
+        ]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
+    },
+
+    -- {
+    --     "ThePrimeagen/refactoring.nvim",
+    --     config = [[
+    --         require("refactoring").setup()
+    --         require("telescope").load_extension("refactoring")
+    --     ]],
+    -- },
+
+    {
+        "olimorris/persisted.nvim",
+        config = [[
+            require("plugins.configs.session")
+            require("telescope").load_extension("persisted")
+        ]],
+        event = "VimEnter",
+        after = { "nvim-notify", "telescope.nvim" },
+    },
+
+    {
+        "folke/noice.nvim",
+        config = [[
+            require("plugins.configs.noice")
+            require("telescope").load_extension("noice")
+        ]],
+        event = "VimEnter",
+        after = { "telescope.nvim" },
     },
 
     -- }}}
@@ -565,99 +684,6 @@ local plugins = {
 
     -- }}}
 
-    -- {{{ Completion
-
-    {
-        "hrsh7th/nvim-cmp",
-        requires = {
-            {
-                "hrsh7th/cmp-nvim-lsp",
-                event = "InsertEnter",
-            },
-            {
-                "hrsh7th/cmp-calc",
-                event = "InsertEnter",
-            },
-            -- {
-            --     "hrsh7th/cmp-emoji",
-            --     event = "InsertEnter",
-            -- },
-            {
-                "hrsh7th/cmp-path",
-                event = { "InsertEnter", "CmdlineEnter" },
-            },
-            {
-                "hrsh7th/cmp-cmdline",
-                event = { "InsertEnter", "CmdlineEnter" },
-            },
-            {
-                "hrsh7th/cmp-buffer",
-                event = "InsertEnter",
-            },
-            {
-                "hrsh7th/cmp-nvim-lua",
-                event = "InsertEnter",
-            },
-            {
-                "hrsh7th/cmp-nvim-lsp-document-symbol",
-                event = { "InsertEnter", "CmdlineEnter" },
-            },
-            {
-                "hrsh7th/cmp-nvim-lsp-signature-help",
-                event = "InsertEnter",
-            },
-            {
-                "joesitton/cmp-rg",
-                event = { "InsertEnter", "CmdlineEnter" },
-            },
-            {
-                "tzachar/cmp-tabnine",
-                run = "./install.sh",
-                event = "InsertEnter",
-            },
-            {
-                "ray-x/cmp-treesitter",
-                after = "nvim-treesitter",
-                event = "InsertEnter",
-            },
-            {
-                "petertriho/cmp-git",
-                ft = "gitcommit",
-            },
-            {
-                "kdheepak/cmp-latex-symbols",
-                ft = "tex",
-            },
-            {
-                "lukas-reineke/cmp-under-comparator",
-            },
-            {
-                "L3MON4D3/LuaSnip",
-                requires = {
-                    {
-                        "saadparwaiz1/cmp_luasnip",
-                    },
-                    {
-                        "rafamadriz/friendly-snippets",
-                    },
-                },
-                config = [[require("luasnip.loaders.from_vscode").lazy_load()]],
-                event = "InsertEnter",
-            },
-        },
-        config = [[require("plugins.configs.cmp")]],
-        after = { "cmp-under-comparator", "cmp-tabnine", "cmp-nvim-lsp" },
-        event = { "InsertEnter", "CmdlineEnter" },
-    },
-
-    {
-        "abecodes/tabout.nvim",
-        config = [[require("tabout").setup({act_as_tab = true})]],
-        wants = { "nvim-treesitter" },
-        after = { "nvim-cmp" },
-    },
-
-    -- }}}
 }
 
 return plugins

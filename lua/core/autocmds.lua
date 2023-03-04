@@ -70,6 +70,10 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     group = augroup("barbecue#create_autocmd", {}),
     pattern = "*",
     callback = function()
-        require("barbecue.ui").update()
+        local barbecue, err = pcall(require, "barbecue.ui")
+	
+        if not err then
+          barbecue.update()
+        end
     end,
 })

@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 local mappings = {}
 
 mappings.general = {
