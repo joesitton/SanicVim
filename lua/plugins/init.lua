@@ -46,12 +46,8 @@ if not ok then
 end
 
 -- Load plugins
--- local plugins = require("plugins.plugins")
 lazy.setup("plugins.plugins", {
     concurrency = 12,
-	defaults = {
-		lazy = true,
-	},
     ui = {
         border = "rounded"
     }

@@ -152,8 +152,8 @@ mappings.terminal = {
 
 mappings.tree = {
     n = {
-        ["\\"] = { "<CMD>NeoTreeFloatToggle<CR>", "Toggle tree" },
-        ["g\\"] = { "<CMD>NeoTreeFloatToggle git_status<CR>", "Git status" },
+        ["\\"] = { "<CMD>Neotree toggle left<CR>", "Toggle tree" },
+        ["g\\"] = { "<CMD>Neotree toggle left git_status<CR>", "Git status" },
     },
 }
 

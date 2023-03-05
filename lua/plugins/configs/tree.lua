@@ -46,7 +46,7 @@ require("neo-tree").setup({
     },
     window = {
         position = "left",
-        width = 30,
+        width = 40,
         mappings = {
             ["<space>"] = "toggle_node",
             ["<cr>"] = "open",

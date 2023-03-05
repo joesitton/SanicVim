@@ -418,7 +418,7 @@ local plugins = {
 		config = function()
 			require("plugins.configs.tree")
 		end,
-		cmd = { "NeoTreeFloatToggle", "Neotree" },
+		cmd = { "Neotree" },
 	},
 
 	{
@@ -463,6 +463,7 @@ local plugins = {
 		config = function()
 			require("inc_rename").setup()
 		end,
+		cmd = { "IncRename" },
 	},
 
 	-- }}}
@@ -707,6 +708,11 @@ local plugins = {
 	},
 
 	{
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
+	},
+
+	{
 		"akinsho/toggleterm.nvim",
 		version = "v1.*",
 		config = function()
@@ -724,6 +730,7 @@ local plugins = {
 
 	{
 		"xiyaowong/virtcolumn.nvim",
+		lazy = false,
 		config = function()
 			vim.g.virtcolumn_char = "▕"
 		end,
