@@ -317,10 +317,6 @@ local plugins = {
 		event = "VimEnter",
 	},
 
-	-- {
-	--     "famiu/nvim-reload",
-	-- },
-
 	{
 		"famiu/bufdelete.nvim",
 		cmd = { "Bdelete", "Bwipeout" },
@@ -464,6 +460,14 @@ local plugins = {
 			require("inc_rename").setup()
 		end,
 		cmd = { "IncRename" },
+	},
+
+	{
+		"AckslD/swenv.nvim",
+		config = function()
+			require("swenv").setup({ venvs_path = vim.fn.expand("~/.pyenv/versions/") })
+		end,
+		event = "VimEnter",
 	},
 
 	-- }}}
@@ -730,9 +734,25 @@ local plugins = {
 
 	{
 		"xiyaowong/virtcolumn.nvim",
-		lazy = false,
 		config = function()
 			vim.g.virtcolumn_char = "▕"
+		end,
+	},
+
+	-- {
+	-- 	"m4xshen/smartcolumn.nvim",
+	-- 	config = function()
+	-- 		require("smartcolumn").setup({
+	-- 			colorcolumn = "80",
+	-- 			disabled_filetypes = { "help", "test", "markdown", "lazy", "alpha" },
+	-- 		})
+	-- 	end,
+	-- },
+
+	{
+		"gen740/SmoothCursor.nvim",
+		config = function()
+			require("smoothcursor").setup({ disabled_filetypes = { "lazy", "help" }, disable_float_win = true })
 		end,
 	},
 

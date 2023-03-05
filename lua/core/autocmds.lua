@@ -22,7 +22,9 @@ autocmd("BufEnter", {
     pattern = "*.txt",
     callback = function()
         if vim.bo.buftype == "help" then
-            cmd([[ silent! wincmd L | TSBufDisable highlight]])
+            ol.signcolumn = "no"
+            ol.colorcolumn = "0"
+            cmd([[ silent! wincmd L ]])
         end
     end,
 })
@@ -71,9 +73,17 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     pattern = "*",
     callback = function()
         local ok, barbecue = pcall(require, "barbecue.ui")
-	
+
         if ok then
-          barbecue.update()
+            barbecue.update()
         end
+    end,
+})
+
+autocmd("User", {
+    group = augroup("persisted_telescope_load_pre", {}),
+    pattern = "PersistedSavePre",
+    callback = function()
+        vim.api.nvim_input("<ESC>:%bd<CR>")
     end,
 })

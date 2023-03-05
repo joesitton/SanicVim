@@ -6,7 +6,7 @@ g.mapleader = " "
 
 -- Syntax highlight ranges
 o.synmaxcol = 500
-o.colorcolumn = "+1"
+o.colorcolumn = "100"
 
 -- Clipboard
 o.clipboard = "unnamedplus"
@@ -74,7 +74,7 @@ o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep:
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
-o.pumheight = 18
+o.pumheight = 20
 
 -- Statusline
 o.cmdheight = 1
