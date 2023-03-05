@@ -1,10 +1,17 @@
+-- Try to load impatient.nvim
 local ok, impatient = pcall(require, "impatient")
 
 if ok then
     impatient.enable_profile()
 end
 
-local modules = require("core.utils").modules
+-- Load our modules
+local modules = {
+    "core.settings",
+    "core.autocmds",
+    "core.commands",
+    "plugins",
+}
 
 for _, module in ipairs(modules) do
     local ok, err = pcall(require, module)
@@ -14,6 +21,7 @@ for _, module in ipairs(modules) do
     end
 end
 
+-- Link some highlights
 vim.cmd([[
 hi! link @function.builtin FuncBuiltin
 hi! link @constant.builtin ConstBuiltin

@@ -6,7 +6,7 @@ g.mapleader = " "
 
 -- Syntax highlight ranges
 o.synmaxcol = 500
-o.colorcolumn = ""
+o.colorcolumn = "+1"
 
 -- Clipboard
 o.clipboard = "unnamedplus"
@@ -105,7 +105,7 @@ o.ruler = false
 o.shortmess:append("sI")
 o.whichwrap:append("<>[]hl")
 o.iskeyword:remove({ "_" })
-o.mousescroll = "ver:1,hor:2"
+o.mousescroll = "ver:3,hor:4"
 
 -- Virtualenv
 g.python3_host_prog = "/opt/homebrew/opt/python/libexec/bin/python"

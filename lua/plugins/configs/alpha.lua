@@ -15,26 +15,9 @@ dashboard.section.buttons.val = {
     dashboard.button("SPC f p", "  Find project", "<CMD>Telescope projects theme=dropdown<CR>"),
     dashboard.button("SPC f m", "  Find marks", "<CMD>Telescope harpoon marks<CR>"),
     dashboard.button("e", "  New file", ":ene<CR>"),
-    dashboard.button("u", "  Update plugins", ":PackerSync<CR>"),
+    dashboard.button("u", "  Update plugins", ":Lazy sync<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),
 }
-
--- Set footer
-dashboard.section.footer.val = {}
-
-local num_plugins_loaded = #vim.fn.globpath(vim.fn.stdpath("data") .. "/site/pack/packer/start", "*", 0, 1)
-local num_plugins_tot = #vim.tbl_keys(packer_plugins)
-
-local plugins_text = "plugins"
-if num_plugins_tot <= 1 then
-    plugins_text = "plugin"
-end
-
-dashboard.section.footer.val = {
-    "ﮣ " .. num_plugins_loaded .. "/" .. num_plugins_tot .. " " .. plugins_text .. " loaded",
-}
-
-dashboard.section.footer.opts.hl = "Comment"
 
 -- Set paddings
 local h_header = #dashboard.section.header.val

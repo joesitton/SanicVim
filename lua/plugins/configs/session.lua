@@ -9,18 +9,18 @@ require("persisted").setup({
 
         return true
     end,
-    after_save = function()
-        vim.notify("Session was saved!")
-    end,
-    after_source = function()
-        vim.notify("Loaded session!")
-    end,
-    telescope = {
-        before_source = function()
-            vim.api.nvim_input("<ESC>:%bd<CR>")
-        end,
-        after_source = function(session)
-            notify("Loaded session " .. session.name)
-        end,
-    },
+    -- after_save = function()
+    --     vim.notify("Session was saved!")
+    -- end,
+    -- after_source = function()
+    --     vim.notify("Loaded session!")
+    -- end,
+    -- telescope = {
+    --     before_source = function()
+    --         vim.api.nvim_input("<ESC>:%bd<CR>")
+    --     end,
+    --     after_source = function(session)
+    --         notify("Loaded session " .. session.name)
+    --     end,
+    -- },
 })

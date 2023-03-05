@@ -103,8 +103,8 @@ cmp.setup({
         completion = {
             col_offset = -4,
             side_padding = 0,
-            border = "rounded",
-            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+            -- border = "rounded",
+            -- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
         },
         documentation = false
         -- documentation = {
