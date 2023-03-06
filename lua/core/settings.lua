@@ -108,7 +108,7 @@ o.iskeyword:remove({ "_" })
 o.mousescroll = "ver:3,hor:4"
 
 -- Virtualenv
-g.python3_host_prog = "/opt/homebrew/opt/python/libexec/bin/python"
+g.python3_host_prog = "~/.pyenv/versions/neovim/bin/python"
 
 -- Neovide
 g.neovide_transparency = 0.92
