@@ -134,7 +134,7 @@ require("neo-tree").setup({
         },
     },
     buffers = {
-        follow_current_file = false,
+        follow_current_file = true,
     },
     event_handlers = {},
     playground = {

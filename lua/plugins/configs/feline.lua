@@ -339,29 +339,34 @@ table.insert(components.active[3], {
     left_sep = slant_left_l,
 })
 
--- table.insert(components.active[3], {
---     provider = function()
---         local ok, swenv = pcall(require, "swenv.api")
+table.insert(components.active[3], {
+    provider = function()
+        local ok, swenv = pcall(require, "swenv.api")
 
---         if ok then
---             local venv = swenv.get_current_venv().name
+        if not ok then
+            return ""
+        end
 
---             if venv then
---                 return venv
---             end
---         end
---     end,
---     enabled = function()
---         return vim.bo.filetype == "python"
---     end,
---     truncate_hide = true,
---     hl = function()
---         return {
---             bg = get_mode_color().darker,
---         }
---     end,
---     right_sep = slant_left_r,
--- })
+        local venv = swenv.get_current_venv()
+
+        if not venv then
+            return ""
+        end
+
+        return "🐍 " .. venv.name
+    end,
+    enabled = function()
+        return vim.bo.filetype == "python"
+    end,
+    truncate_hide = true,
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = "block",
+    right_sep = slant_left_r,
+})
 
 table.insert(components.active[3], {
     provider = function()

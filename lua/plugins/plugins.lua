@@ -108,10 +108,10 @@ local plugins = {
 				"hrsh7th/cmp-calc",
 				event = "InsertEnter",
 			},
-			-- {
-			--     "hrsh7th/cmp-emoji",
-			--     event = "InsertEnter",
-			-- },
+			{
+			    "hrsh7th/cmp-emoji",
+			    event = "InsertEnter",
+			},
 			{
 				"hrsh7th/cmp-path",
 				event = { "InsertEnter", "CmdlineEnter" },
@@ -357,12 +357,6 @@ local plugins = {
 		end,
 		event = "VimEnter",
 	},
-
-	-- {
-	--     "ziontee113/icon-picker.nvim",
-	--     config = function() require("icon-picker") end,
-	--     cmd = { "PickEverything", "PickEverythingInsert" },
-	-- },
 
 	{
 		"phaazon/hop.nvim",
@@ -718,7 +712,7 @@ local plugins = {
 
 	{
 		"akinsho/toggleterm.nvim",
-		version = "v1.*",
+		version = "*",
 		config = function()
 			require("plugins.configs.term")
 		end,
@@ -749,12 +743,12 @@ local plugins = {
 	-- 	end,
 	-- },
 
-	{
-		"gen740/SmoothCursor.nvim",
-		config = function()
-			require("smoothcursor").setup({ disabled_filetypes = { "lazy", "help" }, disable_float_win = true })
-		end,
-	},
+	-- {
+	-- 	"gen740/SmoothCursor.nvim",
+	-- 	config = function()
+	-- 		require("smoothcursor").setup({ disabled_filetypes = { "lazy", "help" }, disable_float_win = true })
+	-- 	end,
+	-- },
 
 	{
 		"anuvyklack/windows.nvim",
