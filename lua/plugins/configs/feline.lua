@@ -386,7 +386,7 @@ table.insert(components.active[3], {
             bg = get_mode_color().darker,
         }
     end,
-    left_sep = slant_left_l,
+    left_sep = "block",
     right_sep = slant_left_r,
 })
 
