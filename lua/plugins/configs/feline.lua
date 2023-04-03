@@ -109,7 +109,7 @@ table.insert(components.active[1], {
         return " "
     end,
     enabled = function()
-        return vim.g.persisting ~= nil
+        return vim.g.persisting == true
     end,
     hl = function()
         return {

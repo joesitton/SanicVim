@@ -6,7 +6,7 @@ g.mapleader = " "
 
 -- Syntax highlight ranges
 o.synmaxcol = 500
-o.colorcolumn = "100"
+o.colorcolumn = ""
 
 -- Clipboard
 o.clipboard = "unnamedplus"
@@ -55,7 +55,9 @@ o.showtabline = 2
 -- Splits
 o.splitright = true
 o.splitbelow = true
--- o.splitkeep = "screen"
+if vim.fn.has("nvim-0.9") == 1 then
+  o.splitkeep = "screen"
+end
 
 -- Wild menu
 o.wildignorecase = true

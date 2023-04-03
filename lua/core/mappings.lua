@@ -343,52 +343,52 @@ mappings.search = {
 --     },
 -- }
 
-mappings.treesurfer = {
-    n = {
-        ["vm"] = { "<CMD>STSSelectMasterNode<CR>", "Select main node" },
-        ["vn"] = { "<CMD>STSSelectCurrentNode<CR>", "Select node" },
-        ["[e"] = {
-            function()
-                vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
-                return "g@l"
-            end,
-            "Swap node with sibling upwards",
-            expr = true,
-        },
-        ["]e"] = {
-            function()
-                vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
-                return "g@l"
-            end,
-            "Swap node with sibling upwards",
-            expr = true,
-        },
-        ["[a"] = {
-            function()
-                vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
-                return "g@l"
-            end,
-            "Swap node with previous sibling",
-            expr = true,
-        },
-        ["]a"] = {
-            function()
-                vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
-                return "g@l"
-            end,
-            "Swap node with next sibling",
-            expr = true,
-        },
-    },
+-- mappings.treesurfer = {
+--     n = {
+--         ["vm"] = { "<CMD>STSSelectMasterNode<CR>", "Select main node" },
+--         ["vn"] = { "<CMD>STSSelectCurrentNode<CR>", "Select node" },
+--         ["[e"] = {
+--             function()
+--                 vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
+--                 return "g@l"
+--             end,
+--             "Swap node with sibling upwards",
+--             expr = true,
+--         },
+--         ["]e"] = {
+--             function()
+--                 vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
+--                 return "g@l"
+--             end,
+--             "Swap node with sibling upwards",
+--             expr = true,
+--         },
+--         ["[a"] = {
+--             function()
+--                 vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+--                 return "g@l"
+--             end,
+--             "Swap node with previous sibling",
+--             expr = true,
+--         },
+--         ["]a"] = {
+--             function()
+--                 vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+--                 return "g@l"
+--             end,
+--             "Swap node with next sibling",
+--             expr = true,
+--         },
+--     },
 
-    v = {
-        -- [">"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
-        -- ["<"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
-        [","] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
-        ["."] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
-        ["]e"] = { "<CMD>STSSwapNextVisual<CR>", "Swap selection with next node" },
-        ["[e"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap selection with previous node" },
-    },
-}
+--     v = {
+--         -- [">"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling node" },
+--         -- ["<"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling node" },
+--         [","] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
+--         ["."] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
+--         ["]e"] = { "<CMD>STSSwapNextVisual<CR>", "Swap selection with next node" },
+--         ["[e"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap selection with previous node" },
+--     },
+-- }
 
 return mappings

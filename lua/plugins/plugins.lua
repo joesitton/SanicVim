@@ -23,7 +23,7 @@ local plugins = {
 	-- {{{ Colorschemes
 
 	{
-		dir = "~/Dev/lush-base16",
+		"joesitton/lush-base16",
 		lazy = false,
 		dependencies = { "rktjmp/lush.nvim" },
 		config = function()
@@ -185,8 +185,9 @@ local plugins = {
 	{
 		"abecodes/tabout.nvim",
 		config = function()
-			require("tabout").setup({ act_as_tab = true })
+			require("tabout").setup({ ignore_beginning = false })
 		end,
+		event = { "InsertEnter" },
 	},
 
 	-- }}}
@@ -266,13 +267,13 @@ local plugins = {
 				"RRethy/nvim-treesitter-textsubjects",
 				event = "BufReadPost",
 			},
-			{
-				"ziontee113/syntax-tree-surfer",
-				config = function()
-					require("syntax-tree-surfer").setup()
-				end,
-				event = "BufReadPost",
-			},
+			-- {
+			-- 	"ziontee113/syntax-tree-surfer",
+			-- 	config = function()
+			-- 		require("syntax-tree-surfer").setup()
+			-- 	end,
+			-- 	event = "BufReadPost",
+			-- },
 			{
 				"m-demare/hlargs.nvim",
 				config = function()
@@ -587,7 +588,7 @@ local plugins = {
 	-- {{{ Appearance
 
 	{
-		"kyazdani42/nvim-web-devicons",
+		"nvim-tree/nvim-web-devicons",
 		event = "VimEnter",
 	},
 
@@ -608,8 +609,8 @@ local plugins = {
 	{
 		"utilyre/barbecue.nvim",
 		dependencies = {
-			"nvim-lspconfig",
 			"smiteshp/nvim-navic",
+			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			require("barbecue").setup({ create_autocmd = false, kinds = require("core.utils").symbols })
@@ -726,12 +727,12 @@ local plugins = {
 		event = "BufReadPost",
 	},
 
-	{
-		"xiyaowong/virtcolumn.nvim",
-		config = function()
-			vim.g.virtcolumn_char = "▕"
-		end,
-	},
+	-- {
+	-- 	"xiyaowong/virtcolumn.nvim",
+	-- 	config = function()
+	-- 		vim.g.virtcolumn_char = "▕"
+	-- 	end,
+	-- },
 
 	-- {
 	-- 	"m4xshen/smartcolumn.nvim",

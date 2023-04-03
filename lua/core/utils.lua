@@ -26,6 +26,7 @@ utils.symbols = {
     Event = " ",
     Operator = " ",
     TypeParameter = " ",
+    TabNine = " ",
 }
 
 return utils
