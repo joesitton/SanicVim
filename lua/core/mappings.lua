@@ -302,7 +302,7 @@ mappings.telescope = {
         ["<leader>fD"] = { "<CMD>Telescope diagnostics<CR>", "Find workspace diagnostics" },
         ["<leader>fs"] = { "<CMD>Telescope aerial<CR>", "Find buffer symbols" },
         ["<leader>fb"] = { "<CMD>Telescope buffers<CR>", "Find buffers" },
-        ["<leader>fp"] = { "<CMD>Telescope projects theme=dropdown<CR>", "Find projects" },
+        ["<leader>fp"] = { "<CMD>Telescope projects<CR>", "Find projects" },
         ["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", "Find keymaps" },
         ["<leader>fy"] = { "<CMD>Telescope neoclip<CR>", "Find yanks" },
         ["<leader>fn"] = { "<CMD>Telescope notify<CR>", "Find notifications" },

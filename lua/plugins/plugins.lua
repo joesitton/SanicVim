@@ -23,7 +23,7 @@ local plugins = {
 	-- {{{ Colorschemes
 
 	{
-		"joesitton/lush-base16",
+		dir = "~/Dev/lush-base16",
 		lazy = false,
 		dependencies = { "rktjmp/lush.nvim" },
 		config = function()
@@ -109,8 +109,8 @@ local plugins = {
 				event = "InsertEnter",
 			},
 			{
-			    "hrsh7th/cmp-emoji",
-			    event = "InsertEnter",
+				"hrsh7th/cmp-emoji",
+				event = "InsertEnter",
 			},
 			{
 				"hrsh7th/cmp-path",
@@ -158,9 +158,6 @@ local plugins = {
 				ft = "tex",
 			},
 			{
-				"lukas-reineke/cmp-under-comparator",
-			},
-			{
 				"L3MON4D3/LuaSnip",
 				dependencies = {
 					{
@@ -174,6 +171,9 @@ local plugins = {
 			},
 			{
 				"saadparwaiz1/cmp_luasnip",
+			},
+			{
+				"lukas-reineke/cmp-under-comparator",
 			},
 		},
 		config = function()
@@ -673,16 +673,21 @@ local plugins = {
 		event = "BufReadPost",
 	},
 
-	{
-		"beauwilliams/focus.nvim",
-		config = function()
-			require("plugins.configs.focus")
-		end,
-		cmd = "FocusEnable",
-	},
+	-- {
+	-- 	"beauwilliams/focus.nvim",
+	-- 	config = function()
+	-- 		require("plugins.configs.focus")
+	-- 	end,
+	-- 	cmd = "FocusEnable",
+	-- },
 
 	{
 		"luukvbaal/stabilize.nvim",
+		enabled = function()
+			if vim.fn.has("nvim-0.9") == 0 then
+				return true
+			end
+		end,
 		config = function()
 			require("stabilize").setup()
 		end,

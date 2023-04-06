@@ -175,7 +175,7 @@ cmp.setup({
 cmp.setup.cmdline(":", {
 	view = { entries = { name = "custom", selection_order = "near_cursor" } },
 	window = { completion = { side_padding = 1, col_offset = 0 } },
-	formatting = { fields = { "abbr" }, maxwidth = 100 },
+	formatting = { fields = { "abbr" }, maxwidth = 120 },
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = "path" },
@@ -187,7 +187,7 @@ for _, cmdtype in ipairs({ "?", "/" }) do
 	cmp.setup.cmdline(cmdtype, {
 		view = { entries = { name = "custom", selection_order = "near_cursor" } },
 		window = { completion = { side_padding = 1, col_offset = 0 } },
-		formatting = { fields = { "abbr" }, maxwidth = 100 },
+		formatting = { fields = { "abbr" }, maxwidth = 120 },
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{

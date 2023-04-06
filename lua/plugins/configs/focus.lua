@@ -1,14 +1,6 @@
 require("focus").setup({
     signcolumn = false,
     cursorline = false,
-    excluded_buftypes = {
-        "help",
-        "nowrite",
-        "prompt",
-        "popup",
-        "fugitive",
-        "alpha",
-    },
     excluded_filetypes = {
         "alpha",
         "help",
@@ -22,5 +14,8 @@ require("focus").setup({
         "fugitive",
         "DressingInput",
         "gitcommit",
+        "nowrite",
+        "prompt",
+        "popup",
     },
 })

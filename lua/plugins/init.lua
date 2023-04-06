@@ -47,8 +47,12 @@ end
 
 -- Load plugins
 lazy.setup("plugins.plugins", {
-    concurrency = 12,
-    ui = {
-        border = "rounded"
-    }
+	concurrency = 12,
+	ui = {
+		size = { width = 0.5, height = 0.7 },
+		border = "rounded",
+		icons = {
+			lazy = "💤 "
+		}
+	},
 })

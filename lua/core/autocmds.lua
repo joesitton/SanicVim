@@ -80,10 +80,10 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     end,
 })
 
-autocmd("User", {
-    group = augroup("persisted_telescope_load_pre", {}),
-    pattern = "PersistedSavePre",
-    callback = function()
-        vim.api.nvim_input("<ESC>:%bd<CR>")
-    end,
-})
+-- autocmd("User", {
+--     group = augroup("persisted_telescope_load_pre", {}),
+--     pattern = "PersistedSavePre",
+--     callback = function()
+--         vim.api.nvim_input("<ESC>:%bd<CR>")
+--     end,
+-- })

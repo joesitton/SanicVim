@@ -17,8 +17,8 @@ telescope.setup({
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         layout_config = {
-            height = 0.8,
-            width = 0.8,
+            height = 0.7,
+            width = 0.5,
             prompt_position = "top",
         },
         border = true,
@@ -26,10 +26,8 @@ telescope.setup({
         preview_title = "",
         prompt_title = "",
         borderchars = {
-            results = { " ", " ", " ", " ", " ", " ", " ", " " },
-            -- prompt = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" },
-            prompt = { " ", "x", " ", " ", " ", " ", " ", " " },
             preview = { " ", " ", " ", " ", " ", " ", " ", " " },
+            results = { " ", " ", " ", " ", " ", " ", " ", " " },
         },
         mappings = {
             i = {
@@ -81,6 +79,18 @@ telescope.setup({
     extensions = {
         aerial = {
             show_nesting = true,
+        },
+        persisted = {
+            layout_config = {
+                width = 0.4,
+                height = 0.5,
+            }
+        },
+        projects = {
+            layout_config = {
+                width = 0.4,
+                height = 0.5,
+            }
         },
         fzf = {
             fuzzy = true,
