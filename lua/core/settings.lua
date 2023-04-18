@@ -29,7 +29,7 @@ o.shiftwidth = 2
 o.number = true
 o.numberwidth = 4
 o.relativenumber = false
-o.signcolumn = "yes:2"
+o.signcolumn = "yes:3"
 o.cursorline = true
 
 -- Scrolloffs

@@ -29,9 +29,3 @@ require("Comment").setup({
 		})
 	end,
 })
-
-require("nvim-comment-frame").setup({
-	keymap = "gcf",
-	frame_width = 50,
-	line_wrap_len = 35,
-})

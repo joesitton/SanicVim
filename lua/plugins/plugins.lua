@@ -376,13 +376,16 @@ local plugins = {
 
 	{
 		"numToStr/Comment.nvim",
-		dependencies = {
-			"s1n7ax/nvim-comment-frame",
-			dependencies = "nvim-treesitter",
-			event = "BufReadPost",
-		},
 		config = function()
 			require("plugins.configs.comments")
+		end,
+		event = "BufReadPost",
+	},
+
+	{
+		"LudoPinelli/comment-box.nvim",
+		config = function()
+			require("comment-box").setup({ line_blank_line_above = true, line_blank_line_below = true })
 		end,
 		event = "BufReadPost",
 	},
@@ -572,6 +575,14 @@ local plugins = {
 		event = "VimEnter",
 	},
 
+	{
+		"debugloop/telescope-undo.nvim",
+		config = function()
+			require("telescope").load_extension("undo")
+		end,
+		event = "VimEnter",
+	},
+
 	-- {
 	-- 	"folke/noice.nvim",
 	-- 	config = function()
@@ -679,18 +690,18 @@ local plugins = {
 	-- 	cmd = "FocusEnable",
 	-- },
 
-	{
-		"luukvbaal/stabilize.nvim",
-		enabled = function()
-			if vim.fn.has("nvim-0.9") == 0 then
-				return true
-			end
-		end,
-		config = function()
-			require("stabilize").setup()
-		end,
-		event = "BufReadPost",
-	},
+	-- {
+	-- 	"luukvbaal/stabilize.nvim",
+	-- 	enabled = function()
+	-- 		if vim.fn.has("nvim-0.9") == 0 then
+	-- 			return true
+	-- 		end
+	-- 	end,
+	-- 	config = function()
+	-- 		require("stabilize").setup()
+	-- 	end,
+	-- 	event = "BufReadPost",
+	-- },
 
 	{
 		"kevinhwang91/nvim-ufo",

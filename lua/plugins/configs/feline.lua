@@ -218,6 +218,19 @@ table.insert(components.active[1], {
 })
 
 table.insert(components.active[1], {
+    enabled = function()
+        return require("luasnip").expand_or_locally_jumpable()
+    end,
+    provider = " ✂️ ",
+    hl = function()
+        return {
+            fg = get_mode_color().even_darker,
+            bg = get_mode_color().even_darker,
+        }
+    end,
+})
+
+table.insert(components.active[1], {
     provider = " ",
     hl = function()
         return {

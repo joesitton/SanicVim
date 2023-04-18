@@ -49,10 +49,10 @@ end
 lazy.setup("plugins.plugins", {
 	concurrency = 12,
 	ui = {
-		size = { width = 0.5, height = 0.7 },
+		size = { width = 0.7, height = 0.7 },
 		border = "rounded",
 		icons = {
-			lazy = "💤 "
-		}
+			lazy = "💤 ",
+		},
 	},
 })

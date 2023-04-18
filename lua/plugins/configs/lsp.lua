@@ -37,7 +37,9 @@ require("mason-null-ls").setup({
     handlers = {},
 })
 
-require("null-ls").setup()
+require("null-ls").setup({
+    border = "rounded"
+})
 
 local servers = {
     "pyright",
