@@ -23,6 +23,7 @@ local vi_mode_colors = {
     COMMAND = colors.purple,
     SHELL = colors.green,
     TERM = colors.green,
+    SELECT = colors.green,
 }
 
 local function get_mode_color()

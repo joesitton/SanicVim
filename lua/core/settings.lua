@@ -76,6 +76,7 @@ o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep:
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
+o.pumblend = 4
 o.pumheight = 20
 
 -- Statusline

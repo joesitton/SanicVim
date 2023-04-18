@@ -113,7 +113,7 @@ local plugins = {
 				event = "InsertEnter",
 			},
 			{
-				"hrsh7th/cmp-path",
+				"FelipeLema/cmp-async-path",
 				event = { "InsertEnter", "CmdlineEnter" },
 			},
 			{
@@ -160,9 +160,7 @@ local plugins = {
 			{
 				"L3MON4D3/LuaSnip",
 				dependencies = {
-					{
-						"rafamadriz/friendly-snippets",
-					},
+					"rafamadriz/friendly-snippets",
 				},
 				config = function()
 					require("luasnip.loaders.from_vscode").lazy_load()
@@ -365,7 +363,7 @@ local plugins = {
 		config = function()
 			require("hop").setup({ teasing = false })
 		end,
-		event = "BufReadPost",
+		event = "BufEnter",
 	},
 
 	{
@@ -511,14 +509,14 @@ local plugins = {
 		event = "VimEnter",
 	},
 
-	{
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("project_nvim").setup({ exclude_dirs = { "~/.local/*" }, silent_chdir = false })
-			require("telescope").load_extension("projects")
-		end,
-		event = "VimEnter",
-	},
+	-- {
+	-- 	"ahmedkhalf/project.nvim",
+	-- 	config = function()
+	-- 		require("project_nvim").setup({ exclude_dirs = { "~/.local/*" }, silent_chdir = true, scope_dir = "win" })
+	-- 		require("telescope").load_extension("projects")
+	-- 	end,
+	-- 	event = "VimEnter",
+	-- },
 
 	{
 		"AckslD/nvim-neoclip.lua",

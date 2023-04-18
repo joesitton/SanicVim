@@ -277,7 +277,7 @@ mappings.lsp = {
         ["]d"] = { "<CMD>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
         ["[d"] = { "<CMD>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
         ["<leader>ca"] = { "<CMD>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-        ["<leader>rn"] = { "<CMD>IncRename<CR>", "Rename variable" },
+        ["<leader>rn"] = { "<CMD>IncRename", "Rename variable" },
     },
 
     v = {

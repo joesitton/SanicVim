@@ -27,15 +27,17 @@ if ok then
 		run_on_every_keystroke = false,
 		snippet_placeholder = "..",
 		ignored_file_types = {},
-		show_prediction_strength = false,
+		show_prediction_strength = true,
 	})
 end
 
 local symbol_map = require("core.utils").symbols
 
 local menu = {
+	cmdline = "Cmd",
 	buffer = "Buffer",
 	path = "Path",
+	async_path = "Path",
 	nvim_lsp = "LSP",
 	nvim_lua = "Lua",
 	luasnip = "Snippet",
@@ -62,6 +64,11 @@ cmp.setup({
 			return false
 		end
 
+		local ctx = require("cmp.config.context")
+		if ctx.in_treesitter_capture("comment") == true or ctx.in_syntax_group("Comment") then
+			return false
+		end
+
 		return true
 	end,
 	view = {
@@ -81,24 +88,31 @@ cmp.setup({
 		maxwidth = 50,
 		ellipsis_char = "...",
 		format = function(entry, vim_item)
-			vim_item.menu = menu[entry.source.name]
-			vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "
+			vim_item.menu = "        " .. menu[entry.source.name]
+
+			if entry.source.name == "treesitter" then
+				vim_item.kind = "   "
+			else
+				vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "
+			end
 
 			return vim_item
 		end,
 	},
+	preselect = cmp.PreselectMode.None,
 	window = {
 		completion = {
 			col_offset = -4,
 			side_padding = 0,
-			-- border = "rounded",
-			-- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+			zindex = 99,
+			border = "rounded",
+			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:FloatSel"
 		},
-		documentation = false,
-		-- documentation = {
-		--     -- border = "rounded",
-		--     winhighlight = "Normal:Pmenu",
-		-- },
+		documentation = {
+			zindex = 99,
+		    border = "rounded",
+		    winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:FloatSel"
+		},
 	},
 	snippet = {
 		expand = function(args)
@@ -106,7 +120,17 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
+		["<CR>"] = cmp.mapping({
+			i = function(fallback)
+				if cmp.visible() and cmp.get_active_entry() then
+					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+				else
+					fallback()
+				end
+			end,
+			s = cmp.mapping.confirm({ select = true }),
+			-- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+		}),
 		["<C-Space>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.close()
@@ -119,7 +143,7 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
+			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			else
 				fallback()
@@ -144,30 +168,33 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "nvim_lua" },
-		{ name = "path" },
-		{ name = "calc" },
-		{ name = "emoji" },
-		{ name = "buffer" },
-		{ name = "treesitter" },
-		{ name = "latex_symbols" },
-		{ name = "luasnip" },
-		{ name = "cmp_tabnine" },
-		{ name = "nvim_lsp_signature_help" },
+		{ name = "cmp_tabnine", priority = 8 },
+		{ name = "nvim_lsp", priority = 8 },
+		{ name = "nvim_lua", priority = 8 },
+		{ name = "buffer", priority = 7 },
+		{ name = "emoji", priority = 6 },
+		{ name = "luasnip", priority = 6 },
+		{ name = "treesitter", priortiy = 5 },
+		{ name = "async_path", priority = 4 },
+		{ name = "calc", priority = 3 },
+		-- { name = "latex_symbols" },
+		-- { name = "nvim_lsp_signature_help" },
 		-- { name = "copilot" },
 	},
 	sorting = {
+		priority_weight = 1.0,
 		comparators = {
 			require("cmp_tabnine.compare"),
-			cmp.config.compare.offset,
-			cmp.config.compare.exact,
+			cmp.config.compare.locality,
+			cmp.config.compare.recently_used,
 			cmp.config.compare.score,
-			require("cmp-under-comparator").under,
-			cmp.config.compare.kind,
-			cmp.config.compare.sort_text,
-			cmp.config.compare.length,
+			cmp.config.compare.offset,
 			cmp.config.compare.order,
+			require("cmp-under-comparator").under,
+			-- cmp.config.compare.exact,
+			-- cmp.config.compare.kind,
+			-- cmp.config.compare.sort_text,
+			-- cmp.config.compare.length,
 		},
 	},
 })
@@ -178,7 +205,7 @@ cmp.setup.cmdline(":", {
 	formatting = { fields = { "abbr" }, maxwidth = 120 },
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
-		{ name = "path" },
+		{ name = "async_path" },
 		{ name = "cmdline" },
 	}),
 })

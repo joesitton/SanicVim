@@ -18,7 +18,7 @@ telescope.setup({
         layout_strategy = "horizontal",
         layout_config = {
             height = 0.7,
-            width = 0.5,
+            width = 0.7,
             prompt_position = "top",
         },
         border = true,
