@@ -6,6 +6,15 @@ end
 
 local telescope = require("telescope")
 
+require("telescope.pickers.layout_strategies").custom_layout = function(picker, max_columns, max_lines, layout_config)
+	local layout =
+		require("telescope.pickers.layout_strategies").bottom_pane(picker, max_columns, max_lines, layout_config)
+	layout.prompt.title = ""
+	layout.results.line = layout.results.line + 1
+	layout.results.height = layout.results.height - 1
+	return layout
+end
+
 telescope.setup({
 	defaults = {
 		prompt_prefix = "❯ ",
@@ -15,17 +24,18 @@ telescope.setup({
 		selection_caret = "  ",
 		scroll_strategy = "limit",
 		sorting_strategy = "ascending",
-		layout_strategy = "bottom_pane",
+		layout_strategy = "custom_layout",
 		layout_config = {
 			height = 0.52,
 		},
-		border = true,
 		results_title = "",
 		preview_title = "",
 		prompt_title = "",
+		winblend = 2,
+		border = true,
 		borderchars = {
-			prompt = { " ", " ", " ", " ", " ", " ", " ", " " },
-			preview = { " ", " ", " ", " ", " ", " ", " ", " " },
+			prompt = { "▀", " ", " ", " ", "▀", "▀", " ", " " },
+			preview = { " ", " ", " ", "⎢", " ", " ", " ", " " },
 			results = { " ", " ", " ", " ", " ", " ", " ", " " },
 		},
 		mappings = {

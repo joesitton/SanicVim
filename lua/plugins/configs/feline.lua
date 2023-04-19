@@ -96,6 +96,9 @@ local components = {
     active = { {}, {}, {} },
 }
 
+--  ╭──────────────────────────────────────────────────────────╮
+--  │ Left side                                                │
+--  ╰──────────────────────────────────────────────────────────╯
 table.insert(components.active[1], {
     provider = " ",
     hl = function()
@@ -167,6 +170,20 @@ table.insert(components.active[1], {
 })
 
 table.insert(components.active[1], {
+    enabled = function()
+        return require("luasnip").expand_or_locally_jumpable()
+    end,
+    provider = "✂️ ",
+    hl = function()
+        return {
+            bg = get_mode_color().darker,
+        }
+    end,
+    left_sep = slant_right_l,
+    right_sep = slant_right_r,
+})
+
+table.insert(components.active[1], {
     provider = {
         name = "git_branch",
     },
@@ -218,19 +235,6 @@ table.insert(components.active[1], {
 })
 
 table.insert(components.active[1], {
-    enabled = function()
-        return require("luasnip").expand_or_locally_jumpable()
-    end,
-    provider = " ✂️ ",
-    hl = function()
-        return {
-            fg = get_mode_color().even_darker,
-            bg = get_mode_color().even_darker,
-        }
-    end,
-})
-
-table.insert(components.active[1], {
     provider = " ",
     hl = function()
         return {
@@ -240,10 +244,42 @@ table.insert(components.active[1], {
     end,
 })
 
---------------------------------------------------
---               right-hand side                --
---------------------------------------------------
+--  ╭──────────────────────────────────────────────────────────╮
+--  │ Middle                                                   │
+--  ╰──────────────────────────────────────────────────────────╯
+-- table.insert(components.active[2], {
+--     enabled = function()
+--         return require("aerial").get_location(false) ~= nil
+--     end,
+--     provider = function()
+--         local symbols = ""
+--         local near = require("aerial").get_location(false)
+--         for _, symbol in pairs(near) do
+--             symbols = symbols .. symbol.icon .. symbol.name .. " "
+--         end
+--         return symbols
+--     end,
+--     hl = function()
+--         return {
+--             fg = get_mode_color().color,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+-- })
 
+-- table.insert(components.active[2], {
+--     provider = " ",
+--     hl = function()
+--         return {
+--             fg = get_mode_color().even_darker,
+--             bg = get_mode_color().even_darker,
+--         }
+--     end,
+-- })
+
+--  ╭──────────────────────────────────────────────────────────╮
+--  │ Right side                                               │
+--  ╰──────────────────────────────────────────────────────────╯
 table.insert(components.active[3], {
     provider = function()
         return "" -- require("noice").api.statusline.mode.get

@@ -634,6 +634,22 @@ local plugins = {
 		event = "VimEnter",
 	},
 
+	-- {
+	-- 	"rebelot/heirline.nvim",
+	-- 	config = function()
+	-- 		require("plugins.configs.heirline")
+	-- 	end,
+	-- 	event = "VimEnter",
+	-- },
+
+	-- {
+	-- 	"b0o/incline.nvim",
+	-- 	config = function()
+	-- 		require("plugins.configs.incline")
+	-- 	end,
+	-- 	event = "VimEnter",
+	-- }
+
 	{
 		"chentoast/marks.nvim",
 		config = function()

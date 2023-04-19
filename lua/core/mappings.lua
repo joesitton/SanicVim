@@ -172,6 +172,7 @@ mappings.git = {
 	n = {
 		["]g"] = { "<CMD>Gitsigns next_hunk<CR>", "Next git hunk" },
 		["[g"] = { "<CMD>Gitsigns prev_hunk<CR>", "Previous git hunk" },
+		["grh"] = { "<CMD>Gitsigns reset_hunk<CR>", "Reset hunk"},
 	},
 }
 
@@ -305,25 +306,25 @@ mappings.session = {
 
 mappings.telescope = {
 	n = {
-		["<leader>ff"] = { "<CMD>Telescope find_files<CR>", "Find files" },
-		["<leader>ft"] = { "<CMD>Telescope live_grep<CR>", "Find text" },
-		["<leader>fr"] = { "<CMD>Telescope oldfiles<CR>", "Find recent files" },
-		["<leader>fm"] = { "<CMD>Telescope harpoon marks<CR>", "Find marks" },
-		["<leader>fd"] = { "<CMD>Telescope diagnostics bufnr=0<CR>", "Find buffer diagnostics" },
-		["<leader>fD"] = { "<CMD>Telescope diagnostics<CR>", "Find workspace diagnostics" },
-		["<leader>fs"] = { "<CMD>Telescope aerial<CR>", "Find buffer symbols" },
-		["<leader>fb"] = { "<CMD>Telescope buffers<CR>", "Find buffers" },
-		["<leader>fp"] = { "<CMD>Telescope projects<CR>", "Find projects" },
-		["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", "Find keymaps" },
-		["<leader>fy"] = { "<CMD>Telescope neoclip<CR>", "Find yanks" },
-		["<leader>fn"] = { "<CMD>Telescope notify<CR>", "Find notifications" },
-		["<leader>fS"] = { "<CMD>Telescope persisted<CR>", "Find sessions" },
-		["<leader>f'"] = { "<CMD>Telescope marks<CR>", "Find marks" },
-		["<leader>fu"] = { "<CMD>Telescope undo<CR>", "Find undos" },
+		["<leader>ff"] = { "<CMD>Telescope find_files prompt_prefix=Files\\ ❯\\ <CR>", "Find files" },
+		["<leader>ft"] = { "<CMD>Telescope live_grep prompt_prefix=Text\\ ❯\\ <CR>", "Find text" },
+		["<leader>fr"] = { "<CMD>Telescope oldfiles prompt_prefix=Recent\\ Files\\ ❯\\ <CR>", "Find recent files" },
+		["<leader>fd"] = { "<CMD>Telescope diagnostics bufnr=0 prompt_prefix=Diagnostics\\ ❯\\ <CR>", "Find buffer diagnostics" },
+		["<leader>fD"] = { "<CMD>Telescope diagnostics prompt_prefix=Diagnostics\\ ❯\\ <CR>", "Find workspace diagnostics" },
+		["<leader>fs"] = { "<CMD>Telescope aerial prompt_prefix=Symbols\\ ❯\\ <CR>", "Find buffer symbols" },
+		["<leader>fb"] = { "<CMD>Telescope buffers prompt_prefix=Buffers\\ ❯\\ <CR>", "Find buffers" },
+		["<leader>fp"] = { "<CMD>Telescope projects prompt_prefix=Projects\\ ❯\\ <CR>", "Find projects" },
+		["<leader>fk"] = { "<CMD>Telescope keymaps prompt_prefix=Keybinds\\ ❯\\ <CR>", "Find keymaps" },
+		["<leader>fy"] = { "<CMD>Telescope neoclip prompt_prefix=Yanks\\ ❯\\ <CR>", "Find yanks" },
+		["<leader>fn"] = { "<CMD>Telescope notify prompt_prefix=Notifications\\ ❯\\ <CR>", "Find notifications" },
+		["<leader>fS"] = { "<CMD>Telescope persisted prompt_prefix=Sessions\\ ❯\\ <CR>", "Find sessions" },
+		["<leader>fm"] = { "<CMD>Telescope harpoon marks prompt_prefix=Marks\\ ❯\\ <CR>", "Find harpoon marks" },
+		["<leader>f'"] = { "<CMD>Telescope marks prompt_refix=Marks\\ ❯\\ <CR>", "Find marks" },
+		["<leader>fu"] = { "<CMD>Telescope undo prompt_prefix=Undo\\ ❯\\ <CR>", "Find undos" },
 
-		["<leader>gs"] = { "<CMD>Telescope git_status<CR>", "Git status" },
-		["<leader>gb"] = { "<CMD>Telescope git_branches<CR>", "Git branches" },
-		["<leader>gc"] = { "<CMD>Telescope gitmoji theme=dropdown<CR>", "Git commit" },
+		["<leader>gs"] = { "<CMD>Telescope git_status prompt_prefix=Git\\ status\\ ❯\\ <CR>", "Git status" },
+		["<leader>gb"] = { "<CMD>Telescope git_branches prompt_prefix=Git\\ branches\\ ❯\\ <CR>", "Git branches" },
+		["<leader>gc"] = { "<CMD>Telescope gitmoji<CR>", "Git commit" },
 
 		["gd"] = { "<CMD>Telescope lsp_definitions<CR>", "Go to definition" },
 		["gr"] = { "<CMD>Telescope lsp_references<CR>", "Go to references" },

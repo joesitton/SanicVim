@@ -72,7 +72,7 @@ o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: "
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: ,vertleft: ,vertright: "
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
