@@ -72,7 +72,7 @@ o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: ,vertleft: ,vertright: "
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: ,vertleft: ,vertright: ,stl: ,stlnc:-"
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
@@ -120,7 +120,7 @@ g.neovide_remember_window_size = true
 -- Signs
 local set_sign = vim.fn.sign_define
 
-set_sign("DiagnosticSignError", { text = "•", texthl = "DiagnosticSignError" })
-set_sign("DiagnosticSignWarn", { text = "•", texthl = "DiagnosticSignWarn" })
-set_sign("DiagnosticSignInfo", { text = "•", texthl = "DiagnosticSignInfo" })
-set_sign("DiagnosticSignHint", { text = "•", texthl = "DiagnosticSignHint" })
+set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })

@@ -615,6 +615,14 @@ local plugins = {
 	--     event = "VimEnter",
 	-- },
 
+	-- {
+	-- 	"b0o/incline.nvim",
+	-- 	config = function() 
+	-- 		require("plugins.configs.incline")
+	-- 	end,
+	-- 	event = "BufReadPost"
+	-- },
+
 	{
 		"utilyre/barbecue.nvim",
 		dependencies = {
@@ -622,14 +630,15 @@ local plugins = {
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
-			require("barbecue").setup({ create_autocmd = false, kinds = require("core.utils").symbols })
+			require("plugins.configs.barbecue")
 		end,
+		event = "VeryLazy"
 	},
 
 	{
-		"feline-nvim/feline.nvim",
+		"rebelot/heirline.nvim",
 		config = function()
-			require("plugins.configs.feline")
+			require("plugins.configs.heirline")
 		end,
 		event = "VimEnter",
 	},
@@ -747,6 +756,7 @@ local plugins = {
 		config = function()
 			require("plugins.configs.term")
 		end,
+		event = "VeryLazy"
 	},
 
 	{
@@ -788,11 +798,12 @@ local plugins = {
 			"anuvyklack/animation.nvim",
 		},
 		config = function()
-			vim.o.winwidth = 10
-			vim.o.winminwidth = 10
+			vim.o.winwidth = 5
+			vim.o.winminwidth = 5
 			vim.o.equalalways = false
 			require("windows").setup()
 		end,
+		event = "VeryLazy"
 	},
 
 	{

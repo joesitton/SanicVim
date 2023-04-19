@@ -37,8 +37,12 @@ require("mason-null-ls").setup({
     handlers = {},
 })
 
-require("null-ls").setup({
-    border = "rounded"
+local null_ls = require("null-ls")
+null_ls.setup({
+    border = "rounded",
+    sources = {
+        null_ls.builtins.code_actions.gitsigns
+    }
 })
 
 local servers = {
@@ -50,6 +54,7 @@ local servers = {
     "jsonls",
     "yamlls",
     "vimls",
+    "lua_ls",
     "rust_analyzer",
     "terraformls",
 }
@@ -63,10 +68,8 @@ require("lspconfig.ui.windows").default_options.border = "rounded"
 local lsp = require("lspconfig")
 
 local on_attach = function(client, bufnr)
-    local ok, navic = pcall(require, "nvim-navic")
-
-    if ok then
-        navic.attach(client, bufnr)
+    if client.server_capabilities["documentSymbolProvider"] then
+        require("nvim-navic").attach(client, bufnr)
     end
 end
 
