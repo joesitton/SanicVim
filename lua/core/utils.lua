@@ -27,6 +27,7 @@ utils.symbols = {
     Operator = " ",
     TypeParameter = " ",
     TabNine = " ",
+    Copilot = " ",
 }
 
 return utils

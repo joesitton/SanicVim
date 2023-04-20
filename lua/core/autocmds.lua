@@ -47,17 +47,6 @@ autocmd("FileType", {
     end,
 })
 
--- Auto close aerial
--- autocmd("BufWinLeave", {
---     group = augroup("auto_close_aerial", {}),
---     pattern = "*",
---     callback = function()
---         if vim.fn.expand("<afile>"):match("aerial") then
---             cmd([[AerialClose]])
---         end
---     end,
--- })
-
 autocmd("VimEnter", {
     group = augroup("illuminate_highlight", {}),
     pattern = "*",
@@ -80,31 +69,13 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     end,
 })
 
--- autocmd("User", {
---     group = augroup("persisted_telescope_load_pre", {}),
---     pattern = "PersistedSavePre",
---     callback = function()
---         vim.api.nvim_input("<ESC>:%bd<CR>")
---     end,
--- })
-
--- autocmd({"TextChangedI", "TextChangedP"}, {
+-- autocmd({ "BufEnter" }, {
+--     group = augroup("windows_maximize", {}),
 --     pattern = "*",
---     callback = function()
---         local line = vim.api.nvim_get_current_line()
---         local cursor = vim.api.nvim_win_get_cursor(0)[2]
-
---         local current = string.sub(line, cursor, cursor + 1)
---         if current == "." or current == "," or current == " " then
---             require('cmp').close()
+--     callback = function ()
+--         local ok, _ = pcall(require, "windows")
+--         if ok then
+--             cmd([[WindowsMaximize]])
 --         end
-
---         local before_line = string.sub(line, 1, cursor + 1)
---         local after_line = string.sub(line, cursor + 1, -1)
---         if not string.match(before_line, '^%s+$') then
---             if after_line == "" or string.match(before_line, " $") or string.match(before_line, "%.$") then
---                 require('cmp').complete()
---             end
---         end
---     end,
+--     end
 -- })

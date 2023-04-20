@@ -110,6 +110,7 @@ telescope.setup({
 		},
 		undo = {
 			side_by_side = true,
+			prompt_prefix = "Undo ❯ "
 		},
 		gitmoji = {
 			action = function(entry)

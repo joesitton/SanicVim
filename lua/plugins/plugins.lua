@@ -98,6 +98,15 @@ local plugins = {
 	-- {{{ Completion
 
 	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("plugins.configs.copilot")
+		end,
+	},
+
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			{
@@ -139,6 +148,14 @@ local plugins = {
 			{
 				"joesitton/cmp-rg",
 				event = { "InsertEnter", "CmdlineEnter" },
+			},
+			{
+				"zbirenbaum/copilot-cmp",
+				dependencies = { "copilot.lua" },
+				config = function()
+					require("copilot_cmp").setup()
+				end,
+				event = "InsertEnter",
 			},
 			{
 				"tzachar/cmp-tabnine",
@@ -481,7 +498,8 @@ local plugins = {
 
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		build =
+		"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 		config = function()
 			require("telescope").load_extension("fzf")
 		end,
@@ -617,7 +635,7 @@ local plugins = {
 
 	-- {
 	-- 	"b0o/incline.nvim",
-	-- 	config = function() 
+	-- 	config = function()
 	-- 		require("plugins.configs.incline")
 	-- 	end,
 	-- 	event = "BufReadPost"
@@ -632,7 +650,7 @@ local plugins = {
 		config = function()
 			require("plugins.configs.barbecue")
 		end,
-		event = "VeryLazy"
+		event = "VeryLazy",
 	},
 
 	{
@@ -642,22 +660,6 @@ local plugins = {
 		end,
 		event = "VimEnter",
 	},
-
-	-- {
-	-- 	"rebelot/heirline.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.heirline")
-	-- 	end,
-	-- 	event = "VimEnter",
-	-- },
-
-	-- {
-	-- 	"b0o/incline.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.incline")
-	-- 	end,
-	-- 	event = "VimEnter",
-	-- }
 
 	{
 		"chentoast/marks.nvim",
@@ -756,7 +758,7 @@ local plugins = {
 		config = function()
 			require("plugins.configs.term")
 		end,
-		event = "VeryLazy"
+		event = "VeryLazy",
 	},
 
 	{
@@ -798,12 +800,12 @@ local plugins = {
 			"anuvyklack/animation.nvim",
 		},
 		config = function()
-			vim.o.winwidth = 5
-			vim.o.winminwidth = 5
+			vim.o.winwidth = 10
+			vim.o.winminwidth = 10
 			vim.o.equalalways = false
-			require("windows").setup()
+			require("windows").setup({ autowidth = { enabled = false, minwidth = 0.2 } })
 		end,
-		event = "VeryLazy"
+		event = "VeryLazy",
 	},
 
 	{

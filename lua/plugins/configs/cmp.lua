@@ -56,6 +56,14 @@ local menu = {
 
 local luasnip = require("luasnip")
 
+local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
 cmp.setup({
 	enabled = function()
 		local ft = vim.bo.filetype
@@ -106,12 +114,12 @@ cmp.setup({
 			side_padding = 0,
 			zindex = 99,
 			border = "rounded",
-			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:FloatSel"
+			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:FloatSel",
 		},
 		documentation = {
 			zindex = 99,
-		    border = "rounded",
-		    winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:FloatSel"
+			border = "rounded",
+			winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:FloatSel",
 		},
 	},
 	snippet = {
@@ -141,8 +149,8 @@ cmp.setup({
 			end
 		end, { "i" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
+			if cmp.visible() and has_words_before() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			else
@@ -168,22 +176,23 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = {
-		{ name = "cmp_tabnine", priority = 8 },
-		{ name = "nvim_lsp", priority = 8 },
-		{ name = "nvim_lua", priority = 8 },
-		{ name = "buffer", priority = 7 },
-		{ name = "emoji", priority = 6 },
-		{ name = "luasnip", priority = 6 },
-		{ name = "treesitter", priortiy = 5 },
-		{ name = "async_path", priority = 4 },
-		{ name = "calc", priority = 3 },
+		{ name = "copilot",                priority = 9 },
+		{ name = "nvim_lsp",               priority = 8 },
+		{ name = "nvim_lua",               priority = 8 },
+		{ name = "cmp_tabnine",            priority = 7 },
+		{ name = "buffer",                 priority = 7 },
+		-- { name = "emoji", priority = 6 },
+		{ name = "luasnip",                priority = 6 },
+		{ name = "treesitter",             priortiy = 5 },
+		{ name = "async_path",             priority = 4 },
+		{ name = "calc",                   priority = 3 },
+		{ name = "nvim_lsp_signature_help" },
 		-- { name = "latex_symbols" },
-		-- { name = "nvim_lsp_signature_help" },
-		-- { name = "copilot" },
 	},
 	sorting = {
 		priority_weight = 1.0,
 		comparators = {
+			require("copilot_cmp.comparators").prioritize,
 			require("cmp_tabnine.compare"),
 			cmp.config.compare.locality,
 			cmp.config.compare.recently_used,

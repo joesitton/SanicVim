@@ -13,13 +13,7 @@ local Align = { provider = "%=" }
 local Space = { provider = " " }
 
 local ViMode = {
-	update = {
-		"ModeChanged",
-		pattern = "*:*",
-		callback = vim.schedule_wrap(function()
-			vim.cmd("redrawstatus")
-		end),
-	},
+	update = { "ModeChanged" },
 	provider = function(self)
 		return "█ " .. vim.fn.mode(1):sub(1, 1)
 	end,
