@@ -52,6 +52,7 @@ local menu = {
 	cmp_tabnine = "TabNine",
 	copilot = "Copilot",
 	neorg = "Neorg",
+	nvim_lsp_signature_help = "Sig"
 }
 
 local luasnip = require("luasnip")
@@ -150,7 +151,7 @@ cmp.setup({
 		end, { "i" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() and has_words_before() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			else
@@ -176,9 +177,9 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = {
-		{ name = "copilot",                priority = 9 },
 		{ name = "nvim_lsp",               priority = 8 },
 		{ name = "nvim_lua",               priority = 8 },
+		{ name = "copilot",                priority = 7 },
 		{ name = "cmp_tabnine",            priority = 7 },
 		{ name = "buffer",                 priority = 7 },
 		-- { name = "emoji", priority = 6 },

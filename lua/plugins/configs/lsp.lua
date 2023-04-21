@@ -32,7 +32,6 @@ require("mason-null-ls").setup({
         "jq",
         "stylua",
         "yamlfmt",
-        "shellharden"
     },
     handlers = {},
 })
