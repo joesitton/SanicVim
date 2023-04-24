@@ -5,5 +5,6 @@
         "redefined-local",
         "deprecated",
         "unused-local"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }

@@ -1,27 +1,21 @@
-require("tabby.tabline").use_preset("active_wins_at_tail", {})
-
--- require("tabby.tabline").set(function(line)
---     return {
---         line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
---             return {
---                 win.is_current() and "[" or "",
---                 win.file_icon(),
---                 " ",
---                 win.buf_name(),
---                 win.is_current() and "]" or "",
---             }
---         end),
---         line.spacer(),
---         line.tabs().foreach(function(tab)
---             return {
---                 tab.is_current() and "[" or "",
---                 tab.number(),
---                 " ",
---                 tab.name(),
---                 " ",
---                 tab.close_btn(" "),
---                 tab.is_current() and "]" or "",
---             }
---         end),
---     }
--- end)
+require("tabby.tabline").set(function(line)
+    return {
+        line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+            return {
+                win.file_icon(),
+                " ",
+                win.buf_name(),
+            }
+        end),
+        line.spacer(),
+        line.tabs().foreach(function(tab)
+            return {
+                tab.number(),
+                " ",
+                tab.name(),
+                " ",
+                tab.close_btn(" "),
+            }
+        end),
+    }
+end)

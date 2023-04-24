@@ -13,6 +13,8 @@ require("noice").setup({
         }
     },
     popupmenu = {
+        enabled = true,
+        backend = "cmp",
         kind_icons = require("core.utils").symbols,
     },
     presets = {
@@ -38,24 +40,6 @@ require("noice").setup({
             filter_options = {},
             win_options = {
                 winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-            },
-        },
-        popupmenu = {
-            relative = "editor",
-            position = {
-                row = 15,
-                col = "50%",
-            },
-            size = {
-                width = 60,
-                height = 10,
-            },
-            border = {
-                style = "rounded",
-                padding = { 0, 1 },
-            },
-            win_options = {
-                winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
             },
         },
     },

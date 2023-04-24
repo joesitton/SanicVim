@@ -72,7 +72,7 @@ o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert: ,horiz: ,foldsep: ,vertleft: ,vertright: ,stl: ,stlnc:-"
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert:▏,horiz: ,foldsep: ,vertleft: ,vertright: ,stl: ,stlnc:-"
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
@@ -124,3 +124,4 @@ set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" }
 set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
 set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+set_sign("DapBreakpoint", { text = "⏹", texthl = "DapBreakpoint" })

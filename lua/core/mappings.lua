@@ -71,17 +71,23 @@ mappings.general = {
 
 mappings.buffers = {
 	n = {
-		["]b"] = { "<CMD>BufferNext<CR>", "Next buffer" },
-		["[b"] = { "<CMD>BufferPrevious<CR>", "Previous buffer" },
-		["<leader>bd"] = { "<CMD>BufferClose<CR>", "Delete buffer" },
-		["<leader>bD"] = { "<CMD>BufferWipeout!<CR>", "Wipe buffer" },
-		["<leader>bp"] = { "<CMD>BufferPin<CR>", "Pin buffer" },
-		["<C-Left>"] = { "<CMD>BufferMovePrevious<CR>", "Move buffer left" },
-		["<C-Right>"] = { "<CMD>BufferMoveNext<CR>", "Move buffer right" },
-		["<leader>pb"] = { "<CMD>BufferPick<CR>", "Pick buffer" },
+		["]b"] = { "<CMD>:bn<CR>", "Next buffer" },
+		["[b"] = { "<CMD>:bp<CR>", "Previous buffer" },
+		["<leader>bd"] = { "<CMD>Bdelete<CR>", "Delete buffer" },
+		["<leader>bD"] = { "<CMD>Bwipeout!<CR>", "Wipe buffer" },
+		-- ["<leader>bp"] = { "<CMD>BufferPin<CR>", "Pin buffer" },
+		-- ["<C-Left>"] = { "<CMD>BufferMovePrevious<CR>", "Move buffer left" },
+		-- ["<C-Right>"] = { "<CMD>BufferMoveNext<CR>", "Move buffer right" },
+		-- ["<leader>pb"] = { "<CMD>BufferPick<CR>", "Pick buffer" },
 	},
 }
 
+mappings.tabs = {
+	n = {
+		["]t"] = { "<CMD>:tabnext<CR>", "Next tab"},
+		["[t"] = { "<CMD>:tabprev<CR>", "Previous tab"},
+	}
+}
 
 mappings.comments = {
 	n = {
@@ -289,7 +295,7 @@ mappings.lsp = {
 		["]d"] = { "<CMD>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
 		["[d"] = { "<CMD>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
 		["<leader>ca"] = { "<CMD>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-		["<leader>rn"] = { "<CMD>IncRename", "Rename variable" },
+		["<leader>rn"] = { ":IncRename ", "Rename variable" },
 	},
 
 	v = {

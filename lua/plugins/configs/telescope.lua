@@ -26,7 +26,7 @@ telescope.setup({
 		sorting_strategy = "ascending",
 		layout_strategy = "custom_layout",
 		layout_config = {
-			height = 0.52,
+			height = 0.54,
 		},
 		results_title = "",
 		preview_title = "",
@@ -34,7 +34,7 @@ telescope.setup({
 		winblend = 2,
 		border = true,
 		borderchars = {
-			prompt = { "▀", " ", " ", " ", "▀", "▀", " ", " " },
+			prompt = { "▔", " ", " ", " ", "▔", "▔", " ", " " },
 			preview = { " ", " ", " ", "⎢", " ", " ", " ", " " },
 			results = { " ", " ", " ", " ", " ", " ", " ", " " },
 		},
@@ -114,7 +114,7 @@ telescope.setup({
 		},
 		gitmoji = {
 			action = function(entry)
-				vim.ui.input({ prompt = entry.value .. " Commit: " }, function(msg)
+				vim.ui.input({ prompt = "Commit: " }, function(msg)
 					if not msg then
 						return
 					end

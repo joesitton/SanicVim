@@ -40,8 +40,21 @@ local null_ls = require("null-ls")
 null_ls.setup({
     border = "rounded",
     sources = {
-        null_ls.builtins.code_actions.gitsigns
-    }
+        null_ls.builtins.code_actions.gitsigns,
+    },
+})
+
+require("mason-nvim-dap").setup({
+    ensure_installed = { "delve" },
+    automatic_installation = true,
+    handlers = {},
+})
+
+require("neodev").setup({
+    library = {
+        plugins = { "nvim-dap-ui" },
+        types = false
+    },
 })
 
 local servers = {
@@ -82,13 +95,27 @@ for _, server in ipairs(servers) do
                 validate = { enable = true },
             },
         }
+    elseif server == "yamlls" then
+        settings = {
+            yaml = {
+                schemas = require("schemastore").yaml.schemas(),
+            },
+        }
     elseif server == "pyright" then
         settings = {
             python = {
                 analysis = {
-                    extraPaths = { "/opt/homebrew/lib/python3.10/site-packages" }
-                }
-            }
+                    extraPaths = { "/opt/homebrew/lib/python3.10/site-packages" },
+                },
+            },
+        }
+    elseif server == "lua_ls" then
+        settings = {
+            Lua = {
+                completion = {
+                    callSnippet = "Replace",
+                },
+            },
         }
     end
 

@@ -1,3 +1,4 @@
+---@diagnostic disable: different-requires
 local plugins = {
 	-- {{{ Core
 	{
@@ -190,6 +191,10 @@ local plugins = {
 			{
 				"lukas-reineke/cmp-under-comparator",
 			},
+			{
+				"rcarriga/cmp-dap",
+				event = "InsertEnter",
+			},
 		},
 		config = function()
 			require("plugins.configs.cmp")
@@ -213,8 +218,10 @@ local plugins = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"jayp0521/mason-null-ls.nvim",
+		"jay-babu/mason-nvim-dap.nvim",
 		"jose-elias-alvarez/null-ls.nvim",
 		"b0o/SchemaStore.nvim",
+		"folke/neodev.nvim",
 		{
 			"neovim/nvim-lspconfig",
 			config = function()
@@ -619,13 +626,13 @@ local plugins = {
 		event = "VimEnter",
 	},
 
-	{
-		"romgrk/barbar.nvim",
-		config = function()
-			require("plugins.configs.barbar")
-		end,
-		event = "VimEnter",
-	},
+	-- {
+	-- 	"romgrk/barbar.nvim",
+	-- 	config = function()
+	-- 		require("plugins.configs.barbar")
+	-- 	end,
+	-- 	event = "VimEnter",
+	-- },
 
 	-- {
 	--     "nanozuki/tabby.nvim",
@@ -659,6 +666,13 @@ local plugins = {
 			require("plugins.configs.heirline")
 		end,
 		event = "VimEnter",
+	},
+
+	{
+		"folke/twilight.nvim",
+		config = function()
+			require("twilight").setup()
+		end,
 	},
 
 	{
@@ -717,18 +731,18 @@ local plugins = {
 	-- 	cmd = "FocusEnable",
 	-- },
 
-	-- {
-	-- 	"luukvbaal/stabilize.nvim",
-	-- 	enabled = function()
-	-- 		if vim.fn.has("nvim-0.9") == 0 then
-	-- 			return true
-	-- 		end
-	-- 	end,
-	-- 	config = function()
-	-- 		require("stabilize").setup()
-	-- 	end,
-	-- 	event = "BufReadPost",
-	-- },
+	{
+		"luukvbaal/stabilize.nvim",
+		enabled = function()
+			if vim.fn.has("nvim-0.9") == 0 then
+				return true
+			end
+		end,
+		config = function()
+			require("stabilize").setup()
+		end,
+		event = "BufReadPost",
+	},
 
 	{
 		"kevinhwang91/nvim-ufo",
@@ -793,20 +807,20 @@ local plugins = {
 	-- 	end,
 	-- },
 
-	{
-		"anuvyklack/windows.nvim",
-		dependencies = {
-			"anuvyklack/middleclass",
-			"anuvyklack/animation.nvim",
-		},
-		config = function()
-			vim.o.winwidth = 10
-			vim.o.winminwidth = 10
-			vim.o.equalalways = false
-			require("windows").setup({ autowidth = { enabled = false, minwidth = 0.2 } })
-		end,
-		event = "VeryLazy",
-	},
+	-- {
+	-- 	"anuvyklack/windows.nvim",
+	-- 	dependencies = {
+	-- 		"anuvyklack/middleclass",
+	-- 		"anuvyklack/animation.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		vim.o.winwidth = 10
+	-- 		vim.o.winminwidth = 10
+	-- 		vim.o.equalalways = false
+	-- 		require("windows").setup({ autowidth = { enabled = false, minwidth = 0.2 } })
+	-- 	end,
+	-- 	event = "VeryLazy",
+	-- },
 
 	{
 		"kevinhwang91/nvim-hlslens",
@@ -822,6 +836,38 @@ local plugins = {
 			require("docs-view").setup({ position = "bottom" })
 		end,
 		cmd = { "DocsViewToggle" },
+	},
+
+	--  ╭──────────────────────────────────────────────────────────╮
+	--  │ DAP                                                      │
+	--  ╰──────────────────────────────────────────────────────────╯
+
+	{
+		"rcarriga/nvim-dap-ui",
+		event = "VimEnter",
+	},
+
+	{
+		"Weissle/persistent-breakpoints.nvim",
+		config = function()
+			require("persistent-breakpoints").setup({
+				load_breakpoints_event = { "BufReadPost" },
+			})
+		end,
+	},
+
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"leoluz/nvim-dap-go",
+			config = function()
+				require("dap-go").setup()
+			end,
+		},
+		config = function()
+			require("plugins.configs.dap")
+		end,
+		event = "VimEnter",
 	},
 
 	-- }}}

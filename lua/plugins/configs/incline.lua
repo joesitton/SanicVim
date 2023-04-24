@@ -25,9 +25,9 @@ local function get_git_diff(props)
         })
         end
     end
-    if #labels > 0 then
-      table.insert(labels, { '| ' })
-    end
+    -- if #labels > 0 then
+    --   table.insert(labels, { '| ' })
+    -- end
     return labels
 end
 
@@ -40,8 +40,8 @@ require("incline").setup({
         local buffer = {
             { get_diagnostic_label(props) },
             { get_git_diff(props) },
-            { ft_icon, guifg = ft_color }, { " " },
-            { filename, gui = modified },
+            -- { ft_icon, guifg = ft_color }, { " " },
+            -- { filename, gui = modified },
         }
         return buffer
     end,

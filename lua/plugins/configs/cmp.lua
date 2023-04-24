@@ -52,7 +52,7 @@ local menu = {
 	cmp_tabnine = "TabNine",
 	copilot = "Copilot",
 	neorg = "Neorg",
-	nvim_lsp_signature_help = "Sig"
+	nvim_lsp_signature_help = "Sig",
 }
 
 local luasnip = require("luasnip")
@@ -78,7 +78,7 @@ cmp.setup({
 			return false
 		end
 
-		return true
+		return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
 	end,
 	view = {
 		entries = {
@@ -133,6 +133,8 @@ cmp.setup({
 			i = function(fallback)
 				if cmp.visible() and cmp.get_active_entry() then
 					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+				elseif cmp.visible() and not cmp.get_active_entry() then
+					cmp.close()
 				else
 					fallback()
 				end
@@ -150,7 +152,7 @@ cmp.setup({
 			end
 		end, { "i" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() and has_words_before() then
+			if cmp.visible() then --and has_words_before() then
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
@@ -177,14 +179,14 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = {
-		{ name = "nvim_lsp",               priority = 8 },
-		{ name = "nvim_lua",               priority = 8 },
-		{ name = "copilot",                priority = 7 },
-		{ name = "cmp_tabnine",            priority = 7 },
-		{ name = "buffer",                 priority = 7 },
+		{ name = "nvim_lsp",               priority = 8, group_index = 1 },
+		{ name = "nvim_lua",               priority = 8, group_index = 1 },
+		{ name = "copilot",                priority = 7, group_index = 2 },
+		{ name = "cmp_tabnine",            priority = 7, group_index = 2 },
+		{ name = "buffer",                 priority = 7, group_index = 3 },
 		-- { name = "emoji", priority = 6 },
-		{ name = "luasnip",                priority = 6 },
-		{ name = "treesitter",             priortiy = 5 },
+		{ name = "luasnip",                priority = 6, group_index = 2 },
+		{ name = "treesitter",             priortiy = 5, group_index = 3 },
 		{ name = "async_path",             priority = 4 },
 		{ name = "calc",                   priority = 3 },
 		{ name = "nvim_lsp_signature_help" },
@@ -261,5 +263,14 @@ cmp.setup.filetype("norg", {
 				only_current_buffer = true,
 			},
 		},
+	}),
+})
+
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+	view = { entries = { name = "custom", selection_order = "near_cursor" } },
+	window = { completion = { side_padding = 1, col_offset = 0 } },
+	formatting = { fields = { "abbr" }, maxwidth = 120 },
+	sources = cmp.config.sources({
+		{ name = "dap" },
 	}),
 })
