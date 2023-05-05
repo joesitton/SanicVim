@@ -25,6 +25,10 @@ local ViMode = {
 }
 
 local WorkDir = {
+	init = function(self)
+		local cwd = vim.fn.getcwd(0)
+		self.cwd = vim.fn.fnamemodify(cwd, ":~") .. "/"
+	end,
 	{
 		provider = function()
 			return (vim.fn.haslocaldir(0) == 1 and "L" or "") .. " " .. "  "
@@ -35,30 +39,31 @@ local WorkDir = {
 		},
 	},
 	{
-		init = function(self)
-			local cwd = vim.fn.getcwd(0)
-			self.cwd = vim.fn.fnamemodify(cwd, ":~")
+		provider = function(self)
+			local trail = self.cwd:sub(-1) == "/" and "" or "/"
+			return self.cwd .. trail
 		end,
-		flexible = 1,
-		{
-			-- evaluates to the full-lenth path
-			provider = function(self)
-				local trail = self.cwd:sub(-1) == "/" and "" or "/"
-				return self.cwd .. trail
-			end,
-		},
-		{
-			-- evaluates to the shortened path
-			provider = function(self)
-				local cwd = vim.fn.pathshorten(self.cwd)
-				local trail = self.cwd:sub(-1) == "/" and "" or "/"
-				return cwd .. trail
-			end,
-		},
 		hl = {
-			fg = colors.white.darken(40).hex,
+			fg = colors.white.darken(60).hex,
 		},
 	},
+	{
+		provider = function (self)
+			return vim.fn.expand("%:h") .. "/"
+		end,
+		hl = {
+			fg = colors.white.darken(40).hex
+		}
+	},
+	{
+		provider = function(self)
+			return vim.fn.expand("%:t")
+		end,
+		hl = {
+			fg = colors.white.hex,
+			bold = true
+		}
+	}
 }
 
 -- WorkDir = utils.surround({ "[", "]" }, nil, WorkDir)
@@ -82,10 +87,10 @@ local FileIcon = {
 }
 
 local FileEncoding = {
-    provider = function()
-        local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc -- :h 'enc'
-        return enc ~= 'utf-8' and enc:upper()
-    end
+	provider = function()
+		local enc = (vim.bo.fenc ~= "" and vim.bo.fenc) or vim.o.enc -- :h 'enc'
+		return enc ~= "utf-8" and enc:upper()
+	end,
 }
 
 local FileName = {
@@ -182,7 +187,7 @@ local FileType = {
 
 local ScrollBar = {
 	static = {
-		sbar = { "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" },
+		sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" },
 	},
 	provider = function(self)
 		local curr_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -191,8 +196,8 @@ local ScrollBar = {
 		return string.rep(self.sbar[i], 2)
 	end,
 	hl = {
-		fg = colors.blue.hex,
-		bg = colors.black.hex,
+		fg = colors.white.darken(50).hex,
+		bg = colors.black.lighten(10).hex,
 	},
 }
 
@@ -276,6 +281,21 @@ local Diagnostics = {
 		end,
 		name = "heirline_diagnostics",
 	},
+}
+
+local Lazy = {
+	condition = require("lazy.status").has_updates,
+	update = { "User", pattern = "LazyUpdate" },
+	provider = function()
+		return "  " .. require("lazy.status").updates() .. " "
+	end,
+	on_click = {
+		callback = function()
+			require("lazy").update()
+		end,
+		name = "update_plugins",
+	},
+	hl = { fg = colors.gray.hex },
 }
 
 local Git = {
@@ -481,219 +501,9 @@ local StatusLines = {
 	DefaultStatusLine,
 }
 
-local Tabpage = {
-	provider = function(self)
-		return "%" .. self.tabnr .. "T " .. self.tabpage .. " %T"
-	end,
-	hl = function(self)
-		if not self.is_active then
-			return "TabLine"
-		else
-			return "TabLineSel"
-		end
-	end,
-}
-
-local TabpageClose = {
-	provider = "%999X  %X",
-	hl = "TabLine",
-}
-
-local TabPages = {
-	-- only show this component if there's 2 or more tabpages
-	condition = function()
-		return #vim.api.nvim_list_tabpages() >= 2
-	end,
-	{ provider = "%=" },
-	utils.make_tablist(Tabpage),
-	TabpageClose,
-}
-
-local TabLineOffset = {
-	condition = function(self)
-		local win = vim.api.nvim_tabpage_list_wins(0)[1]
-		local bufnr = vim.api.nvim_win_get_buf(win)
-		self.winid = win
-
-		if vim.bo[bufnr].filetype == "neo-tree" then
-			self.title = "Files"
-			return true
-		end
-	end,
-	provider = function(self)
-		local title = self.title
-		local width = vim.api.nvim_win_get_width(self.winid)
-		local pad = math.ceil((width - #title) / 2)
-		return string.rep(" ", pad) .. title .. string.rep(" ", pad)
-	end,
-	hl = "StatusLine",
-	-- { provider = "▏", hl = "TablineLeftSeparator" },
-}
-
-local TablineBufnr = {
-	provider = function(self)
-		return tostring(self.bufnr) .. ". "
-	end,
-	hl = "Comment",
-}
-
--- we redefine the filename component, as we probably only want the tail and not the relative path
-local TablineFileName = {
-	provider = function(self)
-		-- self.filename will be defined later, just keep looking at the example!
-		local filename = self.filename
-		filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
-		return filename
-	end,
-	hl = function(self)
-		return {
-			bold = self.is_active,
-			italic = self.is_active and self.is_visible,
-			fg = self.is_active and self.is_visible and colors.white.hex or colors.white.darken(50).hex,
-		}
-	end,
-}
-
--- this looks exactly like the FileFlags component that we saw in
--- #crash-course-part-ii-filename-and-friends, but we are indexing the bufnr explicitly
--- also, we are adding a nice icon for terminal buffers.
-local TablineFileFlags = {
-	{
-		condition = function(self)
-			return vim.api.nvim_buf_get_option(self.bufnr, "modified")
-		end,
-		provider = "  ",
-		hl = { fg = colors.red.hex },
-	},
-	{
-		condition = function(self)
-			return not vim.api.nvim_buf_get_option(self.bufnr, "modifiable")
-				or vim.api.nvim_buf_get_option(self.bufnr, "readonly")
-		end,
-		provider = function(self)
-			if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
-				return "  "
-			else
-				return ""
-			end
-		end,
-		hl = { fg = colors.orange.hex },
-	},
-}
-
--- Here the filename block finally comes together
-local TablineFileNameBlock = {
-	init = function(self)
-		self.filename = vim.api.nvim_buf_get_name(self.bufnr)
-	end,
-	hl = function(self)
-		if self.is_active or self.is_visible then
-			return "TabLineSel"
-			-- why not?
-			-- elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-			--     return { fg = "gray" }
-		else
-			return "TabLine"
-		end
-	end,
-	on_click = {
-		callback = function(_, minwid, _, button)
-			if button == "m" then -- close on mouse middle click
-				vim.schedule(function()
-					vim.api.nvim_buf_delete(minwid, { force = false })
-				end)
-			else
-				vim.api.nvim_win_set_buf(0, minwid)
-			end
-		end,
-		minwid = function(self)
-			return self.bufnr
-		end,
-		name = "heirline_tabline_buffer_callback",
-	},
-	{
-		provider = "▎",
-		hl = function(self)
-			if self.is_active or self.is_visible then
-				return { fg = colors.blue.hex, bg = colors.gray2 }
-			end
-		end,
-	},
-	-- Space,
-	FileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
-	TablineFileName,
-	TablineFileFlags,
-}
-
--- a nice "x" button to close the buffer
-local TablineCloseButton = {
-	condition = function(self)
-		return not vim.api.nvim_buf_get_option(self.bufnr, "modified")
-	end,
-	{
-		provider = "  ",
-		hl = function(self)
-			if self.is_active or self.is_visible then
-				return { fg = colors.white.hex, bg = colors.gray2 }
-			end
-		end,
-		on_click = {
-			callback = function(_, minwid)
-				vim.schedule(function()
-					vim.api.nvim_buf_delete(minwid, { force = false })
-					vim.cmd.redrawtabline()
-				end)
-			end,
-			minwid = function(self)
-				return self.bufnr
-			end,
-			name = "heirline_tabline_close_buffer_callback",
-		},
-	},
-	hl = function(self)
-		if self.is_active or self.is_visible then
-			return "TabLineSel"
-			-- why not?
-			-- elseif not vim.api.nvim_buf_is_loaded(self.bufnr) then
-			--     return { fg = "gray" }
-		else
-			return "TabLine"
-		end
-	end,
-}
-
--- The final touch!
--- local TablineBufferBlock = utils.surround({ "█", "█" }, function(self)
--- 	if self.is_active then
--- 		return utils.get_highlight("TabLineSel").bg
--- 	else
--- 		return utils.get_highlight("TabLine").bg
--- 	end
--- end, { TablineFileNameBlock, TablineCloseButton })
-
-local TablineBufferBlock = {
-	TablineFileNameBlock,
-	TablineCloseButton,
-}
-
--- and here we go
-local BufferLine = utils.make_buflist(
-	TablineBufferBlock,
-	{ provider = "", hl = { fg = colors.gray } }, -- left truncation, optional (defaults to "<")
-	{ provider = "", hl = { fg = colors.gray } } -- right truncation, also optional (defaults to ...... yep, ">")
--- by the way, open a lot of buffers and try clicking them ;)
-)
-
-local TabLine = {
-	TabLineOffset,
-	BufferLine,
-	{ provider = "▏", hl = { fg = colors.gray, bg = colors.black.hex } },
-	TabPages,
-}
-
 require("heirline").setup({
 	statusline = StatusLines,
-	tabline = TabLine,
+	-- tabline = TabLine,
 })
 
 vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])

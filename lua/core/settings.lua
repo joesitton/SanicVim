@@ -3,6 +3,7 @@ local o = vim.opt
 
 -- Leader key
 g.mapleader = " "
+g.localmapleader = " "
 
 -- Syntax highlight ranges
 o.synmaxcol = 500
@@ -55,9 +56,7 @@ o.showtabline = 2
 -- Splits
 o.splitright = true
 o.splitbelow = true
-if vim.fn.has("nvim-0.9") == 1 then
-  o.splitkeep = "screen"
-end
+o.splitkeep = "screen"
 
 -- Wild menu
 o.wildignorecase = true
@@ -105,10 +104,15 @@ o.linebreak = true
 o.lazyredraw = false
 o.wrap = false
 o.ruler = false
-o.shortmess:append("sI")
+o.shortmess:append({ W = true, I = true, c = true, C = true })
 o.whichwrap:append("<>[]hl")
 o.iskeyword:remove({ "_" })
 o.mousescroll = "ver:3,hor:4"
+o.conceallevel = 3
+o.confirm = true
+o.grepformat = "%f:%l:%c:%m"
+o.grepprg = "rg --vimgrep"
+o.inccommand = "split"
 
 -- Virtualenv
 g.python3_host_prog = "~/.pyenv/versions/neovim/bin/python"

@@ -1,9 +1,4 @@
--- Try to load impatient.nvim
-local ok, impatient = pcall(require, "impatient")
-
-if ok then
-    impatient.enable_profile()
-end
+vim.loader.enable()
 
 -- Load our modules
 local modules = {

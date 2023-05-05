@@ -57,13 +57,21 @@ local menu = {
 
 local luasnip = require("luasnip")
 
-local has_words_before = function()
-	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-		return false
-	end
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-end
+-- local has_words_before = function()
+-- 	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+-- 		return false
+-- 	end
+-- 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+-- 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+-- end
+
+cmp.event:on("menu_opened", function()
+	vim.b.copilot_suggestion_hidden = true
+end)
+
+cmp.event:on("menu_closed", function()
+	vim.b.copilot_suggestion_hidden = false
+end)
 
 cmp.setup({
 	enabled = function()
@@ -133,8 +141,8 @@ cmp.setup({
 			i = function(fallback)
 				if cmp.visible() and cmp.get_active_entry() then
 					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-				elseif cmp.visible() and not cmp.get_active_entry() then
-					cmp.close()
+				-- elseif cmp.visible() and not cmp.get_active_entry() then
+				-- 	cmp.close()
 				else
 					fallback()
 				end
@@ -156,6 +164,8 @@ cmp.setup({
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
+			-- elseif has_words_before() then
+			-- 	cmp.complete()
 			else
 				fallback()
 			end
@@ -176,20 +186,21 @@ cmp.setup({
 			else
 				fallback()
 			end
+
 		end, { "i" }),
 	},
 	sources = {
-		{ name = "nvim_lsp",               priority = 8, group_index = 1 },
-		{ name = "nvim_lua",               priority = 8, group_index = 1 },
-		{ name = "copilot",                priority = 7, group_index = 2 },
-		{ name = "cmp_tabnine",            priority = 7, group_index = 2 },
-		{ name = "buffer",                 priority = 7, group_index = 3 },
+		{ name = "copilot",                priority = 9 },
+		{ name = "cmp_tabnine",            priority = 9 },
+		{ name = "nvim_lsp",               priority = 8 },
+		{ name = "nvim_lua",               priority = 8 },
+		{ name = "buffer",                 priority = 7 },
 		-- { name = "emoji", priority = 6 },
-		{ name = "luasnip",                priority = 6, group_index = 2 },
-		{ name = "treesitter",             priortiy = 5, group_index = 3 },
+		{ name = "luasnip",                priority = 6 },
+		-- { name = "treesitter",             priortiy = 5 },
 		{ name = "async_path",             priority = 4 },
 		{ name = "calc",                   priority = 3 },
-		{ name = "nvim_lsp_signature_help" },
+	    { name = "nvim_lsp_signature_help" },
 		-- { name = "latex_symbols" },
 	},
 	sorting = {
@@ -238,7 +249,7 @@ for _, cmdtype in ipairs({ "?", "/" }) do
 			},
 			{ name = "nvim_lsp_document_symbol" },
 			{ name = "buffer" },
-			-- { name = "treesitter", },
+			{ name = "treesitter", },
 		}),
 	})
 end

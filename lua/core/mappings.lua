@@ -71,14 +71,14 @@ mappings.general = {
 
 mappings.buffers = {
 	n = {
-		["]b"] = { "<CMD>:bn<CR>", "Next buffer" },
-		["[b"] = { "<CMD>:bp<CR>", "Previous buffer" },
-		["<leader>bd"] = { "<CMD>Bdelete<CR>", "Delete buffer" },
-		["<leader>bD"] = { "<CMD>Bwipeout!<CR>", "Wipe buffer" },
-		-- ["<leader>bp"] = { "<CMD>BufferPin<CR>", "Pin buffer" },
-		-- ["<C-Left>"] = { "<CMD>BufferMovePrevious<CR>", "Move buffer left" },
-		-- ["<C-Right>"] = { "<CMD>BufferMoveNext<CR>", "Move buffer right" },
-		-- ["<leader>pb"] = { "<CMD>BufferPick<CR>", "Pick buffer" },
+		["]b"] = { "<CMD>BufferNext<CR>", "Next buffer" },
+		["[b"] = { "<CMD>BufferPrevious<CR>", "Previous buffer" },
+		["<leader>bd"] = { "<CMD>BufferDelete<CR>", "Delete buffer" },
+		["<leader>bD"] = { "<CMD>BufferWipeout<CR>", "Wipe buffer" },
+		["<leader>bp"] = { "<CMD>BufferPin<CR>", "Pin buffer" },
+		["<C-Left>"] = { "<CMD>BufferMovePrevious<CR>", "Move buffer left" },
+		["<C-Right>"] = { "<CMD>BufferMoveNext<CR>", "Move buffer right" },
+		["<leader>pb"] = { "<CMD>BufferPick<CR>", "Pick buffer" },
 	},
 }
 
@@ -189,92 +189,92 @@ mappings.git = {
 --     },
 -- }
 
-local hop_directions = {
-	AFTER = require("hop.hint").HintDirection.AFTER_CURSOR,
-	BEFORE = require("hop.hint").HintDirection.BEFORE_CURSOR,
-}
+-- local hop_directions = {
+-- 	AFTER = require("hop.hint").HintDirection.AFTER_CURSOR,
+-- 	BEFORE = require("hop.hint").HintDirection.BEFORE_CURSOR,
+-- }
 
-local hop_maps = {
-	["f"] = {
-		function()
-			require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true })
-		end,
-		"Hop 1-char forwards",
-	},
-	["F"] = {
-		function()
-			require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true })
-		end,
-		"Hop 1-char backwards",
-	},
-	["t"] = {
-		function()
-			require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true, hint_offset = -1 })
-		end,
-		"Hop 1-char forwards",
-	},
-	["T"] = {
-		function()
-			require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true, hint_offset = 1 })
-		end,
-		"Hop 1-char backwards",
-	},
-	["s"] = {
-		function()
-			require("hop").hint_char2({ direction = hop_directions.AFTER })
-		end,
-		"Hop 2-char forwards",
-	},
-	["S"] = {
-		function()
-			require("hop").hint_char2({ direction = hop_directions.BEFORE })
-		end,
-		"Hop 2-char backwards",
-	},
-	["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
-	["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
-}
+-- local hop_maps = {
+-- 	["f"] = {
+-- 		function()
+-- 			require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true })
+-- 		end,
+-- 		"Hop 1-char forwards",
+-- 	},
+-- 	["F"] = {
+-- 		function()
+-- 			require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true })
+-- 		end,
+-- 		"Hop 1-char backwards",
+-- 	},
+-- 	["t"] = {
+-- 		function()
+-- 			require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true, hint_offset = -1 })
+-- 		end,
+-- 		"Hop 1-char forwards",
+-- 	},
+-- 	["T"] = {
+-- 		function()
+-- 			require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true, hint_offset = 1 })
+-- 		end,
+-- 		"Hop 1-char backwards",
+-- 	},
+-- 	["s"] = {
+-- 		function()
+-- 			require("hop").hint_char2({ direction = hop_directions.AFTER })
+-- 		end,
+-- 		"Hop 2-char forwards",
+-- 	},
+-- 	["S"] = {
+-- 		function()
+-- 			require("hop").hint_char2({ direction = hop_directions.BEFORE })
+-- 		end,
+-- 		"Hop 2-char backwards",
+-- 	},
+-- 	["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
+-- 	["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
+-- }
 
-mappings.hop = {
-	n = hop_maps,
-	o = hop_maps,
-	v = {
-		["f"] = {
-			function()
-				require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true })
-			end,
-			"Hop 1-char forwards",
-		},
-		["F"] = {
-			function()
-				require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true })
-			end,
-			"Hop 1-char backwards",
-		},
-		["t"] = {
-			function()
-				require("hop").hint_char1({
-					direction = hop_directions.AFTER,
-					current_line_only = true,
-					hint_offset = -1,
-				})
-			end,
-			"Hop 1-char forwards",
-		},
-		["T"] = {
-			function()
-				require("hop").hint_char1({
-					direction = hop_directions.BEFORE,
-					current_line_only = true,
-					hint_offset = 1,
-				})
-			end,
-			"Hop 1-char backwards",
-		},
-		["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
-		["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
-	},
-}
+-- mappings.hop = {
+-- 	n = hop_maps,
+-- 	o = hop_maps,
+-- 	v = {
+-- 		["f"] = {
+-- 			function()
+-- 				require("hop").hint_char1({ direction = hop_directions.AFTER, current_line_only = true })
+-- 			end,
+-- 			"Hop 1-char forwards",
+-- 		},
+-- 		["F"] = {
+-- 			function()
+-- 				require("hop").hint_char1({ direction = hop_directions.BEFORE, current_line_only = true })
+-- 			end,
+-- 			"Hop 1-char backwards",
+-- 		},
+-- 		["t"] = {
+-- 			function()
+-- 				require("hop").hint_char1({
+-- 					direction = hop_directions.AFTER,
+-- 					current_line_only = true,
+-- 					hint_offset = -1,
+-- 				})
+-- 			end,
+-- 			"Hop 1-char forwards",
+-- 		},
+-- 		["T"] = {
+-- 			function()
+-- 				require("hop").hint_char1({
+-- 					direction = hop_directions.BEFORE,
+-- 					current_line_only = true,
+-- 					hint_offset = 1,
+-- 				})
+-- 			end,
+-- 			"Hop 1-char backwards",
+-- 		},
+-- 		["W"] = { "<CMD>HopWordAC<CR>", "Hop forwards to word" },
+-- 		["B"] = { "<CMD>HopWordBC<CR>", "Hop backwards to word" },
+-- 	},
+-- }
 
 mappings.marks = {
 	n = {
@@ -332,8 +332,8 @@ mappings.telescope = {
 		["<leader>gb"] = { "<CMD>Telescope git_branches prompt_prefix=Git\\ branches\\ ❯\\ <CR>", "Git branches" },
 		["<leader>gc"] = { "<CMD>Telescope gitmoji<CR>", "Git commit" },
 
-		["gd"] = { "<CMD>Telescope lsp_definitions<CR>", "Go to definition" },
-		["gr"] = { "<CMD>Telescope lsp_references<CR>", "Go to references" },
+		["gd"] = { "<CMD>Telescope lsp_definitions prompt_prefix=Definitions\\ ❯\\ <CR>", "Go to definition" },
+		["gr"] = { "<CMD>Telescope lsp_references prompt_prefix=References\\ ❯\\ <CR>", "Go to references" },
 	},
 }
 

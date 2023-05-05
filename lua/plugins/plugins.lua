@@ -2,14 +2,6 @@
 local plugins = {
 	-- {{{ Core
 	{
-		"lewis6991/impatient.nvim",
-		lazy = false,
-		config = function()
-			require("impatient")
-		end,
-	},
-
-	{
 		"nvim-lua/plenary.nvim",
 		lazy = false,
 	},
@@ -101,14 +93,16 @@ local plugins = {
 	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("plugins.configs.copilot")
-		end,
+		build = ":Copilot auth",
+		opts = {
+			suggestion = { enabled = false },
+			panel = { enabled = false },
+		},
 	},
 
 	{
 		"hrsh7th/nvim-cmp",
+		version = false,
 		dependencies = {
 			{
 				"hrsh7th/cmp-nvim-lsp",
@@ -247,7 +241,7 @@ local plugins = {
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
 			{
-				"p00f/nvim-ts-rainbow",
+				"HiPhish/nvim-ts-rainbow2",
 				event = "BufReadPost",
 			},
 			{
@@ -332,7 +326,7 @@ local plugins = {
 
 	{
 		"tpope/vim-repeat",
-		event = "BufReadPost",
+		event = "VeryLazy",
 	},
 
 	{
@@ -347,6 +341,28 @@ local plugins = {
 
 	{
 		"fedepujol/move.nvim",
+	},
+
+	{
+		"ggandor/leap.nvim",
+		keys = {
+			{ "s",  mode = { "n", "x", "o" }, desc = "Leap forward to" },
+			{ "S",  mode = { "n", "x", "o" }, desc = "Leap backward to" },
+		},
+		config = function(_, opts)
+			local leap = require("leap")
+			for k, v in pairs(opts) do
+				leap.opts[k] = v
+			end
+			leap.add_default_mappings(true)
+			vim.keymap.del({ "x", "o" }, "x")
+			vim.keymap.del({ "x", "o" }, "X")
+		end,
+	},
+
+	{
+		"ggandor/flit.nvim",
+		opts = { labeled_modes = "nx" },
 	},
 
 	{
@@ -366,28 +382,11 @@ local plugins = {
 	},
 
 	{
-		"jghauser/mkdir.nvim",
-		config = function()
-			require("mkdir")
-		end,
-		event = "BufWritePre",
-	},
-
-	{
 		"folke/which-key.nvim",
 		config = function()
 			require("plugins.configs.whichkey")
 		end,
 		event = "VimEnter",
-	},
-
-	{
-		"phaazon/hop.nvim",
-		branch = "v2",
-		config = function()
-			require("hop").setup({ teasing = false })
-		end,
-		event = "BufEnter",
 	},
 
 	{
@@ -626,13 +625,20 @@ local plugins = {
 		event = "VimEnter",
 	},
 
-	-- {
-	-- 	"romgrk/barbar.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.barbar")
-	-- 	end,
-	-- 	event = "VimEnter",
-	-- },
+	{
+		"romgrk/barbar.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"lewis6991/gitsigns.nvim",
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
+		config = function()
+			require("plugins.configs.barbar")
+		end,
+		event = "VimEnter",
+	},
 
 	-- {
 	--     "nanozuki/tabby.nvim",
@@ -730,19 +736,6 @@ local plugins = {
 	-- 	end,
 	-- 	cmd = "FocusEnable",
 	-- },
-
-	{
-		"luukvbaal/stabilize.nvim",
-		enabled = function()
-			if vim.fn.has("nvim-0.9") == 0 then
-				return true
-			end
-		end,
-		config = function()
-			require("stabilize").setup()
-		end,
-		event = "BufReadPost",
-	},
 
 	{
 		"kevinhwang91/nvim-ufo",

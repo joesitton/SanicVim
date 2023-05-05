@@ -6,6 +6,31 @@ local ol = vim.opt_local
 local cmd = vim.cmd
 -- local api = vim.api
 
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+    group = augroup("checktime", {}),
+    command = "checktime",
+})
+
+autocmd("FileType", {
+    group = augroup("close_with_q", {}),
+    pattern = {
+        "PlenaryTestPopup",
+        "help",
+        "lspinfo",
+        "man",
+        "notify",
+        "qf",
+        "spectre_panel",
+        "startuptime",
+        "tsplayground",
+        "checkhealth",
+    },
+    callback = function(event)
+        vim.bo[event.buf].buflisted = false
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+    end,
+})
+
 -- Buffer focus stuff
 autocmd({ "BufWinEnter", "BufEnter", "InsertEnter" }, {
     group = augroup("no_repeat_comments", {}),
@@ -69,13 +94,13 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     end,
 })
 
--- autocmd({ "BufEnter" }, {
---     group = augroup("windows_maximize", {}),
---     pattern = "*",
---     callback = function ()
---         local ok, _ = pcall(require, "windows")
---         if ok then
---             cmd([[WindowsMaximize]])
---         end
---     end
--- })
+autocmd({ "BufWritePre" }, {
+    group = augroup("auto_create_dir", {}),
+    callback = function(event)
+        if event.match:match("^%w%w+://") then
+            return
+        end
+        local file = vim.loop.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})

@@ -4,6 +4,8 @@ vim.g.matchup_matchparen_offscreen = {
     ["fullwidth"] = 1,
 }
 
+local rainbow = require("ts-rainbow")
+
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     ignore_install = { "yaml", "latex", "toml", "phpdoc" },
@@ -18,6 +20,19 @@ require("nvim-treesitter.configs").setup({
     },
     rainbow = {
         enable = true,
+        query = {
+            "rainbow-parens",
+        },
+        strategy = rainbow.strategy.global,
+        hlgroups = {
+            "rainbowcol1",
+            "rainbowcol2",
+            "rainbowcol3",
+            "rainbowcol4",
+            "rainbowcol5",
+            "rainbowcol5",
+            "rainbowcol7",
+        },
     },
     context_commentstring = {
         enable = true,

@@ -32,6 +32,7 @@ require("mason-null-ls").setup({
         "jq",
         "stylua",
         "yamlfmt",
+        -- "prettier",
     },
     handlers = {},
 })
@@ -40,6 +41,7 @@ local null_ls = require("null-ls")
 null_ls.setup({
     border = "rounded",
     sources = {
+        -- null_ls.builtins.formatting.prettier,
         null_ls.builtins.code_actions.gitsigns,
     },
 })
@@ -53,7 +55,7 @@ require("mason-nvim-dap").setup({
 require("neodev").setup({
     library = {
         plugins = { "nvim-dap-ui" },
-        types = false
+        types = false,
     },
 })
 
@@ -82,6 +84,16 @@ local lsp = require("lspconfig")
 local on_attach = function(client, bufnr)
     if client.server_capabilities["documentSymbolProvider"] then
         require("nvim-navic").attach(client, bufnr)
+    end
+
+    -- Disable syntax highlighting from lua_ls
+    if client.name == "lua_ls" then
+        client.server_capabilities.semanticTokensProvider = nil
+    elseif client.name == "copilot" then
+        local ok, copilot_cmp = pcall(require, "cmp_copilot")
+        if ok then
+            copilot_cmp._on_insert_enter()
+        end
     end
 end
 
