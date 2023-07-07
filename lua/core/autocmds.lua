@@ -2,15 +2,15 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local o = vim.opt
 local ol = vim.opt_local
--- local fn = vim.fn
 local cmd = vim.cmd
--- local api = vim.api
 
+-- Check if we need to refresh
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     group = augroup("checktime", {}),
     command = "checktime",
 })
 
+-- Close with q
 autocmd("FileType", {
     group = augroup("close_with_q", {}),
     pattern = {
@@ -31,17 +31,7 @@ autocmd("FileType", {
     end,
 })
 
--- Buffer focus stuff
-autocmd({ "BufWinEnter", "BufEnter", "InsertEnter" }, {
-    group = augroup("no_repeat_comments", {}),
-    pattern = "*",
-    callback = function()
-        ol.formatoptions:remove({ "c", "r", "o" })
-        cmd([[noh]])
-    end,
-})
-
--- Vertical split for help
+-- Help split right
 autocmd("BufEnter", {
     group = augroup("vertical_split_help", {}),
     pattern = "*.txt",
@@ -51,6 +41,16 @@ autocmd("BufEnter", {
             ol.colorcolumn = "0"
             cmd([[ silent! wincmd L ]])
         end
+    end,
+})
+
+-- Buffer focus stuff
+autocmd({ "BufWinEnter", "BufEnter", "InsertEnter" }, {
+    group = augroup("no_repeat_comments", {}),
+    pattern = "*",
+    callback = function()
+        ol.formatoptions:remove({ "c", "r", "o" })
+        cmd([[noh]])
     end,
 })
 
@@ -72,16 +72,7 @@ autocmd("FileType", {
     end,
 })
 
-autocmd("VimEnter", {
-    group = augroup("illuminate_highlight", {}),
-    pattern = "*",
-    callback = function()
-        cmd([[
-            hi! link illuminatedWord IlluminatedWordText
-        ]])
-    end,
-})
-
+-- Barbecue
 autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePost", "TextChanged", "TextChangedI" }, {
     group = augroup("barbecue#create_autocmd", {}),
     pattern = "*",
@@ -94,6 +85,7 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     end,
 })
 
+-- Auto create dirs on write
 autocmd({ "BufWritePre" }, {
     group = augroup("auto_create_dir", {}),
     callback = function(event)

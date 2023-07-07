@@ -24,6 +24,23 @@ local ViMode = {
 	end,
 }
 
+local ShowCmd = {
+	-- condition = function()
+	--     return vim.o.cmdheight == 0
+	-- end,
+	init = function ()
+		vim.o.showcmdloc = "statusline"
+	end,
+	provider = "%S",
+	hl = function(self)
+		local color = self:mode_color()
+		return {
+			fg = color,
+			bold = true,
+		}
+	end,
+}
+
 local WorkDir = {
 	init = function(self)
 		local cwd = vim.fn.getcwd(0)
@@ -48,12 +65,12 @@ local WorkDir = {
 		},
 	},
 	{
-		provider = function (self)
+		provider = function(self)
 			return vim.fn.expand("%:h") .. "/"
 		end,
 		hl = {
-			fg = colors.white.darken(40).hex
-		}
+			fg = colors.white.darken(40).hex,
+		},
 	},
 	{
 		provider = function(self)
@@ -61,9 +78,9 @@ local WorkDir = {
 		end,
 		hl = {
 			fg = colors.white.hex,
-			bold = true
-		}
-	}
+			bold = true,
+		},
+	},
 }
 
 -- WorkDir = utils.surround({ "[", "]" }, nil, WorkDir)
@@ -180,7 +197,7 @@ local FileType = {
 		return string.upper(vim.bo.filetype)
 	end,
 	hl = {
-		fg = utils.get_highlight("Type").fg,
+		fg = colors.blue.hex,
 		bold = true,
 	},
 }
@@ -209,7 +226,7 @@ local LSPActive = {
 		for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
 			table.insert(names, server.name)
 		end
-		return " [" .. table.concat(names, " ") .. "]"
+		return " " .. table.concat(names, ", ")
 	end,
 	on_click = {
 		callback = function()
@@ -296,6 +313,25 @@ local Lazy = {
 		name = "update_plugins",
 	},
 	hl = { fg = colors.gray.hex },
+}
+
+local SearchCount = {
+	condition = function()
+		return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0
+	end,
+	init = function(self)
+		local ok, search = pcall(vim.fn.searchcount)
+		if ok and search.total then
+			self.search = search
+		end
+	end,
+	provider = function(self)
+		local search = self.search
+		return string.format("[%d/%d]", search.current, math.min(search.total, search.maxcount))
+	end,
+	hl = {
+		fg = colors.yellow.hex,
+	},
 }
 
 local Git = {
@@ -389,6 +425,26 @@ local Snippets = {
 	},
 }
 
+local VirtualEnv = {
+	condition = function ()
+		local ok, swenv = pcall(require, "swenv.api")
+		if not ok then return false end
+
+		return swenv.get_current_venv() ~= nil
+	end,
+	provider = function()
+		local ok, swenv = pcall(require, "swenv.api")
+		if ok then
+			return "  " .. swenv.get_current_venv().name
+		end
+		return ""
+	end,
+	hl = {
+		fg = colors.green.hex,
+		bold = true,
+	},
+}
+
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Statuslines                                              │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -400,7 +456,6 @@ local SpecialStatusline = {
 		})
 	end,
 	ViMode,
-	WorkDir,
 	Space,
 	HelpFileName,
 	Git,
@@ -427,7 +482,6 @@ local InactiveStatusLine = {
 	condition = conditions.is_not_active,
 	ViMode,
 	Space,
-	WorkDir,
 	Space,
 	Git,
 	Align,
@@ -441,8 +495,8 @@ local DefaultStatusLine = {
 	ViMode,
 	MacroRec,
 	ReadOnly,
-	WorkDir,
-	-- FileName,
+	Space,
+	VirtualEnv,
 	Space,
 	Git,
 	Align,
@@ -450,11 +504,16 @@ local DefaultStatusLine = {
 	Space,
 	Diagnostics,
 	Space,
+	ShowCmd,
+	Lazy,
+	Space,
 	LSPActive,
 	Space,
 	FileType,
 	Space,
 	FileSize,
+	Space,
+	SearchCount,
 	Space,
 	Ruler,
 	Space,
@@ -486,7 +545,7 @@ local StatusLines = {
 	hl = function()
 		if conditions.is_active() then
 			return {
-				bg = colors.black.hex,
+				bg = colors.black.lighten(10).hex,
 			}
 		else
 			return {

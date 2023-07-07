@@ -59,6 +59,7 @@ require("neodev").setup({
     },
 })
 
+
 local servers = {
     "pyright",
     "gopls",

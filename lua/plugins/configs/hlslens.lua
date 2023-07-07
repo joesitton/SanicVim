@@ -1,5 +1,8 @@
+local ok, scrollbar = pcall(require, "scrollbar.handlers.search")
+if not ok then return end
+
 -- passing opts to scrollbar hlslens handler
-require("scrollbar.handlers.search").setup({
+scrollbar.setup({
     calm_down = true,
     override_lens = function(render, posList, nearest, idx, relIdx)
         local sfw = vim.v.searchforward == 1

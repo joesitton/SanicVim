@@ -48,7 +48,7 @@ require("neo-tree").setup({
     },
     window = {
         position = "left",
-        width = 35,
+        width = 40,
         mappings = {
             ["<space>"] = "toggle_node",
             ["<cr>"] = "open",
@@ -67,12 +67,13 @@ require("neo-tree").setup({
             ["m"] = "move", -- takes text input for destination
             ["q"] = "close_window",
             ["R"] = "refresh",
+            -- ["z"] = "close_all_nodes",
         },
     },
     nesting_rules = {},
     filesystem = {
         filtered_items = {
-            visible = true,
+            visible = false,
             hide_dotfiles = true,
             hide_gitignored = true,
             hide_by_name = {
@@ -106,7 +107,7 @@ require("neo-tree").setup({
                 ["-"] = "navigate_up",
                 ["."] = "set_root",
                 ["H"] = "toggle_hidden",
-                -- ["/"] = "fuzzy_finder",
+                ["/"] = "fuzzy_finder",
                 -- ["f"] = "filter_on_submit",
                 -- ["<c-x>"] = "clear_filter",
             },

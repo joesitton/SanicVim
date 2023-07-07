@@ -14,6 +14,7 @@ o.clipboard = "unnamedplus"
 
 -- Undo
 o.undofile = true
+o.undolevels = 2000
 o.undodir = vim.fn.stdpath("data") .. "/undo"
 
 -- Indent
@@ -34,7 +35,7 @@ o.signcolumn = "yes:3"
 o.cursorline = true
 
 -- Scrolloffs
-o.scrolloff = 6
+o.scrolloff = 12
 o.sidescrolloff = 64
 
 -- Searching
@@ -75,8 +76,8 @@ o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert:▏,horiz: ,foldse
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
-o.pumblend = 4
-o.pumheight = 20
+o.pumblend = 0
+o.pumheight = 25
 
 -- Statusline
 o.cmdheight = 1
@@ -95,6 +96,7 @@ o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"
 o.guifont = "Iosevka Custom:h18"
 
 -- Other
+o.autowrite = true
 o.termguicolors = true
 o.title = false
 o.hidden = true
@@ -117,15 +119,14 @@ o.inccommand = "split"
 -- Virtualenv
 g.python3_host_prog = "~/.pyenv/versions/neovim/bin/python"
 
--- Neovide
-g.neovide_transparency = 0.92
-g.neovide_remember_window_size = true
-
 -- Signs
 local set_sign = vim.fn.sign_define
-
-set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-set_sign("DapBreakpoint", { text = "⏹", texthl = "DapBreakpoint" })
+set_sign("DapStopped", { text = "", texthl = "DapStopped" })
+set_sign("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
+set_sign("DapBreakpointCondition", { text = "", texthl = "DapBreakpointCondition" })
+set_sign("DapBreakpointRejected", { text = "", texthl = "DapBreakpointRejected" })
+set_sign("DapLogPoint", { text = ".>", texthl = "DapLogPoint" })

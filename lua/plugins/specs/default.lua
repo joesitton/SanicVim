@@ -1,15 +1,14 @@
----@diagnostic disable: different-requires
-local plugins = {
+return {
 	-- {{{ Core
 	{
 		"nvim-lua/plenary.nvim",
 		lazy = false,
 	},
 
-	{
-		"nvim-lua/popup.nvim",
-		lazy = false,
-	},
+	-- {
+	-- 	"nvim-lua/popup.nvim",
+	-- 	lazy = false,
+	-- },
 
 	-- }}}
 
@@ -22,68 +21,6 @@ local plugins = {
 		config = function()
 			vim.cmd("silent! colo lush-base16")
 		end,
-	},
-
-	-- }}}
-
-	-- {{{ Filetype Support
-
-	{
-		"lervag/vimtex",
-		ft = "tex",
-	},
-
-	{
-		"zeek/vim-zeek",
-		ft = "zeek",
-	},
-
-	{
-		"s3rvac/vim-syntax-yara",
-		config = function()
-			vim.cmd("autocmd BufNewFile,BufRead *.yara setlocal filetype=yara")
-		end,
-		ft = "yara",
-	},
-
-	{
-		"euclidianAce/BetterLua.vim",
-		ft = "lua",
-	},
-
-	{
-		"fatih/vim-go",
-		ft = "go",
-	},
-
-	{
-		"ellisonleao/glow.nvim",
-		config = function()
-			vim.g.glow_border = "rounded"
-		end,
-		ft = "markdown",
-	},
-
-	{
-		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install",
-		config = function()
-			vim.g.mkdp_auto_start = 1
-		end,
-		ft = "markdown",
-	},
-
-	{
-		"baskerville/vim-sxhkdrc",
-		ft = "sxhkdrc",
-	},
-
-	{
-		"towolf/vim-helm",
-		config = function()
-			vim.cmd("autocmd BufNewFile,BufRead *.{yaml,yml}.template setlocal filetype=helm")
-		end,
-		ft = "helm",
 	},
 
 	-- }}}
@@ -112,10 +49,10 @@ local plugins = {
 				"hrsh7th/cmp-calc",
 				event = "InsertEnter",
 			},
-			{
-				"hrsh7th/cmp-emoji",
-				event = "InsertEnter",
-			},
+			-- {
+			-- 	"hrsh7th/cmp-emoji",
+			-- 	event = "InsertEnter",
+			-- },
 			{
 				"FelipeLema/cmp-async-path",
 				event = { "InsertEnter", "CmdlineEnter" },
@@ -126,6 +63,10 @@ local plugins = {
 			},
 			{
 				"hrsh7th/cmp-buffer",
+				event = "InsertEnter",
+			},
+			{
+				"amarakon/nvim-cmp-buffer-lines",
 				event = "InsertEnter",
 			},
 			{
@@ -152,11 +93,11 @@ local plugins = {
 				end,
 				event = "InsertEnter",
 			},
-			{
-				"tzachar/cmp-tabnine",
-				build = "./install.sh",
-				event = "InsertEnter",
-			},
+			-- {
+			-- 	"tzachar/cmp-tabnine",
+			-- 	build = "./install.sh",
+			-- 	event = "InsertEnter",
+			-- },
 			{
 				"ray-x/cmp-treesitter",
 				event = "InsertEnter",
@@ -227,6 +168,7 @@ local plugins = {
 
 	{
 		"j-hui/fidget.nvim",
+		tag = "legacy",
 		config = function()
 			require("plugins.configs.fidget")
 		end,
@@ -242,7 +184,6 @@ local plugins = {
 		dependencies = {
 			{
 				"HiPhish/nvim-ts-rainbow2",
-				event = "BufReadPost",
 			},
 			{
 				"andymass/vim-matchup",
@@ -255,9 +196,11 @@ local plugins = {
 			-- },
 			{
 				"windwp/nvim-autopairs",
-				config = function()
-					require("plugins.configs.autopairs")
-				end,
+				opts = {
+					check_ts = true,
+					enable_check_bracket_line = false,
+					disable_filetype = { "TelescopePrompt" },
+				},
 				event = "InsertEnter",
 			},
 			{
@@ -315,8 +258,10 @@ local plugins = {
 	-- {{{ Functionality
 
 	{
-		"tpope/vim-surround",
-		event = "BufReadPost",
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		opts = {},
 	},
 
 	{
@@ -324,10 +269,10 @@ local plugins = {
 		event = "BufReadPost",
 	},
 
-	{
-		"tpope/vim-repeat",
-		event = "VeryLazy",
-	},
+	-- {
+	-- 	"tpope/vim-repeat",
+	-- 	event = "VeryLazy",
+	-- },
 
 	{
 		"tpope/vim-fugitive",
@@ -343,11 +288,16 @@ local plugins = {
 		"fedepujol/move.nvim",
 	},
 
+	-- {
+	-- 	"chrisgrieser/nvim-spider",
+	-- 	lazy = true,
+	-- },
+
 	{
 		"ggandor/leap.nvim",
 		keys = {
-			{ "s",  mode = { "n", "x", "o" }, desc = "Leap forward to" },
-			{ "S",  mode = { "n", "x", "o" }, desc = "Leap backward to" },
+			{ "s", mode = { "n", "x", "o" }, desc = "Leap forward to" },
+			{ "S", mode = { "n", "x", "o" }, desc = "Leap backward to" },
 		},
 		config = function(_, opts)
 			local leap = require("leap")
@@ -413,13 +363,13 @@ local plugins = {
 		event = "BufReadPost",
 	},
 
-	{
-		"stevearc/dressing.nvim",
-		config = function()
-			require("plugins.configs.dressing")
-		end,
-		event = "UIEnter",
-	},
+	-- {
+	-- 	"stevearc/dressing.nvim",
+	-- 	config = function()
+	-- 		require("plugins.configs.dressing")
+	-- 	end,
+	-- 	event = "UIEnter",
+	-- },
 
 	{
 		"MunifTanjim/nui.nvim",
@@ -465,20 +415,19 @@ local plugins = {
 	--     config = function() require("octo").setup() end,
 	-- },
 
-	{
-		"nvim-neorg/neorg",
-		config = function()
-			require("plugins.configs.neorg")
-		end,
-		ft = "norg",
-	},
+	-- {
+	-- 	"nvim-neorg/neorg",
+	-- 	config = function()
+	-- 		require("plugins.configs.neorg")
+	-- 	end,
+	-- 	ft = "norg",
+	-- },
 
 	{
 		"smjonas/inc-rename.nvim",
 		config = function()
 			require("inc_rename").setup()
 		end,
-		cmd = { "IncRename" },
 	},
 
 	{
@@ -575,11 +524,22 @@ local plugins = {
 
 	{
 		"rcarriga/nvim-notify",
-		config = function()
-			require("notify").setup({ background_colour = "#181818", render = "minimal" })
+		opts = {
+			timeout = 3000,
+			background_colour = "#181818",
+			render = "minimal",
+			max_height = function()
+				return math.floor(vim.o.lines * 0.75)
+			end,
+			max_width = function()
+				return math.floor(vim.o.columns * 0.75)
+			end,
+		},
+		config = function(_, opts)
+			require("notify").setup(opts)
 			require("telescope").load_extension("notify")
 		end,
-		event = "VimEnter",
+		event = "VeryLazy",
 	},
 
 	-- {
@@ -609,11 +569,38 @@ local plugins = {
 
 	-- {
 	-- 	"folke/noice.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.noice")
-	-- 		require("telescope").load_extension("noice")
-	-- 	end,
-	-- 	event = "VimEnter",
+	-- 	opts = {
+	-- 		lsp = {
+	-- 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+	-- 			override = {
+	-- 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+	-- 				["vim.lsp.util.stylize_markdown"] = true,
+	-- 				["cmp.entry.get_documentation"] = true,
+	-- 			},
+	-- 			progress = {
+	-- 				enabled = false,
+	-- 			},
+	-- 		},
+	-- 		cmdline = {
+	-- 			enabled = false,
+	-- 			view = "cmdline",
+	-- 		},
+	-- 		messages = {
+	-- 			enabled = false,
+	-- 		},
+	-- 		popupmenu = {
+	-- 			backend = "cmp",
+	-- 			kind_icons = require("core.utils").symbols,
+	-- 		},
+	-- 		presets = {
+	-- 			bottom_search = false, -- use a classic bottom cmdline for search
+	-- 			command_palette = false, -- position the cmdline and popupmenu together
+	-- 			long_message_to_split = true, -- long messages will be sent to a split
+	-- 			inc_rename = true, -- enables an input dialog for inc-rename.nvim
+	-- 			lsp_doc_border = false, -- add a border to hover docs and signature help
+	-- 		},
+	-- 	},
+	-- 	event = "VeryLazy",
 	-- },
 
 	-- }}}
@@ -627,6 +614,7 @@ local plugins = {
 
 	{
 		"romgrk/barbar.nvim",
+		version = "^1.0.0",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 			"lewis6991/gitsigns.nvim",
@@ -639,12 +627,6 @@ local plugins = {
 		end,
 		event = "VimEnter",
 	},
-
-	-- {
-	--     "nanozuki/tabby.nvim",
-	--     config = function() require("plugins.configs.tabby") end,
-	--     event = "VimEnter",
-	-- },
 
 	-- {
 	-- 	"b0o/incline.nvim",
@@ -660,9 +642,17 @@ local plugins = {
 			"smiteshp/nvim-navic",
 			"nvim-tree/nvim-web-devicons",
 		},
-		config = function()
-			require("plugins.configs.barbecue")
-		end,
+		opts = {
+			create_autocmd = false,
+			attach_navic = false,
+			context_follow_icon_color = true,
+			show_dirname = true,
+			show_basename = true,
+			kinds = require("core.utils").symbols,
+			theme = {
+				normal = { bg = "#212121" },
+			},
+		},
 		event = "VeryLazy",
 	},
 
@@ -671,8 +661,16 @@ local plugins = {
 		config = function()
 			require("plugins.configs.heirline")
 		end,
-		event = "VimEnter",
+		event = "VeryLazy",
 	},
+
+	-- {
+	-- 	"nvim-lualine/lualine.nvim",
+	-- 	config = function ()
+	-- 		require("plugins.configs.statusline")
+	-- 	end,
+	-- 	event = "VeryLazy"
+	-- },
 
 	{
 		"folke/twilight.nvim",
@@ -768,13 +766,13 @@ local plugins = {
 		event = "VeryLazy",
 	},
 
-	{
-		"petertriho/nvim-scrollbar",
-		config = function()
-			require("plugins.configs.scrollbar")
-		end,
-		event = "BufReadPost",
-	},
+	-- {
+	-- 	"petertriho/nvim-scrollbar",
+	-- 	config = function()
+	-- 		require("plugins.configs.scrollbar")
+	-- 	end,
+	-- 	event = "BufReadPost",
+	-- },
 
 	-- {
 	-- 	"xiyaowong/virtcolumn.nvim",
@@ -831,39 +829,5 @@ local plugins = {
 		cmd = { "DocsViewToggle" },
 	},
 
-	--  ╭──────────────────────────────────────────────────────────╮
-	--  │ DAP                                                      │
-	--  ╰──────────────────────────────────────────────────────────╯
-
-	{
-		"rcarriga/nvim-dap-ui",
-		event = "VimEnter",
-	},
-
-	{
-		"Weissle/persistent-breakpoints.nvim",
-		config = function()
-			require("persistent-breakpoints").setup({
-				load_breakpoints_event = { "BufReadPost" },
-			})
-		end,
-	},
-
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			"leoluz/nvim-dap-go",
-			config = function()
-				require("dap-go").setup()
-			end,
-		},
-		config = function()
-			require("plugins.configs.dap")
-		end,
-		event = "VimEnter",
-	},
-
 	-- }}}
 }
-
-return plugins

@@ -36,6 +36,7 @@ local symbol_map = require("core.utils").symbols
 local menu = {
 	cmdline = "Cmd",
 	buffer = "Buffer",
+	["buffer-lines"] = "Buffer",
 	path = "Path",
 	async_path = "Path",
 	nvim_lsp = "LSP",
@@ -141,8 +142,8 @@ cmp.setup({
 			i = function(fallback)
 				if cmp.visible() and cmp.get_active_entry() then
 					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-				-- elseif cmp.visible() and not cmp.get_active_entry() then
-				-- 	cmp.close()
+					-- elseif cmp.visible() and not cmp.get_active_entry() then
+					-- 	cmp.close()
 				else
 					fallback()
 				end
@@ -164,8 +165,8 @@ cmp.setup({
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
-			-- elseif has_words_before() then
-			-- 	cmp.complete()
+				-- elseif has_words_before() then
+				-- 	cmp.complete()
 			else
 				fallback()
 			end
@@ -186,7 +187,6 @@ cmp.setup({
 			else
 				fallback()
 			end
-
 		end, { "i" }),
 	},
 	sources = {
@@ -195,19 +195,20 @@ cmp.setup({
 		{ name = "nvim_lsp",               priority = 8 },
 		{ name = "nvim_lua",               priority = 8 },
 		{ name = "buffer",                 priority = 7 },
-		-- { name = "emoji", priority = 6 },
+		{ name = "buffer-lines",           priority = 7 },
+		{ name = "emoji",                  priority = 6 },
 		{ name = "luasnip",                priority = 6 },
 		-- { name = "treesitter",             priortiy = 5 },
 		{ name = "async_path",             priority = 4 },
 		{ name = "calc",                   priority = 3 },
-	    { name = "nvim_lsp_signature_help" },
+		{ name = "nvim_lsp_signature_help" },
 		-- { name = "latex_symbols" },
 	},
 	sorting = {
 		priority_weight = 1.0,
 		comparators = {
 			require("copilot_cmp.comparators").prioritize,
-			require("cmp_tabnine.compare"),
+			-- require("cmp_tabnine.compare"),
 			cmp.config.compare.locality,
 			cmp.config.compare.recently_used,
 			cmp.config.compare.score,
@@ -241,15 +242,20 @@ for _, cmdtype in ipairs({ "?", "/" }) do
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{
-				name = "rg",
-				option = {
-					additional_arguments = "--smart-case",
-					only_current_buffer = true,
-				},
+				name = "buffer",
+				option = { keyword_pattern = [[\k\+]] },
 			},
-			{ name = "nvim_lsp_document_symbol" },
-			{ name = "buffer" },
-			{ name = "treesitter", },
+			{ name = "buffer-lines" },
+			-- {
+			-- 	name = "rg",
+			-- 	option = {
+			-- 		additional_arguments = "--smart-case",
+			-- 		only_current_buffer = true,
+			-- 	},
+			-- },
+			-- { name = "nvim_lsp_document_symbol" },
+			-- { name = "buffer" },
+			-- { name = "treesitter", },
 		}),
 	})
 end
@@ -263,25 +269,25 @@ cmp.setup.filetype("gitcommit", {
 	}),
 })
 
-cmp.setup.filetype("norg", {
-	window = { completion = { side_padding = 1, col_offset = 0 } },
-	sources = cmp.config.sources({
-		{ name = "neorg" },
-		{
-			name = "rg",
-			option = {
-				additional_arguments = "--smart-case",
-				only_current_buffer = true,
-			},
-		},
-	}),
-})
+-- cmp.setup.filetype("norg", {
+-- 	window = { completion = { side_padding = 1, col_offset = 0 } },
+-- 	sources = cmp.config.sources({
+-- 		{ name = "neorg" },
+-- 		{
+-- 			name = "rg",
+-- 			option = {
+-- 				additional_arguments = "--smart-case",
+-- 				only_current_buffer = true,
+-- 			},
+-- 		},
+-- 	}),
+-- })
 
-cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-	view = { entries = { name = "custom", selection_order = "near_cursor" } },
-	window = { completion = { side_padding = 1, col_offset = 0 } },
-	formatting = { fields = { "abbr" }, maxwidth = 120 },
-	sources = cmp.config.sources({
-		{ name = "dap" },
-	}),
-})
+-- cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+-- 	view = { entries = { name = "custom", selection_order = "near_cursor" } },
+-- 	window = { completion = { side_padding = 1, col_offset = 0 } },
+-- 	formatting = { fields = { "abbr" }, maxwidth = 120 },
+-- 	sources = cmp.config.sources({
+-- 		{ name = "dap" },
+-- 	}),
+-- })

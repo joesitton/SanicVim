@@ -1,29 +1,3 @@
--- Disable some default plugins
-local default_plugins = {
-	"2html_plugin",
-	"getscript",
-	"getscriptPlugin",
-	"gzip",
-	"logipat",
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"matchit",
-	"tar",
-	"tarPlugin",
-	"rrhelper",
-	"spellfile_plugin",
-	"vimball",
-	"vimballPlugin",
-	"zip",
-	"zipPlugin",
-}
-
-for _, plugin in pairs(default_plugins) do
-	vim.g["loaded_" .. plugin] = 1
-end
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -38,16 +12,19 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Load lazy.nvim
-local ok, lazy = pcall(require, "lazy")
-
-if not ok then
-	error("Error loading lazy.nvim!\n" .. lazy)
-end
-
 -- Load plugins
-lazy.setup("plugins.plugins", {
+require("lazy").setup({
+	spec = {
+		{ import = "plugins.specs.default" },
+		{ import = "plugins.specs.filetypes" },
+		{ import = "plugins.specs.dap"}
+	},
 	concurrency = 12,
+	defaults = {
+		lazy = false,
+		version = false,
+	},
+	-- checker = { enabled = true },
 	ui = {
 		size = { width = 0.7, height = 0.7 },
 		border = "rounded",
@@ -55,4 +32,29 @@ lazy.setup("plugins.plugins", {
 			lazy = "💤 ",
 		},
 	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"2html_plugin",
+				"getscript",
+				"getscriptPlugin",
+				"gzip",
+				"logipat",
+				"netrw",
+				"netrwPlugin",
+				"netrwSettings",
+				"netrwFileHandlers",
+				"matchit",
+				"tar",
+				"tarPlugin",
+				"rrhelper",
+				"spellfile_plugin",
+				"vimball",
+				"vimballPlugin",
+				"zip",
+				"zipPlugin",
+			},
+		},
+	},
 })
+
