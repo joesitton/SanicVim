@@ -11,6 +11,7 @@ require("bufferline").setup({
 	maximum_padding = 4,
 	maximum_length = 30,
 	sidebar_filetypes = {
+		NvimTree = { event = "BufWipeout", text = "Files" },
 		["neo-tree"] = { event = "BufWipeout", text = "Files" },
 	},
 	icons = {
@@ -18,11 +19,16 @@ require("bufferline").setup({
 		buffer_number = false,
 		inacive = { button = "" },
 		modified = { button = "" },
-		pinned = { button = "車" },
+		pinned = { button = "車", filename = true },
+		-- diagnostics = {
+		-- 	[vim.diagnostic.severity.ERROR] = { enabled = true },
+		-- 	[vim.diagnostic.severity.WARN] = { enabled = true },
+		-- },
 		separator = {
 			left = "▎",
 			right = "",
 		},
+		separator_at_end = true,
 		filetype = {
 			custom_colors = false,
 			enabled = true,

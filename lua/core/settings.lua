@@ -36,7 +36,7 @@ o.cursorline = true
 
 -- Scrolloffs
 o.scrolloff = 12
-o.sidescrolloff = 64
+o.sidescrolloff = 24
 
 -- Searching
 o.smartcase = true
@@ -72,7 +72,7 @@ o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Characters
-o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,vert:▏,horiz: ,foldsep: ,vertleft: ,vertright: ,stl: ,stlnc:-"
+o.fillchars = "diff:╱,foldopen:,foldclose:,eob: ,foldsep: ,stl: ,stlnc: ,vert:▏,vertleft:▏,vertright:▏,horizdown:─,horizup:─"
 
 -- Completion
 o.completeopt = "menu,menuone,noselect"
@@ -89,7 +89,7 @@ o.backup = false
 o.writebackup = false
 
 -- Session
-o.sessionoptions = "buffers,curdir,folds,winpos,winsize"
+o.sessionoptions = "buffers,curdir,folds,winpos,winsize,tabpages,globals"
 
 -- GUI
 o.guicursor = "n-v-o:block,c-i-ci-ve-sm:ver25,r-cr:hor25"

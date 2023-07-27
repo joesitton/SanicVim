@@ -1,24 +1,19 @@
-local ok, cmp = pcall(require, "cmp")
+local cmp = require("cmp")
 
-if not ok then
-	error("Could not load cmp: " .. cmp)
-	return
-end
-
+-- autopairs
 local ok, autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-
 if ok then
 	cmp.event:on("confirm_done", autopairs.on_confirm_done())
 end
 
+-- git
 local ok, cmp_git = pcall(require, "cmp_git")
-
 if ok then
 	cmp_git.setup()
 end
 
+-- tabnine
 local ok, tabnine = pcall(require, "cmp_tabnine.config")
-
 if ok then
 	tabnine:setup({
 		max_lines = 1000,
@@ -31,8 +26,8 @@ if ok then
 	})
 end
 
+-- menu appearance
 local symbol_map = require("core.utils").symbols
-
 local menu = {
 	cmdline = "Cmd",
 	buffer = "Buffer",
@@ -56,6 +51,7 @@ local menu = {
 	nvim_lsp_signature_help = "Sig",
 }
 
+-- snippets
 local luasnip = require("luasnip")
 
 -- local has_words_before = function()
@@ -110,6 +106,7 @@ cmp.setup({
 
 			if entry.source.name == "treesitter" then
 				vim_item.kind = "   "
+				vim_item.kind_hl_group = "CmpItemKindTreesitter"
 			else
 				vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "
 			end
@@ -120,7 +117,7 @@ cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	window = {
 		completion = {
-			col_offset = -4,
+			col_offset = -5,
 			side_padding = 0,
 			zindex = 99,
 			border = "rounded",
@@ -161,7 +158,7 @@ cmp.setup({
 			end
 		end, { "i" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then --and has_words_before() then
+			if cmp.visible() then -- and has_words_before() then
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
@@ -195,7 +192,7 @@ cmp.setup({
 		{ name = "nvim_lsp",               priority = 8 },
 		{ name = "nvim_lua",               priority = 8 },
 		{ name = "buffer",                 priority = 7 },
-		{ name = "buffer-lines",           priority = 7 },
+		-- { name = "buffer-lines",           priority = 7 },
 		{ name = "emoji",                  priority = 6 },
 		{ name = "luasnip",                priority = 6 },
 		-- { name = "treesitter",             priortiy = 5 },
@@ -211,13 +208,13 @@ cmp.setup({
 			-- require("cmp_tabnine.compare"),
 			cmp.config.compare.locality,
 			cmp.config.compare.recently_used,
+			cmp.config.compare.sort_text,
 			cmp.config.compare.score,
 			cmp.config.compare.offset,
 			cmp.config.compare.order,
 			require("cmp-under-comparator").under,
 			-- cmp.config.compare.exact,
 			-- cmp.config.compare.kind,
-			-- cmp.config.compare.sort_text,
 			-- cmp.config.compare.length,
 		},
 	},
@@ -243,18 +240,16 @@ for _, cmdtype in ipairs({ "?", "/" }) do
 		sources = cmp.config.sources({
 			{
 				name = "buffer",
-				option = { keyword_pattern = [[\k\+]] },
 			},
-			{ name = "buffer-lines" },
+			-- { name = "buffer-lines" },
 			-- {
 			-- 	name = "rg",
+			-- 	keyword_length = 3,
 			-- 	option = {
 			-- 		additional_arguments = "--smart-case",
-			-- 		only_current_buffer = true,
 			-- 	},
 			-- },
 			-- { name = "nvim_lsp_document_symbol" },
-			-- { name = "buffer" },
 			-- { name = "treesitter", },
 		}),
 	})

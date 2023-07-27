@@ -1,18 +1,20 @@
 local cc = vim.api.nvim_create_user_command
 
-cc("W", ":silent! w !sudo tee % >/dev/null", {}) -- Save a file with sudo
+-- sudo save
+cc("W", ":silent! w !sudo tee % >/dev/null", {})
 
-cc("Q", function ()
+-- save session and force quit
+cc("Q", function()
    vim.cmd("SessionSave")
    vim.cmd("qa!")
-end, {}) -- Force quit
+end, {})
 
 cc("Format", function()
    vim.lsp.buf.format()
-   -- vim.cmd("w!")
+   vim.cmd("w! | e")
 end, {})
 
-cc("Rename", function ()
+cc("Rename", function()
    vim.lsp.buf.rename()
 end, {})
 

@@ -5,18 +5,35 @@ local heirline = require("heirline")
 local colors = require("lush_theme.colors")
 colors.gray = colors.black.lighten(20).hex
 colors.gray2 = colors.black.lighten(4).hex
--- heirline.load_colors(colors)
 
 local Align = { provider = "%=" }
 local Space = { provider = " " }
 
+local function surround_left(object, color)
+	return {
+		{ provider = " ", hl = { bg = color } },
+		{ object, hl = { bg = color } },
+		{ provider = " ", hl = { bg = color } },
+		{ provider = "", hl = { fg = color } },
+	}
+end
+
+local function surround_right(object, color)
+	return {
+		{ provider = "", hl = { fg = color } },
+		{ provider = " ", hl = { bg = color } },
+		{ object, hl = { bg = color } },
+		{ provider = " ", hl = { bg = color } },
+	}
+end
+
 local ViMode = {
 	update = { "ModeChanged" },
 	provider = function(self)
-		return "█ " .. vim.fn.mode(1):sub(1, 1)
+		return "█ " .. vim.fn.mode(1):sub(1, 1) .. " "
 	end,
 	hl = function(self)
-		local color = self:mode_color()
+		local color = self:mode_color().hex
 		return {
 			fg = color,
 			bold = true,
@@ -28,17 +45,20 @@ local ShowCmd = {
 	-- condition = function()
 	--     return vim.o.cmdheight == 0
 	-- end,
-	init = function ()
+	init = function()
 		vim.o.showcmdloc = "statusline"
 	end,
-	provider = "%S",
-	hl = function(self)
-		local color = self:mode_color()
-		return {
-			fg = color,
-			bold = true,
-		}
-	end,
+	{
+		provider = "%S",
+		hl = function(self)
+			local color = self:mode_color()
+			return {
+				fg = color,
+				bold = true,
+			}
+		end,
+	},
+	Space,
 }
 
 local WorkDir = {
@@ -46,44 +66,47 @@ local WorkDir = {
 		local cwd = vim.fn.getcwd(0)
 		self.cwd = vim.fn.fnamemodify(cwd, ":~") .. "/"
 	end,
-	{
-		provider = function()
-			return (vim.fn.haslocaldir(0) == 1 and "L" or "") .. " " .. "  "
-		end,
-		hl = {
-			fg = colors.blue.hex,
-			bold = true,
+	surround_left(
+		{
+			{
+				provider = function()
+					return (vim.fn.haslocaldir(0) == 1 and "L" or "") .. " " .. "  "
+				end,
+				hl = {
+					fg = colors.blue.hex,
+					bold = true,
+				},
+			},
+			{
+				provider = function(self)
+					local trail = self.cwd:sub(-1) == "/" and "" or "/"
+					return self.cwd .. trail
+				end,
+				hl = {
+					fg = colors.white.darken(20).hex,
+				},
+			},
 		},
-	},
-	{
-		provider = function(self)
-			local trail = self.cwd:sub(-1) == "/" and "" or "/"
-			return self.cwd .. trail
-		end,
-		hl = {
-			fg = colors.white.darken(60).hex,
-		},
-	},
-	{
-		provider = function(self)
-			return vim.fn.expand("%:h") .. "/"
-		end,
-		hl = {
-			fg = colors.white.darken(40).hex,
-		},
-	},
-	{
-		provider = function(self)
-			return vim.fn.expand("%:t")
-		end,
-		hl = {
-			fg = colors.white.hex,
-			bold = true,
-		},
-	},
+		colors.black.lighten(15).hex
+	),
+	-- {
+	-- 	provider = function(self)
+	-- 		return vim.fn.expand("%:h") .. "/"
+	-- 	end,
+	-- 	hl = {
+	-- 		fg = colors.white.darken(40).hex,
+	-- 	},
+	-- },
+	-- {
+	-- 	provider = function(self)
+	-- 		return vim.fn.expand("%:t")
+	-- 	end,
+	-- 	hl = {
+	-- 		fg = colors.white.hex,
+	-- 		bold = true,
+	-- 	},
+	-- },
 }
-
--- WorkDir = utils.surround({ "[", "]" }, nil, WorkDir)
 
 local FileIcon = {
 	init = function(self)
@@ -140,44 +163,56 @@ local MacroRec = {
 		"RecordingEnter",
 		"RecordingLeave",
 	},
-	provider = "  ",
-	utils.surround({ "[", "]" }, nil, {
-		provider = function()
-			return vim.fn.reg_recording()
-		end,
+	{
+		provider = " ",
+		utils.surround({ "[", "]" }, nil, {
+			provider = function()
+				return vim.fn.reg_recording()
+			end,
+			hl = {
+				fg = colors.green.hex,
+				bold = true,
+			},
+		}),
 		hl = {
-			fg = colors.green.hex,
+			fg = colors.orange.hex,
 			bold = true,
 		},
-	}),
-	hl = {
-		fg = colors.orange.hex,
-		bold = true,
 	},
+	Space,
 }
 
 local ReadOnly = {
 	condition = function()
-		return not vim.bo.modifiable or vim.bo.readonly
+		return (not vim.bo.modifiable or vim.bo.readonly) and not conditions.buffer_matches({ buftype = {"help"}, filetype = {"NvimTree"} })
 	end,
-	provider = "  ",
-	hl = {
-		fg = colors.red.hex,
+	{
+		provider = "  ",
+		hl = {
+			fg = colors.red.hex,
+		},
 	},
+	Space,
 }
 
 local FileSize = {
-	provider = function()
-		-- stackoverflow, compute human readable file size
-		local suffix = { "b", "k", "M", "G", "T", "P", "E" }
-		local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
-		fsize = (fsize < 0 and 0) or fsize
-		if fsize < 1024 then
-			return fsize .. suffix[1]
-		end
-		local i = math.floor((math.log(fsize) / math.log(1024)))
-		return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
-	end,
+	Space,
+	{
+		provider = function()
+			-- stackoverflow, compute human readable file size
+			local suffix = { "b", "k", "M", "G", "T", "P", "E" }
+			local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
+			fsize = (fsize < 0 and 0) or fsize
+			if fsize < 1024 then
+				return fsize .. suffix[1]
+			end
+			local i = math.floor((math.log(fsize) / math.log(1024)))
+			return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
+		end,
+		hl = {
+			fg = colors.white.hex,
+		},
+	},
 }
 
 local Ruler = {
@@ -186,18 +221,21 @@ local Ruler = {
 	-- %c = column number
 	-- %P = percentage through file of displayed window
 	-- provider = "%7(%l/%3L%):%2c 0x%B %P",
-	provider = "%P",
-	hl = {
-		fg = colors.orange.hex,
+	{
+		provider = "%P",
+		hl = {
+			fg = colors.orange.hex,
+		},
 	},
+	Space,
 }
 
 local FileType = {
 	provider = function()
-		return string.upper(vim.bo.filetype)
+		return vim.bo.filetype
 	end,
 	hl = {
-		fg = colors.blue.hex,
+		fg = colors.yellow.hex,
 		bold = true,
 	},
 }
@@ -206,40 +244,45 @@ local ScrollBar = {
 	static = {
 		sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" },
 	},
-	provider = function(self)
-		local curr_line = vim.api.nvim_win_get_cursor(0)[1]
-		local lines = vim.api.nvim_buf_line_count(0)
-		local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
-		return string.rep(self.sbar[i], 2)
-	end,
-	hl = {
-		fg = colors.white.darken(50).hex,
-		bg = colors.black.lighten(10).hex,
+	{
+		provider = function(self)
+			local curr_line = vim.api.nvim_win_get_cursor(0)[1]
+			local lines = vim.api.nvim_buf_line_count(0)
+			local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
+			return string.rep(self.sbar[i], 2)
+		end,
+		hl = {
+			fg = colors.white.darken(50).hex,
+			bg = colors.black.lighten(10).hex,
+		},
 	},
+	Space,
 }
 
 local LSPActive = {
 	condition = conditions.lsp_attached,
-	update = { "LspAttach", "LspDetach" },
-	provider = function()
-		local names = {}
-		for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
-			table.insert(names, server.name)
-		end
-		return " " .. table.concat(names, ", ")
-	end,
-	on_click = {
-		callback = function()
-			vim.defer_fn(function()
-				vim.cmd("LspInfo")
-			end, 100)
+	update = { "ModeChanged", "LspAttach", "LspDetach" },
+	surround_right({
+		provider = function()
+			local names = {}
+			for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+				table.insert(names, server.name)
+			end
+			return " " .. table.concat(names, " ")
 		end,
-		name = "heirline_LSP",
-	},
-	hl = {
-		fg = colors.green.hex,
-		bold = true,
-	},
+		-- on_click = {
+		-- 	callback = function()
+		-- 		vim.defer_fn(function()
+		-- 			vim.cmd("LspInfo")
+		-- 		end, 100)
+		-- 	end,
+		-- 	name = "heirline_LSP",
+		-- },
+		hl = {
+			fg = colors.black.hex,
+			bold = true,
+		}
+	}, colors.green.hex),
 }
 
 local Diagnostics = {
@@ -303,16 +346,19 @@ local Diagnostics = {
 local Lazy = {
 	condition = require("lazy.status").has_updates,
 	update = { "User", pattern = "LazyUpdate" },
-	provider = function()
-		return "  " .. require("lazy.status").updates() .. " "
-	end,
-	on_click = {
-		callback = function()
-			require("lazy").update()
+	{
+		provider = function()
+			return " " .. require("lazy.status").updates() .. " "
 		end,
-		name = "update_plugins",
+		on_click = {
+			callback = function()
+				require("lazy").update()
+			end,
+			name = "update_plugins",
+		},
+		hl = { fg = colors.gray.hex },
 	},
-	hl = { fg = colors.gray.hex },
+	Space,
 }
 
 local SearchCount = {
@@ -334,24 +380,30 @@ local SearchCount = {
 	},
 }
 
-local Git = {
+local GitBranch = {
+	condition = conditions.is_git_repo,
+	init = function(self)
+		self.status_dict = vim.b.gitsigns_status_dict
+	end,
+	-- git branch name
+	surround_left({
+		provider = function(self)
+			return " " .. self.status_dict.head
+		end,
+		hl = {
+			fg = colors.black.hex,
+			bold = true,
+		},
+	}, colors.purple.hex),
+	Space,
+}
+
+local GitDiff = {
 	condition = conditions.is_git_repo,
 	init = function(self)
 		self.status_dict = vim.b.gitsigns_status_dict
 		self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
 	end,
-	hl = {
-		fg = colors.purple.hex,
-	},
-	{
-		-- git branch name
-		provider = function(self)
-			return " " .. self.status_dict.head .. " "
-		end,
-		hl = {
-			bold = true,
-		},
-	},
 	{
 		provider = function(self)
 			local count = self.status_dict.added or 0
@@ -379,6 +431,7 @@ local Git = {
 			fg = colors.blue.hex,
 		},
 	},
+	Space,
 }
 
 local TerminalName = {
@@ -400,7 +453,7 @@ local HelpFileName = {
 	end,
 	provider = function()
 		local filename = vim.api.nvim_buf_get_name(0)
-		return " " .. vim.fn.fnamemodify(filename, ":t")
+		return "  " .. vim.fn.fnamemodify(filename, ":t")
 	end,
 	hl = {
 		fg = colors.yellow.hex,
@@ -426,9 +479,11 @@ local Snippets = {
 }
 
 local VirtualEnv = {
-	condition = function ()
+	condition = function()
 		local ok, swenv = pcall(require, "swenv.api")
-		if not ok then return false end
+		if not ok then
+			return false
+		end
 
 		return swenv.get_current_venv() ~= nil
 	end,
@@ -451,18 +506,21 @@ local VirtualEnv = {
 local SpecialStatusline = {
 	condition = function()
 		return conditions.buffer_matches({
-			buftype = { "nofile", "prompt", "help", "quickfix", "neo-tree" },
+			buftype = { "nofile", "prompt", "help", "quickfix", "neo-tree", "NvimTree_*" },
 			filetype = { "^git.*", "fugitive" },
 		})
 	end,
 	ViMode,
-	Space,
+	Lazy,
+	MacroRec,
+	WorkDir,
+	ReadOnly,
 	HelpFileName,
-	Git,
+	GitBranch,
+	GitDiff,
 	Align,
 	Ruler,
 	Space,
-	ScrollBar,
 }
 
 local TerminalStatusLine = {
@@ -470,88 +528,68 @@ local TerminalStatusLine = {
 		return conditions.buffer_matches({ buftype = { "terminal" } })
 	end,
 	ViMode,
-	Space,
 	TerminalName,
 	Align,
-	Ruler,
-	Space,
-	ScrollBar,
 }
 
 local InactiveStatusLine = {
 	condition = conditions.is_not_active,
 	ViMode,
-	Space,
-	Space,
-	Git,
+	GitBranch,
+	GitDiff,
 	Align,
 	LSPActive,
-	Space,
 	Diagnostics,
-	Align,
 }
 
 local DefaultStatusLine = {
 	ViMode,
+	Lazy,
 	MacroRec,
+	WorkDir,
 	ReadOnly,
-	Space,
-	VirtualEnv,
-	Space,
-	Git,
+	GitBranch,
+	GitDiff,
 	Align,
 	Snippets,
-	Space,
 	Diagnostics,
-	Space,
-	ShowCmd,
-	Lazy,
-	Space,
 	LSPActive,
-	Space,
-	FileType,
-	Space,
-	FileSize,
-	Space,
-	SearchCount,
+	surround_right({
+		FileType,
+		FileSize,
+	}, colors.black.lighten(15).hex),
 	Space,
 	Ruler,
 	Space,
-	ScrollBar,
 }
 
 local StatusLines = {
 	static = {
 		mode_colors_map = {
-			n = colors.blue.hex,
-			i = colors.green.hex,
-			v = colors.orange.hex,
-			V = colors.orange.hex,
-			["\22"] = colors.cyan.hex,
-			c = colors.purple.hex,
-			s = colors.green.hex,
-			S = colors.green.hex,
-			["\19"] = colors.purple.hex,
-			r = colors.red.hex,
-			R = colors.red.hex,
-			["!"] = colors.red.hex,
-			t = colors.green.hex,
+			n = colors.blue,
+			i = colors.green,
+			v = colors.orange,
+			V = colors.orange,
+			["\22"] = colors.cyan,
+			c = colors.purple,
+			s = colors.green,
+			S = colors.green,
+			["\19"] = colors.purple,
+			r = colors.red,
+			R = colors.red,
+			["!"] = colors.red,
+			t = colors.green,
 		},
 		mode_color = function(self)
 			local mode = conditions.is_active() and vim.fn.mode() or "n"
 			return self.mode_colors_map[mode]
 		end,
 	},
-	hl = function()
-		if conditions.is_active() then
-			return {
-				bg = colors.black.lighten(10).hex,
-			}
-		else
-			return {
-				bg = "none",
-			}
-		end
+	hl = function(self)
+		return {
+			fg = self:mode_color().darken(75).hex,
+			bg = self:mode_color().darken(75).hex,
+		}
 	end,
 	fallthrough = false,
 	SpecialStatusline,
@@ -562,9 +600,8 @@ local StatusLines = {
 
 require("heirline").setup({
 	statusline = StatusLines,
-	-- tabline = TabLine,
 })
 
-vim.cmd([[au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif]])
+vim.cmd("au FileType * if index(['wipe', 'delete'], &bufhidden) >= 0 | set nobuflisted | endif")
 
 -- vim:tabstop=4

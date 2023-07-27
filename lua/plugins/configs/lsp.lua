@@ -28,11 +28,11 @@ require("mason-null-ls").setup({
     ensure_installed = {
         "black",
         "isort",
-        "fixjson",
         "jq",
         "stylua",
         "yamlfmt",
-        -- "prettier",
+        "gofumpt",
+        "goimports",
     },
     handlers = {},
 })
@@ -41,7 +41,6 @@ local null_ls = require("null-ls")
 null_ls.setup({
     border = "rounded",
     sources = {
-        -- null_ls.builtins.formatting.prettier,
         null_ls.builtins.code_actions.gitsigns,
     },
 })
@@ -58,7 +57,6 @@ require("neodev").setup({
         types = false,
     },
 })
-
 
 local servers = {
     "pyright",
@@ -90,11 +88,6 @@ local on_attach = function(client, bufnr)
     -- Disable syntax highlighting from lua_ls
     if client.name == "lua_ls" then
         client.server_capabilities.semanticTokensProvider = nil
-    elseif client.name == "copilot" then
-        local ok, copilot_cmp = pcall(require, "cmp_copilot")
-        if ok then
-            copilot_cmp._on_insert_enter()
-        end
     end
 end
 
@@ -111,6 +104,9 @@ for _, server in ipairs(servers) do
     elseif server == "yamlls" then
         settings = {
             yaml = {
+                schemaStore = {
+                    enable = false,
+                },
                 schemas = require("schemastore").yaml.schemas(),
             },
         }
@@ -129,6 +125,12 @@ for _, server in ipairs(servers) do
                     callSnippet = "Replace",
                 },
             },
+        }
+    elseif server == "gopls" then
+        settings = {
+            gopls = {
+                gofumpt = true
+            }
         }
     end
 

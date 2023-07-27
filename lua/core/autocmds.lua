@@ -72,6 +72,34 @@ autocmd("FileType", {
     end,
 })
 
+-- Auto create dirs on write
+autocmd({ "BufWritePre" }, {
+    group = augroup("auto_create_dir", {}),
+    callback = function(event)
+        if event.match:match("^%w%w+://") then
+            return
+        end
+        local file = vim.loop.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
+-- Fix mouse on focus
+autocmd({ "FocusGained" }, {
+    group = augroup("focus_enable_mouse", {}),
+    pattern = "*",
+    callback = function ()
+        o.mouse = "a"
+    end
+})
+autocmd({ "FocusLost" }, {
+    group = augroup("unfocus_disable_mouse", {}),
+    pattern = "*",
+    callback = function ()
+        o.mouse = nil
+    end
+})
+
 -- Barbecue
 autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePost", "TextChanged", "TextChangedI" }, {
     group = augroup("barbecue#create_autocmd", {}),
@@ -85,14 +113,38 @@ autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePo
     end,
 })
 
--- Auto create dirs on write
-autocmd({ "BufWritePre" }, {
-    group = augroup("auto_create_dir", {}),
-    callback = function(event)
-        if event.match:match("^%w%w+://") then
-            return
+-- Auto close nvimtree
+autocmd({ "BufEnter" }, {
+    group = augroup("nvim_tree_close", {}),
+    pattern = "NvimTree_*",
+    callback = function()
+        local layout = vim.api.nvim_call_function("winlayout", {})
+        if
+            layout[1] == "leaf"
+            and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
+            and layout[3] == nil
+        then
+            vim.cmd("confirm quit")
         end
-        local file = vim.loop.fs_realpath(event.match) or event.match
-        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
+})
+
+-- Format gocode on save
+autocmd({ "BufWritePre" }, {
+    group = augroup("format_gocode", {}),
+    pattern = "*.go",
+    callback = function()
+        require("go.format").goimport()
+    end
+})
+
+autocmd({"User"}, {
+    group = augroup("session_pre_save", {}),
+    pattern = "PersistedSavePre",
+    callback = function ()
+        local ok, _ = pcall(require, "diffview")
+        if ok then
+            vim.cmd("DiffviewClose")
+        end
+    end
 })

@@ -7,14 +7,18 @@ require("diffview").setup({
     icons = { folder_closed = "", folder_open = "" },
     signs = { fold_closed = "", fold_open = "" },
     file_panel = {
-        -- position = "left",
-        -- width = 30,
+        win_config = {
+            -- position = "left",
+            width = 34,
+        },
         listing_style = "tree",
         tree_options = { flatten_dirs = true, folder_statuses = "only_folded" },
     },
     file_history_panel = {
-        -- position = "bottom",
-        height = 12,
+        win_config = {
+            -- position = "bottom",
+            height = 14,
+        },
         -- log_options = {
         --     max_count = 256,
         --     follow = false,

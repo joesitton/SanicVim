@@ -10,8 +10,4 @@ require("zen-mode").setup({
         twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
         gitsigns = { enabled = false }, -- disables git signs
     },
-    -- on_open = function(win)
-    -- end,
-    -- on_close = function()
-    -- end
 })

@@ -23,8 +23,19 @@ return {
 	},
 
 	{
-		"fatih/vim-go",
-		ft = "go",
+		"ray-x/go.nvim",
+		dependencies = {
+			"ray-x/guihua.lua",
+		},
+		opts = {
+			lsp_gofumpt = true,
+			-- lsp_on_attach = nil,
+			lsp_keymaps = false,
+			lsp_codelens = false,
+		},
+		ft = { "go", "gomod" },
+		event = "CmdlineEnter",
+		build = ":lua require('go.install').update_all_sync()",
 	},
 
 	{
