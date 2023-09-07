@@ -8,12 +8,12 @@ dashboard.section.header.val = fortune()
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button("r", "  Restore session", ":silent! SessionLoad<CR>"),
-    dashboard.button("SPC f S", "  Find session", "<CMD>Telescope persisted<CR>"),
-    dashboard.button("SPC f f", "  Find file", "<CMD>Telescope find_files<CR>"),
-    dashboard.button("SPC f r", "  Find recent", "<CMD>Telescope oldfiles<CR>"),
-    dashboard.button("SPC f t", "  Find text", "<CMD>Telescope live_grep<CR>"),
-    dashboard.button("SPC f p", "  Find project", "<CMD>Telescope projects theme=dropdown<CR>"),
-    dashboard.button("SPC f m", "  Find marks", "<CMD>Telescope harpoon marks<CR>"),
+    dashboard.button("SPC f S", "  Find session", "<CMD>Telescope persisted prompt_prefix=Sessions\\ ❯\\ <CR>"),
+    dashboard.button("SPC f f", "  Find file", "<CMD>Telescope find_files prompt_prefix=Files\\ ❯\\ <CR>"),
+    dashboard.button("SPC f r", "  Find recent", "<CMD>Telescope oldfiles prompt_prefix=Recent\\ Files\\ ❯\\ <CR>"),
+    dashboard.button("SPC f t", "  Find text", "<CMD>Telescope live_grep prompt_prefix=Text\\ ❯\\ <CR>"),
+    -- dashboard.button("SPC f p", "  Find project", "<CMD>Telescope projects theme=dropdown prompt_prefix=Files\\ ❯\\ <CR>"),
+    dashboard.button("SPC f m", "  Find marks", "<CMD>Telescope harpoon marks prompt_prefix=Marks\\ ❯\\ <CR>"),
     dashboard.button("e", "  New file", ":ene<CR>"),
     dashboard.button("u", "  Update plugins", ":Lazy sync<CR>"),
     dashboard.button("q", "  Quit", ":qa<CR>"),

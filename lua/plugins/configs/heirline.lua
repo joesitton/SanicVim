@@ -66,11 +66,12 @@ local WorkDir = {
 		local cwd = vim.fn.getcwd(0)
 		self.cwd = vim.fn.fnamemodify(cwd, ":~") .. "/"
 	end,
-	surround_left(
-		{
+	flexible = 1,
+	{
+		surround_left({
 			{
 				provider = function()
-					return (vim.fn.haslocaldir(0) == 1 and "L" or "") .. " " .. "  "
+					return (vim.fn.haslocaldir(0) == 1 and "L" or "") .. "  "
 				end,
 				hl = {
 					fg = colors.blue.hex,
@@ -86,9 +87,14 @@ local WorkDir = {
 					fg = colors.white.darken(20).hex,
 				},
 			},
-		},
-		colors.black.lighten(15).hex
-	),
+			-- {
+			-- 	provider = "",
+			-- }
+		}, colors.black.lighten(15).hex),
+	},
+	{
+		provider = "",
+	},
 	-- {
 	-- 	provider = function(self)
 	-- 		return vim.fn.expand("%:h") .. "/"
@@ -184,7 +190,8 @@ local MacroRec = {
 
 local ReadOnly = {
 	condition = function()
-		return (not vim.bo.modifiable or vim.bo.readonly) and not conditions.buffer_matches({ buftype = {"help"}, filetype = {"NvimTree"} })
+		return (not vim.bo.modifiable or vim.bo.readonly)
+			and not conditions.buffer_matches({ buftype = { "help" }, filetype = { "NvimTree" } })
 	end,
 	{
 		provider = "  ",
@@ -262,27 +269,33 @@ local ScrollBar = {
 local LSPActive = {
 	condition = conditions.lsp_attached,
 	update = { "ModeChanged", "LspAttach", "LspDetach" },
-	surround_right({
-		provider = function()
-			local names = {}
-			for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
-				table.insert(names, server.name)
-			end
-			return " " .. table.concat(names, " ")
-		end,
-		-- on_click = {
-		-- 	callback = function()
-		-- 		vim.defer_fn(function()
-		-- 			vim.cmd("LspInfo")
-		-- 		end, 100)
-		-- 	end,
-		-- 	name = "heirline_LSP",
-		-- },
-		hl = {
-			fg = colors.black.hex,
-			bold = true,
-		}
-	}, colors.green.hex),
+	-- flexible = 1,
+	{
+		surround_right({
+			provider = function()
+				local names = {}
+				for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+					table.insert(names, server.name)
+				end
+				return " " .. table.concat(names, " ")
+			end,
+			-- on_click = {
+			-- 	callback = function()
+			-- 		vim.defer_fn(function()
+			-- 			vim.cmd("LspInfo")
+			-- 		end, 100)
+			-- 	end,
+			-- 	name = "heirline_LSP",
+			-- },
+			hl = {
+				fg = colors.black.hex,
+				bold = true,
+			},
+		}, colors.green.hex),
+	},
+	-- {
+	-- 	provider = "",
+	-- },
 }
 
 local Diagnostics = {

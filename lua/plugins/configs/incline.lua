@@ -1,5 +1,5 @@
 local function get_diagnostic_label(props)
-    local icons = { error = '', warn = '', info = '', hint = '', }
+    local icons = { error = '', warn = '', info = '', hint = '', }
     local label = {}
     for severity, icon in pairs(icons) do
         local n = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
@@ -7,9 +7,9 @@ local function get_diagnostic_label(props)
             table.insert(label, { icon .. ' ' .. n .. ' ', group = 'DiagnosticSign' .. severity })
         end
     end
-    if #label > 0 then
-        table.insert(label, {'| '})
-    end
+    -- if #label > 0 then
+    --     table.insert(label, {'| '})
+    -- end
     return label
 end
 
@@ -40,8 +40,8 @@ require("incline").setup({
         local buffer = {
             -- { get_diagnostic_label(props) },
             -- { get_git_diff(props) },
-            { ft_icon, guifg = ft_color }, { " " },
-            { filename, gui = modified },
+            -- { ft_icon, guifg = ft_color }, { " " },
+            -- { filename, gui = modified },
         }
         return buffer
     end,
@@ -53,6 +53,6 @@ require("incline").setup({
             horizontal = 0,
             vertical = { top = 0, bottom = 0 }
         },
-        padding = 1,
+        padding = 0,
     }
 })

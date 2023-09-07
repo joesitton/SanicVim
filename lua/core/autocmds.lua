@@ -134,7 +134,7 @@ autocmd({ "BufWritePre" }, {
     group = augroup("format_gocode", {}),
     pattern = "*.go",
     callback = function()
-        require("go.format").goimport()
+        vim.lsp.buf.format()
     end
 })
 

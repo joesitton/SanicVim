@@ -92,7 +92,6 @@ cmp.setup({
 		},
 	},
 	experimental = {
-		native_menu = false,
 		ghost_text = {
 			hl_group = "CmpGhostText",
 		},
@@ -148,7 +147,7 @@ cmp.setup({
 			s = cmp.mapping.confirm({ select = true }),
 			-- c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
 		}),
-		["<C-Space>"] = cmp.mapping(function(fallback)
+		["<C-SPACE>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.close()
 			elseif not cmp.visible() then
@@ -157,7 +156,7 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i" }),
-		["<Tab>"] = cmp.mapping(function(fallback)
+		["<TAB>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then -- and has_words_before() then
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
@@ -168,7 +167,7 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
+		["<S-TAB>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif luasnip.jumpable(-1) then
@@ -186,7 +185,7 @@ cmp.setup({
 			end
 		end, { "i" }),
 	},
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "copilot",                priority = 9 },
 		{ name = "cmp_tabnine",            priority = 9 },
 		{ name = "nvim_lsp",               priority = 8 },
@@ -200,7 +199,7 @@ cmp.setup({
 		{ name = "calc",                   priority = 3 },
 		{ name = "nvim_lsp_signature_help" },
 		-- { name = "latex_symbols" },
-	},
+	}),
 	sorting = {
 		priority_weight = 1.0,
 		comparators = {
@@ -238,9 +237,7 @@ for _, cmdtype in ipairs({ "?", "/" }) do
 		formatting = { fields = { "abbr" }, maxwidth = 120 },
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
-			{
-				name = "buffer",
-			},
+			{ name = "buffer" },
 			-- { name = "buffer-lines" },
 			-- {
 			-- 	name = "rg",
@@ -261,6 +258,7 @@ cmp.setup.filetype("gitcommit", {
 	sources = cmp.config.sources({
 		-- { name = "conventionalcommits" },
 		{ name = "git" },
+		{ name = "buffer" },
 	}),
 })
 

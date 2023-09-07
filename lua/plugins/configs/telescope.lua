@@ -65,27 +65,16 @@ telescope.setup({
 		},
 		file_ignore_patterns = {
 			"node_modules",
-			".git/",
-			"dist/",
+			-- ".git",
 			"venv",
-			"env",
 			".venv",
-			".env",
 			"__pycache__",
 			".tox",
 		},
 		use_less = true,
 	},
-	pickers = {
-		find_files = {
-			find_command = {
-				"fd",
-				"--type=f",
-				"--strip-cwd-prefix",
-				"--hidden",
-			},
-		},
-	},
+	-- pickers = {
+	-- },
 	extensions = {
 		aerial = {
 			show_nesting = true,

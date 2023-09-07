@@ -8,10 +8,10 @@ return {
 		lazy = false,
 	},
 
-	-- {
-	-- 	"nvim-lua/popup.nvim",
-	-- 	lazy = false,
-	-- },
+	{
+		"nvim-lua/popup.nvim",
+		lazy = false,
+	},
 
 	{
 		dir = "~/Dev/lush-base16",
@@ -39,6 +39,7 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		version = false,
+		lazy = false,
 		dependencies = {
 			{
 				"hrsh7th/cmp-nvim-lsp",
@@ -58,11 +59,13 @@ return {
 			},
 			{
 				"hrsh7th/cmp-cmdline",
-				event = { "InsertEnter", "CmdlineEnter" },
+				lazy = false,
+				-- event = { "InsertEnter", "CmdlineEnter" },
 			},
 			{
 				"hrsh7th/cmp-buffer",
-				event = "InsertEnter",
+				lazy = false,
+				-- event = "InsertEnter",
 			},
 			{
 				"amarakon/nvim-cmp-buffer-lines",
@@ -132,15 +135,15 @@ return {
 		config = function()
 			require("plugins.configs.cmp")
 		end,
-		event = { "InsertEnter", "CmdlineEnter" },
+		-- event = { "InsertEnter", "CmdlineEnter" },
 	},
 
 	{
 		"abecodes/tabout.nvim",
+		lazy = false,
 		opts = {
 			ignore_beginning = false,
 		},
-		event = { "InsertEnter" },
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -187,12 +190,12 @@ return {
 					vim.g.rainbow_delimiters = {
 						highlight = {
 							"rainbowcol1",
-							"rainbowcol2",
-							"rainbowcol3",
-							"rainbowcol4",
-							"rainbowcol5",
-							"rainbowcol6",
 							"rainbowcol7",
+							"rainbowcol2",
+							"rainbowcol6",
+							"rainbowcol3",
+							"rainbowcol5",
+							"rainbowcol4",
 						},
 					}
 				end,
@@ -314,11 +317,19 @@ return {
 		event = "VimEnter",
 	},
 
+	-- {
+	-- 	"luukvbaal/statuscol.nvim",
+	-- 	opts = {},
+	-- 	event = "VimEnter",
+	-- },
+
 	{
 		"ethanholz/nvim-lastplace",
-		config = function()
-			require("plugins.configs.lastplace")
-		end,
+		opts = {
+			lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+			lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+			lastplace_open_folds = true,
+		},
 		event = "BufReadPost",
 	},
 
@@ -397,7 +408,7 @@ return {
 			},
 			sync_root_with_cwd = true,
 			respect_buf_cwd = true,
-			update_focused_file = { enable = true, update_root = true },
+			update_focused_file = { enable = false, update_root = true },
 			filters = { dotfiles = true },
 			git = { show_on_dirs = true, show_on_open_dirs = false },
 			modified = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
@@ -488,7 +499,7 @@ return {
 
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.1",
+		tag = "0.1.2",
 		config = function()
 			require("plugins.configs.telescope")
 		end,
@@ -529,17 +540,17 @@ return {
 		event = "VimEnter",
 	},
 
-	{
-		"ahmedkhalf/project.nvim",
-		opts = {
-			exclude_dirs = { "~/.local/*" },
-		},
-		config = function(_, opts)
-			require("project_nvim").setup(opts)
-			require("telescope").load_extension("projects")
-		end,
-		event = "VimEnter",
-	},
+	-- {
+	-- 	"ahmedkhalf/project.nvim",
+	-- 	opts = {
+	-- 		exclude_dirs = { "~/.local/*" },
+	-- 	},
+	-- 	config = function(_, opts)
+	-- 		require("project_nvim").setup(opts)
+	-- 		require("telescope").load_extension("projects")
+	-- 	end,
+	-- 	event = "VimEnter",
+	-- },
 
 	{
 		"AckslD/nvim-neoclip.lua",
@@ -687,7 +698,7 @@ return {
 			show_basename = true,
 			kinds = require("core.utils").symbols,
 			theme = {
-				normal = { bg = "#2e2e2e" },
+				normal = { bg = "#202020" },
 			},
 		},
 		event = "VeryLazy",
@@ -698,18 +709,18 @@ return {
 	-- 	opts = {}
 	-- },
 
-	{
-		"yaocccc/nvim-foldsign",
-		opts = {
-			offset = -3,
-			foldsigns = {
-				open = "",
-				close = "",
-				seps = { "", "" },
-			},
-		},
-		event = "CursorHold",
-	},
+	-- {
+	-- 	"yaocccc/nvim-foldsign",
+	-- 	opts = {
+	-- 		offset = -3,
+	-- 		foldsigns = {
+	-- 			open = "",
+	-- 			close = "",
+	-- 			seps = { "", "" },
+	-- 		},
+	-- 	},
+	-- 	event = "CursorHold",
+	-- },
 
 	{
 		"rebelot/heirline.nvim",
@@ -752,7 +763,7 @@ return {
 		},
 		config = function(_, opts)
 			require("marks").setup(opts)
-			vim.cmd("hi! MarkSignNumHL guifg=none")
+			vim.cmd("hi! link MarkSignNumHL CursorLineNr")
 		end,
 		event = "BufReadPost",
 	},
@@ -860,27 +871,27 @@ return {
 	-- 	end,
 	-- },
 
-	{
-		"anuvyklack/windows.nvim",
-		dependencies = {
-			"anuvyklack/middleclass",
-			"anuvyklack/animation.nvim",
-		},
-		config = function()
-			vim.o.winwidth = 10
-			vim.o.winminwidth = 10
-			vim.o.equalalways = false
-			require("windows").setup({
-				ignore = {
-					filetype = { "DiffviewFiles" },
-				},
-				animation = {
-					fps = 60,
-				},
-			})
-		end,
-		event = "VeryLazy",
-	},
+	-- {
+	-- 	"anuvyklack/windows.nvim",
+	-- 	dependencies = {
+	-- 		"anuvyklack/middleclass",
+	-- 		"anuvyklack/animation.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		vim.o.winwidth = 10
+	-- 		vim.o.winminwidth = 10
+	-- 		vim.o.equalalways = false
+	-- 		require("windows").setup({
+	-- 			ignore = {
+	-- 				filetype = { "DiffviewFiles" },
+	-- 			},
+	-- 			animation = {
+	-- 				fps = 60,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	event = "VeryLazy",
+	-- },
 
 	{
 		"kevinhwang91/nvim-hlslens",
