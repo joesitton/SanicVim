@@ -10,4 +10,10 @@ require("zen-mode").setup({
         twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
         gitsigns = { enabled = false }, -- disables git signs
     },
+    on_open = function (win)
+        vim.o.scrolloff = 99
+    end,
+    on_close = function (win)
+        vim.o.scrolloff = 12
+    end
 })
