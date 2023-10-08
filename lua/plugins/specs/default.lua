@@ -8,10 +8,10 @@ return {
 		lazy = false,
 	},
 
-	{
-		"nvim-lua/popup.nvim",
-		lazy = false,
-	},
+	-- {
+	-- 	"nvim-lua/popup.nvim",
+	-- 	lazy = false,
+	-- },
 
 	{
 		dir = "~/Dev/lush-base16",
@@ -38,8 +38,6 @@ return {
 
 	{
 		"hrsh7th/nvim-cmp",
-		version = false,
-		lazy = false,
 		dependencies = {
 			{
 				"hrsh7th/cmp-nvim-lsp",
@@ -59,13 +57,11 @@ return {
 			},
 			{
 				"hrsh7th/cmp-cmdline",
-				lazy = false,
-				-- event = { "InsertEnter", "CmdlineEnter" },
+				event = { "InsertEnter", "CmdlineEnter" },
 			},
 			{
 				"hrsh7th/cmp-buffer",
-				lazy = false,
-				-- event = "InsertEnter",
+				event = "InsertEnter",
 			},
 			{
 				"amarakon/nvim-cmp-buffer-lines",
@@ -135,15 +131,16 @@ return {
 		config = function()
 			require("plugins.configs.cmp")
 		end,
-		-- event = { "InsertEnter", "CmdlineEnter" },
+		event = {"InsertEnter", "CmdlineEnter"}
 	},
 
 	{
 		"abecodes/tabout.nvim",
-		lazy = false,
 		opts = {
 			ignore_beginning = false,
 		},
+		event = "InsertEnter",
+		after = "nvim-cmp"
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -407,6 +404,7 @@ return {
 				},
 			},
 			sync_root_with_cwd = true,
+			reload_on_bufenter = true,
 			respect_buf_cwd = true,
 			update_focused_file = { enable = false, update_root = true },
 			filters = { dotfiles = true },
@@ -458,13 +456,13 @@ return {
 	-- 	opts = {},
 	-- },
 
-	{
-		"AckslD/swenv.nvim",
-		opts = {
-			venvs_path = vim.fn.expand("~/.pyenv/versions/"),
-		},
-		event = "VimEnter",
-	},
+	-- {
+	-- 	"AckslD/swenv.nvim",
+	-- 	opts = {
+	-- 		venvs_path = vim.fn.expand("~/.pyenv/versions/"),
+	-- 	},
+	-- 	event = "VimEnter",
+	-- },
 
 	{
 		"Wansmer/treesj",
@@ -488,7 +486,7 @@ return {
 	-- 		window_border = "rounded",
 	-- 		screen_bounds = "background",
 	-- 		show_cursor = false,
-	-- 		use_git = false,
+	-- 		use_git = true,
 	-- 	},
 	-- 	event = "BufReadPost",
 	-- },
@@ -524,12 +522,19 @@ return {
 		event = "VimEnter",
 	},
 
+	-- {
+	-- 	"olacin/telescope-gitmoji.nvim",
+	-- 	config = function()
+	-- 		require("telescope").load_extension("gitmoji")
+	-- 	end,
+	-- 	event = "VimEnter",
+	-- },
+
 	{
-		"olacin/telescope-gitmoji.nvim",
-		config = function()
-			require("telescope").load_extension("gitmoji")
-		end,
-		event = "VimEnter",
+		"joesitton/telescope-cc.nvim",
+		config = function ()
+			require("telescope").load_extension("conventional_commits")
+		end
 	},
 
 	{
@@ -866,9 +871,10 @@ return {
 
 	-- {
 	-- 	"gen740/SmoothCursor.nvim",
-	-- 	config = function()
-	-- 		require("smoothcursor").setup({ disabled_filetypes = { "lazy", "help" }, disable_float_win = true })
-	-- 	end,
+	-- 	opts = {
+	-- 		disabled_filetypes = { "lazy", "help" },
+	-- 		disable_float_win = true,
+	-- 	},
 	-- },
 
 	-- {

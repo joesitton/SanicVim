@@ -5,13 +5,11 @@ cc("W", ":silent! w !sudo tee % >/dev/null", {})
 
 -- save session and force quit
 cc("Q", function()
-   vim.cmd("SessionSave")
-   vim.cmd("qa!")
+   vim.cmd([[ exec "SessionSave" | qa! ]])
 end, {})
 
 cc("Format", function()
    vim.lsp.buf.format()
-   vim.cmd("w! | e")
 end, {})
 
 cc("Rename", function()

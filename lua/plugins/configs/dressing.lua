@@ -1,26 +1,21 @@
 require("dressing").setup({
     input = {
-        enabled = true,
         default_prompt = "❯ ",
         prompt_align = "center",
         insert_only = true,
-        anchor = "SW",
+        start_in_insert = true,
         relative = "editor",
-        border = "rounded",
-        prefer_width = 40,
-        max_width = nil,
-        min_width = 20,
-        get_config = nil,
+        prefer_width = 0.5,
         win_options = {
             winblend = 0,
             winhighlight = "Normal:NormalFloat,FloatBorder:TelescopeBorder",
         },
-        override = function(conf)
-            -- conf.row = 10
-            -- conf.col = -1
+        -- override = function(conf)
+        --     -- conf.row = 10
+        --     -- conf.col = -1
 
-            return conf
-        end,
+        --     return conf
+        -- end,
     },
     select = {
         enabled = true,

@@ -72,18 +72,18 @@ end)
 
 cmp.setup({
 	enabled = function()
-		local ft = vim.bo.filetype
-
-		if ft == "TelescopePrompt" or ft == "neo-tree-popup" then
+		if vim.bo.buftype == "TelescopePrompt" then
 			return false
 		end
 
-		local ctx = require("cmp.config.context")
-		if ctx.in_treesitter_capture("comment") == true or ctx.in_syntax_group("Comment") then
-			return false
+		-- disable completion in comments
+		local context = require("cmp.config.context")
+		-- keep command mode completion enabled when cursor is in a comment
+		if vim.api.nvim_get_mode().mode == "c" then
+			return true
+		else
+			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 		end
-
-		return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
 	end,
 	view = {
 		entries = {
@@ -235,7 +235,22 @@ for _, cmdtype in ipairs({ "?", "/" }) do
 		view = { entries = { name = "custom", selection_order = "near_cursor" } },
 		window = { completion = { side_padding = 1, col_offset = 0 } },
 		formatting = { fields = { "abbr" }, maxwidth = 120 },
-		mapping = cmp.mapping.preset.cmdline(),
+		mapping = {
+			["<TAB>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then -- and has_words_before() then
+					cmp.select_next_item()
+				else
+					fallback()
+				end
+			end, { "i", "s", "c" }),
+			["<S-TAB>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				else
+					fallback()
+				end
+			end, { "i", "s", "c" }),
+		},
 		sources = cmp.config.sources({
 			{ name = "buffer" },
 			-- { name = "buffer-lines" },

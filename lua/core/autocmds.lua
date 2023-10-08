@@ -148,3 +148,11 @@ autocmd({"User"}, {
         end
     end
 })
+
+autocmd({"BufNewFile", "BufRead"}, {
+    group = augroup("fix_tfvars_ft", {}),
+    pattern = "*.tfvars",
+    callback = function ()
+        vim.bo.filetype = "terraform"
+    end
+})

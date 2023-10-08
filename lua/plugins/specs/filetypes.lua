@@ -23,8 +23,10 @@ return {
 	},
 
 	{
-		"fatih/vim-go",
-		ft = "go",
+		"ray-x/go.nvim",
+		opts = {},
+		event = "CmdlineEnter",
+		ft = {"go", "gomod"},
 	},
 
 	{

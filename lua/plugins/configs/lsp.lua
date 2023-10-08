@@ -45,18 +45,18 @@ null_ls.setup({
     },
 })
 
-require("mason-nvim-dap").setup({
-    ensure_installed = { "delve" },
-    automatic_installation = true,
-    handlers = {},
-})
+-- require("mason-nvim-dap").setup({
+--     ensure_installed = { "delve" },
+--     automatic_installation = true,
+--     handlers = {},
+-- })
 
-require("neodev").setup({
-    library = {
-        plugins = { "nvim-dap-ui" },
-        types = false,
-    },
-})
+-- require("neodev").setup({
+--     library = {
+--         plugins = { "nvim-dap-ui" },
+--         types = false,
+--     },
+-- })
 
 local servers = {
     "pyright",
@@ -70,6 +70,8 @@ local servers = {
     "lua_ls",
     "rust_analyzer",
     "terraformls",
+    "helm_ls",
+    "golangci_lint_ls"
 }
 
 require("mason-lspconfig").setup({
@@ -139,7 +141,7 @@ for _, server in ipairs(servers) do
         settings = settings,
         capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         flags = {
-            debounce_text_changes = 300,
+            debounce_text_changes = 500,
         },
     })
 end

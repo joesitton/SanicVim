@@ -13,9 +13,6 @@ require("nvim-treesitter.configs").setup({
     matchup = {
         enable = true,
     },
-    autopairs = {
-        enable = false,
-    },
     context_commentstring = {
         enable = true,
         enable_autocmd = false, -- configured in configs.comments pre_hook

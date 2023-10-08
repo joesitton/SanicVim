@@ -99,22 +99,24 @@ telescope.setup({
 		},
 		undo = {
 			side_by_side = true,
-			prompt_prefix = "Undo ❯ "
+			prompt_prefix = "Undo ❯ ",
 		},
-		gitmoji = {
+		conventional_commits = {
 			action = function(entry)
+				local command
+
+				if vim.g.loaded_fugitive then
+					command = ":G commit -m"
+				else
+					command = ":!git commit -m"
+				end
+
 				vim.ui.input({ prompt = "Commit: " }, function(msg)
 					if not msg then
 						return
 					end
 
-					local git_tool = ":!git"
-
-					if vim.g.loaded_fugitive then
-						git_tool = ":G"
-					end
-
-					vim.cmd(string.format('%s commit -m "%s %s"', git_tool, entry.value, msg))
+				    vim.cmd(string.format("%s '%s: %s'", command, entry.value, msg))
 				end)
 			end,
 		},

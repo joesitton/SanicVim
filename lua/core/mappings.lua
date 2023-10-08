@@ -250,7 +250,7 @@ mappings.telescope = {
 
 		["<leader>gs"] = { "<CMD>Telescope git_status prompt_prefix=Git\\ status\\ ❯\\ <CR>", "Git status" },
 		["<leader>gb"] = { "<CMD>Telescope git_branches prompt_prefix=Git\\ branches\\ ❯\\ <CR>", "Git branches" },
-		["<leader>gc"] = { "<CMD>Telescope gitmoji<CR>", "Git commit" },
+		["<leader>gc"] = { "<CMD>Telescope conventional_commits theme=dropdown<CR>", "Git commit" },
 
 		["gd"] = { "<CMD>Telescope lsp_definitions prompt_prefix=Definitions\\ ❯\\ <CR>", "Go to definition" },
 		["gr"] = { "<CMD>Telescope lsp_references prompt_prefix=References\\ ❯\\ <CR>", "Go to references" },
