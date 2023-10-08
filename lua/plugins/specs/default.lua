@@ -733,7 +733,7 @@ return {
 			{
 				"folke/twilight.nvim",
 				opts = {
-					context = 20,
+					context = 30,
 				},
 				event = "VeryLazy",
 			},
