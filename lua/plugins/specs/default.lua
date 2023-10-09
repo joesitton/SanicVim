@@ -8,7 +8,7 @@ return {
 		lazy = false,
 	},
 
-	-- {
+	-- {,
 	-- 	"nvim-lua/popup.nvim",
 	-- 	lazy = false,
 	-- },
@@ -19,6 +19,15 @@ return {
 		dependencies = "rktjmp/lush.nvim",
 		config = function()
 			vim.cmd("silent! colo lush-base16")
+		end,
+	},
+
+	{
+		"folke/which-key.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("plugins.configs.whichkey")
 		end,
 	},
 
@@ -290,35 +299,9 @@ return {
 		cmd = { "Bdelete", "Bwipeout" },
 	},
 
-	{
-		"fedepujol/move.nvim",
-		keys = {
-			{
-				"<C-S-k>",
-				":MoveLine(-1)<CR>",
-				mode = "n",
-				desc = "Move line up",
-			},
-			{
-				"<C-S-j>",
-				":MoveLine(1)<CR>",
-				mode = "n",
-				desc = "Move line down",
-			},
-			{
-				"<C-S-k>",
-				":MoveBlock(-1)<CR>",
-				mode = "v",
-				desc = "Move line up",
-			},
-			{
-				"<C-S-j>",
-				":MoveBlock(1)<CR>",
-				mode = "v",
-				desc = "Move line down",
-			},
-		},
-	},
+	-- {
+	-- 	"fedepujol/move.nvim",
+	-- },
 
 	{
 		"folke/flash.nvim",
@@ -358,14 +341,6 @@ return {
 	},
 
 	{
-		"folke/which-key.nvim",
-		config = function()
-			require("plugins.configs.whichkey")
-		end,
-		event = "VimEnter",
-	},
-
-	{
 		"max397574/better-escape.nvim",
 		opts = {},
 		event = "InsertEnter",
@@ -376,20 +351,6 @@ return {
 		config = function()
 			require("plugins.configs.comments")
 		end,
-		keys = {
-			{
-				"<C-/>",
-				"<Plug>(comment_toggle_linewise_current)",
-				mode = "n",
-				desc = "Toggle line comment",
-			},
-			{
-				"<C-/>",
-				"<Plug>(comment_toggle_linewise_visual)gv",
-				mode = "v",
-				desc = "Toggle selection comment",
-			},
-		},
 		event = "BufReadPost",
 	},
 
@@ -442,14 +403,6 @@ return {
 			git = { show_on_dirs = true, show_on_open_dirs = false },
 			modified = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
 			diagnostics = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
-		},
-		keys = {
-			{
-				"\\",
-				"<CMD>NvimTreeToggle<CR>",
-				mode = "n",
-				desc = "Toggle file tree",
-			},
 		},
 	},
 
@@ -713,20 +666,6 @@ return {
 		config = function()
 			require("plugins.configs.barbar")
 		end,
-		keys = {
-			{
-				"<C-Left>",
-				"<CMD>BufferMovePrevious<CR>",
-				mode = "n",
-				desc = "Move buffer to the left",
-			},
-			{
-				"<C-Right>",
-				"<CMD>BufferMoveNext<CR>",
-				mode = "n",
-				desc = "Move buffer to the right",
-			},
-		},
 		event = "VimEnter",
 	},
 
@@ -749,7 +688,7 @@ return {
 			show_basename = true,
 			kinds = require("core.symbols"),
 			theme = {
-				normal = { bg = "#202020" },
+				normal = { bg = "#303030" },
 			},
 		},
 		event = "VeryLazy",
@@ -795,14 +734,6 @@ return {
 		config = function()
 			require("plugins.configs.zenmode")
 		end,
-		keys = {
-			{
-				"<F2>",
-				"<CMD>ZenMode<CR>",
-				mode = "n",
-				desc = "Toggle zen mode",
-			},
-		},
 		cmd = "ZenMode",
 	},
 
@@ -871,24 +802,6 @@ return {
 		config = function(_, opts)
 			require("illuminate").configure(opts)
 		end,
-		keys = {
-			{
-				"<C-n>",
-				function()
-					require("illuminate").goto_next_reference({ wrap = true })
-				end,
-				mode = "n",
-				desc = "Next variable occurrence",
-			},
-			{
-				"<C-p>",
-				function()
-					require("illuminate").goto_prev_reference({ wrap = true })
-				end,
-				mode = "n",
-				desc = "Previous variable occurrence",
-			},
-		},
 		event = "BufReadPost",
 	},
 
@@ -920,14 +833,6 @@ return {
 		config = function()
 			require("plugins.configs.term")
 		end,
-		keys = {
-			{
-				"<F1>",
-				"<CMD>ToggleTerm<CR>",
-				mode = { "n", "t" },
-				desc = "Toggle terminal",
-			},
-		},
 		event = "VeryLazy",
 	},
 
@@ -983,22 +888,7 @@ return {
 		config = function()
 			require("plugins.configs.hlslens")
 		end,
-		keys = {
-			"/",
-			"?",
-			{ "*", "*:lua require('hlslens').start()<CR>", "Go to next match" },
-			{ "#", "#:lua require('hlslens').start()<CR>", "Go to previous match" },
-			{
-				"n",
-				"<CMD>execute('normal! ' . v:count1 . 'n')<CR>:lua require('hlslens').start()<CR>",
-				"Go to next match",
-			},
-			{
-				"N",
-				"<CMD>execute('normal! ' . v:count1 . 'N')<CR>:lua require('hlslens').start()<CR>",
-				"Go to previous match",
-			},
-		},
+		keys = { "/", "?", "*", "#", "n", "N" },
 	},
 
 	{

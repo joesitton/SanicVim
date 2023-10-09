@@ -159,4 +159,96 @@ wk.register({
         end,
         "Search backwards",
     },
+
+    n = {
+        "<CMD>execute('normal! ' . v:count1 . 'n')<CR>:lua require('hlslens').start()<CR>",
+        "Go to next match",
+    },
+
+    N = {
+        "<CMD>execute('normal! ' . v:count1 . 'N')<CR>:lua require('hlslens').start()<CR>",
+        "Go to previous match",
+    },
+
+    ["\\"] = {
+        "<CMD>NvimTreeToggle<CR>",
+        "Toggle file tree",
+    },
+
+    ["<C-n>"] = {
+        function()
+            require("illuminate").goto_next_reference({ wrap = true })
+        end,
+        "Next variable occurrence",
+    },
+
+    ["<C-p>"] = {
+        function()
+            require("illuminate").goto_prev_reference({ wrap = true })
+        end,
+        "Previous variable occurrence",
+    },
+
+    -- ["<C-S-k>"] = {
+    --     ":MoveLine -1<CR>",
+    --     "Move line up",
+    -- },
+
+    -- ["<C-S-j>"] = {
+    --     ":MoveLine 1<CR>",
+    --     "Move line down",
+    -- },
+
+    ["<C-_>"] = {
+        "<Plug>(comment_toggle_linewise_current)",
+        "Toggle comment for line",
+    },
+
+    ["<C-Left>"] = {
+        "<CMD>BufferMovePrevious<CR>",
+        "Move buffer to the left",
+    },
+
+    ["<C-Right>"] = {
+        "<CMD>BufferMoveNext<CR>",
+        "Move buffer to the right",
+    },
+
+    ["<F1>"] = {
+        "<CMD>ToggleTerm<CR>",
+        "Toggle terminal",
+    },
+
+    ["<F2>"] = {
+        "<CMD>ZenMode<CR>",
+        "Toggle zen mode",
+    },
+
+    ["*"] = { "*:lua require('hlslens').start()<CR>", "Go to next match" },
+
+    ["#"] = { "#:lua require('hlslens').start()<CR>", "Go to previous match" },
 })
+
+wk.register({
+    -- ["<C-S-k>"] = {
+    --     ":MoveBlock -1<CR>",
+    --     "Move line up",
+    -- },
+
+    -- ["<C-S-j>"] = {
+    --     ":MoveBlock 1<CR>",
+    --     "Move line down",
+    -- },
+
+    ["<C-_>"] = {
+        "<Plug>(comment_toggle_linewise_visual)gv",
+        "Toggle comment for selection",
+    },
+}, { mode = "v" })
+
+wk.register({
+    ["<F1>"] = {
+        "<CMD>ToggleTerm<CR>",
+        "Toggle terminal",
+    },
+}, { mode = "t" })
