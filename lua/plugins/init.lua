@@ -13,11 +13,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins
-require("lazy").setup({
+local ok, lazy = pcall(require, "lazy")
+if not ok then
+	vim.notify("Error loading lazy.nvim: " .. lazy, vim.log.levels.ERROR)
+	return
+end
+
+lazy.setup({
 	spec = {
 		{ import = "plugins.specs.default" },
 		{ import = "plugins.specs.filetypes" },
-		{ import = "plugins.specs.dap"}
+		{ import = "plugins.specs.dap" },
 	},
 	concurrency = 12,
 	defaults = {
@@ -35,26 +41,25 @@ require("lazy").setup({
 	performance = {
 		rtp = {
 			disabled_plugins = {
-				"2html_plugin",
-				"getscript",
-				"getscriptPlugin",
-				"gzip",
-				"logipat",
 				"netrw",
 				"netrwPlugin",
 				"netrwSettings",
 				"netrwFileHandlers",
-				"matchit",
-				"tar",
-				"tarPlugin",
-				"rrhelper",
-				"spellfile_plugin",
-				"vimball",
-				"vimballPlugin",
+				"gzip",
 				"zip",
 				"zipPlugin",
+				"tar",
+				"tarPlugin",
+				"getscript",
+				"getscriptPlugin",
+				"vimball",
+				"vimballPlugin",
+				"2html_plugin",
+				"logipat",
+				"rrhelper",
+				"spellfile_plugin",
+				"matchit",
 			},
 		},
 	},
 })
-

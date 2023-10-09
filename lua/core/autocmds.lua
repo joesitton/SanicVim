@@ -1,8 +1,11 @@
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
+local api = vim.api
+local cmd = vim.cmd
+local fn = vim.fn
 local o = vim.opt
 local ol = vim.opt_local
-local cmd = vim.cmd
+local bo = vim.bo
 
 -- Check if we need to refresh
 autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
@@ -26,7 +29,7 @@ autocmd("FileType", {
         "checkhealth",
     },
     callback = function(event)
-        vim.bo[event.buf].buflisted = false
+        bo[event.buf].buflisted = false
         vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
 })
@@ -36,7 +39,7 @@ autocmd("BufEnter", {
     group = augroup("vertical_split_help", {}),
     pattern = "*.txt",
     callback = function()
-        if vim.bo.buftype == "help" then
+        if bo.buftype == "help" then
             ol.signcolumn = "no"
             ol.colorcolumn = "0"
             cmd([[ silent! wincmd L ]])
@@ -80,7 +83,7 @@ autocmd({ "BufWritePre" }, {
             return
         end
         local file = vim.loop.fs_realpath(event.match) or event.match
-        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+        fn.mkdir(fn.fnamemodify(file, ":p:h"), "p")
     end,
 })
 
@@ -118,13 +121,13 @@ autocmd({ "BufEnter" }, {
     group = augroup("nvim_tree_close", {}),
     pattern = "NvimTree_*",
     callback = function()
-        local layout = vim.api.nvim_call_function("winlayout", {})
+        local layout = api.nvim_call_function("winlayout", {})
         if
             layout[1] == "leaf"
-            and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
+            and api.nvim_buf_get_option(api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
             and layout[3] == nil
         then
-            vim.cmd("confirm quit")
+            cmd("confirm quit")
         end
     end,
 })
@@ -134,25 +137,35 @@ autocmd({ "BufWritePre" }, {
     group = augroup("format_gocode", {}),
     pattern = "*.go",
     callback = function()
-        vim.lsp.buf.format()
+        lsp.buf.format()
     end
 })
 
+-- Close some stuff before saving session
 autocmd({"User"}, {
     group = augroup("session_pre_save", {}),
     pattern = "PersistedSavePre",
     callback = function ()
         local ok, _ = pcall(require, "diffview")
         if ok then
-            vim.cmd("DiffviewClose")
+            cmd("DiffviewClose")
         end
     end
 })
 
+-- Fix some filetypes
 autocmd({"BufNewFile", "BufRead"}, {
     group = augroup("fix_tfvars_ft", {}),
     pattern = "*.tfvars",
     callback = function ()
-        vim.bo.filetype = "terraform"
+        bo.filetype = "terraform"
     end
 })
+autocmd({"BufNewFile", "BufRead"}, {
+    group = augroup("fix_yara_ft", {}),
+    pattern = "*.yara",
+    callback = function ()
+        bo.filetype = "yara"
+    end
+})
+

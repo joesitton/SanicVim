@@ -27,7 +27,7 @@ if ok then
 end
 
 -- menu appearance
-local symbol_map = require("core.utils").symbols
+local symbols = require("core.symbols")
 local menu = {
 	cmdline = "Cmd",
 	buffer = "Buffer",
@@ -107,7 +107,7 @@ cmp.setup({
 				vim_item.kind = "   "
 				vim_item.kind_hl_group = "CmpItemKindTreesitter"
 			else
-				vim_item.kind = " " .. symbol_map[vim_item.kind] .. " "
+				vim_item.kind = " " .. symbols[vim_item.kind] .. " "
 			end
 
 			return vim_item

@@ -1,5 +1,6 @@
 local g = vim.g
 local o = vim.opt
+local fn = vim.fn
 
 -- Leader key
 g.mapleader = " "
@@ -15,7 +16,7 @@ o.clipboard = "unnamedplus"
 -- Undo
 o.undofile = true
 o.undolevels = 2000
-o.undodir = vim.fn.stdpath("data") .. "/undo"
+o.undodir = fn.stdpath("data") .. "/undo"
 
 -- Indent
 o.autoindent = true
@@ -43,6 +44,7 @@ o.smartcase = true
 o.ignorecase = true
 o.hlsearch = true
 o.incsearch = true
+o.joinspaces = true
 
 -- Timeouts
 o.updatetime = 100
@@ -120,13 +122,12 @@ o.inccommand = "split"
 g.python3_host_prog = "~/.pyenv/versions/neovim/bin/python"
 
 -- Signs
-local set_sign = vim.fn.sign_define
-set_sign("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-set_sign("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-set_sign("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-set_sign("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-set_sign("DapStopped", { text = "", texthl = "DapStopped" })
-set_sign("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
-set_sign("DapBreakpointCondition", { text = "", texthl = "DapBreakpointCondition" })
-set_sign("DapBreakpointRejected", { text = "", texthl = "DapBreakpointRejected" })
-set_sign("DapLogPoint", { text = ".>", texthl = "DapLogPoint" })
+fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+fn.sign_define("DapStopped", { text = "", texthl = "DapStopped" })
+fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint" })
+fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpointCondition" })
+fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpointRejected" })
+fn.sign_define("DapLogPoint", { text = ".>", texthl = "DapLogPoint" })

@@ -16,10 +16,43 @@ return {
 	{
 		dir = "~/Dev/lush-base16",
 		lazy = false,
-		dependencies = { "rktjmp/lush.nvim" },
+		dependencies = "rktjmp/lush.nvim",
 		config = function()
 			vim.cmd("silent! colo lush-base16")
 		end,
+	},
+
+	--  ╭──────────────────────────────────────────────────────────╮
+	--  │ LSP                                                      │
+	--  ╰──────────────────────────────────────────────────────────╯
+
+	{
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"jayp0521/mason-null-ls.nvim",
+		"jay-babu/mason-nvim-dap.nvim",
+		"jose-elias-alvarez/null-ls.nvim",
+		"b0o/SchemaStore.nvim",
+		{
+			"folke/neodev.nvim",
+			opts = {},
+		},
+		{
+			"neovim/nvim-lspconfig",
+			config = function()
+				require("plugins.configs.lsp")
+			end,
+			event = "BufReadPost",
+		},
+	},
+
+	{
+		"j-hui/fidget.nvim",
+		tag = "legacy",
+		config = function()
+			require("plugins.configs.fidget")
+		end,
+		event = "BufReadPost",
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -85,7 +118,7 @@ return {
 			},
 			{
 				"zbirenbaum/copilot-cmp",
-				dependencies = { "copilot.lua" },
+				dependencies = "copilot.lua",
 				opts = {},
 				event = { "InsertEnter", "LspAttach" },
 			},
@@ -100,8 +133,8 @@ return {
 			},
 			{
 				"petertriho/cmp-git",
-				ft = "gitcommit",
 				opts = {},
+				ft = "gitcommit",
 			},
 			{
 				"kdheepak/cmp-latex-symbols",
@@ -109,9 +142,7 @@ return {
 			},
 			{
 				"L3MON4D3/LuaSnip",
-				dependencies = {
-					"rafamadriz/friendly-snippets",
-				},
+				dependencies = "rafamadriz/friendly-snippets",
 				config = function()
 					require("luasnip.loaders.from_vscode").lazy_load()
 				end,
@@ -123,15 +154,15 @@ return {
 			{
 				"lukas-reineke/cmp-under-comparator",
 			},
-			{
-				"rcarriga/cmp-dap",
-				event = "InsertEnter",
-			},
+			-- {
+			-- 	"rcarriga/cmp-dap",
+			-- 	event = "InsertEnter",
+			-- },
 		},
 		config = function()
 			require("plugins.configs.cmp")
 		end,
-		event = {"InsertEnter", "CmdlineEnter"}
+		event = { "InsertEnter", "CmdlineEnter" },
 	},
 
 	{
@@ -140,37 +171,7 @@ return {
 			ignore_beginning = false,
 		},
 		event = "InsertEnter",
-		after = "nvim-cmp"
-	},
-
-	--  ╭──────────────────────────────────────────────────────────╮
-	--  │ LSP                                                      │
-	--  ╰──────────────────────────────────────────────────────────╯
-
-	{
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"jayp0521/mason-null-ls.nvim",
-		"jay-babu/mason-nvim-dap.nvim",
-		"jose-elias-alvarez/null-ls.nvim",
-		"b0o/SchemaStore.nvim",
-		"folke/neodev.nvim",
-		{
-			"neovim/nvim-lspconfig",
-			config = function()
-				require("plugins.configs.lsp")
-			end,
-			event = "BufReadPost",
-		},
-	},
-
-	{
-		"j-hui/fidget.nvim",
-		tag = "legacy",
-		config = function()
-			require("plugins.configs.fidget")
-		end,
-		event = "BufReadPost",
+		after = "nvim-cmp",
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -227,11 +228,11 @@ return {
 				"nvim-treesitter/playground",
 				cmd = "TSPlaygroundToggle",
 			},
-			{
-				"lewis6991/spellsitter.nvim",
-				opts = {},
-				event = "BufReadPost",
-			},
+			-- {
+			-- 	"lewis6991/spellsitter.nvim",
+			-- 	opts = {},
+			-- 	event = "BufReadPost",
+			-- },
 			{
 				"RRethy/nvim-treesitter-textsubjects",
 				event = "BufReadPost",
@@ -291,6 +292,32 @@ return {
 
 	{
 		"fedepujol/move.nvim",
+		keys = {
+			{
+				"<C-S-k>",
+				":MoveLine(-1)<CR>",
+				mode = "n",
+				desc = "Move line up",
+			},
+			{
+				"<C-S-j>",
+				":MoveLine(1)<CR>",
+				mode = "n",
+				desc = "Move line down",
+			},
+			{
+				"<C-S-k>",
+				":MoveBlock(-1)<CR>",
+				mode = "v",
+				desc = "Move line up",
+			},
+			{
+				"<C-S-j>",
+				":MoveBlock(1)<CR>",
+				mode = "v",
+				desc = "Move line down",
+			},
+		},
 	},
 
 	{
@@ -349,6 +376,20 @@ return {
 		config = function()
 			require("plugins.configs.comments")
 		end,
+		keys = {
+			{
+				"<C-/>",
+				"<Plug>(comment_toggle_linewise_current)",
+				mode = "n",
+				desc = "Toggle line comment",
+			},
+			{
+				"<C-/>",
+				"<Plug>(comment_toggle_linewise_visual)gv",
+				mode = "v",
+				desc = "Toggle selection comment",
+			},
+		},
 		event = "BufReadPost",
 	},
 
@@ -373,16 +414,6 @@ return {
 		"MunifTanjim/nui.nvim",
 		event = "UIEnter",
 	},
-
-	-- {
-	-- 	"nvim-neo-tree/neo-tree.nvim",
-	-- 	branch = "v2.x",
-	-- 	dependencies = { "nui.nvim" },
-	-- 	config = function()
-	-- 		require("plugins.configs.neotree")
-	-- 	end,
-	-- 	cmd = { "Neotree" },
-	-- },
 
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -411,6 +442,14 @@ return {
 			git = { show_on_dirs = true, show_on_open_dirs = false },
 			modified = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
 			diagnostics = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
+		},
+		keys = {
+			{
+				"\\",
+				"<CMD>NvimTreeToggle<CR>",
+				mode = "n",
+				desc = "Toggle file tree",
+			},
 		},
 	},
 
@@ -449,11 +488,6 @@ return {
 	-- 		require("plugins.configs.neorg")
 	-- 	end,
 	-- 	ft = "norg",
-	-- },
-
-	-- {
-	-- 	"smjonas/inc-rename.nvim",
-	-- 	opts = {},
 	-- },
 
 	-- {
@@ -532,9 +566,9 @@ return {
 
 	{
 		"joesitton/telescope-cc.nvim",
-		config = function ()
+		config = function()
 			require("telescope").load_extension("conventional_commits")
-		end
+		end,
 	},
 
 	{
@@ -679,6 +713,20 @@ return {
 		config = function()
 			require("plugins.configs.barbar")
 		end,
+		keys = {
+			{
+				"<C-Left>",
+				"<CMD>BufferMovePrevious<CR>",
+				mode = "n",
+				desc = "Move buffer to the left",
+			},
+			{
+				"<C-Right>",
+				"<CMD>BufferMoveNext<CR>",
+				mode = "n",
+				desc = "Move buffer to the right",
+			},
+		},
 		event = "VimEnter",
 	},
 
@@ -692,16 +740,14 @@ return {
 
 	{
 		"utilyre/barbecue.nvim",
-		dependencies = {
-			"smiteshp/nvim-navic",
-		},
+		dependencies = "smiteshp/nvim-navic",
 		opts = {
 			create_autocmd = false,
 			attach_navic = false,
 			context_follow_icon_color = true,
 			show_dirname = true,
 			show_basename = true,
-			kinds = require("core.utils").symbols,
+			kinds = require("core.symbols"),
 			theme = {
 				normal = { bg = "#202020" },
 			},
@@ -735,14 +781,6 @@ return {
 		event = "VeryLazy",
 	},
 
-	-- {
-	-- 	"nvim-lualine/lualine.nvim",
-	-- 	config = function ()
-	-- 		require("plugins.configs.statusline")
-	-- 	end,
-	-- 	event = "VeryLazy"
-	-- },
-
 	{
 		"folke/zen-mode.nvim",
 		dependencies = {
@@ -757,6 +795,14 @@ return {
 		config = function()
 			require("plugins.configs.zenmode")
 		end,
+		keys = {
+			{
+				"<F2>",
+				"<CMD>ZenMode<CR>",
+				mode = "n",
+				desc = "Toggle zen mode",
+			},
+		},
 		cmd = "ZenMode",
 	},
 
@@ -766,8 +812,7 @@ return {
 			refresh_interval = 250,
 			sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
 		},
-		config = function(_, opts)
-			require("marks").setup(opts)
+		init = function(_, opts)
 			vim.cmd("hi! link MarkSignNumHL CursorLineNr")
 		end,
 		event = "BufReadPost",
@@ -783,6 +828,7 @@ return {
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
 		config = function()
 			require("plugins.configs.indentline")
 		end,
@@ -807,9 +853,42 @@ return {
 
 	{
 		"RRethy/vim-illuminate",
-		config = function()
-			require("plugins.configs.illuminate")
+		opts = {
+			delay = 420,
+			under_cursor = false,
+			filetypes_denylist = {
+				"NvimTree",
+				"Trouble",
+				"Telescope",
+				"DiffviewFiles",
+				"DiffviewFileHistory",
+				"neo-tree",
+				"packer",
+				"alpha",
+				"mason",
+			},
+		},
+		config = function(_, opts)
+			require("illuminate").configure(opts)
 		end,
+		keys = {
+			{
+				"<C-n>",
+				function()
+					require("illuminate").goto_next_reference({ wrap = true })
+				end,
+				mode = "n",
+				desc = "Next variable occurrence",
+			},
+			{
+				"<C-p>",
+				function()
+					require("illuminate").goto_prev_reference({ wrap = true })
+				end,
+				mode = "n",
+				desc = "Previous variable occurrence",
+			},
+		},
 		event = "BufReadPost",
 	},
 
@@ -841,6 +920,14 @@ return {
 		config = function()
 			require("plugins.configs.term")
 		end,
+		keys = {
+			{
+				"<F1>",
+				"<CMD>ToggleTerm<CR>",
+				mode = { "n", "t" },
+				desc = "Toggle terminal",
+			},
+		},
 		event = "VeryLazy",
 	},
 
@@ -852,22 +939,13 @@ return {
 		event = "BufReadPost",
 	},
 
-	-- {
-	-- 	"xiyaowong/virtcolumn.nvim",
-	-- 	config = function()
-	-- 		vim.g.virtcolumn_char = "▕"
-	-- 	end,
-	-- },
-
-	-- {
-	-- 	"m4xshen/smartcolumn.nvim",
-	-- 	config = function()
-	-- 		require("smartcolumn").setup({
-	-- 			colorcolumn = "80",
-	-- 			disabled_filetypes = { "help", "test", "markdown", "lazy", "alpha" },
-	-- 		})
-	-- 	end,
-	-- },
+	{
+		"lukas-reineke/virt-column.nvim",
+		opts = {
+			char = "▕",
+			virtcolumn = "100",
+		},
+	},
 
 	-- {
 	-- 	"gen740/SmoothCursor.nvim",
@@ -905,7 +983,22 @@ return {
 		config = function()
 			require("plugins.configs.hlslens")
 		end,
-		keys = { "/", "?", "*", "#", "n", "N" },
+		keys = {
+			"/",
+			"?",
+			{ "*", "*:lua require('hlslens').start()<CR>", "Go to next match" },
+			{ "#", "#:lua require('hlslens').start()<CR>", "Go to previous match" },
+			{
+				"n",
+				"<CMD>execute('normal! ' . v:count1 . 'n')<CR>:lua require('hlslens').start()<CR>",
+				"Go to next match",
+			},
+			{
+				"N",
+				"<CMD>execute('normal! ' . v:count1 . 'N')<CR>:lua require('hlslens').start()<CR>",
+				"Go to previous match",
+			},
+		},
 	},
 
 	{
