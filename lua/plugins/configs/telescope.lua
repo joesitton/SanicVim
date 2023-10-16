@@ -1,8 +1,5 @@
-local status_ok, actions = pcall(require, "telescope.actions")
-
-if not status_ok then
-	return
-end
+local ok, actions = pcall(require, "telescope.actions")
+if not ok then return end
 
 local telescope = require("telescope")
 
@@ -116,9 +113,14 @@ telescope.setup({
 						return
 					end
 
-				    vim.cmd(string.format("%s '%s: %s'", command, entry.value, msg))
+					vim.cmd(string.format("%s '%s: %s'", command, entry.value, msg))
 				end)
 			end,
 		},
 	},
 })
+
+for _, ext in ipairs({ "session-lens", "undo", "todo-comments", "notify", "aerial", "harpoon", "neoclip", "luasnip",
+	"conventional_commits", "lsp_handlers", "fzf" }) do
+	telescope.load_extension(ext)
+end

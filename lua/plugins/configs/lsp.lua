@@ -22,28 +22,28 @@ require("mason").setup({
 	},
 })
 
-require("mason-null-ls").setup({
-	automatic_installation = true,
-	automatic_setup = true,
-	ensure_installed = {
-		"black",
-		"isort",
-		"jq",
-		"stylua",
-		"yamlfmt",
-		"gofumpt",
-		"goimports",
-	},
-	handlers = {},
-})
+-- require("mason-null-ls").setup({
+-- 	automatic_installation = true,
+-- 	automatic_setup = true,
+-- 	ensure_installed = {
+-- 		"black",
+-- 		"isort",
+-- 		"jq",
+-- 		"stylua",
+-- 		"yamlfmt",
+-- 		"goimports",
+-- 		-- "golangci_lint",
+-- 	},
+-- 	handlers = {},
+-- })
 
-local null_ls = require("null-ls")
-null_ls.setup({
-	border = "rounded",
-	sources = {
-		null_ls.builtins.code_actions.gitsigns,
-	},
-})
+-- local null_ls = require("null-ls")
+-- null_ls.setup({
+-- 	border = "rounded",
+-- 	-- sources = {
+-- 	-- 	null_ls.builtins.code_actions.gitsigns,
+-- 	-- },
+-- })
 
 -- require("mason-nvim-dap").setup({
 --     ensure_installed = { "delve" },
@@ -52,7 +52,7 @@ null_ls.setup({
 -- })
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
-local lsp = require("lspconfig")
+local lspconfig = require("lspconfig")
 
 local on_attach = function(client, bufnr)
 	-- Attach navic if the server is capable
@@ -71,7 +71,6 @@ local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
 	ensure_installed = {
 		"pyright",
-		"gopls",
 		"dockerls",
 		"bashls",
 		"ansiblels",
@@ -82,13 +81,17 @@ mason_lspconfig.setup({
 		"rust_analyzer",
 		"terraformls",
 		"helm_ls",
+		"gopls",
 		"golangci_lint_ls",
 	},
 })
 
-mason_lspconfig.setup_handlers {
+mason_lspconfig.setup_handlers({
 	function(server)
-		local settings = {}
+		local name = server
+		local settings = nil
+		local init_options = nil
+		local cmd = nil
 
 		if server == "jsonls" then
 			settings = {
@@ -128,15 +131,21 @@ mason_lspconfig.setup_handlers {
 					gofumpt = true,
 				},
 			}
+		elseif server == "golangci_lint_ls" then
+			name = "golangci"
+			cmd = { "golangci-lint-langserver", "-nolintername" }
 		end
 
-		lsp[server].setup({
+		lspconfig[server].setup({
+			name = name,
+			cmd = cmd,
+			init_options = init_options,
 			on_attach = on_attach,
 			settings = settings,
 			capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 			flags = {
-				debounce_text_changes = 500,
+				debounce_text_changes = 300,
 			},
 		})
 	end,
-}
+})

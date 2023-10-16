@@ -5,6 +5,9 @@ vim.g.matchup_matchparen_offscreen = {
 }
 
 require("nvim-treesitter.configs").setup({
+    disable = function (lang, bufnr)
+        return vim.api.nvim_buf_line_count(bufnr) > 10000
+    end,
     ensure_installed = "all",
     ignore_install = { "yaml", "latex", "toml", "phpdoc" },
     sync_install = false,

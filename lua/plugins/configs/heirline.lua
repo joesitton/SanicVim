@@ -288,7 +288,7 @@ local LSPActive = {
 			-- 	name = "heirline_LSP",
 			-- },
 			hl = {
-				fg = colors.black.hex,
+				fg = colors.green.darken(75).hex,
 				bold = true,
 			},
 		}, colors.green.hex),
@@ -300,7 +300,7 @@ local LSPActive = {
 
 local Diagnostics = {
 	condition = conditions.has_diagnostics,
-	update = { "DiagnosticChanged", "BufEnter" },
+	update = { "DiagnosticChanged", "BufEnter", "ModeChanged" },
 	static = {
 		error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
 		warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
@@ -394,17 +394,21 @@ local SearchCount = {
 }
 
 local GitBranch = {
-	condition = conditions.is_git_repo,
+	update = { "ModeChanged", "FileType", "Bufenter", "FocusGained" },
+	condition = function(self)
+		return self.branch ~= nil or conditions.is_git_repo
+	end,
 	init = function(self)
 		self.status_dict = vim.b.gitsigns_status_dict
+		self.branch = vim.b.gitsigns_head or vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
 	end,
 	-- git branch name
 	surround_left({
 		provider = function(self)
-			return " " .. self.status_dict.head
+			return " " .. self.branch
 		end,
 		hl = {
-			fg = colors.black.hex,
+			fg = colors.purple.darken(75).hex,
 			bold = true,
 		},
 	}, colors.purple.hex),
@@ -413,6 +417,7 @@ local GitBranch = {
 
 local GitDiff = {
 	condition = conditions.is_git_repo,
+	update = { "ModeChanged", "BufWritePost" },
 	init = function(self)
 		self.status_dict = vim.b.gitsigns_status_dict
 		self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
@@ -474,75 +479,122 @@ local HelpFileName = {
 	},
 }
 
-local Snippets = {
-	-- check that we are in insert or select mode
+-- local Snippets = {
+-- 	-- check that we are in insert or select mode
+-- 	condition = function()
+-- 		return vim.tbl_contains({ "s", "i" }, vim.fn.mode())
+-- 	end,
+-- 	provider = function()
+-- 		local luasnip = require("luasnip")
+-- 		local forward = luasnip.expand_or_locally_jumpable() and "" or ""
+-- 		local backward = luasnip.jumpable(-1) and " " or ""
+-- 		return backward .. forward
+-- 	end,
+-- 	hl = {
+-- 		fg = colors.red.hex,
+-- 		bold = true,
+-- 	},
+-- }
+
+-- local VirtualEnv = {
+-- 	condition = function()
+-- 		local ok, swenv = pcall(require, "swenv.api")
+-- 		if not ok then
+-- 			return false
+-- 		end
+
+-- 		return swenv.get_current_venv() ~= nil
+-- 	end,
+-- 	provider = function()
+-- 		local ok, swenv = pcall(require, "swenv.api")
+-- 		if ok then
+-- 			return "  " .. swenv.get_current_venv().name
+-- 		end
+-- 		return ""
+-- 	end,
+-- 	hl = {
+-- 		fg = colors.green.hex,
+-- 		bold = true,
+-- 	},
+-- }
+
+local Session = {
+	update = { "ModeChanged", "VimEnter" },
 	condition = function()
-		return vim.tbl_contains({ "s", "i" }, vim.fn.mode())
+		return require("auto-session.lib").current_session_name() ~= nil
 	end,
 	provider = function()
-		local luasnip = require("luasnip")
-		local forward = luasnip.expand_or_locally_jumpable() and "" or ""
-		local backward = luasnip.jumpable(-1) and " " or ""
-		return backward .. forward
+		return "  " .. require("auto-session.lib").current_session_name()
 	end,
 	hl = {
-		fg = colors.red.hex,
-		bold = true,
-	},
-}
-
-local VirtualEnv = {
-	condition = function()
-		local ok, swenv = pcall(require, "swenv.api")
-		if not ok then
-			return false
-		end
-
-		return swenv.get_current_venv() ~= nil
-	end,
-	provider = function()
-		local ok, swenv = pcall(require, "swenv.api")
-		if ok then
-			return "  " .. swenv.get_current_venv().name
-		end
-		return ""
-	end,
-	hl = {
-		fg = colors.green.hex,
-		bold = true,
+		fg = colors.yellow.hex,
+		bg = colors.yellow.darken(75).hex,
 	},
 }
 
 --  ╭──────────────────────────────────────────────────────────╮
 --  │ Statuslines                                              │
 --  ╰──────────────────────────────────────────────────────────╯
-local SpecialStatusline = {
-	condition = function()
-		return conditions.buffer_matches({
-			buftype = { "nofile", "prompt", "help", "quickfix", "neo-tree", "NvimTree_*" },
-			filetype = { "^git.*", "fugitive" },
-		})
-	end,
-	ViMode,
-	Lazy,
-	MacroRec,
-	WorkDir,
-	ReadOnly,
-	HelpFileName,
-	GitBranch,
-	GitDiff,
-	Align,
-	Ruler,
-	Space,
-}
+-- local SpecialStatusline = {
+-- 	condition = function()
+-- 		return conditions.buffer_matches({
+-- 			buftype = { "nofile", "prompt", "help", "quickfix", "neo-tree", "NvimTree_*", "TelescopePrompt" },
+-- 			filetype = { "^git.*", "fugitive" },
+-- 		})
+-- 	end,
+-- 	ViMode,
+-- 	Lazy,
+-- 	MacroRec,
+-- 	WorkDir,
+-- 	surround_left({ Session }, colors.yellow.darken(75).hex),
+-- 	GitBranch,
+-- 	ReadOnly,
+-- 	HelpFileName,
+-- 	Align,
+-- 	surround_right({
+-- 		FileType,
+-- 		FileSize,
+-- 	}, colors.black.lighten(15).hex),
+-- 	Space,
+-- 	Ruler,
+-- 	Space,
+-- }
 
 local TerminalStatusLine = {
 	condition = function()
 		return conditions.buffer_matches({ buftype = { "terminal" } })
 	end,
 	ViMode,
+	WorkDir,
+	-- surround_left({ Session }, colors.yellow.darken(75).hex),
+	Space,
 	TerminalName,
 	Align,
+	Ruler,
+	Space,
+}
+
+local DefaultStatusLine = {
+	ViMode,
+	Lazy,
+	MacroRec,
+	WorkDir,
+	-- surround_left({ Session }, colors.yellow.darken(75).hex),
+	ReadOnly,
+	GitBranch,
+	GitDiff,
+	Align,
+	-- Snippets,
+	Diagnostics,
+	LSPActive,
+	surround_right({
+		FileType,
+		-- FileEncoding,
+		FileSize,
+	}, colors.black.lighten(15).hex),
+	Space,
+	Ruler,
+	Space,
 }
 
 local InactiveStatusLine = {
@@ -553,27 +605,6 @@ local InactiveStatusLine = {
 	Align,
 	LSPActive,
 	Diagnostics,
-}
-
-local DefaultStatusLine = {
-	ViMode,
-	Lazy,
-	MacroRec,
-	WorkDir,
-	ReadOnly,
-	GitBranch,
-	GitDiff,
-	Align,
-	Snippets,
-	Diagnostics,
-	LSPActive,
-	surround_right({
-		FileType,
-		FileSize,
-	}, colors.black.lighten(15).hex),
-	Space,
-	Ruler,
-	Space,
 }
 
 local StatusLines = {
@@ -605,7 +636,7 @@ local StatusLines = {
 		}
 	end,
 	fallthrough = false,
-	SpecialStatusline,
+	-- SpecialStatusline,
 	TerminalStatusLine,
 	InactiveStatusLine,
 	DefaultStatusLine,

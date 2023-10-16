@@ -9,8 +9,8 @@ return {
 	},
 
 	-- {,
-	-- 	"nvim-lua/popup.nvim",
-	-- 	lazy = false,
+	--  "nvim-lua/popup.nvim",
+	--  lazy = false,
 	-- },
 
 	{
@@ -38,10 +38,11 @@ return {
 	{
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"jayp0521/mason-null-ls.nvim",
+		-- "jayp0521/mason-null-ls.nvim",
+		-- "jose-elias-alvarez/null-ls.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
-		"jose-elias-alvarez/null-ls.nvim",
 		"b0o/SchemaStore.nvim",
+		-- "hinell/lsp-timeout.nvim",
 		{
 			"folke/neodev.nvim",
 			opts = {},
@@ -63,6 +64,56 @@ return {
 		end,
 		event = "BufReadPost",
 	},
+
+	--  ╭──────────────────────────────────────────────────────────╮
+	--  │ Formatting                                               │
+	--  ╰──────────────────────────────────────────────────────────╯
+
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				-- lua = { "stylua" },
+				python = { "isort", "black" },
+				go = { "goimports", "golines" },
+				bash = { "shfmt" },
+				json = { "fixjson", "jq" },
+				-- yaml = { "yamlfmt" },
+				["*"] = { "codespell" },
+				["_"] = { "trim_whitespace" },
+			},
+			-- format_on_save = {
+			-- 	lsp_fallback = true,
+			-- 	timeout_ms = 500,
+			-- },
+			format_after_save = {
+				lsp_fallback = true,
+			},
+		},
+		init = function()
+			vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
+		end,
+	},
+
+	--  ╭──────────────────────────────────────────────────────────╮
+	--  │ Linting                                                  │
+	--  ╰──────────────────────────────────────────────────────────╯
+
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- 	config = function()
+	-- 		local linters = {
+	-- 			go = {},
+	-- 			python = {},
+	-- 			lua = {},
+	-- 		}
+	-- 		for ft, _ in pairs(linters) do
+	-- 			table.insert(linters[ft], "codespell")
+	-- 		end
+	-- 		require("lint").linters_by_ft = linters
+	-- 	end,
+	-- 	event = { "VimEnter" },
+	-- },
 
 	--  ╭──────────────────────────────────────────────────────────╮
 	--  │ Completion                                               │
@@ -90,8 +141,8 @@ return {
 				event = "InsertEnter",
 			},
 			-- {
-			-- 	"hrsh7th/cmp-emoji",
-			-- 	event = "InsertEnter",
+			--  "hrsh7th/cmp-emoji",
+			--  event = "InsertEnter",
 			-- },
 			{
 				"FelipeLema/cmp-async-path",
@@ -132,9 +183,9 @@ return {
 				event = { "InsertEnter", "LspAttach" },
 			},
 			-- {
-			-- 	"tzachar/cmp-tabnine",
-			-- 	build = "./install.sh",
-			-- 	event = "InsertEnter",
+			--  "tzachar/cmp-tabnine",
+			--  build = "./install.sh",
+			--  event = "InsertEnter",
 			-- },
 			{
 				"ray-x/cmp-treesitter",
@@ -164,8 +215,8 @@ return {
 				"lukas-reineke/cmp-under-comparator",
 			},
 			-- {
-			-- 	"rcarriga/cmp-dap",
-			-- 	event = "InsertEnter",
+			--  "rcarriga/cmp-dap",
+			--  event = "InsertEnter",
 			-- },
 		},
 		config = function()
@@ -238,20 +289,20 @@ return {
 				cmd = "TSPlaygroundToggle",
 			},
 			-- {
-			-- 	"lewis6991/spellsitter.nvim",
-			-- 	opts = {},
-			-- 	event = "BufReadPost",
+			--  "lewis6991/spellsitter.nvim",
+			--  opts = {},
+			--  event = "BufReadPost",
 			-- },
 			{
 				"RRethy/nvim-treesitter-textsubjects",
 				event = "BufReadPost",
 			},
 			-- {
-			-- 	"ziontee113/syntax-tree-surfer",
-			-- 	config = function()
-			-- 		require("syntax-tree-surfer").setup()
-			-- 	end,
-			-- 	event = "BufReadPost",
+			--  "ziontee113/syntax-tree-surfer",
+			--  config = function()
+			--      require("syntax-tree-surfer").setup()
+			--  end,
+			--  event = "BufReadPost",
 			-- },
 			{
 				"m-demare/hlargs.nvim",
@@ -300,7 +351,7 @@ return {
 	},
 
 	-- {
-	-- 	"fedepujol/move.nvim",
+	--  "fedepujol/move.nvim",
 	-- },
 
 	{
@@ -325,9 +376,9 @@ return {
 	},
 
 	-- {
-	-- 	"luukvbaal/statuscol.nvim",
-	-- 	opts = {},
-	-- 	event = "VimEnter",
+	--  "luukvbaal/statuscol.nvim",
+	--  opts = {},
+	--  event = "VimEnter",
 	-- },
 
 	{
@@ -364,11 +415,11 @@ return {
 	},
 
 	-- {
-	-- 	"stevearc/dressing.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.dressing")
-	-- 	end,
-	-- 	event = "UIEnter",
+	--  "stevearc/dressing.nvim",
+	--  config = function()
+	--      require("plugins.configs.dressing")
+	--  end,
+	--  event = "UIEnter",
 	-- },
 
 	{
@@ -436,19 +487,19 @@ return {
 	-- },
 
 	-- {
-	-- 	"nvim-neorg/neorg",
-	-- 	config = function()
-	-- 		require("plugins.configs.neorg")
-	-- 	end,
-	-- 	ft = "norg",
+	--  "nvim-neorg/neorg",
+	--  config = function()
+	--      require("plugins.configs.neorg")
+	--  end,
+	--  ft = "norg",
 	-- },
 
 	-- {
-	-- 	"AckslD/swenv.nvim",
-	-- 	opts = {
-	-- 		venvs_path = vim.fn.expand("~/.pyenv/versions/"),
-	-- 	},
-	-- 	event = "VimEnter",
+	--  "AckslD/swenv.nvim",
+	--  opts = {
+	--      venvs_path = vim.fn.expand("~/.pyenv/versions/"),
+	--  },
+	--  event = "VimEnter",
 	-- },
 
 	{
@@ -460,22 +511,22 @@ return {
 	},
 
 	-- {
-	-- 	"danymat/neogen",
-	-- 	opts = {
-	-- 		snippet_engine = "luasnip"
-	-- 	},
-	-- 	event = "BufReadPost"
+	--  "danymat/neogen",
+	--  opts = {
+	--      snippet_engine = "luasnip"
+	--  },
+	--  event = "BufReadPost"
 	-- },
 
 	-- {
-	-- 	"gorbit99/codewindow.nvim",
-	-- 	opts = {
-	-- 		window_border = "rounded",
-	-- 		screen_bounds = "background",
-	-- 		show_cursor = false,
-	-- 		use_git = true,
-	-- 	},
-	-- 	event = "BufReadPost",
+	--  "gorbit99/codewindow.nvim",
+	--  opts = {
+	--      window_border = "rounded",
+	--      screen_bounds = "background",
+	--      show_cursor = false,
+	--      use_git = true,
+	--  },
+	--  event = "BufReadPost",
 	-- },
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -495,53 +546,41 @@ return {
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build =
 		"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-		config = function()
-			require("telescope").load_extension("fzf")
-		end,
 		event = "VimEnter",
 	},
 
 	{
 		"gbrlsnchs/telescope-lsp-handlers.nvim",
-		config = function()
-			require("telescope").load_extension("lsp_handlers")
-		end,
 		event = "VimEnter",
 	},
 
 	-- {
-	-- 	"olacin/telescope-gitmoji.nvim",
-	-- 	config = function()
-	-- 		require("telescope").load_extension("gitmoji")
-	-- 	end,
-	-- 	event = "VimEnter",
+	--  "olacin/telescope-gitmoji.nvim",
+	--  config = function()
+	--      require("telescope").load_extension("gitmoji")
+	--  end,
+	--  event = "VimEnter",
 	-- },
 
 	{
 		"joesitton/telescope-cc.nvim",
-		config = function()
-			require("telescope").load_extension("conventional_commits")
-		end,
 	},
 
 	{
 		"benfowler/telescope-luasnip.nvim",
-		config = function()
-			require("telescope").load_extension("luasnip")
-		end,
 		event = "VimEnter",
 	},
 
 	-- {
-	-- 	"ahmedkhalf/project.nvim",
-	-- 	opts = {
-	-- 		exclude_dirs = { "~/.local/*" },
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("project_nvim").setup(opts)
-	-- 		require("telescope").load_extension("projects")
-	-- 	end,
-	-- 	event = "VimEnter",
+	--  "ahmedkhalf/project.nvim",
+	--  opts = {
+	--      exclude_dirs = { "~/.local/*" },
+	--  },
+	--  config = function(_, opts)
+	--      require("project_nvim").setup(opts)
+	--      require("telescope").load_extension("projects")
+	--  end,
+	--  event = "VimEnter",
 	-- },
 
 	{
@@ -549,17 +588,13 @@ return {
 		dependencies = "kkharji/sqlite.lua",
 		config = function()
 			require("plugins.configs.neoclip")
-			require("telescope").load_extension("neoclip")
 		end,
 		event = "VimEnter",
 	},
 
 	{
 		"ThePrimeagen/harpoon",
-		config = function()
-			require("harpoon").setup({})
-			require("telescope").load_extension("harpoon")
-		end,
+		opts = {},
 		event = "VimEnter",
 	},
 
@@ -567,7 +602,6 @@ return {
 		"stevearc/aerial.nvim",
 		config = function()
 			require("plugins.configs.aerial")
-			require("telescope").load_extension("aerial")
 		end,
 		event = "VimEnter",
 	},
@@ -586,30 +620,35 @@ return {
 			end,
 		},
 		config = function(_, opts)
-			require("notify").setup(opts)
-			require("telescope").load_extension("notify")
+			local notify = require("notify")
+			notify.setup(opts)
+			vim.notify = notify
 		end,
 		event = "VeryLazy",
 	},
 
 	{
-		"olimorris/persisted.nvim",
+		"rmagatti/auto-session",
 		opts = {
-			use_git_branch = true,
+			auto_session_use_git_branch = true,
+			auto_save_enabled = true,
+			auto_restore_enabled = false,
+			auto_session_enable_last_session = false,
+			auto_session_suppress_dirs = { "~/.local/*" },
+			pre_save_cmds = { "silent! DiffviewClose" },
 		},
-		config = function(_, opts)
-			require("persisted").setup(opts)
-			require("telescope").load_extension("persisted")
-		end,
-		event = "VimEnter",
 	},
 
 	{
 		"debugloop/telescope-undo.nvim",
-		config = function()
-			require("telescope").load_extension("undo")
-		end,
 		event = "VimEnter",
+	},
+
+	{
+		"folke/todo-comments.nvim",
+		opts = {
+			signs = false,
+		},
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -617,39 +656,39 @@ return {
 	--  ╰──────────────────────────────────────────────────────────╯
 
 	-- {
-	-- 	"folke/noice.nvim",
-	-- 	opts = {
-	-- 		lsp = {
-	-- 			-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-	-- 			override = {
-	-- 				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-	-- 				["vim.lsp.util.stylize_markdown"] = true,
-	-- 				["cmp.entry.get_documentation"] = true,
-	-- 			},
-	-- 			progress = {
-	-- 				enabled = false,
-	-- 			},
-	-- 		},
-	-- 		cmdline = {
-	-- 			enabled = false,
-	-- 			view = "cmdline",
-	-- 		},
-	-- 		messages = {
-	-- 			enabled = false,
-	-- 		},
-	-- 		popupmenu = {
-	-- 			backend = "cmp",
-	-- 			kind_icons = require("core.utils").symbols,
-	-- 		},
-	-- 		presets = {
-	-- 			bottom_search = false, -- use a classic bottom cmdline for search
-	-- 			command_palette = false, -- position the cmdline and popupmenu together
-	-- 			long_message_to_split = true, -- long messages will be sent to a split
-	-- 			inc_rename = true, -- enables an input dialog for inc-rename.nvim
-	-- 			lsp_doc_border = false, -- add a border to hover docs and signature help
-	-- 		},
-	-- 	},
-	-- 	event = "VeryLazy",
+	--  "folke/noice.nvim",
+	--  opts = {
+	--      lsp = {
+	--          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+	--          override = {
+	--              ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+	--              ["vim.lsp.util.stylize_markdown"] = true,
+	--              ["cmp.entry.get_documentation"] = true,
+	--          },
+	--          progress = {
+	--              enabled = false,
+	--          },
+	--      },
+	--      cmdline = {
+	--          enabled = false,
+	--          view = "cmdline",
+	--      },
+	--      messages = {
+	--          enabled = false,
+	--      },
+	--      popupmenu = {
+	--          backend = "cmp",
+	--          kind_icons = require("core.utils").symbols,
+	--      },
+	--      presets = {
+	--          bottom_search = false, -- use a classic bottom cmdline for search
+	--          command_palette = false, -- position the cmdline and popupmenu together
+	--          long_message_to_split = true, -- long messages will be sent to a split
+	--          inc_rename = true, -- enables an input dialog for inc-rename.nvim
+	--          lsp_doc_border = false, -- add a border to hover docs and signature help
+	--      },
+	--  },
+	--  event = "VeryLazy",
 	-- },
 
 	{
@@ -670,11 +709,11 @@ return {
 	},
 
 	-- {
-	-- 	"b0o/incline.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.incline")
-	-- 	end,
-	-- 	event = "BufReadPost"
+	--  "b0o/incline.nvim",
+	--  config = function()
+	--      require("plugins.configs.incline")
+	--  end,
+	--  event = "BufReadPost"
 	-- },
 
 	{
@@ -695,21 +734,21 @@ return {
 	},
 
 	-- {
-	-- 	"Bekaboo/dropbar.nvim",
-	-- 	opts = {}
+	--  "Bekaboo/dropbar.nvim",
+	--  opts = {}
 	-- },
 
 	-- {
-	-- 	"yaocccc/nvim-foldsign",
-	-- 	opts = {
-	-- 		offset = -3,
-	-- 		foldsigns = {
-	-- 			open = "",
-	-- 			close = "",
-	-- 			seps = { "", "" },
-	-- 		},
-	-- 	},
-	-- 	event = "CursorHold",
+	--  "yaocccc/nvim-foldsign",
+	--  opts = {
+	--      offset = -3,
+	--      foldsigns = {
+	--          open = "",
+	--          close = "",
+	--          seps = { "", "" },
+	--      },
+	--  },
+	--  event = "CursorHold",
 	-- },
 
 	{
@@ -717,7 +756,6 @@ return {
 		config = function()
 			require("plugins.configs.heirline")
 		end,
-		event = "VeryLazy",
 	},
 
 	{
@@ -806,11 +844,11 @@ return {
 	},
 
 	-- {
-	-- 	"beauwilliams/focus.nvim",
-	-- 	config = function()
-	-- 		require("plugins.configs.focus")
-	-- 	end,
-	-- 	cmd = "FocusEnable",
+	--  "beauwilliams/focus.nvim",
+	--  config = function()
+	--      require("plugins.configs.focus")
+	--  end,
+	--  cmd = "FocusEnable",
 	-- },
 
 	{
@@ -853,33 +891,33 @@ return {
 	},
 
 	-- {
-	-- 	"gen740/SmoothCursor.nvim",
-	-- 	opts = {
-	-- 		disabled_filetypes = { "lazy", "help" },
-	-- 		disable_float_win = true,
-	-- 	},
+	--  "gen740/SmoothCursor.nvim",
+	--  opts = {
+	--      disabled_filetypes = { "lazy", "help" },
+	--      disable_float_win = true,
+	--  },
 	-- },
 
 	-- {
-	-- 	"anuvyklack/windows.nvim",
-	-- 	dependencies = {
-	-- 		"anuvyklack/middleclass",
-	-- 		"anuvyklack/animation.nvim",
-	-- 	},
-	-- 	config = function()
-	-- 		vim.o.winwidth = 10
-	-- 		vim.o.winminwidth = 10
-	-- 		vim.o.equalalways = false
-	-- 		require("windows").setup({
-	-- 			ignore = {
-	-- 				filetype = { "DiffviewFiles" },
-	-- 			},
-	-- 			animation = {
-	-- 				fps = 60,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- 	event = "VeryLazy",
+	--  "anuvyklack/windows.nvim",
+	--  dependencies = {
+	--      "anuvyklack/middleclass",
+	--      "anuvyklack/animation.nvim",
+	--  },
+	--  config = function()
+	--      vim.o.winwidth = 10
+	--      vim.o.winminwidth = 10
+	--      vim.o.equalalways = false
+	--      require("windows").setup({
+	--          ignore = {
+	--              filetype = { "DiffviewFiles" },
+	--          },
+	--          animation = {
+	--              fps = 60,
+	--          },
+	--      })
+	--  end,
+	--  event = "VeryLazy",
 	-- },
 
 	{

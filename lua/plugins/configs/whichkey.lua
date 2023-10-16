@@ -22,8 +22,8 @@ wk.setup({
         ["<CR>"] = "RET",
     },
     window = {
-        border = "rounded", -- none/single/double/shadow
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+        border = "rounded",       -- none/single/double/shadow
+        margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
         padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
     },
     layout = {
@@ -76,10 +76,11 @@ wk.register({
             k = { "<CMD>Telescope keymaps prompt_prefix=Keybinds\\ ❯\\ <CR>", "Find keymaps" },
             y = { "<CMD>Telescope neoclip prompt_prefix=Yanks\\ ❯\\ <CR>", "Find yanks" },
             n = { "<CMD>Telescope notify prompt_prefix=Notifications\\ ❯\\ <CR>", "Find notifications" },
-            S = { "<CMD>Telescope persisted prompt_prefix=Sessions\\ ❯\\ <CR>", "Find sessions" },
+            -- S = { "<CMD>Telescope persisted prompt_prefix=Sessions\\ ❯\\ <CR>", "Find sessions" },
             m = { "<CMD>Telescope harpoon marks prompt_prefix=Marks\\ ❯\\ <CR>", "Find harpoon marks" },
             ["'"] = { "<CMD>Telescope marks prompt_prefix=Marks\\ ❯\\ <CR>", "Find marks" },
             u = { "<CMD>Telescope undo prompt_prefix=Undo\\ ❯\\ <CR>", "Find undos" },
+            T = { "<CMD>Telescope todo-comments prompt_prefix=TODO\\ ❯\\ <CR>", "Find TODOs" },
         },
 
         g = {
@@ -97,6 +98,7 @@ wk.register({
         g = { "<CMD>Gitsigns next_hunk<CR>", "Next git hunk" },
         d = { "<CMD>lua vim.diagnostic.goto_next()<CR>", "Go to next diagnostic" },
         m = { "<CMD>lua require('harpoon.ui').nav_next()<CR>", "Go to next harpooned file" },
+        T = { "<CMD>lua require('todo-comments').jump_next()<CR>", "Go to next TODO" },
     },
 
     ["["] = {
@@ -106,6 +108,7 @@ wk.register({
         g = { "<CMD>Gitsigns prev_hunk<CR>", "Previous git hunk" },
         d = { "<CMD>lua vim.diagnostic.goto_prev()<CR>", "Go to previous diagnostic" },
         m = { "<CMD>lua require('harpoon.ui').nav_prev()<CR>", "Go to previous harpooned file" },
+        T = { "<CMD>lua require('todo-comments').jump_prev()<CR>", "Go to previous TODO" },
     },
 
     g = {
@@ -199,7 +202,7 @@ wk.register({
     --     "Move line down",
     -- },
 
-    ["<C-_>"] = {
+    ["<C-/>"] = {
         "<Plug>(comment_toggle_linewise_current)",
         "Toggle comment for line",
     },
@@ -240,7 +243,7 @@ wk.register({
     --     "Move line down",
     -- },
 
-    ["<C-_>"] = {
+    ["<C-/>"] = {
         "<Plug>(comment_toggle_linewise_visual)gv",
         "Toggle comment for selection",
     },

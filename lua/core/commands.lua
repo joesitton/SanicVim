@@ -1,22 +1,22 @@
 local cc = vim.api.nvim_create_user_command
 
 -- sudo save
-cc("W", function ()
-   vim.cmd("silent! w !sudo tee % >/dev/null")
+cc("W", function()
+	vim.cmd("silent! w !sudo tee % >/dev/null")
 end, {})
 
 -- Save session and quit
 cc("Q", function()
-   vim.cmd([[ exec "SessionSave" | qa! ]])
+	vim.cmd([[ qa! ]])
 end, {})
 
 -- LSP functions
 cc("Format", function()
-   vim.lsp.buf.format()
-   vim.cmd("w!")
+	require("conform").format({ async = true, lsp_fallback = true })
 end, {})
+
 cc("Rename", function()
-   vim.lsp.buf.rename()
+	vim.lsp.buf.rename()
 end, {})
 
 -- cc("Venv", function()
