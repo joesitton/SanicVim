@@ -29,6 +29,7 @@ return {
 		config = function()
 			require("plugins.configs.whichkey")
 		end,
+		event = "VimEnter"
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -38,22 +39,18 @@ return {
 	{
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		-- "jayp0521/mason-null-ls.nvim",
-		-- "jose-elias-alvarez/null-ls.nvim",
-		"jay-babu/mason-nvim-dap.nvim",
 		"b0o/SchemaStore.nvim",
-		-- "hinell/lsp-timeout.nvim",
-		{
-			"folke/neodev.nvim",
-			opts = {},
-		},
+		-- {
+		-- 	"hinell/lsp-timeout.nvim",
+		-- 	dependencies = "neovim/nvim-lspconfig",
+		-- },
 		{
 			"neovim/nvim-lspconfig",
 			config = function()
 				require("plugins.configs.lsp")
 			end,
-			event = "BufReadPost",
 		},
+		event = "VeryLazy"
 	},
 
 	{
@@ -62,7 +59,7 @@ return {
 		config = function()
 			require("plugins.configs.fidget")
 		end,
-		event = "BufReadPost",
+		event = "LspAttach",
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -75,7 +72,7 @@ return {
 			formatters_by_ft = {
 				-- lua = { "stylua" },
 				python = { "isort", "black" },
-				go = { "goimports", "golines" },
+				go = { "gofumpt", "goimports", "goimports-reviser" },
 				bash = { "shfmt" },
 				json = { "fixjson", "jq" },
 				-- yaml = { "yamlfmt" },
@@ -93,6 +90,7 @@ return {
 		init = function()
 			vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
 		end,
+		event = "BufReadPost",
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -127,6 +125,7 @@ return {
 			suggestion = { enabled = false },
 			panel = { enabled = false },
 		},
+		event = { "BufReadPost", "LspAttach" }
 	},
 
 	{
@@ -345,10 +344,10 @@ return {
 		event = "VimEnter",
 	},
 
-	{
-		"famiu/bufdelete.nvim",
-		cmd = { "Bdelete", "Bwipeout" },
-	},
+	-- {
+	-- 	"famiu/bufdelete.nvim",
+	-- 	cmd = { "Bdelete", "Bwipeout" },
+	-- },
 
 	-- {
 	--  "fedepujol/move.nvim",
@@ -455,6 +454,7 @@ return {
 			modified = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
 			diagnostics = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
 		},
+		event = "VimEnter"
 	},
 
 	{
@@ -467,7 +467,7 @@ return {
 
 	{
 		"godlygeek/tabular",
-		event = "BufReadPost",
+		event = "VeryLazy",
 	},
 
 	-- {
@@ -535,7 +535,8 @@ return {
 
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.2",
+		tag = "0.1.4",
+		-- branch = "0.1.x",
 		config = function()
 			require("plugins.configs.telescope")
 		end,
@@ -546,11 +547,13 @@ return {
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build =
 		"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
 	{
 		"gbrlsnchs/telescope-lsp-handlers.nvim",
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
@@ -564,10 +567,13 @@ return {
 
 	{
 		"joesitton/telescope-cc.nvim",
+		after = "telescope.nvim",
+		event = "VeryLazy"
 	},
 
 	{
 		"benfowler/telescope-luasnip.nvim",
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
@@ -589,12 +595,14 @@ return {
 		config = function()
 			require("plugins.configs.neoclip")
 		end,
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
 	{
 		"ThePrimeagen/harpoon",
 		opts = {},
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
@@ -603,6 +611,7 @@ return {
 		config = function()
 			require("plugins.configs.aerial")
 		end,
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
@@ -624,6 +633,7 @@ return {
 			notify.setup(opts)
 			vim.notify = notify
 		end,
+		after = "telescope.nvim",
 		event = "VeryLazy",
 	},
 
@@ -636,11 +646,18 @@ return {
 			auto_session_enable_last_session = false,
 			auto_session_suppress_dirs = { "~/.local/*" },
 			pre_save_cmds = { "silent! DiffviewClose" },
+			session_lens = {
+				load_on_startup = false,
+				previewer = false,
+			},
 		},
+		after = "telescope.nvim",
+		event = "VimEnter"
 	},
 
 	{
 		"debugloop/telescope-undo.nvim",
+		after = "telescope.nvim",
 		event = "VimEnter",
 	},
 
@@ -649,6 +666,7 @@ return {
 		opts = {
 			signs = false,
 		},
+		after = "telescope.nvim",
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -718,6 +736,7 @@ return {
 
 	{
 		"utilyre/barbecue.nvim",
+		version = "*",
 		dependencies = "smiteshp/nvim-navic",
 		opts = {
 			create_autocmd = false,
@@ -756,6 +775,7 @@ return {
 		config = function()
 			require("plugins.configs.heirline")
 		end,
+		event = "VimEnter"
 	},
 
 	{
@@ -888,6 +908,7 @@ return {
 			char = "▕",
 			virtcolumn = "100",
 		},
+		event = "BufReadPost"
 	},
 
 	-- {

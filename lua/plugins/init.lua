@@ -23,7 +23,7 @@ lazy.setup({
 	spec = {
 		{ import = "plugins.specs.default" },
 		{ import = "plugins.specs.filetypes" },
-		{ import = "plugins.specs.dap" },
+		-- { import = "plugins.specs.dap" },
 	},
 	concurrency = 12,
 	defaults = {

@@ -104,8 +104,8 @@ autocmd({ "FocusLost" }, {
 })
 
 -- Barbecue
-autocmd({ "WinScrolled", "BufWinEnter", "CursorHold", "InsertLeave", "BufWritePost", "TextChanged", "TextChangedI" }, {
-	group = augroup("barbecue#create_autocmd", {}),
+autocmd({ "WinResized", "BufWinEnter", "CursorHold", "InsertLeave", "BufModifiedSet" }, {
+	group = augroup("barbecue_updater", {}),
 	pattern = "*",
 	callback = function()
 		local ok, barbecue = pcall(require, "barbecue.ui")
@@ -132,24 +132,17 @@ autocmd({ "BufEnter" }, {
 	end,
 })
 
--- Format gocode on save
--- autocmd({ "BufWritePre" }, {
---     group = augroup("format_gocode", {}),
---     pattern = "*.go",
---     callback = function()
---         vim.lsp.buf.format()
---     end
+-- Try lint on save
+-- autocmd({ "BufWritePost" }, {
+-- 	group = augroup("try_lint", {}),
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		local ok, lint = pcall(require, "lint")
+-- 		if ok then
+-- 			lint.try_lint()
+-- 		end
+-- 	end,
 -- })
-autocmd({ "BufWritePost" }, {
-	group = augroup("try_lint", {}),
-	pattern = "*",
-	callback = function()
-		local ok, lint = pcall(require, "lint")
-		if ok then
-			lint.try_lint()
-		end
-	end,
-})
 
 -- Fix some filetypes
 autocmd({ "BufNewFile", "BufRead" }, {

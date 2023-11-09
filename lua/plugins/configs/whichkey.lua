@@ -76,7 +76,7 @@ wk.register({
             k = { "<CMD>Telescope keymaps prompt_prefix=Keybinds\\ ❯\\ <CR>", "Find keymaps" },
             y = { "<CMD>Telescope neoclip prompt_prefix=Yanks\\ ❯\\ <CR>", "Find yanks" },
             n = { "<CMD>Telescope notify prompt_prefix=Notifications\\ ❯\\ <CR>", "Find notifications" },
-            -- S = { "<CMD>Telescope persisted prompt_prefix=Sessions\\ ❯\\ <CR>", "Find sessions" },
+            S = { ":Telescope session-lens prompt_prefix=Sessions\\ ❯\\ <CR>", "Find sessions" },
             m = { "<CMD>Telescope harpoon marks prompt_prefix=Marks\\ ❯\\ <CR>", "Find harpoon marks" },
             ["'"] = { "<CMD>Telescope marks prompt_prefix=Marks\\ ❯\\ <CR>", "Find marks" },
             u = { "<CMD>Telescope undo prompt_prefix=Undo\\ ❯\\ <CR>", "Find undos" },

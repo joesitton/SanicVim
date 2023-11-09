@@ -8,7 +8,8 @@ dashboard.section.header.val = fortune()
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button("r", "  Restore session", ":silent! SessionRestore<CR>"),
-    dashboard.button("SPC f S", "  Find session", "<CMD>Telescope session-lens prompt_prefix=Sessions\\ ❯\\ <CR>"),
+    dashboard.button("SPC f S", "  Find session", ":Telescope session-lens<CR>"),
+    -- dashboard.button("SPC f S", "  Find session", "<CMD>Telescope session-lens prompt_prefix=Sessions\\ ❯\\ <CR>"),
     dashboard.button("SPC f f", "  Find file", "<CMD>Telescope find_files prompt_prefix=Files\\ ❯\\ <CR>"),
     dashboard.button("SPC f r", "  Find recent", "<CMD>Telescope oldfiles prompt_prefix=Recent\\ Files\\ ❯\\ <CR>"),
     dashboard.button("SPC f t", "  Find text", "<CMD>Telescope live_grep prompt_prefix=Text\\ ❯\\ <CR>"),

@@ -54,14 +54,6 @@ local menu = {
 -- snippets
 local luasnip = require("luasnip")
 
--- local has_words_before = function()
--- 	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
--- 		return false
--- 	end
--- 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
--- 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
--- end
-
 cmp.event:on("menu_opened", function()
 	vim.b.copilot_suggestion_hidden = true
 end)
@@ -70,9 +62,15 @@ cmp.event:on("menu_closed", function()
 	vim.b.copilot_suggestion_hidden = false
 end)
 
+local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
 cmp.setup({
 	enabled = function()
-		if vim.bo.buftype == "TelescopePrompt" then
+		if vim.bo.filetype == "TelescopePrompt" then
 			return false
 		end
 
@@ -85,6 +83,10 @@ cmp.setup({
 			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 		end
 	end,
+	-- performance = {
+	-- 	debounce = 200,
+	-- 	throttle = 400,
+	-- },
 	view = {
 		entries = {
 			name = "custom",
@@ -157,7 +159,7 @@ cmp.setup({
 			end
 		end, { "i" }),
 		["<TAB>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then -- and has_words_before() then
+			if cmp.visible() and has_words_before() then
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
@@ -186,35 +188,35 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "copilot",                priority = 9 },
-		{ name = "cmp_tabnine",            priority = 9 },
-		{ name = "nvim_lsp",               priority = 8 },
-		{ name = "nvim_lua",               priority = 8 },
-		{ name = "buffer",                 priority = 7 },
-		-- { name = "buffer-lines",           priority = 7 },
-		{ name = "emoji",                  priority = 6 },
-		{ name = "luasnip",                priority = 6 },
+		{ name = "copilot",                group_index = 2 },
+		{ name = "cmp_tabnine",            group_index = 2 },
+		{ name = "nvim_lsp",               group_index = 2 },
+		{ name = "nvim_lua",               group_index = 2 },
+		{ name = "buffer",                 group_index = 2 },
+		-- { name = "buffer-lines",           group_index = 2 },
+		{ name = "emoji",                  group_index = 2 },
+		{ name = "luasnip",                group_index = 2 },
 		-- { name = "treesitter",             priortiy = 5 },
-		{ name = "async_path",             priority = 4 },
-		{ name = "calc",                   priority = 3 },
+		{ name = "async_path",             group_index = 2 },
+		{ name = "calc",                   group_index = 2 },
 		{ name = "nvim_lsp_signature_help" },
 		-- { name = "latex_symbols" },
 	}),
 	sorting = {
-		priority_weight = 1.0,
+		priority_weight = 2.0,
 		comparators = {
 			require("copilot_cmp.comparators").prioritize,
 			-- require("cmp_tabnine.compare"),
-			cmp.config.compare.locality,
-			cmp.config.compare.recently_used,
-			cmp.config.compare.sort_text,
-			cmp.config.compare.score,
 			cmp.config.compare.offset,
+			-- cmp.config.compare.exact,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.locality,
+			-- cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			-- cmp.config.compare.length,
 			cmp.config.compare.order,
 			require("cmp-under-comparator").under,
-			-- cmp.config.compare.exact,
-			-- cmp.config.compare.kind,
-			-- cmp.config.compare.length,
 		},
 	},
 })

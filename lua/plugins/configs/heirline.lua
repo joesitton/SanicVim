@@ -62,6 +62,7 @@ local ShowCmd = {
 }
 
 local WorkDir = {
+	update = { "ModeChanged", "DirChanged" },
 	init = function(self)
 		local cwd = vim.fn.getcwd(0)
 		self.cwd = vim.fn.fnamemodify(cwd, ":~") .. "/"
@@ -238,6 +239,7 @@ local Ruler = {
 }
 
 local FileType = {
+	update = { "BufNew", "BufRead", "FileType", "BufEnter" },
 	provider = function()
 		return vim.bo.filetype
 	end,
@@ -521,7 +523,10 @@ local HelpFileName = {
 local Session = {
 	update = { "ModeChanged", "VimEnter" },
 	condition = function()
-		return require("auto-session.lib").current_session_name() ~= nil
+		local ok, aslib = pcall(require, "auto-session.lib")
+		if ok then
+			return aslib.current_session_name() ~= nil
+		end
 	end,
 	provider = function()
 		return "  " .. require("auto-session.lib").current_session_name()

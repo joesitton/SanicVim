@@ -117,14 +117,14 @@ mason_lspconfig.setup_handlers({
 					},
 				},
 			}
-		elseif server == "lua_ls" then
-			settings = {
-				Lua = {
-					completion = {
-						callSnippet = "Replace",
-					},
-				},
-			}
+			-- elseif server == "lua_ls" then
+			-- 	settings = {
+			-- 		Lua = {
+			-- 			completion = {
+			-- 				callSnippet = "Replace",
+			-- 			},
+			-- 		},
+			-- 	}
 		elseif server == "gopls" then
 			settings = {
 				gopls = {

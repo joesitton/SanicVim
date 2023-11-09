@@ -70,8 +70,8 @@ telescope.setup({
 		},
 		use_less = true,
 	},
-	-- pickers = {
-	-- },
+	pickers = {
+	},
 	extensions = {
 		aerial = {
 			show_nesting = true,

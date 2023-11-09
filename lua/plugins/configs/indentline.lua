@@ -53,3 +53,6 @@ local hooks = require("ibl.hooks")
 hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
 hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+hooks.register(hooks.type.ACTIVE, function(bufnr)
+    return vim.api.nvim_buf_line_count(bufnr) < 20000
+end)

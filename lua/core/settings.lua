@@ -47,7 +47,7 @@ o.incsearch = true
 o.joinspaces = true
 
 -- Timeouts
-o.updatetime = 100
+o.updatetime = 300
 o.timeout = true
 o.timeoutlen = 500
 o.ttimeout = true

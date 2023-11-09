@@ -5,14 +5,14 @@ vim.g.matchup_matchparen_offscreen = {
 }
 
 require("nvim-treesitter.configs").setup({
-    disable = function (lang, bufnr)
-        return vim.api.nvim_buf_line_count(bufnr) > 10000
-    end,
     ensure_installed = "all",
-    ignore_install = { "yaml", "latex", "toml", "phpdoc" },
+    ignore_install = { "yaml", "latex", "toml", "phpdoc", "sql" },
     sync_install = false,
     highlight = {
         enable = true,
+        disable = function(lang, bufnr)
+            return vim.api.nvim_buf_line_count(bufnr) > 20000
+        end
     },
     indent = {
         enable = false,
