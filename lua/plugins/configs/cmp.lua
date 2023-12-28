@@ -49,6 +49,7 @@ local menu = {
 	copilot = "Copilot",
 	neorg = "Neorg",
 	nvim_lsp_signature_help = "Sig",
+	codeium = "Codeium",
 }
 
 -- snippets
@@ -108,6 +109,9 @@ cmp.setup({
 			if entry.source.name == "treesitter" then
 				vim_item.kind = "   "
 				vim_item.kind_hl_group = "CmpItemKindTreesitter"
+			elseif entry.source.name == "codeium" then
+				vim_item.kind = "   "
+				vim_item.kind_hl_group = "CmpItemKindCopilot"
 			else
 				vim_item.kind = " " .. symbols[vim_item.kind] .. " "
 			end
@@ -188,7 +192,8 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "copilot",                group_index = 2 },
+		{ name = "codeium",                group_index = 2 },
+		-- { name = "copilot",                group_index = 2 },
 		{ name = "cmp_tabnine",            group_index = 2 },
 		{ name = "nvim_lsp",               group_index = 2 },
 		{ name = "nvim_lua",               group_index = 2 },
@@ -205,7 +210,7 @@ cmp.setup({
 	sorting = {
 		priority_weight = 2.0,
 		comparators = {
-			require("copilot_cmp.comparators").prioritize,
+			-- require("copilot_cmp.comparators").prioritize,
 			-- require("cmp_tabnine.compare"),
 			cmp.config.compare.offset,
 			-- cmp.config.compare.exact,

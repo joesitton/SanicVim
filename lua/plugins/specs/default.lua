@@ -40,10 +40,7 @@ return {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"b0o/SchemaStore.nvim",
-		-- {
-		-- 	"hinell/lsp-timeout.nvim",
-		-- 	dependencies = "neovim/nvim-lspconfig",
-		-- },
+		"hinell/lsp-timeout.nvim",
 		{
 			"neovim/nvim-lspconfig",
 			config = function()
@@ -117,15 +114,20 @@ return {
 	--  │ Completion                                               │
 	--  ╰──────────────────────────────────────────────────────────╯
 
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	build = ":Copilot auth",
+	-- 	opts = {
+	-- 		suggestion = { enabled = false },
+	-- 		panel = { enabled = false },
+	-- 	},
+	-- 	event = { "BufReadPost", "LspAttach" }
+	-- },
+
 	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		build = ":Copilot auth",
-		opts = {
-			suggestion = { enabled = false },
-			panel = { enabled = false },
-		},
-		event = { "BufReadPost", "LspAttach" }
+		"Exafunction/codeium.nvim",
+		opts = {},
 	},
 
 	{
@@ -175,12 +177,12 @@ return {
 				"lukas-reineke/cmp-rg",
 				event = { "InsertEnter", "CmdlineEnter" },
 			},
-			{
-				"zbirenbaum/copilot-cmp",
-				dependencies = "copilot.lua",
-				opts = {},
-				event = { "InsertEnter", "LspAttach" },
-			},
+			-- {
+			-- 	"zbirenbaum/copilot-cmp",
+			-- 	dependencies = "copilot.lua",
+			-- 	opts = {},
+			-- 	event = { "InsertEnter", "LspAttach" },
+			-- },
 			-- {
 			--  "tzachar/cmp-tabnine",
 			--  build = "./install.sh",
@@ -262,9 +264,9 @@ return {
 				event = "CursorMoved",
 			},
 			-- {
-			--     "nvim-treesitter/nvim-treesitter-context",
-			--     config = function() require("treesitter-context").setup({ max_lines = 3 }) end,
-			--     event = "WinScrolled",
+			-- 	"nvim-treesitter/nvim-treesitter-context",
+			-- 	config = function() require("treesitter-context").setup({ max_lines = 3 }) end,
+			-- 	event = "WinScrolled",
 			-- },
 			{
 				"windwp/nvim-autopairs",
@@ -448,7 +450,7 @@ return {
 			sync_root_with_cwd = true,
 			reload_on_bufenter = true,
 			respect_buf_cwd = true,
-			update_focused_file = { enable = false, update_root = true },
+			update_focused_file = { enable = true, update_root = true },
 			filters = { dotfiles = true },
 			git = { show_on_dirs = true, show_on_open_dirs = false },
 			modified = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
@@ -527,6 +529,11 @@ return {
 	--      use_git = true,
 	--  },
 	--  event = "BufReadPost",
+	-- },
+
+	-- {
+	-- 	"dnlhc/glance.nvim",
+	-- 	opts = {},
 	-- },
 
 	--  ╭──────────────────────────────────────────────────────────╮

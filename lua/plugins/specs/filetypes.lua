@@ -9,15 +9,18 @@ return {
 		opts = {},
 		event = "CmdlineEnter",
 		ft = { "go", "gomod" },
+		build = ':lua require("go.install").update_all_sync()'
 	},
 
 	{
 		{
 			"iamcco/markdown-preview.nvim",
-			build = "cd app && npm install",
-			config = function()
-				vim.g.mkdp_auto_start = 1
+			cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+			build = "cd app && yarn install",
+			init = function()
+				vim.g.mkdp_filetypes = { "markdown" }
 			end,
+			ft = { "markdown" },
 		},
 		{
 			"ellisonleao/glow.nvim",

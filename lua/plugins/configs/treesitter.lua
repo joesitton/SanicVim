@@ -4,6 +4,10 @@ vim.g.matchup_matchparen_offscreen = {
     ["fullwidth"] = 1,
 }
 
+vim.g.skip_ts_context_commentstring_module = true
+
+require("ts_context_commentstring").setup({})
+
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
     ignore_install = { "yaml", "latex", "toml", "phpdoc", "sql" },
@@ -19,10 +23,6 @@ require("nvim-treesitter.configs").setup({
     },
     matchup = {
         enable = true,
-    },
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false, -- configured in configs.comments pre_hook
     },
     textobjects = {
         enable = true,

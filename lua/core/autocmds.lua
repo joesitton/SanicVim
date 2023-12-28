@@ -132,18 +132,6 @@ autocmd({ "BufEnter" }, {
 	end,
 })
 
--- Try lint on save
--- autocmd({ "BufWritePost" }, {
--- 	group = augroup("try_lint", {}),
--- 	pattern = "*",
--- 	callback = function()
--- 		local ok, lint = pcall(require, "lint")
--- 		if ok then
--- 			lint.try_lint()
--- 		end
--- 	end,
--- })
-
 -- Fix some filetypes
 autocmd({ "BufNewFile", "BufRead" }, {
 	group = augroup("fix_tfvars_ft", {}),

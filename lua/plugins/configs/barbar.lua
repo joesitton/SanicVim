@@ -10,6 +10,7 @@ require("bufferline").setup({
 	insert_at_start = false,
 	maximum_padding = 4,
 	maximum_length = 30,
+	focus_on_close = "previous",
 	sidebar_filetypes = {
 		NvimTree = { event = "BufWipeout", text = "Files" },
 		["neo-tree"] = { event = "BufWipeout", text = "Files" },
