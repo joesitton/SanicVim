@@ -29,7 +29,7 @@ return {
 		config = function()
 			require("plugins.configs.whichkey")
 		end,
-		event = "VimEnter"
+		event = "VimEnter",
 	},
 
 	--  ╭──────────────────────────────────────────────────────────╮
@@ -47,7 +47,7 @@ return {
 				require("plugins.configs.lsp")
 			end,
 		},
-		event = "VeryLazy"
+		event = "VeryLazy",
 	},
 
 	{
@@ -67,13 +67,13 @@ return {
 		"stevearc/conform.nvim",
 		opts = {
 			formatters_by_ft = {
-				-- lua = { "stylua" },
+				lua = { "stylua" },
 				python = { "isort", "black" },
 				go = { "gofumpt", "goimports", "goimports-reviser" },
 				bash = { "shfmt" },
 				json = { "fixjson", "jq" },
 				-- yaml = { "yamlfmt" },
-				["*"] = { "codespell" },
+				-- ["*"] = { "codespell" },
 				["_"] = { "trim_whitespace" },
 			},
 			-- format_on_save = {
@@ -98,13 +98,13 @@ return {
 	-- 	"mfussenegger/nvim-lint",
 	-- 	config = function()
 	-- 		local linters = {
-	-- 			go = {},
+	-- 			go = { "golangcilint" },
 	-- 			python = {},
 	-- 			lua = {},
 	-- 		}
-	-- 		for ft, _ in pairs(linters) do
-	-- 			table.insert(linters[ft], "codespell")
-	-- 		end
+	-- 		-- for ft, _ in pairs(linters) do
+	-- 		-- 	table.insert(linters[ft], "codespell")
+	-- 		-- end
 	-- 		require("lint").linters_by_ft = linters
 	-- 	end,
 	-- 	event = { "VimEnter" },
@@ -128,6 +128,7 @@ return {
 	{
 		"Exafunction/codeium.nvim",
 		opts = {},
+		event = "BufEnter",
 	},
 
 	{
@@ -447,16 +448,16 @@ return {
 					glyphs = { git = { unstaged = "!", untracked = "?", deleted = "✘" } },
 				},
 			},
-			sync_root_with_cwd = true,
+			sync_root_with_cwd = false,
 			reload_on_bufenter = true,
 			respect_buf_cwd = true,
-			update_focused_file = { enable = true, update_root = true },
+			update_focused_file = { enable = true, update_root = false },
 			filters = { dotfiles = true },
 			git = { show_on_dirs = true, show_on_open_dirs = false },
 			modified = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
 			diagnostics = { enable = true, show_on_dirs = true, show_on_open_dirs = false },
 		},
-		event = "VimEnter"
+		event = "VimEnter",
 	},
 
 	{
@@ -542,7 +543,7 @@ return {
 
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
+		tag = "0.1.5",
 		-- branch = "0.1.x",
 		config = function()
 			require("plugins.configs.telescope")
@@ -552,8 +553,7 @@ return {
 
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-		build =
-		"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 		after = "telescope.nvim",
 		event = "VimEnter",
 	},
@@ -575,7 +575,7 @@ return {
 	{
 		"joesitton/telescope-cc.nvim",
 		after = "telescope.nvim",
-		event = "VeryLazy"
+		event = "VeryLazy",
 	},
 
 	{
@@ -659,7 +659,7 @@ return {
 			},
 		},
 		after = "telescope.nvim",
-		event = "VimEnter"
+		event = "VimEnter",
 	},
 
 	{
@@ -782,7 +782,7 @@ return {
 		config = function()
 			require("plugins.configs.heirline")
 		end,
-		event = "VimEnter"
+		event = "VimEnter",
 	},
 
 	{
@@ -915,7 +915,7 @@ return {
 			char = "▕",
 			virtcolumn = "100",
 		},
-		event = "BufReadPost"
+		event = "BufReadPost",
 	},
 
 	-- {

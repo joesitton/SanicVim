@@ -78,7 +78,7 @@ mason_lspconfig.setup({
 		"yamlls",
 		"vimls",
 		"lua_ls",
-		"rust_analyzer",
+		-- "rust_analyzer",
 		"terraformls",
 		"helm_ls",
 		"gopls",
@@ -86,66 +86,61 @@ mason_lspconfig.setup({
 	},
 })
 
-mason_lspconfig.setup_handlers({
-	function(server)
-		local name = server
-		local settings = nil
-		local init_options = nil
-		local cmd = nil
+local default_config = {
+	on_attach = on_attach,
+	capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	flags = {
+		debounce_text_changes = 250,
+	},
+}
 
-		if server == "jsonls" then
-			settings = {
-				json = {
-					schemas = require("schemastore").json.schemas(),
-					validate = { enable = true },
-				},
-			}
-		elseif server == "yamlls" then
-			settings = {
-				yaml = {
-					schemaStore = {
-						enable = false,
-					},
-					schemas = require("schemastore").yaml.schemas(),
-				},
-			}
-		elseif server == "pyright" then
-			settings = {
-				python = {
-					analysis = {
-						extraPaths = { "/opt/homebrew/lib/python3.*/site-packages" },
-					},
-				},
-			}
-			-- elseif server == "lua_ls" then
-			-- 	settings = {
-			-- 		Lua = {
-			-- 			completion = {
-			-- 				callSnippet = "Replace",
-			-- 			},
-			-- 		},
-			-- 	}
-		elseif server == "gopls" then
-			settings = {
-				gopls = {
-					gofumpt = true,
-				},
-			}
-		elseif server == "golangci_lint_ls" then
-			name = "golangci"
-			cmd = { "golangci-lint-langserver", "-nolintername" }
-		end
+for _, server in ipairs({ "dockerls", "bashls", "ansiblels", "lua_ls", "terraformls", "helm_ls", "vimls" }) do
+	lspconfig[server].setup(default_config)
+end
 
-		lspconfig[server].setup({
-			name = name,
-			cmd = cmd,
-			init_options = init_options,
-			on_attach = on_attach,
-			settings = settings,
-			capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-			flags = {
-				debounce_text_changes = 300,
+lspconfig["pyright"].setup(vim.tbl_deep_extend("force", default_config, {
+	settings = {
+		python = {
+			analysis = {
+				extraPaths = { "/opt/homebrew/lib/python3.*/site-packages" },
 			},
-		})
-	end,
+		},
+	},
+}))
+
+lspconfig["jsonls"].setup(vim.tbl_deep_extend("force", default_config, {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = { enable = true },
+		},
+	},
+}))
+
+lspconfig["yamlls"].setup(vim.tbl_deep_extend("force", default_config, {
+	settings = {
+		yaml = {
+			schemaStore = {
+				enable = false,
+			},
+			schemas = require("schemastore").yaml.schemas(),
+		},
+	},
+}))
+
+lspconfig["gopls"].setup(vim.tbl_deep_extend("force", default_config, {
+	settings = {
+		gopls = {
+			gofumpt = true,
+		},
+	},
+}))
+
+lspconfig["golangci_lint_ls"].setup({
+	name = "golangci",
+	cmd = { "golangci-lint-langserver", "-nolintername" },
+	filetypes = { "go", "gomod" },
+	flags = {
+		debounce_text_changes = 250,
+	},
 })

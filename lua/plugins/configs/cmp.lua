@@ -64,7 +64,9 @@ cmp.event:on("menu_closed", function()
 end)
 
 local has_words_before = function()
-	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
@@ -144,8 +146,8 @@ cmp.setup({
 			i = function(fallback)
 				if cmp.visible() and cmp.get_active_entry() then
 					cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-					-- elseif cmp.visible() and not cmp.get_active_entry() then
-					-- 	cmp.close()
+				elseif cmp.visible() and not cmp.get_active_entry() then
+					cmp.close()
 				else
 					fallback()
 				end
@@ -192,18 +194,18 @@ cmp.setup({
 		end, { "i" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "codeium",                group_index = 2 },
+		{ name = "codeium", group_index = 2 },
 		-- { name = "copilot",                group_index = 2 },
-		{ name = "cmp_tabnine",            group_index = 2 },
-		{ name = "nvim_lsp",               group_index = 2 },
-		{ name = "nvim_lua",               group_index = 2 },
-		{ name = "buffer",                 group_index = 2 },
+		{ name = "cmp_tabnine", group_index = 2 },
+		{ name = "nvim_lsp", group_index = 2 },
+		{ name = "nvim_lua", group_index = 2 },
+		{ name = "buffer", group_index = 2 },
 		-- { name = "buffer-lines",           group_index = 2 },
-		{ name = "emoji",                  group_index = 2 },
-		{ name = "luasnip",                group_index = 2 },
+		{ name = "emoji", group_index = 2 },
+		{ name = "luasnip", group_index = 2 },
 		-- { name = "treesitter",             priortiy = 5 },
-		{ name = "async_path",             group_index = 2 },
-		{ name = "calc",                   group_index = 2 },
+		{ name = "async_path", group_index = 2 },
+		{ name = "calc", group_index = 2 },
 		{ name = "nvim_lsp_signature_help" },
 		-- { name = "latex_symbols" },
 	}),
